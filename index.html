@@ -589,20 +589,33 @@
               <div style="background:rgba(0,255,136,0.07);border:1px solid rgba(0,255,136,0.15);border-radius:12px;padding:14px 10px;text-align:center;">
                 <div style="font-size:0.72em;color:#7a9980;margin-bottom:4px;">CMC 순위</div>
                 <div id="wfi-rank" style="font-size:2em;font-weight:900;color:#ffcc00;line-height:1;">#217</div>
-                <div style="font-size:0.7em;color:#aaaaaa;margin-top:4px;">상위 1.4%</div>
+                <div id="wfi-rank-total" style="font-size:0.7em;color:#aaaaaa;margin-top:4px;">15,000개 중 상위 1.4%</div>
               </div>
               <div style="background:rgba(0,204,255,0.07);border:1px solid rgba(0,204,255,0.15);border-radius:12px;padding:14px 10px;text-align:center;">
                 <div style="font-size:0.72em;color:#7a9980;margin-bottom:4px;">현재 가격</div>
                 <div id="wfi-price" style="font-size:1.6em;font-weight:900;color:#00ccff;line-height:1;">$2.11</div>
-                <div id="wfi-change" style="font-size:0.78em;margin-top:4px;color:#aaaaaa;">-</div>
+                <div id="wfi-price-krw" style="font-size:0.7em;color:#aaaaaa;margin-top:4px;">약 3,144원</div>
               </div>
               <div style="background:rgba(0,255,136,0.05);border:1px solid rgba(0,255,136,0.1);border-radius:12px;padding:14px 10px;text-align:center;">
                 <div style="font-size:0.72em;color:#7a9980;margin-bottom:4px;">시가총액</div>
                 <div id="wfi-mcap" style="font-size:1.2em;font-weight:700;color:#00ff88;line-height:1;">$171M</div>
+                <div id="wfi-mcap-krw" style="font-size:0.72em;color:#aaaaaa;margin-top:4px;">약 2,549억원</div>
               </div>
               <div style="background:rgba(0,255,136,0.05);border:1px solid rgba(0,255,136,0.1);border-radius:12px;padding:14px 10px;text-align:center;">
                 <div style="font-size:0.72em;color:#7a9980;margin-bottom:4px;">24h 등락</div>
                 <div id="wfi-vol" style="font-size:1.4em;font-weight:900;line-height:1;color:#aaaaaa;">-</div>
+                <div id="wfi-vol-krw" style="font-size:0.7em;color:#aaaaaa;margin-top:4px;">거래량 -</div>
+              </div>
+            </div>
+
+            <!-- 24시간 가격 그래프 -->
+            <div style="margin-top:12px;background:rgba(255,255,255,0.03);border:1px solid rgba(0,255,136,0.1);border-radius:12px;padding:12px 10px 8px;">
+              <div style="font-size:0.72em;color:#7a9980;margin-bottom:8px;">📈 24시간 가격 차트</div>
+              <svg id="wfi-chart" viewBox="0 0 300 80" style="width:100%;height:70px;display:block;">
+                <text x="150" y="45" text-anchor="middle" fill="#555" font-size="11">로딩 중...</text>
+              </svg>
+              <div style="display:flex;justify-content:space-between;font-size:0.65em;color:#555;margin-top:2px;padding:0 2px;">
+                <span>24h 전</span><span>12h 전</span><span>현재</span>
               </div>
             </div>
             <a href="https://coinmarketcap.com/currencies/wfi/" target="_blank"
@@ -1572,34 +1585,67 @@ function calcMini() {
 // WFI 실시간 시세 로드
 async function loadWFILive() {
   const fmt = (n) => n >= 1e9 ? '$' + (n/1e9).toFixed(2) + 'B' : '$' + (n/1e6).toFixed(0) + 'M';
+  const fmtKrw = (usd) => {
+    const exRate = 1480; // 환율 기준
+    const krw = usd * exRate;
+    if (krw >= 1e12) return '약 ' + (krw/1e12).toFixed(1) + '조원';
+    if (krw >= 1e8) return '약 ' + Math.round(krw/1e8) + '억원';
+    return '약 ' + Math.round(krw/1e4) + '만원';
+  };
   const render = (price, change, mcap, vol, rank) => {
     document.getElementById('wfi-price').textContent = '$' + price.toFixed(3);
+    // 현재가격 원화 표시
+    const priceKrwEl = document.getElementById('wfi-price-krw');
+    if (priceKrwEl) priceKrwEl.textContent = '약 ' + Math.round(price * 1480).toLocaleString() + '원';
     const c = change || 0;
-    const color = c >= 0 ? '#00ff88' : '#ff5555';
+    const color = c >= 0 ? '#00aaff' : '#ff5555';
     const arrow = c >= 0 ? '▲' : '▼';
-    document.getElementById('wfi-change').innerHTML =
-      `<span style="color:${color};font-weight:700">${arrow} ${Math.abs(c).toFixed(2)}% (24h)</span>`;
     // 24h 등락 카드
     document.getElementById('wfi-vol').innerHTML =
       `<span style="color:${color}">${arrow} ${Math.abs(c).toFixed(2)}%</span>`;
     document.getElementById('wfi-mcap').textContent = fmt(mcap);
-    if (rank) document.getElementById('wfi-rank').textContent = '#' + rank;
+    // 시가총액 원화 표시
+    const mcapKrwEl = document.getElementById('wfi-mcap-krw');
+    if (mcapKrwEl) mcapKrwEl.textContent = fmtKrw(mcap);
+    // 거래량 원화 표시
+    const volKrwEl = document.getElementById('wfi-vol-krw');
+    if (volKrwEl) volKrwEl.textContent = '거래량 ' + fmtKrw(vol);
+    // 순위 + 총 개수
+    if (rank) {
+      document.getElementById('wfi-rank').textContent = '#' + rank;
+      const totalCoins = 15000;
+      const pct = ((rank / totalCoins) * 100).toFixed(1);
+      const rankTotalEl = document.getElementById('wfi-rank-total');
+      if (rankTotalEl) rankTotalEl.textContent = '15,000개 중 상위 ' + pct + '%';
+    }
     const now = new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'});
     const el = document.getElementById('wfi-update-time');
     if (el) el.textContent = now + ' 기준';
   };
 
   const proxies = [
+    // 1. CoinGecko 직접
     () => fetch('https://api.coingecko.com/api/v3/coins/wefi?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false')
       .then(r=>r.json()).then(d=>{ if(!d.market_data) throw 0;
         render(d.market_data.current_price.usd, d.market_data.price_change_percentage_24h,
                d.market_data.market_cap.usd, d.market_data.total_volume.usd, d.market_cap_rank); }),
+    // 2. CoinGecko simple 직접
     () => fetch('https://api.coingecko.com/api/v3/simple/price?ids=wefi&vs_currencies=usd&include_market_cap=true&include_24hr_vol=true&include_24hr_change=true')
       .then(r=>r.json()).then(d=>{ if(!d.wefi) throw 0;
         render(d.wefi.usd, d.wefi.usd_24h_change, d.wefi.usd_market_cap, d.wefi.usd_24h_vol, null); }),
+    // 3. allorigins 프록시
+    () => fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://api.coingecko.com/api/v3/simple/price?ids=wefi&vs_currencies=usd&include_market_cap=true&include_24hr_vol=true&include_24hr_change=true'))
+      .then(r=>r.json()).then(d=>{ const p=JSON.parse(d.contents); if(!p.wefi) throw 0;
+        render(p.wefi.usd, p.wefi.usd_24h_change, p.wefi.usd_market_cap, p.wefi.usd_24h_vol, null); }),
+    // 4. corsproxy.io
     () => fetch('https://corsproxy.io/?' + encodeURIComponent('https://api.coingecko.com/api/v3/simple/price?ids=wefi&vs_currencies=usd&include_market_cap=true&include_24hr_vol=true&include_24hr_change=true'))
       .then(r=>r.json()).then(d=>{ if(!d.wefi) throw 0;
         render(d.wefi.usd, d.wefi.usd_24h_change, d.wefi.usd_market_cap, d.wefi.usd_24h_vol, null); }),
+    // 5. CoinCap API (별도 소스)
+    () => fetch('https://api.coincap.io/v2/assets/wefi')
+      .then(r=>r.json()).then(d=>{ if(!d.data) throw 0;
+        render(parseFloat(d.data.priceUsd), parseFloat(d.data.changePercent24Hr),
+               parseFloat(d.data.marketCapUsd), parseFloat(d.data.volumeUsd24Hr), parseInt(d.data.rank)||null); }),
   ];
 
   for (const fn of proxies) {
@@ -1608,6 +1654,64 @@ async function loadWFILive() {
 }
 loadWFILive();
 setInterval(loadWFILive, 60000);
+
+// 24시간 차트
+async function loadWFIChart() {
+  const svg = document.getElementById('wfi-chart');
+  if (!svg) return;
+  try {
+    const urls = [
+      'https://api.coingecko.com/api/v3/coins/wefi/market_chart?vs_currency=usd&days=1&interval=hourly',
+      'https://api.allorigins.win/get?url=' + encodeURIComponent('https://api.coingecko.com/api/v3/coins/wefi/market_chart?vs_currency=usd&days=1&interval=hourly'),
+      'https://corsproxy.io/?' + encodeURIComponent('https://api.coingecko.com/api/v3/coins/wefi/market_chart?vs_currency=usd&days=1&interval=hourly'),
+    ];
+    let prices = null;
+    for (const url of urls) {
+      try {
+        const r = await fetch(url);
+        const d = await r.json();
+        const raw = d.prices || (d.contents && JSON.parse(d.contents).prices);
+        if (raw && raw.length > 2) { prices = raw.map(p => p[1]); break; }
+      } catch(e) {}
+    }
+    if (!prices || prices.length < 2) throw 0;
+
+    const W = 300, H = 80, pad = 6;
+    const min = Math.min(...prices);
+    const max = Math.max(...prices);
+    const range = max - min || 0.0001;
+    const pts = prices.map((p, i) => {
+      const x = pad + (i / (prices.length - 1)) * (W - pad * 2);
+      const y = H - pad - ((p - min) / range) * (H - pad * 2);
+      return `${x.toFixed(1)},${y.toFixed(1)}`;
+    });
+    const isUp = prices[prices.length - 1] >= prices[0];
+    const color = isUp ? '#00aaff' : '#ff5555';
+    const fillColor = isUp ? 'rgba(0,170,255,0.08)' : 'rgba(255,85,85,0.08)';
+
+    // 마지막 점 좌표
+    const lastPt = pts[pts.length - 1].split(',');
+    const lx = parseFloat(lastPt[0]);
+    const ly = parseFloat(lastPt[1]);
+
+    svg.innerHTML = `
+      <defs>
+        <linearGradient id="cg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="${color}" stop-opacity="0.3"/>
+          <stop offset="100%" stop-color="${color}" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <polygon points="${pts.join(' ')} ${(W-pad).toFixed(1)},${H} ${pad},${H}" fill="url(#cg)"/>
+      <polyline points="${pts.join(' ')}" fill="none" stroke="${color}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      <circle cx="${lx}" cy="${ly}" r="3" fill="${color}" opacity="0.9"/>
+    `;
+  } catch(e) {
+    const svg = document.getElementById('wfi-chart');
+    if (svg) svg.innerHTML = '<text x="150" y="45" text-anchor="middle" fill="#555" font-size="10">데이터 없음</text>';
+  }
+}
+loadWFIChart();
+setInterval(loadWFIChart, 5 * 60 * 1000);
 
 // ── 오늘의 주요뉴스 (AI 자동 업데이트) ──────────────────────────────
 var currentNewsTab = 'wefi';
