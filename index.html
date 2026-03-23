@@ -1095,8 +1095,12 @@
           <table class="price-mini-table" id="mini-price-table"></table>
         </div>
       </div>
-      <div style="text-align:center;font-size:0.8em;color:var(--muted)">
-        더 상세한 계산은 <span style="color:var(--green)">채굴 수익 계산기</span>를 이용하세요
+      <div style="text-align:center;margin-top:8px;">
+        <a href="https://claude.ai/public/artifacts/a00a027c-f474-49ad-8271-e5a35b09b202"
+           onclick="window.open('https://claude.ai/public/artifacts/a00a027c-f474-49ad-8271-e5a35b09b202','_blank','noopener');return false;"
+           style="display:inline-block;padding:12px 24px;background:linear-gradient(90deg,var(--green),var(--blue));border-radius:12px;font-weight:700;color:#000;font-size:0.88em;text-decoration:none;">
+          📊 상세 채굴 수익 계산기 →
+        </a>
       </div>
     </div>
   </div>
@@ -1233,7 +1237,7 @@
       <div style="display:flex;flex-direction:column;gap:8px">
         <a href="https://wefi.co" target="_blank" class="cta-btn-outline">🌐 WeFi 공식 웹사이트 (wefi.co)</a>
         <a href="https://reserveone.com" target="_blank" class="cta-btn-outline">🏦 ReserveOne 공식 웹사이트</a>
-        <a href="https://stbl.money" target="_blank" class="cta-btn-outline">💰 STBL 공식 웹사이트</a>
+        <a href="https://stbl.com" target="_blank" class="cta-btn-outline">💰 STBL 공식 웹사이트</a>
         <a href="https://reevecollins.com" target="_blank" class="cta-btn-outline">👑 Reeve Collins 공식 웹사이트</a>
         <a href="https://app.wefi.co/register?ref=f9vipn2iog" target="_blank" id="refLink3" class="cta-btn-outline">📱 WeFi 앱 열기</a>
         <a href="https://www.bitmart.com/trade/en-US?symbol=WFI_USDT" target="_blank" class="cta-btn-outline">🏦 BitMart 거래소 — WFI/USDT</a>
@@ -1617,11 +1621,13 @@ const WEFI_NEWS_FALLBACK = [
   { icon: '🔐', media: 'CoinGecko', title: 'WFI 시총 $1.9억 돌파 · CMC #185 — Episode 3 출시 기대감 고조', date: '2026.03', url: 'https://www.coingecko.com/en/coins/wfi' }
 ];
 const REEVE_NEWS_FALLBACK = [
+  { icon: '🤖', media: 'CoinReporter', title: '리브 콜린스 "AI 에이전트가 스테이블코인을 혁신한다"', date: '2026.02.28', url: 'https://www.coinreporter.io/2026/02/tether-co-founder-ai-agents-will-transform-stablecoins-and-crypto-wallets/' },
+  { icon: '🌍', media: 'BitcoinGuide', title: 'WeFi, 리야드 글로벌 블록체인 쇼 주요 연사 참가', date: '2026.02.26', url: 'https://bitcoinguide.com/news/2026/02/26/global-blockchain-show-riyadh-unveils-world-class-speakers-redefining-the-future-of-web3-and-digital-assets' },
+  { icon: '📣', media: 'CryptoNews', title: '테더 창업자의 새 도전 — DeoBank로 탈중앙화 금융 재정의', date: '2025.03', url: 'https://coinmarketcap.com/cmc-ai/wfi/latest-updates/' },
   { icon: '👤', media: 'Bloomberg', title: '테더 공동창업자 리브 콜린스, 수익형 스테이블코인 경쟁자 개발 중', date: '2025.02.18', url: 'https://www.bloomberg.com/news/articles/2025-02-18/tether-co-founder-is-working-on-yield-bearing-stablecoin-rival' },
   { icon: '🏦', media: 'CoinMarketCap', title: '테더 공동창업자 리브 콜린스, $225B 시장서 수익형 스테이블코인 출시', date: '2025.02', url: 'https://coinmarketcap.com/academy/article/tether-co-founder-reeve-collins-launches-new-stablecoin-offering-yield-in-dollar225b-market' },
-  { icon: '💡', media: 'IQ Wiki', title: '리브 콜린스 — 테더 초대 CEO, WeFi DeoBank 설계자', date: '2024.01', url: 'https://iq.wiki/wiki/reeve-collins' },
   { icon: '🚀', media: 'WeFi 공식', title: '리브 콜린스, WeFi DeoBank로 블록체인 뱅킹 혁신 선언', date: '2025.01', url: 'https://wefi.co' },
-  { icon: '📣', media: 'CryptoNews', title: '테더 창업자의 새 도전 — DeoBank로 탈중앙화 금융 재정의', date: '2025.03', url: 'https://coinmarketcap.com/cmc-ai/wfi/latest-updates/' }
+  { icon: '💡', media: 'IQ Wiki', title: '리브 콜린스 — 테더 초대 CEO, WeFi DeoBank 설계자', date: '2024.01', url: 'https://iq.wiki/wiki/reeve-collins' }
 ];
 
 
