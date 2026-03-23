@@ -547,6 +547,9 @@
 
   <!-- 히어로 -->
   <div class="hero">
+    <div style="display:inline-block;background:linear-gradient(90deg,rgba(0,255,136,0.15),rgba(0,204,255,0.15));border:1px solid rgba(0,255,136,0.4);border-radius:20px;padding:7px 18px;font-size:0.78em;color:#e8f5ec;margin-bottom:10px;font-weight:700;letter-spacing:0.05em;">
+      🇰🇷 대한민국 위파이 디오뱅크 · <span style="color:var(--green)">발란스 팀</span>
+    </div>
     <div class="hero-badge">🌐 WORLD'S FIRST DEOBANK</div>
     <div class="hero-logo">WeFi DeoBank</div>
     <div class="hero-sub">Beyond Banking · 블록체인이 만든 새로운 은행</div>
@@ -1120,8 +1123,78 @@
 
   <!-- 뉴스 섹션 -->
   <div class="section" id="sec-news">
+
+    <!-- 위파이 이달의 중요소식 섹션 타이틀 -->
+    <div style="padding:0 4px;margin-bottom:10px;">
+      <div class="card-title" style="font-size:1.05em;">📰 위파이 이달의 중요소식</div>
+    </div>
+
+    <!-- BBS 2026 공지 카드 -->
+    <div class="card" style="border-color:rgba(0,255,136,0.4);background:linear-gradient(135deg,#0d1f10,#111d14);">
+      <div class="card-title" style="color:#00ff88;">🏆 Beyond Banking Summit 2026</div>
+
+      <!-- 요약 (항상 보임) -->
+      <div style="font-size:0.88em;line-height:1.8;color:#e8f5ec;margin-bottom:12px;">
+        <span style="font-size:1.05em;font-weight:700;color:#00ff88;">2026년입니다. 당신은 자신의 삶을 살고, 그것을 스스로 주도합니다. ⚡️</span><br><br>
+        부는 단순히 돈만을 의미하지 않습니다. 자신의 시간을 주도하고, 매일 설렘을 주는 자원과 경험에 접근할 수 있는 것, 그것이 바로 진정한 부입니다.
+      </div>
+
+      <!-- 더보기 버튼 -->
+      <button onclick="toggleBBS()" id="bbs-toggle-btn"
+        style="width:100%;padding:10px;background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.3);border-radius:10px;color:#00ff88;font-size:0.85em;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:0;">
+        📖 전체 내용 보기 ▼
+      </button>
+
+      <!-- 펼쳐지는 전체 내용 -->
+      <div id="bbs-full" style="display:none;margin-top:14px;font-size:0.85em;line-height:1.9;color:#c8e6cc;">
+        <p style="margin-bottom:10px;">Beyond Banking Summit 2026은 이 모든 것, 그리고 그 이상을 담고 있습니다.<br>
+        → <strong style="color:#00ff88;">새로운 삶의 관점으로 나아가는 시작점입니다.</strong></p>
+
+        <p style="margin-bottom:10px;">올해 서밋에 참여하면 인생에서 가능한 것들에 대한 새로운 시야를 얻게 됩니다. 커뮤니티 여러분이 다음 챕터를 열 수 있도록 <strong style="color:#ffcc00;">다양한 보상이 준비</strong>되어 있습니다.</p>
+
+        <p style="margin-bottom:10px;">아직 그 보상이 무엇인지는 공개하지 않겠습니다. 하지만 그랜드 프라이즈가 무엇일지는 이미 짐작하셨을지도 모릅니다.<br>
+        그 외의 보상들은 여러분이 최고의 자신으로 나아갈 수 있도록 돕는 <strong style="color:#00ccff;">'연료'</strong>가 될 것입니다. 👀</p>
+
+        <p style="margin-bottom:10px;">BBS 2025는 품격 있는 경험이었습니다. 업계의 선두 주자들이 무대에 올라 2026년을 위한 기반을 마련했습니다.</p>
+
+        <p style="margin-bottom:14px;"><strong style="color:#ff9944;">더 큰 보상, 더 큰 규모, 그리고 더욱 큰 미션</strong>과 함께하는 올해를 절대 놓치지 마세요.</p>
+
+        <p style="margin-bottom:14px;">여러분은 단순한 컨퍼런스룸에 있는 것이 아닙니다. <strong style="color:#00ff88;">금융의 미래가 만들어지는 현장</strong>에 있으며, 그 변화의 중심에서 직접 방향을 이끌게 될 것입니다.</p>
+
+        <div style="background:rgba(255,153,68,0.1);border:1px solid rgba(255,153,68,0.4);border-radius:10px;padding:12px;text-align:center;">
+          <div style="font-weight:700;color:#ff9944;margin-bottom:4px;">🎟️ 티켓 판매 카운트다운 시작!</div>
+          <div style="font-size:0.85em;color:#e8f5ec;">수량이 매우 한정되어 있으며,<br>추가 보상 접근 권한도 함께 제공됩니다. 😎</div>
+        </div></div>
+    </div>
+
+    <!-- TOP 5 카드 -->
+    <div class="card" style="border-color:rgba(255,204,0,0.4);background:linear-gradient(135deg,#1a1a0a,#1a1500);">
+      <div class="card-title" style="color:#ffcc00;">🏆 2026 주목해야 할 암호화폐 TOP 5</div>
+      <div style="font-size:0.88em;color:#e8f5ec;line-height:1.8;margin-bottom:14px;">
+        글로벌 크립토 미디어 <strong style="color:#ffcc00;">CryptoBreaking</strong>이 선정한<br>
+        <strong style="color:#00ff88;font-size:1.05em;">2026년 반드시 주목해야 할 암호화폐 TOP 5</strong>에<br>
+        <strong style="color:#00ccff;">WeFi(WFI)가 당당히 선정</strong>되었습니다.
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;">
+        <div style="background:rgba(255,204,0,0.08);border:1px solid rgba(255,204,0,0.3);border-radius:10px;padding:12px;text-align:center;">
+          <div style="font-size:1.6em;margin-bottom:4px;">🥇</div>
+          <div style="font-size:0.78em;color:#ffcc00;font-weight:700;">TOP 5 선정</div>
+          <div style="font-size:0.72em;color:#aaa;margin-top:2px;">CryptoBreaking</div>
+        </div>
+        <div style="background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.3);border-radius:10px;padding:12px;text-align:center;">
+          <div style="font-size:1.6em;margin-bottom:4px;">📅</div>
+          <div style="font-size:0.78em;color:#00ff88;font-weight:700;">2026년 03월</div>
+          <div style="font-size:0.72em;color:#aaa;margin-top:2px;">최신 선정</div>
+        </div>
+      </div>
+      <a href="https://www.cryptobreaking.com/top-five-crypto-projects-to/" target="_blank"
+        style="display:block;text-align:center;padding:13px;background:linear-gradient(90deg,rgba(255,204,0,0.2),rgba(0,255,136,0.2));border:1px solid rgba(255,204,0,0.5);border-radius:12px;color:#ffcc00;font-size:0.88em;font-weight:700;text-decoration:none;">
+        📰 기사 전문 보기 →
+      </a>
+    </div>
+
+    <!-- 위파이 이달의 중요소식 뉴스 리스트 -->
     <div class="card">
-      <div class="card-title">📰 주요 미디어 등장</div>
       <div style="font-size:0.8em;color:#00ccff;margin-bottom:12px;">👆 각 항목을 클릭하시면 관련 뉴스를 직접 보실 수 있습니다</div>
       <div class="news-list">
         <div class="news-item">
@@ -1172,10 +1245,6 @@
             <div class="ni-date">2026.03</div>
           </div>
         </div>
-
-        <!-- 메이저 언론 뉴스 추가 -->
-        <div style="margin:8px 0 4px;font-size:0.78em;color:var(--muted);font-weight:700;letter-spacing:0.06em">📡 메이저 언론 보도</div>
-
         <div class="news-item">
           <div class="news-icon">💹</div>
           <div class="news-info">
@@ -1243,7 +1312,93 @@
       </div>
     </div>
 
-
+    <!-- 메이저 언론 등장 -->
+    <div class="card">
+      <div class="card-title">📡 메이저 언론 등장</div>
+      <div style="font-size:0.8em;color:#00ccff;margin-bottom:12px;">👆 각 항목을 클릭하시면 관련 뉴스를 직접 보실 수 있습니다</div>
+      <div class="news-list">
+        <div class="news-item">
+          <div class="news-icon">📺</div>
+          <div class="news-info">
+            <div class="ni-media">CNBC Fast Money</div>
+            <div class="ni-title"><a href="https://www.cnbc.com/video/2026/02/23/crypto-panel.html" target="_blank" style="color:var(--text);text-decoration:none">리브 콜린스 (STBL·WeFi·ReserveOne) 출연 — "크립토 기관·개인 관심 역사상 최고"</a></div>
+            <div class="ni-date">2026.02.23</div>
+          </div>
+        </div>
+        <div class="news-item">
+          <div class="news-icon">📺</div>
+          <div class="news-info">
+            <div class="ni-media">CNBC Squawk Box</div>
+            <div class="ni-title"><a href="https://www.cnbc.com/video/2025/12/30/expecting-increased-institutional-adoption-of-bitcoin-in-2026-says-reserveone-ceo.html" target="_blank" style="color:var(--text);text-decoration:none">ReserveOne CEO 출연 — "2026년 비트코인 기관 도입 급증 전망"</a></div>
+            <div class="ni-date">2025.12.30</div>
+          </div>
+        </div>
+        <div class="news-item">
+          <div class="news-icon">📊</div>
+          <div class="news-info">
+            <div class="ni-media">Bloomberg Crypto</div>
+            <div class="ni-title"><a href="https://www.bloomberg.com/news/videos/2025-11-18/bullish-even-with-confusing-crypto-volatility-leverton-video" target="_blank" style="color:var(--text);text-decoration:none">ReserveOne CEO Bloomberg 출연 — "혼란스런 변동성에도 강세 유지"</a></div>
+            <div class="ni-date">2025.11.18</div>
+          </div>
+        </div>
+        <div class="news-item">
+          <div class="news-icon">📊</div>
+          <div class="news-info">
+            <div class="ni-media">Bloomberg</div>
+            <div class="ni-title"><a href="https://www.bloomberg.com/news/videos/2025-07-08/reserveone-will-list-on-nasdaq-via-spac" target="_blank" style="color:var(--text);text-decoration:none">ReserveOne, SPAC 통해 나스닥 상장 추진 공식 발표</a></div>
+            <div class="ni-date">2025.07.08</div>
+          </div>
+        </div>
+        <div class="news-item">
+          <div class="news-icon">💹</div>
+          <div class="news-info">
+            <div class="ni-media">Yahoo Finance</div>
+            <div class="ni-title"><a href="https://finance.yahoo.com/news/tether-co-founder-reeve-collins-144715773.html" target="_blank" style="color:var(--text);text-decoration:none">리브 콜린스 — "스테이블코인 2.0, 기존 은행 시스템을 위협한다"</a></div>
+            <div class="ni-date">2025.10.16</div>
+          </div>
+        </div>
+        <div class="news-item">
+          <div class="news-icon">💹</div>
+          <div class="news-info">
+            <div class="ni-media">Yahoo Finance</div>
+            <div class="ni-title"><a href="https://finance.yahoo.com/news/wefi-crypto-wfi-crypto-slams-111808200.html" target="_blank" style="color:var(--text);text-decoration:none">WFI 코인 30일간 +90% 급등 — WeFi 세계 최초 Deobank</a></div>
+            <div class="ni-date">2025.11</div>
+          </div>
+        </div>
+        <div class="news-item">
+          <div class="news-icon">🎙️</div>
+          <div class="news-info">
+            <div class="ni-media">The Defiant Podcast</div>
+            <div class="ni-title"><a href="https://thedefiant.io/podcasts-and-videos/podcast/j-p-morgan-s-nightmare-how-stablecoins-let-you-be-your-own-bank-or-reeve-collins" target="_blank" style="color:var(--text);text-decoration:none">리브 콜린스 — "JP모건의 악몽, 스테이블코인으로 내가 은행이 된다"</a></div>
+            <div class="ni-date">2025.09.12</div>
+          </div>
+        </div>
+        <div class="news-item">
+          <div class="news-icon">📰</div>
+          <div class="news-info">
+            <div class="ni-media">Bloomberg</div>
+            <div class="ni-title"><a href="https://www.bloomberg.com/news/articles/2025-02-18/tether-co-founder-is-working-on-yield-bearing-stablecoin-rival" target="_blank" style="color:var(--text);text-decoration:none">테더 공동창업자 리브 콜린스, 수익형 스테이블코인 경쟁자 개발 중</a></div>
+            <div class="ni-date">2025.02.18</div>
+          </div>
+        </div>
+        <div class="news-item">
+          <div class="news-icon">🌐</div>
+          <div class="news-info">
+            <div class="ni-media">Metaverse Post</div>
+            <div class="ni-title"><a href="https://mpost.io/from-deobanks-to-stablecoin-2-0-how-wefi-is-putting-users-at-the-center-of-blockchain-finance/" target="_blank" style="color:var(--text);text-decoration:none">WeFi — Deobank에서 스테이블코인 2.0까지, 사용자 중심 블록체인 금융</a></div>
+            <div class="ni-date">2025.10.30</div>
+          </div>
+        </div>
+        <div class="news-item">
+          <div class="news-icon">🌐</div>
+          <div class="news-info">
+            <div class="ni-media">CoinReporter</div>
+            <div class="ni-title"><a href="https://www.coinreporter.io/2026/02/tether-co-founder-ai-agents-will-transform-stablecoins-and-crypto-wallets/" target="_blank" style="color:var(--text);text-decoration:none">리브 콜린스 — "AI 에이전트가 스테이블코인과 크립토 지갑을 혁신한다"</a></div>
+            <div class="ni-date">2026.02.28</div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="card">
       <div class="card-title">🔗 공식 링크</div>
@@ -1294,7 +1449,11 @@
     </div>
     ⚠️ 본 자료는 참고용이며 투자 권유가 아닙니다.<br>
     가상자산 투자는 원금 손실 가능성이 있습니다.<br><br>
-    Made by <strong>Mark Shim (발란스)</strong>
+    Made by <strong>Mark Shim (발란스)</strong><br><br>
+    <div style="margin-top:10px;padding:14px 16px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;font-size:0.78em;color:#7a9980;line-height:1.8;text-align:center;">
+      이 앱은 커뮤니티의 활성화로 만들어졌으며<br>
+      <strong style="color:#b8d4bc;">본사와는 아무런 관련이 없습니다.</strong>
+    </div>
   </div>
 
 </div>
@@ -1452,6 +1611,19 @@ function closeModalDirect() {
   document.getElementById('teamModal').classList.remove('show');
   document.body.style.overflow = '';
 }
+// BBS 더보기 토글
+function toggleBBS() {
+  var full = document.getElementById('bbs-full');
+  var btn = document.getElementById('bbs-toggle-btn');
+  if (full.style.display === 'none') {
+    full.style.display = 'block';
+    btn.textContent = '📖 접기 ▲';
+  } else {
+    full.style.display = 'none';
+    btn.textContent = '📖 전체 내용 보기 ▼';
+  }
+}
+
 function showSection(id, btn) {
   var allSections = ['intro','team','ecosystem','ito','calc','news','video'];
   allSections.forEach(function(s) {
@@ -1586,7 +1758,7 @@ function calcMini() {
 async function loadWFILive() {
   const fmt = (n) => n >= 1e9 ? '$' + (n/1e9).toFixed(2) + 'B' : '$' + (n/1e6).toFixed(0) + 'M';
   const fmtKrw = (usd) => {
-    const exRate = 1480; // 환율 기준
+    const exRate = window._exRate || 1480;
     const krw = usd * exRate;
     if (krw >= 1e12) return '약 ' + (krw/1e12).toFixed(1) + '조원';
     if (krw >= 1e8) return '약 ' + Math.round(krw/1e8) + '억원';
@@ -1596,7 +1768,10 @@ async function loadWFILive() {
     document.getElementById('wfi-price').textContent = '$' + price.toFixed(3);
     // 현재가격 원화 표시
     const priceKrwEl = document.getElementById('wfi-price-krw');
-    if (priceKrwEl) priceKrwEl.textContent = '약 ' + Math.round(price * 1480).toLocaleString() + '원';
+    if (priceKrwEl) priceKrwEl.textContent = '약 ' + Math.round(price * (window._exRate || 1480)).toLocaleString() + '원';
+    // 계산기 현재가 자동 동기화
+    const ciPrice = document.getElementById('ci-price');
+    if (ciPrice) ciPrice.value = price.toFixed(2);
     const c = change || 0;
     const color = c >= 0 ? '#00aaff' : '#ff5555';
     const arrow = c >= 0 ? '▲' : '▼';
@@ -1654,6 +1829,31 @@ async function loadWFILive() {
 }
 loadWFILive();
 setInterval(loadWFILive, 60000);
+
+// 실시간 환율 동기화
+async function loadExRate() {
+  try {
+    const r = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
+    const d = await r.json();
+    const krw = Math.round(d.rates.KRW);
+    if (!krw) throw 0;
+    const el = document.getElementById('ci-exrate');
+    if (el) el.value = krw;
+    // fmtKrw 환율도 갱신
+    window._exRate = krw;
+  } catch(e) {
+    try {
+      const r = await fetch('https://open.er-api.com/v6/latest/USD');
+      const d = await r.json();
+      const krw = Math.round(d.rates.KRW);
+      if (!krw) throw 0;
+      const el = document.getElementById('ci-exrate');
+      if (el) el.value = krw;
+      window._exRate = krw;
+    } catch(e2) {}
+  }
+}
+loadExRate();
 
 // 24시간 차트
 async function loadWFIChart() {
