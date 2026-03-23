@@ -6,229 +6,94 @@
 <title>WeFi DeoBank | 신규회원 안내</title>
 <meta property="og:title" content="WeFi DeoBank 신규회원 안내">
 <meta property="og:description" content="세계 최초 디오뱅크 WeFi · Made by Mark Shim (발란스)">
-
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="WeFi DeoBank">
-<meta name="theme-color" content="#080e0a">
-
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Space+Mono:wght@400;700&display=swap');
-
-  :root {
-    --green: #00ff88;
-    --blue: #00ccff;
-    --black: #080e0a;
-    --card: #111d14;
-    --border: rgba(0,255,136,0.15);
-    --text: #e8f5ec;
-    --muted: #7a9980;
-  }
-
+  :root { --green: #00ff88; --blue: #00ccff; --black: #080e0a; --card: #111d14; --border: rgba(0,255,136,0.15); --text: #e8f5ec; --muted: #7a9980; }
   * { margin:0; padding:0; box-sizing:border-box; }
-  body {
-    font-family: 'Noto Sans KR', sans-serif;
-    background: var(--black);
-    color: var(--text);
-    min-height: 100vh;
-    line-height: 1.6;
-  }
-
-  .wrap { max-width: 480px; margin: 0 auto; padding-bottom: 40px; }
-
-  /* 헤더 섹션 */
+  body { font-family: 'Noto Sans KR', sans-serif; background: var(--black); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+  .wrap { max-width: 480px; margin: 0 auto; padding: 0 0 40px; }
   .hero { padding: 48px 24px; text-align: center; }
-  .hero-badge {
-    display: inline-block;
-    background: rgba(0,255,136,0.1);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 6px 16px;
-    font-size: 0.75em;
-    color: var(--green);
-    margin-bottom: 16px;
-    font-family: 'Space Mono', monospace;
-  }
-  .hero-logo {
-    font-size: 2.5em;
-    font-weight: 900;
-    background: linear-gradient(135deg, var(--green), var(--blue));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 8px;
-  }
-
-  /* 탭 네비게이션 */
-  .nav { display: flex; gap: 8px; padding: 0 16px; margin-bottom: 20px; overflow-x: auto; }
-  .nav-btn {
-    flex-shrink: 0; padding: 10px 18px; border-radius: 20px;
-    border: 1px solid var(--border); background: var(--card);
-    color: var(--muted); font-size: 0.85em; cursor: pointer;
-  }
+  .hero-logo { font-size: 2.5em; font-weight: 900; background: linear-gradient(135deg, var(--green), var(--blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .nav { display: flex; gap: 8px; padding: 0 16px; margin-bottom: 20px; overflow-x: auto; scrollbar-width: none; }
+  .nav-btn { flex-shrink: 0; padding: 10px 18px; border-radius: 20px; border: 1px solid var(--border); background: var(--card); color: var(--muted); font-size: 0.85em; cursor: pointer; }
   .nav-btn.active { background: rgba(0,255,136,0.15); border-color: var(--green); color: var(--green); }
-
-  /* 섹션 제어 */
   .section { display: none; padding: 0 16px; }
   .section.show { display: block; }
-
-  /* 카드 스타일 */
   .card { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 20px; margin-bottom: 16px; }
-  .card-title { font-size: 1em; font-weight: 700; color: var(--green); margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
-
-  /* 실시간 시세 그리드 */
-  .price-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; text-align: center; }
-  .price-item { background: rgba(255,255,255,0.03); padding: 15px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); }
-  .price-label { font-size: 0.75em; color: var(--muted); margin-bottom: 5px; }
-  .price-value { font-size: 1.2em; font-weight: 700; color: var(--blue); }
-
-  /* 뉴스 리스트 */
-  .news-item {
-    display: flex; align-items: center; gap: 12px; padding: 12px;
-    background: rgba(255,255,255,0.03); border-radius: 10px;
-    margin-bottom: 8px; text-decoration: none; color: inherit;
-  }
-
-  .cta-btn {
-    display: block; width: 100%; padding: 16px;
-    background: linear-gradient(90deg, var(--green), var(--blue));
-    border: none; border-radius: 14px; font-weight: 700; color: #000;
-    text-align: center; text-decoration: none; margin-top: 10px;
-  }
-
-  .footer { text-align: center; padding: 30px 16px; font-size: 0.8em; color: var(--muted); border-top: 1px solid #222; }
+  .cta-btn { display: block; width: 100%; padding: 16px; background: linear-gradient(90deg, var(--green), var(--blue)); border: none; border-radius: 14px; font-weight: 700; color: #000; text-align: center; text-decoration: none; margin-top: 10px; }
 </style>
 </head>
 <body>
-
 <div class="wrap">
   <div class="hero">
-    <div class="hero-badge">🌐 WORLD'S FIRST DEOBANK</div>
     <div class="hero-logo">WeFi DeoBank</div>
-    <div style="color:var(--muted); font-size: 0.9em;">블록체인이 만든 새로운 은행</div>
+    <div style="color:var(--muted); margin-top:10px;">Beyond Banking · 블록체인이 만든 새로운 은행</div>
   </div>
 
   <div class="nav">
-    <button class="nav-btn active" onclick="showTab('intro', this)">🏦 소개</button>
-    <button class="nav-btn" onclick="showTab('ito', this)">⛏️ ITO참여</button>
-    <button class="nav-btn" onclick="showTab('news', this)">📰 뉴스</button>
+    <button class="nav-btn active" onclick="showSection('intro', this)">🏦 소개</button>
+    <button class="nav-btn" onclick="showSection('team', this)">👥 팀</button>
+    <button class="nav-btn" onclick="showSection('ecosystem', this)">🔗 생태계</button>
+    <button class="nav-btn" onclick="showSection('ito', this)">⛏️ ITO참여</button>
+    <button class="nav-btn" onclick="showSection('calc', this)">📊 계산기</button>
   </div>
 
   <div id="sec-intro" class="section show">
     <div class="card">
-      <div class="card-title">📡 WFI 실시간 시세</div>
-      <div class="price-grid">
-        <div class="price-item">
-          <div class="price-label">현재 가격</div>
-          <div id="price-val" class="price-value">로딩중...</div>
-        </div>
-        <div class="price-item">
-          <div class="price-label">24h 변동</div>
-          <div id="change-val" class="price-value">-</div>
-        </div>
-      </div>
-      <div style="text-align:center; font-size:0.7em; color:#555; margin-top:10px;" id="update-time"></div>
-    </div>
-
-    <div class="card">
-      <div class="card-title">✅ 핵심 서비스</div>
-      <div style="font-size:0.9em; line-height:2;">
-        • 💳 <b>WeFi Visa 카드</b>: 전세계 1.4억 가맹점 결제<br>
-        • 🏦 <b>온체인 계좌</b>: 코인과 현지 통화 즉시 스왑<br>
-        • ⛏️ <b>WFI 채굴</b>: 하드웨어 없이 8년 장기 채굴
-      </div>
+      <div style="color:var(--green); font-weight:700;">📡 WFI 실시간 시세</div>
+      <div id="price-display" style="font-size:2.5em; font-weight:900; color:var(--blue); margin:10px 0;">$2.11</div>
     </div>
   </div>
 
-  <div id="sec-news" class="section">
+  <div id="sec-team" class="section">
     <div class="card">
-      <div class="card-title">📰 최신 뉴스 업데이트</div>
-      <div id="news-list">
-        <p style="text-align:center; color:var(--muted);">뉴스를 불러오는 중입니다...</p>
-      </div>
+      <div style="color:var(--green); font-weight:700;">👑 핵심 팀</div>
+      <p style="margin-top:10px;">리브 콜린스 (USDT 창업자) 외 글로벌 전문가진</p>
+    </div>
+  </div>
+
+  <div id="sec-ecosystem" class="section">
+    <div class="card">
+      <div style="color:var(--green); font-weight:700;">🔗 3각 생태계</div>
+      <p style="margin-top:10px;">ReserveOne(나스닥) + STBL + WeFi</p>
     </div>
   </div>
 
   <div id="sec-ito" class="section">
     <div class="card">
-      <div class="card-title">🔗 레퍼럴 링크 설정</div>
-      <p style="font-size:0.8em; color:var(--muted); margin-bottom:10px;">코드를 입력하면 가입 링크가 자동으로 변경됩니다.</p>
-      <input id="refInput" type="text" placeholder="코드 입력 (예: f9vipn2iog)" 
-        style="width:100%; padding:12px; background:#000; border:1px solid var(--border); color:#fff; border-radius:8px; outline:none;">
-      <button onclick="applyRef()" class="cta-btn" style="margin-top:10px;">적용하기</button>
+      <div style="color:var(--green); font-weight:700;">🔗 레퍼럴 설정</div>
+      <input id="refInput" type="text" placeholder="코드 입력" style="width:100%; padding:10px; margin-top:10px; background:#000; color:#fff; border:1px solid var(--border); border-radius:8px;">
+      <button onclick="applyRef()" class="cta-btn">적용하기</button>
     </div>
-    <a id="join-link" href="https://app.wefi.co/register?ref=f9vipn2iog" target="_blank" class="cta-btn">🚀 지금 WeFi 시작하기</a>
+    <a id="join-link" href="https://app.wefi.co/register?ref=f9vipn2iog" target="_blank" class="cta-btn">🚀 지금 가입하기</a>
   </div>
 
-  <div class="footer">
-    ⚠️ 본 자료는 참고용이며 투자 권유가 아닙니다.<br>
+  <div id="sec-calc" class="section">
+    <div class="card">
+      <div style="color:var(--green); font-weight:700;">📊 채굴 수익 계산기</div>
+      <p style="margin-top:10px;">투자금액별 예상 채굴량을 확인하세요.</p>
+    </div>
+  </div>
+
+  <div class="footer" style="text-align:center; padding:20px; font-size:0.8em; color:var(--muted);">
     Made by <strong>Mark Shim (발란스)</strong>
   </div>
 </div>
 
 <script>
-  // 탭 전환 기능
-  function showTab(id, btn) {
+  function showSection(id, btn) {
     document.querySelectorAll('.section').forEach(s => s.classList.remove('show'));
     document.getElementById('sec-' + id).classList.add('show');
     document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
   }
-
-  // 레퍼럴 적용
   function applyRef() {
     const code = document.getElementById('refInput').value.trim();
     if(code) {
       document.getElementById('join-link').href = "https://app.wefi.co/register?ref=" + code;
-      alert('대표님의 코드 [' + code + ']가 가입 링크에 적용되었습니다!');
+      alert('대표님의 코드 [' + code + '] 적용 완료!');
     }
   }
-
-  // 실시간 시세 로드 (CoinGecko API)
-  async function updatePrice() {
-    try {
-      const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=wefi&vs_currencies=usd&include_24hr_change=true');
-      const data = await response.json();
-      const price = data.wefi.usd;
-      const change = data.wefi.usd_24hr_change;
-
-      document.getElementById('price-val').textContent = '$' + price.toFixed(3);
-      const changeEl = document.getElementById('change-val');
-      changeEl.textContent = (change >= 0 ? '▲ ' : '▼ ') + Math.abs(change).toFixed(2) + '%';
-      changeEl.style.color = change >= 0 ? '#00ff88' : '#ff4444';
-      
-      document.getElementById('update-time').textContent = new Date().toLocaleTimeString() + ' 기준';
-    } catch (e) {
-      document.getElementById('price-val').textContent = '$2.110';
-      console.log("시세 로드 지연");
-    }
-  }
-
-  // 뉴스 데이터 (고정 및 실시간 보강)
-  const newsData = [
-    { title: "WeFi, 세계 최초 탈중앙화 온체인 뱅크 공식 런칭", date: "2025.02.06", url: "https://chainwire.org/2025/02/06/wefi-launches-deobank-the-worlds-first-decentralized-onchain-bank/" },
-    { title: "WFI 코인, 30일간 +90% 급등 — 비트코인 부진 속 독보적 상승", date: "2025.11.19", url: "https://99bitcoins.com/news/altcoins/what-is-wefi-crypto-wfi-crypto-slams-90-in-30d-as-bitcoin-dips/" },
-    { title: "리브 콜린스, 수익형 스테이블코인 STBL 바이낸스 상장 완료", date: "2025.10.12", url: "https://wefi.co" }
-  ];
-
-  function loadNews() {
-    const list = document.getElementById('news-list');
-    list.innerHTML = newsData.map(n => `
-      <a href="${n.url}" target="_blank" class="news-item">
-        <div style="font-size:1.2em;">📰</div>
-        <div>
-          <div style="font-size:0.85em; font-weight:500;">${n.title}</div>
-          <div style="font-size:0.7em; color:#555; margin-top:3px;">${n.date}</div>
-        </div>
-      </a>
-    `).join('');
-  }
-
-  // 초기 실행
-  updatePrice();
-  loadNews();
-  setInterval(updatePrice, 60000); // 1분마다 시세 갱신
 </script>
-
 </body>
 </html>
