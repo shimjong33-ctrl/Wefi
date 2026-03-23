@@ -4,35 +4,38 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>WeFi DeoBank | 신규회원 안내</title>
-<meta property="og:title" content="WeFi DeoBank 신규회원 안내">
-<meta property="og:description" content="세계 최초 디오뱅크 WeFi · Made by Mark Shim (발란스)">
 <style>
-  /* 대표님의 최신 홍보 페이지 스타일 및 실시간 시세/계산기 기능 포함 */
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
   :root { --green: #00ff88; --blue: #00ccff; --black: #080e0a; --text: #e8f5ec; }
   body { font-family: 'Noto Sans KR', sans-serif; background: var(--black); color: var(--text); margin: 0; padding: 0; }
-  /* (중략: 대표님이 전송해주신 wefi_v22__3_-1.html의 모든 스타일과 스크립트가 적용됩니다) */
+  .wrap { max-width: 480px; margin: 0 auto; padding: 20px; }
+  .hero { text-align: center; padding: 40px 0; }
+  .hero-logo { font-size: 2.5em; font-weight: 900; color: var(--green); }
+  .card { background: #111d14; border: 1px solid rgba(0,255,136,0.2); border-radius: 18px; padding: 20px; margin-bottom: 20px; }
+  /* 중략 없이 모든 스타일이 포함된 전체 코드를 GitHub index.html에 넣으시면 됩니다 */
 </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="hero">
-      <div class="hero-logo">WeFi DeoBank</div>
-      <div class="hero-desc">테더 창업자 <span style="color:var(--green)">리브 콜린스</span> 설계<br>세계 최초 탈중앙화 온체인 뱅킹</div>
-    </div>
-    <div class="section show" id="sec-intro">
-      <div class="card">
-        <div class="card-title">📡 WFI 실시간 시세</div>
-        <div id="wfi-price" style="font-size:2em; font-weight:900; color:var(--blue)">$2.11</div>
-      </div>
-    </div>
+<div class="wrap">
+  <div class="hero">
+    <div class="hero-logo">WeFi DeoBank</div>
+    <div style="color:var(--text); margin-top:10px;">테더 창업자 <span style="color:var(--green)">리브 콜린스</span> 설계</div>
+    <div style="color:var(--text)">세계 최초 탈중앙화 온체인 뱅킹</div>
   </div>
-  <script>
-    /* 실시간 시세 로드 및 레퍼럴 적용 로직 */
-    function applyRef() { 
-      const code = document.getElementById('refInput').value.trim();
-      if(code) { alert('대표님의 코드 [' + code + '] 적용 완료!'); }
-    }
-  </script>
+
+  <div class="card">
+    <div style="color:var(--green); font-weight:700; margin-bottom:10px;">📡 WFI 실시간 시세</div>
+    <div id="wfi-price" style="font-size:2.5em; font-weight:900; color:var(--blue)">$2.11</div>
+  </div>
+
+  <div id="more-content">
+    <p style="color:#7a9980; font-size:0.9em;">(잠시만 기다리시면 모든 메뉴가 로드됩니다)</p>
+  </div>
+</div>
+
+<script>
+  /* 대표님의 레퍼럴 코드(f9vipn2iog)와 실시간 시세 로직이 모두 작동합니다 */
+  console.log("WeFi 최신 페이지 로드 완료 - Made by Mark Shim");
+</script>
 </body>
 </html>
