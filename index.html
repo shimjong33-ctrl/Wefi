@@ -1,0 +1,2327 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>WeFi DeoBank | 신규회원 안내</title>
+<meta property="og:title" content="WeFi DeoBank 신규회원 안내">
+<meta property="og:description" content="세계 최초 디오뱅크 WeFi · Made by Mark Shim (발란스)">
+
+<!-- 홈화면 단축앱 설정 -->
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="WeFi DeoBank">
+<meta name="application-name" content="WeFi DeoBank">
+<meta name="theme-color" content="#080e0a">
+<meta name="msapplication-TileColor" content="#080e0a">
+
+<!-- 홈화면 아이콘 (SVG로 직접 생성) -->
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOTIgMTkyIj4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZyIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMwMGZmODgiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMDBjY2ZmIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8cmVjdCB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgcng9IjQwIiBmaWxsPSIjMDgwZTBhIi8+CiAgPHJlY3QgeD0iNCIgeT0iNCIgd2lkdGg9IjE4NCIgaGVpZ2h0PSIxODQiIHJ4PSIzOCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDBmZjg4IiBzdHJva2Utd2lkdGg9IjMiIG9wYWNpdHk9IjAuNCIvPgogIDx0ZXh0IHg9Ijk2IiB5PSIxMjUiIGZvbnQtc2l6ZT0iMTEwIiBmb250LXdlaWdodD0iOTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iQXJpYWwsc2Fucy1zZXJpZiIgZmlsbD0idXJsKCNnKSI+VzwvdGV4dD4KPC9zdmc+">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOTIgMTkyIj4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZyIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMwMGZmODgiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMDBjY2ZmIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8cmVjdCB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgcng9IjQwIiBmaWxsPSIjMDgwZTBhIi8+CiAgPHJlY3QgeD0iNCIgeT0iNCIgd2lkdGg9IjE4NCIgaGVpZ2h0PSIxODQiIHJ4PSIzOCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDBmZjg4IiBzdHJva2Utd2lkdGg9IjMiIG9wYWNpdHk9IjAuNCIvPgogIDx0ZXh0IHg9Ijk2IiB5PSIxMjUiIGZvbnQtc2l6ZT0iMTEwIiBmb250LXdlaWdodD0iOTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iQXJpYWwsc2Fucy1zZXJpZiIgZmlsbD0idXJsKCNnKSI+VzwvdGV4dD4KPC9zdmc+">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Space+Mono:wght@400;700&display=swap');
+
+
+  :root {
+    --green: #00ff88;
+    --green2: #00cc6a;
+    --blue: #00ccff;
+    --black: #080e0a;
+    --dark: #0d1a10;
+    --card: #111d14;
+    --border: rgba(0,255,136,0.15);
+    --text: #e8f5ec;
+    --muted: #7a9980;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+
+  html { font-size: 14px; }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--black);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* 배경 패턴 */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(0,255,136,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 40% at 80% 80%, rgba(0,204,255,0.05) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrap { position: relative; z-index: 1; max-width: 480px; margin: 0 auto; padding: 0 0 40px; }
+
+  /* 헤더 */
+  .hero {
+    padding: 48px 24px 36px;
+    text-align: center;
+    position: relative;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(0,255,136,0.1);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-size: 0.75em;
+    color: var(--green);
+    letter-spacing: 0.1em;
+    margin-bottom: 20px;
+    font-family: 'Space Mono', monospace;
+  }
+  .hero-logo {
+    font-size: 2.0em;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--green), var(--blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+  .hero-sub {
+    font-size: 0.85em;
+    color: var(--muted);
+    margin-bottom: 24px;
+    line-height: 1.6;
+  }
+  .hero-desc {
+    background: rgba(0,255,136,0.05);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 14px 16px;
+    font-size: 0.82em;
+    line-height: 1.7;
+    color: #b8d4bc;
+  }
+
+  /* 네비게이션 탭 */
+  .nav {
+    display: flex;
+    gap: 8px;
+    padding: 0 16px 8px;
+    margin-bottom: 12px;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0,255,136,0.3) transparent;
+    cursor: grab;
+    -webkit-overflow-scrolling: touch;
+  }
+  .nav::-webkit-scrollbar { height: 3px; }
+  .nav::-webkit-scrollbar-track { background: transparent; }
+  .nav::-webkit-scrollbar-thumb { background: rgba(0,255,136,0.3); border-radius: 3px; }
+  .nav.dragging { cursor: grabbing; user-select: none; }
+  .nav-btn {
+    flex-shrink: 0;
+    padding: 10px 18px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--muted);
+    font-size: 0.82em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Noto Sans KR', sans-serif;
+    white-space: nowrap;
+  }
+  .nav-btn.active {
+    background: rgba(0,255,136,0.15);
+    border-color: var(--green);
+    color: var(--green);
+  }
+
+  /* 섹션 */
+  .section { display: none !important; padding: 0 16px; }
+  .section.show { display: block !important; }
+
+  /* 카드 */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+  .card-title {
+    font-size: 1em;
+    font-weight: 700;
+    color: var(--green);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* 팩트 그리드 */
+  .fact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .fact-item {
+    background: rgba(0,255,136,0.05);
+    border: 1px solid rgba(0,255,136,0.1);
+    border-radius: 12px;
+    padding: 14px 12px;
+    text-align: center;
+  }
+  .fact-item .fi-label { font-size: 0.72em; color: var(--muted); margin-bottom: 6px; }
+  .fact-item .fi-value { font-size: 1.0em; font-weight: 700; color: var(--green); line-height: 1.3; }
+
+  /* 라이선스 리스트 */
+  .license-list { display: flex; flex-direction: column; gap: 8px; }
+  .license-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.06);
+  }
+  .license-badge {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.7em; font-weight: 700; flex-shrink: 0;
+  }
+  .badge-done { background: rgba(0,255,136,0.15); color: var(--green); }
+  .badge-ing { background: rgba(255,200,0,0.15); color: #ffcc00; }
+  .license-info .li-name { font-size: 0.88em; font-weight: 600; color: var(--text); }
+  .license-info .li-status { font-size: 0.75em; color: var(--muted); margin-top: 2px; }
+
+  /* 팀 카드 */
+  .team-grid { display: flex; flex-direction: column; gap: 10px; }
+  .team-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.06);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .team-item:hover { background: rgba(0,255,136,0.06); border-color: var(--border); }
+  .team-avatar {
+    width: 54px; height: 54px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--green), var(--blue));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1em; font-weight: 900; color: #000;
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+  .team-avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+  .team-info .ti-name { font-size: 0.9em; font-weight: 700; color: var(--text); }
+  .team-info .ti-role { font-size: 0.78em; color: var(--green); margin: 2px 0; }
+  .team-info .ti-prev { font-size: 0.75em; color: var(--muted); }
+  .team-arrow { margin-left: auto; color: var(--muted); font-size: 0.9em; flex-shrink: 0; }
+
+  /* 모달 */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 1000;
+    align-items: flex-end;
+    justify-content: center;
+  }
+  .modal-overlay.show { display: flex; }
+  .modal-box {
+    background: #0d1a10;
+    border: 1px solid var(--border);
+    border-radius: 24px 24px 0 0;
+    width: 100%;
+    max-width: 480px;
+    max-height: 88vh;
+    overflow-y: auto;
+    padding: 24px 20px 40px;
+    animation: slideUp 0.3s ease;
+  }
+  @keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }
+  .modal-close {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .modal-close-bar {
+    width: 40px; height: 4px;
+    background: rgba(255,255,255,0.2);
+    border-radius: 2px;
+    cursor: pointer;
+  }
+  .modal-close-btn {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    border: none;
+    color: var(--text);
+    font-size: 1.1em;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .modal-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  .modal-avatar {
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    border: 3px solid var(--green);
+    overflow: hidden;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, var(--green), var(--blue));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2.2em; font-weight: 900; color: #000;
+    box-shadow: 0 0 30px rgba(0,255,136,0.2);
+  }
+  .modal-avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .modal-name { font-size: 1.4em; font-weight: 900; color: var(--text); margin-bottom: 4px; }
+  .modal-role { font-size: 0.83em; color: var(--green); font-weight: 600; line-height: 1.4; }
+  .modal-divider { height: 1px; background: var(--border); margin: 16px 0; }
+  .modal-section-title { font-size: 0.78em; color: var(--muted); font-weight: 600; letter-spacing: 0.08em; margin-bottom: 10px; text-transform: uppercase; }
+  .modal-achievement {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .modal-ach-item {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 10px 12px;
+    background: rgba(0,255,136,0.05);
+    border-radius: 10px;
+    border: 1px solid rgba(0,255,136,0.1);
+  }
+  .modal-ach-icon { font-size: 1.1em; flex-shrink: 0; margin-top: 1px; }
+  .modal-ach-text { font-size: 0.85em; color: var(--text); line-height: 1.5; }
+
+  /* 생태계 */
+  .eco-grid { display: flex; flex-direction: column; gap: 10px; }
+  .eco-item {
+    border-radius: 14px;
+    padding: 16px;
+    border: 1px solid;
+  }
+  .eco-tether { background: rgba(0,255,136,0.05); border-color: rgba(0,255,136,0.2); }
+  .eco-stbl { background: rgba(0,204,255,0.05); border-color: rgba(0,204,255,0.2); }
+  .eco-reserve { background: rgba(255,200,0,0.05); border-color: rgba(255,200,0,0.2); }
+  .eco-item .ei-title { font-size: 0.95em; font-weight: 700; margin-bottom: 6px; }
+  .eco-item .ei-desc { font-size: 0.82em; color: var(--muted); line-height: 1.6; }
+  .eco-arrow {
+    text-align: center;
+    color: var(--green);
+    font-size: 1.2em;
+    margin: -4px 0;
+  }
+
+  /* ITO 스텝 */
+  .step-list { display: flex; flex-direction: column; gap: 12px; }
+  .step-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .step-num {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--green), var(--blue));
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85em; font-weight: 700; color: #000;
+    flex-shrink: 0; margin-top: 2px;
+  }
+  .step-content .sc-title { font-size: 0.9em; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .step-content .sc-desc { font-size: 0.82em; color: var(--muted); line-height: 1.6; }
+  .step-content .sc-link {
+    display: inline-block;
+    margin-top: 6px;
+    padding: 6px 14px;
+    background: rgba(0,255,136,0.15);
+    border: 1px solid var(--green);
+    border-radius: 20px;
+    color: var(--green);
+    font-size: 0.8em;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  /* 반감기 카운트다운 */
+  .countdown-box {
+    background: rgba(0,255,136,0.05);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px;
+    text-align: center;
+    margin-bottom: 14px;
+  }
+  .cd-label { font-size: 0.78em; color: var(--muted); margin-bottom: 8px; }
+  .cd-date { font-size: 1.1em; font-weight: 700; color: var(--green); margin-bottom: 12px; }
+  .cd-timer {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+  }
+  .cd-unit { text-align: center; }
+  .cd-unit .cu-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.6em;
+    font-weight: 700;
+    color: var(--green);
+    background: rgba(0,255,136,0.1);
+    border-radius: 8px;
+    padding: 6px 10px;
+    min-width: 48px;
+    display: block;
+  }
+  .cd-unit .cu-label { font-size: 0.68em; color: var(--muted); margin-top: 4px; }
+
+  /* 계산기 (임베드) */
+  .calc-box {
+    background: rgba(0,0,0,0.3);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px;
+    margin-bottom: 14px;
+  }
+  .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+  .input-g { display: flex; flex-direction: column; gap: 5px; }
+  .input-g label { font-size: 0.75em; color: var(--muted); }
+  .input-g input, .input-g select {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px;
+    padding: 10px 12px;
+    color: var(--text);
+    font-size: 0.9em;
+    outline: none;
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+  .input-g input:focus, .input-g select:focus { border-color: var(--green); }
+  .input-g select option { background: #111; }
+  .calc-btn {
+    width: 100%;
+    padding: 13px;
+    background: linear-gradient(90deg, var(--green), var(--blue));
+    border: none;
+    border-radius: 10px;
+    font-size: 0.95em;
+    font-weight: 700;
+    color: #000;
+    cursor: pointer;
+    font-family: 'Noto Sans KR', sans-serif;
+    margin-bottom: 14px;
+  }
+  .result-box { display: none; }
+  .result-box.show { display: block; }
+  .result-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+  .result-item {
+    background: rgba(0,255,136,0.07);
+    border: 1px solid rgba(0,255,136,0.15);
+    border-radius: 10px;
+    padding: 12px;
+    text-align: center;
+  }
+  .result-item .ri-label { font-size: 0.7em; color: var(--muted); margin-bottom: 4px; }
+  .result-item .ri-value { font-size: 1.0em; font-weight: 700; color: var(--green); }
+  .price-mini-table { width: 100%; border-collapse: collapse; font-size: 0.82em; }
+  .price-mini-table th { background: rgba(0,204,255,0.12); color: var(--blue); padding: 8px 6px; text-align: center; }
+  .price-mini-table td { padding: 8px 6px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.05); color: #ccc; }
+  .pmt-profit { color: var(--green); font-weight: 600; }
+
+  /* CTA 버튼 */
+  .cta-btn {
+    display: block;
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(90deg, var(--green), var(--blue));
+    border: none;
+    border-radius: 14px;
+    font-size: 1.05em;
+    font-weight: 700;
+    color: #000;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    margin-bottom: 10px;
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+  .cta-btn-outline {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    background: transparent;
+    border: 1px solid var(--green);
+    border-radius: 14px;
+    font-size: 0.95em;
+    font-weight: 600;
+    color: var(--green);
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    margin-bottom: 10px;
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+
+  /* 뉴스 */
+  .news-list { display: flex; flex-direction: column; gap: 10px; }
+  .news-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.06);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .news-item:hover { background: rgba(0,255,136,0.06); border-color: rgba(0,255,136,0.2); }
+  .news-item:active { transform: scale(0.98); }
+  .news-icon { font-size: 1.4em; flex-shrink: 0; }
+  .news-info .ni-media { font-size: 0.72em; color: var(--green); font-weight: 600; margin-bottom: 2px; }
+  .news-info .ni-title { font-size: 0.85em; color: var(--text); line-height: 1.4; }
+  .news-info .ni-date { font-size: 0.72em; color: var(--muted); margin-top: 2px; }
+
+  /* 푸터 */
+  .footer {
+    text-align: center;
+    padding: 24px 16px 12px;
+    font-size: 0.75em;
+    color: var(--muted);
+    border-top: 1px solid rgba(255,255,255,0.06);
+    margin-top: 8px;
+  }
+  .footer strong { color: var(--blue); }
+
+  /* 애니메이션 */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .section.show > * { animation: fadeUp 0.3s ease forwards; }
+
+  /* 스켈레톤 애니메이션 */
+  @keyframes skeletonPulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.8; }
+  }
+
+  /* 강조 텍스트 */
+  .highlight { color: var(--green); font-weight: 700; }
+  .highlight-blue { color: var(--blue); font-weight: 700; }
+
+  /* 태그 */
+  .tag {
+    display: inline-block;
+    background: rgba(0,255,136,0.12);
+    border: 1px solid rgba(0,255,136,0.25);
+    border-radius: 12px;
+    padding: 3px 10px;
+    font-size: 0.72em;
+    color: var(--green);
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- 히어로 -->
+  <div class="hero">
+    <div style="display:inline-block;background:linear-gradient(90deg,rgba(0,255,136,0.15),rgba(0,204,255,0.15));border:1px solid rgba(0,255,136,0.4);border-radius:20px;padding:7px 18px;font-size:0.78em;color:#e8f5ec;margin-bottom:10px;font-weight:700;letter-spacing:0.05em;">
+      🇰🇷 대한민국 위파이 디오뱅크 · <span style="color:var(--green)">발란스 팀</span>
+    </div>
+    <div class="hero-badge">🌐 WORLD'S FIRST DEOBANK</div>
+    <div class="hero-logo">WeFi DeoBank</div>
+    <div class="hero-sub">Beyond Banking · 블록체인이 만든 새로운 은행</div>
+    <div class="hero-desc">
+      테더(USDT) 창업자 <span class="highlight">리브 콜린스</span>가 설계한<br>
+      세계 최초 탈중앙화 온체인 뱅킹 플랫폼.<br>
+      <span class="highlight-blue">코인과 은행의 경계를 없애다</span>
+    </div>
+  </div>
+
+  <!-- 탭 네비게이션 -->
+  <div class="nav">
+    <button class="nav-btn active" onclick="showSection('intro', this)">🏦 소개</button>
+    <button class="nav-btn" onclick="showSection('team', this)">👥 팀</button>
+    <button class="nav-btn" onclick="showSection('ecosystem', this)">🔗 생태계</button>
+    <button class="nav-btn" onclick="showSection('ito', this)">⛏️ ITO참여</button>
+    <button class="nav-btn" onclick="showSection('calc', this)">📊 계산기</button>
+    <button class="nav-btn" onclick="showSection('news', this)">📰 뉴스</button>
+    <button class="nav-btn" onclick="showSection('video', this)">▶️ 동영상</button>
+    <button class="nav-btn" onclick="showSection('chat', this)" style="background:linear-gradient(90deg,rgba(0,255,136,0.15),rgba(0,204,255,0.15));border-color:rgba(0,255,136,0.4);color:#00ff88;font-weight:700;">⚡ 레벨UP</button>
+  </div>
+
+  <!-- 소개 섹션 -->
+  <div class="section show" id="sec-intro">
+
+    <div class="card">
+      <div class="card-title">📊 핵심 팩트</div>
+      <div class="fact-grid">
+        <div class="fact-item">
+          <div class="fi-label">출시</div>
+          <div class="fi-value">2024년<br>출시</div>
+        </div>
+        <div class="fact-item">
+          <div class="fi-label">사용자</div>
+          <div class="fi-value">153개국<br>20만명+</div>
+        </div>
+        <div class="fact-item" style="grid-column:1/-1; padding:18px 16px;">
+          <div class="fi-label" style="margin-bottom:12px;">📡 WFI 실시간 시세 <span id="wfi-update-time" style="font-size:0.85em;color:#555;font-weight:400;"></span></div>
+          <div id="live-mcap">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;">
+              <div style="background:rgba(0,255,136,0.07);border:1px solid rgba(0,255,136,0.15);border-radius:12px;padding:14px 10px;text-align:center;">
+                <div style="font-size:0.72em;color:#7a9980;margin-bottom:4px;">CMC 순위</div>
+                <div id="wfi-rank" style="font-size:2em;font-weight:900;color:#ffcc00;line-height:1;">#217</div>
+                <div id="wfi-rank-total" style="font-size:0.7em;color:#aaaaaa;margin-top:4px;">15,000개 중 상위 1.4%</div>
+              </div>
+              <div style="background:rgba(0,204,255,0.07);border:1px solid rgba(0,204,255,0.15);border-radius:12px;padding:14px 10px;text-align:center;">
+                <div style="font-size:0.72em;color:#7a9980;margin-bottom:4px;">현재 가격</div>
+                <div id="wfi-price" style="font-size:1.6em;font-weight:900;color:#00ccff;line-height:1;">$2.11</div>
+                <div id="wfi-price-krw" style="font-size:0.7em;color:#aaaaaa;margin-top:4px;">약 3,144원</div>
+              </div>
+              <div style="background:rgba(0,255,136,0.05);border:1px solid rgba(0,255,136,0.1);border-radius:12px;padding:14px 10px;text-align:center;">
+                <div style="font-size:0.72em;color:#7a9980;margin-bottom:4px;">시가총액</div>
+                <div id="wfi-mcap" style="font-size:1.2em;font-weight:700;color:#00ff88;line-height:1;">$171M</div>
+                <div id="wfi-mcap-krw" style="font-size:0.72em;color:#aaaaaa;margin-top:4px;">약 2,549억원</div>
+              </div>
+              <div style="background:rgba(0,255,136,0.05);border:1px solid rgba(0,255,136,0.1);border-radius:12px;padding:14px 10px;text-align:center;">
+                <div style="font-size:0.72em;color:#7a9980;margin-bottom:4px;">24h 등락</div>
+                <div id="wfi-vol" style="font-size:1.4em;font-weight:900;line-height:1;color:#aaaaaa;">-</div>
+                <div id="wfi-vol-krw" style="font-size:0.7em;color:#aaaaaa;margin-top:4px;">거래량 -</div>
+              </div>
+            </div>
+
+            <!-- 24시간 가격 그래프 -->
+            <div style="margin-top:12px;background:rgba(255,255,255,0.03);border:1px solid rgba(0,255,136,0.1);border-radius:12px;padding:12px 10px 8px;">
+              <div style="font-size:0.72em;color:#7a9980;margin-bottom:8px;">📈 24시간 가격 차트</div>
+              <svg id="wfi-chart" viewBox="0 0 300 80" style="width:100%;height:70px;display:block;">
+                <text x="150" y="45" text-anchor="middle" fill="#555" font-size="11">로딩 중...</text>
+              </svg>
+              <div style="display:flex;justify-content:space-between;font-size:0.65em;color:#555;margin-top:2px;padding:0 2px;">
+                <span>24h 전</span><span>12h 전</span><span>현재</span>
+              </div>
+            </div>
+
+            <!-- WFI 보유량 → 원화 계산기 -->
+            <div style="margin-top:10px;background:rgba(0,204,255,0.05);border:1px solid rgba(0,204,255,0.2);border-radius:12px;padding:12px 12px 10px;">
+              <div style="font-size:0.72em;color:#7a9980;margin-bottom:8px;">💰 내 WFI 평가액</div>
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+                <input id="wfi-amount-input" type="number" placeholder="WFI 갯수 입력"
+                  oninput="calcWfiValue()"
+                  style="flex:1;padding:9px 12px;background:#0a1a0c;border:1px solid rgba(0,204,255,0.3);border-radius:8px;color:#e8f5ec;font-size:0.9em;font-family:inherit;outline:none;">
+                <span style="font-size:0.82em;color:#7a9980;white-space:nowrap;">WFI</span>
+              </div>
+              <div id="wfi-value-result" style="display:none;background:rgba(0,0,0,0.3);border-radius:8px;padding:10px 12px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+                  <span style="font-size:0.75em;color:#7a9980;">달러 평가액</span>
+                  <span id="wfi-value-usd" style="font-size:1em;font-weight:700;color:#00ccff;">$0</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                  <span style="font-size:0.75em;color:#7a9980;">원화 평가액</span>
+                  <span id="wfi-value-krw" style="font-size:1.15em;font-weight:900;color:#00ff88;">₩0</span>
+                </div>
+              </div>
+            </div>
+            <a href="https://coinmarketcap.com/currencies/wfi/" target="_blank"
+              style="display:block;text-align:center;background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.3);border-radius:10px;padding:10px;color:#00ff88;font-size:0.8em;text-decoration:none;font-weight:600;margin-top:10px;">
+              🔗 CoinMarketCap에서 자세히 보기 →
+            </a>
+          </div>
+        </div>
+
+
+        <!-- 위파이 이달의 중요소식 (소개탭) -->
+        <div class="fact-item" style="grid-column:1/-1; padding:0; background:none; border:none;">
+          <div style="padding:0 0 4px;">
+            <div style="font-size:0.85em;font-weight:700;color:#00ff88;margin-bottom:12px;">📰 위파이 이달의 중요소식</div>
+    <!-- WeFi 공식 웹사이트 런칭 카드 -->
+    <div class="card" style="border-color:rgba(0,255,136,0.3);background:linear-gradient(135deg,#0a1f0e,#111d14);">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+        <span style="font-size:1.4em;">🦾</span>
+        <div>
+          <div style="font-size:0.72em;font-weight:700;color:#00ff88;">WeFi 공식 · 2026.03</div>
+          <div style="font-size:0.95em;font-weight:900;color:#e8f5ec;">새로운 WeFi 공식 웹사이트 런칭!</div>
+        </div>
+      </div>
+      <div style="font-size:0.82em;color:#b8d4bc;line-height:1.7;margin-bottom:10px;">
+        WeFi는 Deobank를 구동하는 인프라입니다. 153개 법역, 20만 명 이상의 사용자와 함께합니다.
+      </div>
+      <button onclick="toggleWefiNews()" id="wefi-news-btn"
+        style="width:100%;padding:9px;background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.25);border-radius:8px;color:#00ff88;font-size:0.82em;font-weight:700;cursor:pointer;font-family:inherit;">
+        📖 전체 내용 보기 ▼
+      </button>
+      <div id="wefi-news-full" style="display:none;margin-top:12px;font-size:0.82em;color:#c8e6cc;line-height:1.9;">
+        <p style="margin-bottom:8px;">핀테크, 전통 은행, 결제 제공사 및 기관들은 WeFi 인프라 위에서 자신만의 디오뱅크를 구축하고 운영할 수 있습니다.</p>
+        <p style="margin-bottom:8px;">인프라는 현실적이며, 기술은 이미 작동 중입니다. 이제 세상은 한 곳에서 이를 명확히 볼 수 있습니다.</p>
+        <p style="margin-bottom:8px;"><strong style="color:#00ff88;">설계 단계부터 컴플라이언스 준수.</strong> WeChain 기반 구축. 분산 MPC 커스터디로 보안 확보. <strong style="color:#00ccff;">$WFI 와 Energy로 구동.</strong></p>
+        <p style="margin-bottom:8px;">새로운 WeFi 웹사이트가 이 모든 것을 한데 모았습니다. 우리의 기술, 생태계, 그리고 전체 문서가, 차세대 금융을 정의하는 기관과 개발자를 위해 구축되었습니다.</p>
+        <p style="margin-bottom:8px;"><strong style="color:#ffcc00;">153개 법역에서 20만 명 이상의 사용자</strong>와 함께, 이 기반 자체가 그 가치를 증명합니다.</p>
+        <p style="margin-bottom:12px;">세계 최초의 디오뱅킹 플랫폼이 WeFi에 의해 런칭되어, 기술과 규제, 그리고 최종 사용자 서비스를 결합하는 방식을 보여줍니다. 세상과 함께 구축할 수 있게 되어 매우 기대됩니다. 🌍</p>
+        <div style="text-align:center;padding:10px;background:rgba(0,255,136,0.08);border-radius:8px;">
+          <div style="font-weight:700;color:#00ff88;margin-bottom:6px;">🌍 여기가 바로 디오뱅킹이 시작되는 곳입니다</div>
+          <a href="https://wefi.co" target="_blank"
+            onclick="window.open('https://wefi.co','_blank','noopener');return false;"
+            style="display:inline-block;padding:8px 20px;background:linear-gradient(90deg,var(--green),var(--blue));border-radius:8px;color:#000;font-weight:700;font-size:0.85em;text-decoration:none;">
+            🌐 새 웹사이트 방문하기 →
+          </a>
+        </div>
+      </div>
+    </div>
+
+        <!-- BBS 2026 공지 카드 -->
+    <div class="card" style="border-color:rgba(0,255,136,0.4);background:linear-gradient(135deg,#0d1f10,#111d14);">
+      <div class="card-title" style="color:#00ff88;">🏆 Beyond Banking Summit 2026</div>
+
+      <!-- 요약 (항상 보임) -->
+      <div style="font-size:0.88em;line-height:1.8;color:#e8f5ec;margin-bottom:12px;">
+        <span style="font-size:1.05em;font-weight:700;color:#00ff88;">2026년입니다. 당신은 자신의 삶을 살고, 그것을 스스로 주도합니다. ⚡️</span><br><br>
+        부는 단순히 돈만을 의미하지 않습니다. 자신의 시간을 주도하고, 매일 설렘을 주는 자원과 경험에 접근할 수 있는 것, 그것이 바로 진정한 부입니다.
+      </div>
+
+      <!-- 더보기 버튼 -->
+      <button onclick="toggleBBS()" id="bbs-toggle-btn"
+        style="width:100%;padding:10px;background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.3);border-radius:10px;color:#00ff88;font-size:0.85em;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:0;">
+        📖 전체 내용 보기 ▼
+      </button>
+
+      <!-- 펼쳐지는 전체 내용 -->
+      <div id="bbs-full" style="display:none;margin-top:14px;font-size:0.85em;line-height:1.9;color:#c8e6cc;">
+        <p style="margin-bottom:10px;">Beyond Banking Summit 2026은 이 모든 것, 그리고 그 이상을 담고 있습니다.<br>
+        → <strong style="color:#00ff88;">새로운 삶의 관점으로 나아가는 시작점입니다.</strong></p>
+
+        <p style="margin-bottom:10px;">올해 서밋에 참여하면 인생에서 가능한 것들에 대한 새로운 시야를 얻게 됩니다. 커뮤니티 여러분이 다음 챕터를 열 수 있도록 <strong style="color:#ffcc00;">다양한 보상이 준비</strong>되어 있습니다.</p>
+
+        <p style="margin-bottom:10px;">아직 그 보상이 무엇인지는 공개하지 않겠습니다. 하지만 그랜드 프라이즈가 무엇일지는 이미 짐작하셨을지도 모릅니다.<br>
+        그 외의 보상들은 여러분이 최고의 자신으로 나아갈 수 있도록 돕는 <strong style="color:#00ccff;">'연료'</strong>가 될 것입니다. 👀</p>
+
+        <p style="margin-bottom:10px;">BBS 2025는 품격 있는 경험이었습니다. 업계의 선두 주자들이 무대에 올라 2026년을 위한 기반을 마련했습니다.</p>
+
+        <p style="margin-bottom:14px;"><strong style="color:#ff9944;">더 큰 보상, 더 큰 규모, 그리고 더욱 큰 미션</strong>과 함께하는 올해를 절대 놓치지 마세요.</p>
+
+        <p style="margin-bottom:14px;">여러분은 단순한 컨퍼런스룸에 있는 것이 아닙니다. <strong style="color:#00ff88;">금융의 미래가 만들어지는 현장</strong>에 있으며, 그 변화의 중심에서 직접 방향을 이끌게 될 것입니다.</p>
+
+        <div style="background:rgba(255,153,68,0.1);border:1px solid rgba(255,153,68,0.4);border-radius:10px;padding:12px;text-align:center;">
+          <div style="font-weight:700;color:#ff9944;margin-bottom:4px;">🎟️ 티켓 판매 카운트다운 시작!</div>
+          <div style="font-size:0.85em;color:#e8f5ec;">수량이 매우 한정되어 있으며,<br>추가 보상 접근 권한도 함께 제공됩니다. 😎</div>
+        </div></div>
+    </div>
+
+    <!-- TOP 5 카드 -->
+    <div class="card" style="border-color:rgba(255,204,0,0.4);background:linear-gradient(135deg,#1a1a0a,#1a1500);">
+      <div class="card-title" style="color:#ffcc00;">🏆 2026 주목해야 할 암호화폐 TOP 5</div>
+      <div style="font-size:0.88em;color:#e8f5ec;line-height:1.8;margin-bottom:14px;">
+        글로벌 크립토 미디어 <strong style="color:#ffcc00;">CryptoBreaking</strong>이 선정한<br>
+        <strong style="color:#00ff88;font-size:1.05em;">2026년 반드시 주목해야 할 암호화폐 TOP 5</strong>에<br>
+        <strong style="color:#00ccff;">WeFi(WFI)가 당당히 선정</strong>되었습니다.
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;">
+        <div style="background:rgba(255,204,0,0.08);border:1px solid rgba(255,204,0,0.3);border-radius:10px;padding:12px;text-align:center;">
+          <div style="font-size:1.6em;margin-bottom:4px;">🥇</div>
+          <div style="font-size:0.78em;color:#ffcc00;font-weight:700;">TOP 5 선정</div>
+          <div style="font-size:0.72em;color:#aaa;margin-top:2px;">CryptoBreaking</div>
+        </div>
+        <div style="background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.3);border-radius:10px;padding:12px;text-align:center;">
+          <div style="font-size:1.6em;margin-bottom:4px;">📅</div>
+          <div style="font-size:0.78em;color:#00ff88;font-weight:700;">2026년 03월</div>
+          <div style="font-size:0.72em;color:#aaa;margin-top:2px;">최신 선정</div>
+        </div>
+      </div>
+      <a href="https://www.cryptobreaking.com/top-five-crypto-projects-to/" target="_blank"
+        style="display:block;text-align:center;padding:13px;background:linear-gradient(90deg,rgba(255,204,0,0.2),rgba(0,255,136,0.2));border:1px solid rgba(255,204,0,0.5);border-radius:12px;color:#ffcc00;font-size:0.88em;font-weight:700;text-decoration:none;">
+        📰 기사 전문 보기 →
+      </a>
+    </div>
+
+    <!-- 메이저 언론 등장 -->
+    <div class="card">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+        <div class="card-title" style="margin-bottom:0;">📡 메이저 언론 등장</div>
+        <div id="major-refresh-time" style="font-size:0.72em;color:#555;"></div>
+      </div>
+      <div style="font-size:0.8em;color:#00ccff;margin-bottom:12px;">👆 각 항목을 클릭하시면 관련 뉴스를 직접 보실 수 있습니다</div>
+      <div id="major-news-list" style="display:flex;flex-direction:column;gap:8px;"></div>
+    </div>
+
+
+        <!-- 위파이 이달의 중요소식 뉴스 리스트 -->
+    <div class="card">
+      <div style="font-size:0.8em;color:#00ccff;margin-bottom:12px;">👆 각 항목을 클릭하시면 관련 뉴스를 직접 보실 수 있습니다</div>
+      <div class="news-list">
+
+        <div class="news-item">
+          <div class="news-icon">📺</div>
+          <div class="news-info">
+            <div class="ni-media">CNBC Fast Money</div>
+            <div class="ni-title"><a href="https://www.cnbc.com/video/2026/02/23/crypto-panel.html" target="_blank" style="color:var(--text);text-decoration:none">리브 콜린스 STBL | WeFi | ReserveOne Co-Founder 출연 — "크립토에 대한 기관·개인 관심 역사상 최고"</a></div>
+            <div class="ni-date">2026.02</div>
+          </div>
+        </div>
+        <div class="news-item">
+          <div class="news-icon">📰</div>
+          <div class="news-info">
+            <div class="ni-media">Financial Times (FT Live)</div>
+            <div class="ni-title"><a href="https://cryptoevents.global/digital-assets-summit-2026-london/" target="_blank" style="color:var(--text);text-decoration:none">Digital Assets Summit 2026 런던 연사 선정</a></div>
+            <div class="ni-date">2026.05 예정</div>
+          </div>
+        </div>
+        <div class="news-item">
+          <div class="news-icon">🏛️</div>
+          <div class="news-info">
+            <div class="ni-media">iConnections Global Alts Miami</div>
+            <div class="ni-title"><a href="https://refreshmiami.com/news/defense-tech-digital-assets-and-ai-take-the-stage-at-iconnections-2026-global-alts-miami/" target="_blank" style="color:var(--text);text-decoration:none">글로벌 기관투자자 컨퍼런스 연사 참가</a></div>
+            <div class="ni-date">2026.02</div>
+          </div>
+        </div>
+        <div class="news-item">
+          <div class="news-icon">🏆</div>
+          <div class="news-info">
+            <div class="ni-media">기네스 세계기록</div>
+            <div class="ni-title"><a href="https://www.guinnessworldrecords.com/world-records/777291-most-viewers-of-a-blockchain-live-stream-on-youtube" target="_blank" style="color:var(--text);text-decoration:none">유튜브 블록체인 라이브 최다 시청자 — 121,348명</a></div>
+            <div class="ni-date">2025.05</div>
+          </div>
+        </div>
+        <div class="news-item">
+          <div class="news-icon">🗾</div>
+          <div class="news-info">
+            <div class="ni-media">TEAMZ Web3/AI Summit 도쿄</div>
+            <div class="ni-title"><a href="https://www.teamz.co.jp/en" target="_blank" style="color:var(--text);text-decoration:none">2026 공식 참가 기업 (Tim Draper, Charles Hoskinson 공동 참가)</a></div>
+            <div class="ni-date">2026.04</div>
+          </div>
+        </div>
+        <div class="news-item">
+          <div class="news-icon">📊</div>
+          <div class="news-info">
+            <div class="ni-media">CoinMarketCap</div>
+            <div class="ni-title"><a href="https://www.cryptobreaking.com/top-five-crypto-projects-to/" target="_blank" style="color:var(--text);text-decoration:none">2026년 주목해야 할 암호화폐 TOP 5 선정</a></div>
+            <div class="ni-date">2026.03</div>
+          </div>
+        </div>
+        <div class="news-item">
+          <div class="news-icon">💹</div>
+          <div class="news-info">
+            <div class="ni-media">Yahoo Finance</div>
+            <div class="ni-title"><a href="https://finance.yahoo.com/news/tether-co-founder-reeve-collins-144715773.html" target="_blank" style="color:var(--text);text-decoration:none">테더 창업자 리브 콜린스 — "스테이블코인 2.0, 은행 시스템의 위협"</a></div>
+            <div class="ni-date">2025.10</div>
+          </div>
+        </div>
+        <div class="news-item">
+          <div class="news-icon">🎙️</div>
+          <div class="news-info">
+            <div class="ni-media">The Defiant Podcast</div>
+            <div class="ni-title"><a href="https://thedefiant.io/podcasts-and-videos/podcast/j-p-morgan-s-nightmare-how-stablecoins-let-you-be-your-own-bank-or-reeve-collins" target="_blank" style="color:var(--text);text-decoration:none">JP모건의 악몽 — 스테이블코인으로 내 자신이 은행이 되다 (리브 콜린스 인터뷰)</a></div>
+            <div class="ni-date">2025.09</div>
+          </div>
+        </div>
+        <div class="news-item">
+          <div class="news-icon">💹</div>
+          <div class="news-info">
+            <div class="ni-media">Yahoo Finance</div>
+            <div class="ni-title"><a href="https://finance.yahoo.com/news/crypto-next-billion-users-global-114727499.html" target="_blank" style="color:var(--text);text-decoration:none">크립토 다음 10억 유저는 글로벌 사우스 — WeFi CEO 인터뷰</a></div>
+            <div class="ni-date">2025.10</div>
+          </div>
+        </div>
+        <div class="news-item">
+          <div class="news-icon">💹</div>
+          <div class="news-info">
+            <div class="ni-media">Yahoo Finance</div>
+            <div class="ni-title"><a href="https://finance.yahoo.com/news/wefi-crypto-wfi-crypto-slams-111808200.html" target="_blank" style="color:var(--text);text-decoration:none">WFI 30일 만에 +90% 급등 — WeFi 세계 최초 Deobank</a></div>
+            <div class="ni-date">2025.11</div>
+          </div>
+        </div>
+        <div class="news-item">
+          <div class="news-icon">🌐</div>
+          <div class="news-info">
+            <div class="ni-media">TradingView (Reuters 배포)</div>
+            <div class="ni-title"><a href="https://www.tradingview.com/news/reuters.com,2025-02-06:newsml_GNX22wRQZ:0-wefi-launches-deobank-the-world-s-first-decentralized-onchain-bank/" target="_blank" style="color:var(--text);text-decoration:none">WeFi, 세계 최초 탈중앙화 온체인 뱅크 출시 — GlobeNewswire</a></div>
+            <div class="ni-date">2025.02</div>
+          </div>
+        </div>
+        <div class="news-item">
+          <div class="news-icon">🌐</div>
+          <div class="news-info">
+            <div class="ni-media">Entrepreneur</div>
+            <div class="ni-title"><a href="https://www.entrepreneur.com/finance/wefi-introduces-the-worlds-first-deobank-the/485952" target="_blank" style="color:var(--text);text-decoration:none">WeFi, 세계 최초 Deobank 소개 — 탈중앙화 뱅킹의 진화</a></div>
+            <div class="ni-date">2025.01</div>
+          </div>
+        </div>
+        <div class="news-item">
+          <div class="news-icon">🌍</div>
+          <div class="news-info">
+            <div class="ni-media">Gulf Business</div>
+            <div class="ni-title"><a href="https://gulfbusiness.com/deobank-pioneering-financial-model-user-control/" target="_blank" style="color:var(--text);text-decoration:none">Deobank 혁명 — 완전한 사용자 통제를 위한 금융 모델 개척</a></div>
+            <div class="ni-date">2025.12</div>
+          </div>
+        </div>
+        <div class="news-item">
+          <div class="news-icon">📖</div>
+          <div class="news-info">
+            <div class="ni-media">IQ Wiki (Brainbot)</div>
+            <div class="ni-title"><a href="https://iq.wiki/wiki/wefi" target="_blank" style="color:var(--text);text-decoration:none">WeFi 공식 백과사전 등재 — 세계 최초 Deobank 공식 기록</a></div>
+            <div class="ni-date">2025</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+          </div>
+        </div>
+
+        <div class="fact-item">
+          <div class="fi-label">🤝 주요 파트너</div>
+          <div class="fi-value">
+            <span style="color:#00ccff;font-weight:700;">Fireblocks</span><br>
+            <span style="font-size:0.78em;color:#7a9980;">세계 1위 보안</span><br>
+            <span style="color:#1a1aff;font-weight:700;font-size:0.95em;">VISA</span>
+            <span style="font-size:0.75em;color:#7a9980;"> 글로벌 결제</span>
+          </div>
+        </div>
+        <div class="fact-item">
+          <div class="fi-label">비자카드</div>
+          <div class="fi-value">WeFi<br>Visa Card<br><span style="font-size:0.8em">1억 4천만 가맹점</span></div>
+        </div>
+        <div class="fact-item">
+          <div class="fi-label">보안</div>
+          <div class="fi-value">Fireblocks<br><span style="font-size:0.8em">세계 1위 보안업체</span></div>
+        </div>
+        <div class="fact-item">
+          <div class="fi-label">해킹</div>
+          <div class="fi-value">JP모건과<br>동일보안<br><span style="font-size:0.85em">창사이래 0건</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">✅ 글로벌 라이선스 현황</div>
+      <div class="license-list">
+        <div class="license-item">
+          <div class="license-badge badge-done">✓</div>
+          <div class="license-info">
+            <div class="li-name">캐나다 FINTRAC MSB/PSP</div>
+            <div class="li-status">취득 완료 · M23563590</div>
+          </div>
+        </div>
+        <div class="license-item">
+          <div class="license-badge badge-done">✓</div>
+          <div class="license-info">
+            <div class="li-name">유럽 VASP 라이선스</div>
+            <div class="li-status">취득 완료 · 체코</div>
+          </div>
+        </div>
+        <div class="license-item">
+          <div class="license-badge badge-done">✓</div>
+          <div class="license-info">
+            <div class="li-name">EU 상표 등록 (EUIPO)</div>
+            <div class="li-status">취득 완료 · Beyond Banking, WeFi</div>
+          </div>
+        </div>
+        <div class="license-item">
+          <div class="license-badge badge-ing">⏳</div>
+          <div class="license-info">
+            <div class="li-name">한국 VASP</div>
+            <div class="li-status">신청 진행 중</div>
+          </div>
+        </div>
+        <div class="license-item">
+          <div class="license-badge badge-ing">⏳</div>
+          <div class="license-info">
+            <div class="li-name">EU MiCA · EMI</div>
+            <div class="li-status">승인 대기 중</div>
+          </div>
+        </div>
+        <div class="license-item">
+          <div class="license-badge badge-done">✓</div>
+          <div class="license-info">
+            <div class="li-name">UAE VARA</div>
+            <div class="li-status">취득 완료</div>
+          </div>
+        </div>
+        <div class="license-item">
+          <div class="license-badge badge-ing">⏳</div>
+          <div class="license-info">
+            <div class="li-name">브라질 · 카자흐스탄</div>
+            <div class="li-status">승인 대기 중</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🎯 주요 서비스</div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="padding:12px;background:rgba(0,255,136,0.05);border-radius:10px;border:1px solid rgba(0,255,136,0.1)">
+          <div style="font-weight:700;font-size:0.9em;margin-bottom:4px">💳 비자 카드</div>
+          <div style="font-size:0.82em;color:var(--muted)">가상 + 실물 카드 · Apple Pay · Google Pay · ATM 출금</div>
+        </div>
+        <div style="padding:12px;background:rgba(0,204,255,0.05);border-radius:10px;border:1px solid rgba(0,204,255,0.1)">
+          <div style="font-weight:700;font-size:0.9em;margin-bottom:4px">🏦 온체인 계좌</div>
+          <div style="font-size:0.82em;color:var(--muted)">7,000+ 코인 탑재 · 현지통화 직접 스왑 가능 · 전통은행 서비스(<strong style="color:#00ff88">전통은행 + 블록체인은행의 결합 · 세계 최초의 DeoBank 탄생</strong>) · 비수탁 지갑<br>
+          <span style="font-size:0.82em;color:#aaaaaa">관련 기사 ▶</span>
+          <a href="https://financefeeds.com/wefi-crowned-best-digital-bank-of-the-year-thanks-to-its-deobank-model/" target="_blank" style="color:#00ccff;font-size:0.82em;text-decoration:none;border:1px solid rgba(0,204,255,0.3);border-radius:6px;padding:2px 8px;margin:2px">FinanceFeeds</a>
+          <a href="https://coingape.com/blog/beyond-banking-summit-2025-wefis-bid-to-redefine-digital-banking/" target="_blank" style="color:#00ccff;font-size:0.82em;text-decoration:none;border:1px solid rgba(0,204,255,0.3);border-radius:6px;padding:2px 8px;margin:2px">CoinGape</a>
+          <a href="https://coinmarketcap.com/cmc-ai/wfi/what-is/" target="_blank" style="color:#00ccff;font-size:0.82em;text-decoration:none;border:1px solid rgba(0,204,255,0.3);border-radius:6px;padding:2px 8px;margin:2px">CoinMarketCap</a>
+          <a href="https://iq.wiki/wiki/wefi" target="_blank" style="color:#00ccff;font-size:0.82em;text-decoration:none;border:1px solid rgba(0,204,255,0.3);border-radius:6px;padding:2px 8px;margin:2px">IQ.wiki</a>
+          </div>
+        </div>
+        <div style="padding:12px;background:rgba(255,200,0,0.05);border-radius:10px;border:1px solid rgba(255,200,0,0.1)">
+          <div style="font-weight:700;font-size:0.9em;margin-bottom:4px">⛏️ WFI 채굴</div>
+          <div style="font-size:0.82em;color:var(--muted)">하드웨어 없이 채굴 · 총 발행량 10억개 · 2년마다 반감기 · 8년 채굴 · 2024.09.18 시작 → 2032.09.18 종료</div>
+        </div>
+        <div style="padding:12px;background:rgba(0,255,136,0.05);border-radius:10px;border:1px solid rgba(0,255,136,0.1)">
+          <div style="font-weight:700;font-size:0.9em;margin-bottom:4px">🤖 AI 에이전트 <span style="color:#ffcc00;font-size:0.85em">출시예정</span></div>
+          <div style="font-size:0.82em;color:var(--muted)">"누구에게 100만원 보내줘" 음성 송금 · 24시간 자동 수익 최적화</div>
+        </div>
+        <div style="padding:12px;background:rgba(0,204,255,0.05);border-radius:10px;border:1px solid rgba(0,204,255,0.1)">
+          <div style="font-weight:700;font-size:0.9em;margin-bottom:4px">💳 대출 서비스</div>
+          <div style="font-size:0.82em;color:var(--muted)">담보 대출 · 무담보 대출 · 출시 예정</div>
+        </div>
+        <div style="padding:12px;background:rgba(0,204,255,0.05);border-radius:10px;border:1px solid rgba(0,204,255,0.1)">
+          <div style="font-weight:700;font-size:0.9em;margin-bottom:4px">💰 스테이블코인 저축</div>
+          <div style="font-size:0.82em;color:var(--muted)">최대 18% APR · 출시 예정</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 팀 섹션 -->
+  <div class="section" id="sec-team">
+    <div class="card">
+      <div class="card-title">👑 이사회 & 핵심팀</div>
+      <div class="team-grid">
+        <div class="team-item" onclick="openModal('rc')">
+          <div class="team-avatar">
+            <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA0JCgsKCA0LCgsODg0PEyAVExISEyccHhcgLikxMC4pLSwzOko+MzZGNywtQFdBRkxOUlNSMj5aYVpQYEpRUk//2wBDAQ4ODhMREyYVFSZPNS01T09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0//wAARCAB3AHgDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwBPEPjnVbHVri1tfJVInKjK5JrHPxE8Q54kg/79is3xUM+I7/8A66msjZUobOo/4WJ4hP8Ay0g/79inD4h+IP8AnpD/AN+xXLBaXbVEnU/8LC8Qf89If+/Yo/4WF4g/56Q/9+xXL4pyRPIcIpNAHT/8LC8Qf89If+/YpP8AhYXiD/npD/37Fc89r5agyOMnsozikW18wZikRj6Hg0XQ7M6L/hYfiD/npD/37FMb4ja+v/LWHP8A1zFcrcrNC+x42Q+/eoljJ5NAHWD4j+IieJIP+/Yp4+IniH/nrB/37FcoFAHFIRQI6z/hYviH/npB/wB+xT1+IfiA/wDLSD/v2K5ACpEFAHuvhXULjVNAt7y6KmWTOdowOtFVPAX/ACKVp/wL+dFAzzLxOv8AxUV9/wBdTWRtra8TD/ioL7/rqayDSRTGYoxSkgUsCiWXBICgEnNMgEUZBYEj0FaljYXF1gQQ4Xu7dKNL09p5laUYTOSPWu0tIVVAqgADoBWFSpY6aVK6uzCi8MkjMjDJ680k/hpAMo+PpXWCFsZwajkhOKy55G3JE4C+sZ7RSkuZYD3HVayrm3a3cBs7WGVJGM1399bgqwZQRjkGucvLM+S0THMan5Ce2elbU53MKtO2xzhFJT2GCQeo4pK3OcaKkQc03FSIKAPZ/Af/ACKdp/wL+dFHgT/kU7T/AIF/OikM818T/wDIwX3/AF1NYwEk8oit0aSQ9h/nit/xFZltcvZ7uT7PbmU7eMvJ/uj+p4rEuLv92YLSPyID1AOWf3Y9/wCVTfsUyJ9PlZtq3Vs0n9xZP64xTtMikW6khnUhlAyrcd6rdDxWpaziaLc3+uiGA3qv/wBY0O5K3OlssGVAAMY7V0FqMHOK5bT50hjjmlbCjnPrWrFr9rGozFMR6qM1zSi2ztjJJWOmGNtRSjiqVnqsV4P3DZwPTkVVvdbeGQxR2ss0g6hRwKN9BJW1Jb1QUYn0rn7pl8pozjLDvV661S6WLfPp8kaHqcVj3zh445VOAacE0xTd0c3cLieQc/ePWosVd1JQL1yOQwBz+FVgua60cjGAVKikmrVhptzfTiG2haRz2A6e59K2fK03Rf8AWFL+9H8AP7qM+5/iP6VLlbYVz0PwOpXwraAgjgn9aKl8JXMt34et55iC7ZzgYHXsKKYzy3xUzN4hvizEnzCOTWE1bnij/kYL7/rqaw2pIpjDWno0fnefCGAJUNgjris2relXAtdRhlflAcN9DxRLYIO0lc6C3tftFrGFG7yznbnrWla2mpSuhlvHjiHWGJcL9KZYYivJIxjbkMv0NdEskSQ7jgfSuZy1OpR0K1jCsN7wSWKfMT3NMNvFcSSB8k78nnqKfZOGvixdRnOBnpUfnJHd7VdS+7GzPNTruXYzl0Rrdz9nuZ8FskMcgj0x6VX1C2WN0iCkjI4FdM1xG0ZI4PcHtWDcMH1CPbzz0pptslxSRy2pxk6jJGo4jwg/Cr9roscEK3WrSm2hPKpjMkn0Hb6mll1O3tLiSSyty90zEtPOAQh/2F/qaybq7muJWlnkaSRurMck1uuZq2xxS1bNO91w+QbTT4xaWp6qh+Z/95u9YpcsajJJNKtaRikI9m8C/wDIqWn4/wA6KPAv/IqWn4/zopvcaPM/E/8AyMF9/wBdTWG45rc8T/8AIwX3/XU1iuKlFMiNJSmkpknQaXfXF2xEjjzIkAUgYJHvWxc372hVpidoAKtjge5rkLC5NpdpKOnRh7V2+mTpcR+ScMAp2nrlT2rCpGzudFKV1a5l+WJ7g3EEwR3/AIg+2poIWgk87BeXHzMvzH65Fa1lKbc+WGVUU8Ky7gKmubkuoQz/AC4xsRdoP4VNzXlZl2dxdXsm8RusfILsMZA/z1rN1OWW2t0ZJCruTyOuK6G8n8mzCrwWG3864/Vrrz7nYPuoOKcFdmdV2ViizVGacaYa6TlEpy9aaacvWmgZ7L4F/wCRUtPx/nRR4F/5FW0/H+dFS9xo808Tf8jBff8AXU1jMK2vE3/IwX3/AF1NY7ChFMgam096YAScAZNMgK3tCvDbtEzH5M7T7VjLEcjd+VXdNjJidT/ESRUT2Lp7neeXDMA2Ad3cGlWGNMEAE+p7VydvfXtspjjO4L0B7VNJqd9OhUjywepHWseU6efyLesXP2i5FtCeFOWI7e1c9qcBS7jcD5du01tWVtsjLN1PJrN1VszBB9aqD10ImvduzMYYODTTU+Ay4bt3qN4yORyK3OYip69abUiLk1SEz2LwN/yKtp+P86KXwQCPC1pn3/nRUvcaPM/Ex/4qC+/66msc5Y4UZrZ8Rpu8Q3xPTzTWaQAMDiki2QiDP3z+AqQKqj5RilHpS0yCPHz49qv2ClogV6qTkVQJCyLkgZ4HvWhpM6RXYSQgJJxn0PapnsXTdmXTGwZZo8cjv3qZI2lcFhj2q9Ha7PMiI4+8tOjgaNhkVzNnWkNkURw4HWuWupBLdSuDkZwPpW1r175B8iNv3hHJ/uj/ABrmHMwb9126gjrWtOPUwrSu7FhelJnFQx3I6SoUPr1FTZDcqQR7VsYCFVbqMH1rUs202ztlnlRru6PSEjbGnux/i+lZZNPXIotcTPYvCNzJd+HbeeUjc2egwBz0AoqLwR/yK9r/AMC/nRSY0XrvQNMvVkFzYxN5n3mHDfXI71iH4daGT969/wDAj/61FFAw/wCFc6H/AHr3/v8A/wD1qT/hXOh/377/AMCP/rUUUAT2PgHQ7O5W4EU8zKCAs0m9efbFav8Awj2lf9A+3/75oooAmfSrN1wbdB7jg0g0m03bjCDjoD0oopWQ7sjl0DTJizPYwlm6tt5rD/4Vzof969/7/wD/ANaiimIP+FdaH/evf+//AP8AWpP+FcaEDkG8/wC//wD9aiigBf8AhXWh+t5/3/8A/rU+P4e6GkisRduAc7Wn4P1wKKKAOlt7WK1gWG3iWONeirwBRRRQB//Z" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+          </div>
+          <div class="team-info">
+            <div class="ti-name">Reeve Collins</div>
+            <div class="ti-role">Chairman & Co-founder</div>
+            <div class="ti-prev">테더(USDT) 창업자 & 전 CEO</div>
+          </div>
+          <div class="team-arrow">›</div>
+        </div>
+        <div class="team-item" onclick="openModal('ms')">
+          <div class="team-avatar">
+            <img src="data:image/jpeg;base64,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" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+          </div>
+          <div class="team-info">
+            <div class="ti-name">Maksym Sakharov</div>
+            <div class="ti-role">Group CEO & Co-founder</div>
+            <div class="ti-prev">Exflow 공동창업자 & 전 CEO</div>
+          </div>
+          <div class="team-arrow">›</div>
+        </div>
+        <div class="team-item" onclick="openModal('rr')">
+          <div class="team-avatar">
+            <img src="data:image/jpeg;base64,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" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+          </div>
+          <div class="team-info">
+            <div class="ti-name">Roman Rossov</div>
+            <div class="ti-role">CPO & Co-founder</div>
+            <div class="ti-prev">Wise 전 Product Director</div>
+          </div>
+          <div class="team-arrow">›</div>
+        </div>
+        <div class="team-item" onclick="openModal('ks')">
+          <div class="team-avatar">
+            <img src="data:image/jpeg;base64,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" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+          </div>
+          <div class="team-info">
+            <div class="ti-name">Khaled Suleiman</div>
+            <div class="ti-role">Board Member</div>
+            <div class="ti-prev">아부다비 국립은행 전 CEO</div>
+          </div>
+          <div class="team-arrow">›</div>
+        </div>
+        <div class="team-item" onclick="openModal('mb')">
+          <div class="team-avatar">
+            <img src="data:image/jpeg;base64,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" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+          </div>
+          <div class="team-info">
+            <div class="ti-name">Michael Batuev</div>
+            <div class="ti-role">Global Head of Payments</div>
+            <div class="ti-prev">Visa 18년 · Apple Pay 구축</div>
+          </div>
+          <div class="team-arrow">›</div>
+        </div>
+        <div class="team-item" onclick="openModal('al')">
+          <div class="team-avatar">
+            <img src="data:image/jpeg;base64,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" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+          </div>
+          <div class="team-info">
+            <div class="ti-name">Agne Ringė</div>
+            <div class="ti-role">성장 책임자</div>
+            <div class="ti-prev">Binance Lithuania 전 이사</div>
+          </div>
+          <div class="team-arrow">›</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 팀 모달 -->
+  <div class="modal-overlay" id="teamModal" onclick="closeModal(event)">
+    <div class="modal-box" id="modalBox">
+      <div class="modal-close">
+        <div class="modal-close-bar" onclick="closeModalDirect()"></div>
+        <button class="modal-close-btn" onclick="closeModalDirect()">✕</button>
+      </div>
+      <div class="modal-profile">
+        <div class="modal-avatar" id="modalAvatar">RC</div>
+        <div>
+          <div class="modal-name" id="modalName"></div>
+          <div class="modal-role" id="modalRole"></div>
+        </div>
+      </div>
+      <div class="modal-divider"></div>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <!-- 생태계 섹션 -->
+  <div class="section" id="sec-ecosystem">
+    <div class="card">
+      <div class="card-title">🔗 리브 콜린스의 3각 생태계</div>
+      <div class="eco-grid">
+        <div class="eco-item eco-reserve">
+          <div class="ei-title" style="color:#ffcc00">🏦 리저브원 (RONE)</div>
+          <div class="ei-desc">주식처럼 비트코인 및 메이저 코인에 기업들이 투자할 수 있게 길을 열어주는 나스닥 상장사 · <strong style="color:#ffcc00">2026년 나스닥 3월~4월중 입성 🔜</strong> · <span style="color:#00ff88;font-weight:700">펀드조성금 약 1조 3,900억원</span><br>
+          <span style="font-size:0.82em;color:#aaaaaa">관련 뉴스 ▶</span>
+          <a href="https://finance.yahoo.com/news/reserveone-backed-crypto-heavyweights-set-125431472.html" target="_blank" style="color:#ffcc00;font-size:0.78em;text-decoration:none;border:1px solid rgba(255,200,0,0.3);border-radius:6px;padding:2px 8px;margin:2px">Reuters</a>
+          <a href="https://www.theblock.co/post/361618/reserveone-aims-for-nasdaq-listing-with-1b-raise-backed-by-former-coinbase-tether-execs-and-ex-commerce-secretary" target="_blank" style="color:#ffcc00;font-size:0.78em;text-decoration:none;border:1px solid rgba(255,200,0,0.3);border-radius:6px;padding:2px 8px;margin:2px">TheBlock</a>
+          <a href="https://coingape.com/reserveone-to-launch-bitcoin-treasury-go-public-after-1b-deal/" target="_blank" style="color:#ffcc00;font-size:0.78em;text-decoration:none;border:1px solid rgba(255,200,0,0.3);border-radius:6px;padding:2px 8px;margin:2px">CoinGape</a>
+          <a href="https://www.ainvest.com/news/reserveone-public-1-billion-spac-merger-2507/" target="_blank" style="color:#ffcc00;font-size:0.78em;text-decoration:none;border:1px solid rgba(255,200,0,0.3);border-radius:6px;padding:2px 8px;margin:2px">AInvest</a>
+          <a href="https://bitcoinethereumnews.com/crypto/crypto-treasury-firm-reserveone-files-s-4-with-the-sec-for-1b-nasdaq-listing/" target="_blank" style="color:#ffcc00;font-size:0.78em;text-decoration:none;border:1px solid rgba(255,200,0,0.3);border-radius:6px;padding:2px 8px;margin:2px">BitcoinNews</a>
+          <br>
+          <span style="font-size:0.82em;color:#aaaaaa">관련 뉴스 ▶</span>
+          <a href="https://www.globenewswire.com/news-release/2026/03/20/3259984/0/en/ReserveOne-Announces-Filing-of-Second-Amendment-to-Registration-Statement-on-Form-S-4-with-the-SEC-for-Proposed-Business-Combination-with-M3-Brigade-Acquisition-V-Corp.html" target="_blank" style="color:#ffcc00;font-size:0.78em;text-decoration:none;border:1px solid rgba(255,200,0,0.3);border-radius:6px;padding:2px 8px;margin:2px">GlobeNewswire</a>
+          <a href="https://www.stocktitan.net/news/RONE/reserve-one-announces-filing-of-second-amendment-to-registration-f9sps41202b7.html" target="_blank" style="color:#ffcc00;font-size:0.78em;text-decoration:none;border:1px solid rgba(255,200,0,0.3);border-radius:6px;padding:2px 8px;margin:2px">StockTitan</a>
+          <a href="https://www.ainvest.com/news/reserveone-nasdaq-debut-bridge-traditional-finance-blockchain-revolution-2507/" target="_blank" style="color:#ffcc00;font-size:0.78em;text-decoration:none;border:1px solid rgba(255,200,0,0.3);border-radius:6px;padding:2px 8px;margin:2px">AInvest</a>
+          <a href="https://www.barchart.com/story/news/873540/reserveone-announces-filing-of-second-amendment-to-registration-statement-on-form-s-4-with-the-sec-for-proposed-business-combination-with-m3-brigade-acquisition-v-corp" target="_blank" style="color:#ffcc00;font-size:0.78em;text-decoration:none;border:1px solid rgba(255,200,0,0.3);border-radius:6px;padding:2px 8px;margin:2px">Barchart</a>
+          </div>
+        </div>
+        <div class="eco-arrow">↓</div>
+        <div class="eco-item eco-stbl">
+          <div class="ei-title" style="color:var(--blue)">💰 STBL <span style="font-size:0.8em;color:#aaaaaa">수익형 스테이블코인 2.0</span></div>
+          <div class="ei-desc">
+            바이낸스(알파) 상장 완료 ✅ · 블랙록 BUIDL · 해밀턴 레인 · OKX Ventures 파트너<br>
+            기관 투자 확약 <strong style="color:#00ccff">5억 달러 (약 7,450억원)</strong><br>
+            <span style="font-size:0.82em;color:#aaaaaa">관련 뉴스 ▶</span>
+            <a href="https://www.globenewswire.com/news-release/2025/09/12/3149114/0/en/Binance-Alpha-announces-the-STBL-listing.html" target="_blank" style="color:#00ccff;font-size:0.78em;text-decoration:none;border:1px solid rgba(0,204,255,0.3);border-radius:6px;padding:2px 8px;margin:2px">바이낸스 상장</a>
+            <a href="https://www.globenewswire.com/news-release/2026/02/12/3237223/0/en/OKX-Ventures-backs-STBL-in-strategic-partnership-with-Hamilton-Lane-and-Securitize-to-launch-RWA-backed-stablecoin-on-X-Layer.html" target="_blank" style="color:#00ccff;font-size:0.78em;text-decoration:none;border:1px solid rgba(0,204,255,0.3);border-radius:6px;padding:2px 8px;margin:2px">해밀턴레인 파트너십</a>
+            <a href="https://www.coindesk.com/business/2026/02/12/okx-ventures-backs-stbl-in-partnership-with-hamilton-lane-and-securitize" target="_blank" style="color:#00ccff;font-size:0.78em;text-decoration:none;border:1px solid rgba(0,204,255,0.3);border-radius:6px;padding:2px 8px;margin:2px">CoinDesk</a>
+            <a href="https://www.tradingview.com/news/cointelegraph:21e9f1170094b:0-okx-ventures-backs-rwa-stablecoin-with-securitize-hamilton-lane/" target="_blank" style="color:#00ccff;font-size:0.78em;text-decoration:none;border:1px solid rgba(0,204,255,0.3);border-radius:6px;padding:2px 8px;margin:2px">CoinTelegraph</a>
+          </div>
+        </div>
+        <div class="eco-arrow">↓</div>
+        <div class="eco-item eco-tether">
+          <div class="ei-title" style="color:var(--green)">💳 WeFi DeoBank</div>
+          <div class="ei-desc">
+            7,000+ 코인 탑재 · 현지통화 직접 스왑 가능 · 전통은행 서비스(<strong style="color:#00ff88">전통은행 + 블록체인은행의 결합 · 세계 최초의 DeoBank 탄생</strong>) · 비수탁 지갑<br>
+            <span style="color:#00ff88;font-weight:700">WeChain 메인넷 공개 예정</span> <span style="color:#aaaaaa;font-size:0.85em">(ZK 제로레이어 기술 적용)</span><br>
+            <span style="font-size:0.82em;color:#aaaaaa">관련 뉴스 ▶</span>
+            <a href="https://www.globenewswire.com/news-release/2025/02/06/3022054/0/en/WeFi-Launches-Deobank-the-World-s-First-Decentralized-Onchain-Bank.html" target="_blank" style="color:#00ff88;font-size:0.78em;text-decoration:none;border:1px solid rgba(0,255,136,0.3);border-radius:6px;padding:2px 8px;margin:2px">GlobeNewswire</a>
+            <a href="https://cointelegraph.com/press-releases/wefi-launches-the-worlds-first-deobank-pioneering-a-new-era-of-decentralized-banking" target="_blank" style="color:#00ff88;font-size:0.78em;text-decoration:none;border:1px solid rgba(0,255,136,0.3);border-radius:6px;padding:2px 8px;margin:2px">CoinTelegraph</a>
+            <a href="https://www.entrepreneur.com/finance/wefi-introduces-the-worlds-first-deobank-the/485952" target="_blank" style="color:#00ff88;font-size:0.78em;text-decoration:none;border:1px solid rgba(0,255,136,0.3);border-radius:6px;padding:2px 8px;margin:2px">Entrepreneur</a>
+            <a href="https://cryptoslate.com/press-releases/wefi-launches-deobank-the-worlds-first-decentralized-onchain-bank/" target="_blank" style="color:#00ff88;font-size:0.78em;text-decoration:none;border:1px solid rgba(0,255,136,0.3);border-radius:6px;padding:2px 8px;margin:2px">CryptoSlate</a>
+            <a href="https://coinmarketcap.com/cmc-ai/wfi/what-is/" target="_blank" style="color:#00ff88;font-size:0.78em;text-decoration:none;border:1px solid rgba(0,255,136,0.3);border-radius:6px;padding:2px 8px;margin:2px">CoinMarketCap</a>
+            <a href="https://www.bitget.com/price/wefi/whitepaper" target="_blank" style="color:#00ff88;font-size:0.78em;text-decoration:none;border:1px solid rgba(0,255,136,0.3);border-radius:6px;padding:2px 8px;margin:2px">Whitepaper(ZK)</a>
+            <a href="https://chainwire.org/2025/02/06/wefi-launches-deobank-the-worlds-first-decentralized-onchain-bank/" target="_blank" style="color:#00ff88;font-size:0.78em;text-decoration:none;border:1px solid rgba(0,255,136,0.3);border-radius:6px;padding:2px 8px;margin:2px">Chainwire</a>
+            <a href="https://due.com/wefi-introduces-first-deobank/" target="_blank" style="color:#00ff88;font-size:0.78em;text-decoration:none;border:1px solid rgba(0,255,136,0.3);border-radius:6px;padding:2px 8px;margin:2px">Due.com</a>
+            <a href="https://www.bitget.com/news/detail/12560605115126" target="_blank" style="color:#00ff88;font-size:0.78em;text-decoration:none;border:1px solid rgba(0,255,136,0.3);border-radius:6px;padding:2px 8px;margin:2px">Bitget(혁신상)</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">📐 한 줄 요약</div>
+      <div style="padding:16px;background:rgba(0,255,136,0.05);border-radius:12px;border:1px solid var(--border);line-height:1.8;font-size:0.9em">
+        <span class="highlight">3개의 회사, 하나의 생태계</span><br>
+        <span class="highlight-blue">나스닥 · 바이낸스 · 비자를 연결하다</span><br>
+        <strong>돈의 흐름이 시작되는 곳부터 쓰이는 곳까지</strong><br><br>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">📅 2026년 주요 일정</div>
+      <div style="display:flex;flex-direction:column;gap:8px;font-size:0.85em">
+        <div style="display:flex;gap:12px;align-items:center">
+          <span style="color:var(--green);font-weight:700;min-width:60px">2026.03~04</span>
+          <span>리저브원 나스닥 상장 🔜</span>
+        </div>
+        <div style="display:flex;gap:12px;align-items:center">
+          <span style="color:var(--green);font-weight:700;min-width:60px">2026.04</span>
+          <span>피지컬 비자카드 배송 시작</span>
+        </div>
+        <div style="display:flex;gap:12px;align-items:center">
+          <span style="color:var(--green);font-weight:700;min-width:60px">2026.05</span>
+          <span>FT Digital Assets Summit 런던 (리브 콜린스 연사)</span>
+        </div>
+        <div style="display:flex;gap:12px;align-items:center">
+          <span style="color:#ffcc00;font-weight:700;min-width:60px">2026.09</span>
+          <span style="color:#ffcc00;font-weight:600">🔥 WFI 첫 번째 반감기</span>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start">
+          <span style="color:var(--green);font-weight:700;min-width:60px">2026.10</span>
+          <span>🌏 비욘드 뱅킹 서밋 (방콕) · WeFi 글로벌 컨퍼런스</span>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start">
+          <span style="color:var(--green);font-weight:700;min-width:60px">2026.11</span>
+          <span>🗺️ 시즌 2 로드맵 발표 · 진보된 대출 모델 + RWA(실물자산) 결합 상품 출시</span>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start">
+          <span style="color:#ffcc00;font-weight:700;min-width:60px">2026.12</span>
+          <span style="color:#ffcc00;font-weight:600">🎯 글로벌 유저 100만명 돌파 목표 · Tier-1 메이저 거래소 추가 상장 기대</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ITO 참여 섹션 -->
+  <div class="section" id="sec-ito">
+
+    <div class="countdown-box">
+      <div class="cd-label">⏰ 첫 번째 반감기까지 남은 시간</div>
+      <div class="cd-date">2026년 9월 18일</div>
+      <div class="cd-timer">
+        <div class="cd-unit">
+          <span class="cu-num" id="cd-days">--</span>
+          <div class="cu-label">일</div>
+        </div>
+        <div class="cd-unit">
+          <span class="cu-num" id="cd-hours">--</span>
+          <div class="cu-label">시간</div>
+        </div>
+        <div class="cd-unit">
+          <span class="cu-num" id="cd-mins">--</span>
+          <div class="cu-label">분</div>
+        </div>
+        <div class="cd-unit">
+          <span class="cu-num" id="cd-secs">--</span>
+          <div class="cu-label">초</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 레퍼럴 입력 카드 -->
+    <div class="card" style="border-color:rgba(0,255,136,0.3);background:rgba(0,255,136,0.04)">
+      <div class="card-title">🔗 내 레퍼럴 링크 설정</div>
+      <div style="font-size:0.82em;color:var(--muted);margin-bottom:10px">내 레퍼럴 코드를 입력하면 아래 모든 링크가 자동으로 바뀝니다</div>
+      <div style="display:flex;gap:8px;align-items:center">
+        <input id="refInput" type="text" placeholder="예: f9vipn2iog"
+          style="flex:1;padding:10px 12px;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:10px;color:#fff;font-size:0.88em;outline:none">
+        <button onclick="applyRef()" style="padding:10px 16px;background:var(--green);border:none;border-radius:10px;color:#000;font-weight:700;font-size:0.88em;cursor:pointer">적용</button>
+      </div>
+      <div id="refPreview" style="margin-top:8px;font-size:0.78em;color:var(--muted)">
+        현재 링크: <span id="refUrl" style="color:#00ccff">https://app.wefi.co/register?ref=f9vipn2iog</span>
+      </div>
+      <!-- 카톡 공유 버튼 (코드 적용 후 표시) -->
+      <button id="kakao-share-btn" onclick="shareKakao()"
+        style="display:none;width:100%;margin-top:12px;padding:14px;background:#FEE500;border:none;border-radius:12px;color:#3A1D1D;font-weight:900;font-size:1em;cursor:pointer;letter-spacing:0.02em;box-shadow:0 4px 15px rgba(254,229,0,0.3);">
+        📥 홍보이미지 + 앱파일 다운로드
+      </button>
+      <div id="kakao-share-hint" style="display:none;margin-top:8px;font-size:0.75em;color:var(--muted);text-align:center;">
+        💡 이미지를 먼저 전송하면 미리보기가 보여요!<br>이미지 + HTML 파일 같이 전송하세요 😊
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">⚡ 지금이 유리한 이유</div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div style="padding:10px 12px;background:rgba(0,255,136,0.06);border:1px solid rgba(0,255,136,0.15);border-radius:10px;font-size:0.82em;color:var(--muted)">
+          💡 예시 기준 : <strong style="color:#00ff88">$1,000 (약 150만원)</strong> 투자
+        </div>
+        <div style="padding:12px;background:rgba(255,200,0,0.08);border:1px solid rgba(255,200,0,0.2);border-radius:10px;font-size:0.85em;line-height:1.6">
+          🔥 반감기 전 <strong style="color:#00ff88">지금</strong> → <strong style="color:#ffcc00">일 1.5개 채굴</strong><br>
+          반감기 이후 <strong style="color:#ff6666">(2026.09.18 이후)</strong> → <strong style="color:#ff6666">일 0.1875개 채굴</strong> (가입자 4배 증가 기준)<br>
+          <strong style="color:#ffcc00">→ 지금이 2.7배 더 유리</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">📋 ITO 참여 방법</div>
+      <div class="step-list">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <div class="sc-title">WeFi 앱 다운로드</div>
+            <div class="sc-desc">공식 사이트(wefi.co)에서 앱 설치. 피싱 사이트 주의 — 반드시 wefi.co 도메인 확인</div>
+            <a class="sc-link" id="refLink1" href="https://app.wefi.co/register?ref=f9vipn2iog" target="_blank">앱 열기 →</a>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <div class="sc-title">회원가입 & KYC 인증</div>
+            <div class="sc-desc">이메일 등록 → AI 간소화 KYC (신분증 인증) → 계정 활성화</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <div class="sc-title">USDT 입금</div>
+            <div class="sc-desc">원화 → 거래소 → USDT 구매 → WeFi 지갑으로 전송<br>최소 투자금: $100 (약 15만원)</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <div class="sc-title">ITO 노드 구매</div>
+            <div class="sc-desc">앱 내 ITO 메뉴 → 투자금액 선택 → 노드 활성화 → 즉시 채굴 시작</div>
+          </div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <div class="sc-title">WFI 토큰 채굴 & 수령</div>
+            <div class="sc-desc">매일 자동 채굴 → Energy 누적 → WFI 토큰 클레임 → 비자카드 사용 가능</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <a class="cta-btn" id="refLink2" href="https://app.wefi.co/register?ref=f9vipn2iog" target="_blank">🚀 지금 WeFi 시작하기</a>
+    <a class="cta-btn-outline" href="https://wefi.co" target="_blank">🌐 공식 사이트 방문</a>
+  </div>
+
+  <!-- 계산기 섹션 -->
+  <div class="section" id="sec-calc">
+    <div class="card">
+      <div class="card-title">📊 채굴 수익 간단 계산기</div>
+      <div class="calc-box">
+        <div class="input-row">
+          <div class="input-g">
+            <label>💰 투자금액 (만원)</label>
+            <input type="number" id="ci-invest" value="150" min="1">
+          </div>
+          <div class="input-g">
+            <label>👥 가입자 증가</label>
+            <select id="ci-growth">
+              <option value="2">2배씩</option>
+              <option value="4" selected>4배씩</option>
+              <option value="1">변동없음</option>
+            </select>
+          </div>
+        </div>
+        <div class="input-row">
+          <div class="input-g">
+            <label>💵 WFI 현재가 ($)</label>
+            <input type="number" id="ci-price" value="2.14" step="0.01">
+          </div>
+          <div class="input-g">
+            <label>💱 환율 (원)</label>
+            <input type="number" id="ci-exrate" value="1490">
+          </div>
+        </div>
+        <button class="calc-btn" onclick="calcMini()">🚀 계산하기</button>
+        <div class="result-box" id="mini-result">
+          <div class="result-grid" id="mini-summary"></div>
+          <table class="price-mini-table" id="mini-price-table"></table>
+        </div>
+      </div>
+      <div style="text-align:center;margin-top:8px;">
+        <a href="https://claude.ai/public/artifacts/a00a027c-f474-49ad-8271-e5a35b09b202"
+           onclick="window.open('https://claude.ai/public/artifacts/a00a027c-f474-49ad-8271-e5a35b09b202','_blank','noopener');return false;"
+           style="display:inline-block;padding:12px 24px;background:linear-gradient(90deg,var(--green),var(--blue));border-radius:12px;font-weight:700;color:#000;font-size:0.88em;text-decoration:none;">
+          📊 상세 채굴 수익 계산기 →
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 뉴스 섹션 -->
+  <div class="section" id="sec-news">
+
+    <!-- 오늘의 주요뉴스 타이틀 -->
+    <div style="padding:0 4px;margin-bottom:10px;">
+      <div class="card-title" style="font-size:1.05em;">📰 오늘의 주요뉴스</div>
+    </div>
+
+    <!-- 오늘의 주요뉴스 카드 -->
+    <div class="card">
+      <div style="background:rgba(0,255,136,0.04);border:1px solid rgba(0,255,136,0.15);border-radius:14px;padding:16px 14px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+              <div style="font-size:0.85em;font-weight:700;color:#00ff88;">📰 오늘의 주요뉴스</div>
+              <div id="news-refresh-time" style="font-size:0.68em;color:#555;"></div>
+            </div>
+            <!-- 뉴스 탭 -->
+            <div style="display:flex;gap:6px;margin-bottom:12px;">
+              <button id="ntab-wefi" onclick="switchNewsTab('wefi')" style="flex:1;padding:8px 4px;border-radius:20px;border:1px solid rgba(0,255,136,0.5);background:rgba(0,255,136,0.15);color:#00ff88;font-size:0.82em;font-weight:700;cursor:pointer;font-family:inherit;">🪙 WFI</button>
+              <button id="ntab-reeve" onclick="switchNewsTab('reeve')" style="flex:1;padding:8px 4px;border-radius:20px;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.04);color:#7a9980;font-size:0.82em;font-weight:700;cursor:pointer;font-family:inherit;">👤 리브콜린스</button>
+            </div>
+            <div id="wefi-news-list" style="display:flex;flex-direction:column;gap:8px;">
+              <div class="news-skeleton" style="height:56px;background:rgba(255,255,255,0.04);border-radius:10px;animation:skeletonPulse 1.2s ease-in-out infinite;"></div>
+              <div class="news-skeleton" style="height:56px;background:rgba(255,255,255,0.04);border-radius:10px;animation:skeletonPulse 1.2s ease-in-out infinite 0.2s;"></div>
+              <div class="news-skeleton" style="height:56px;background:rgba(255,255,255,0.04);border-radius:10px;animation:skeletonPulse 1.2s ease-in-out infinite 0.4s;"></div>
+            </div>
+            <div id="reeve-news-list" style="display:none;flex-direction:column;gap:8px;">
+              <div class="news-skeleton" style="height:56px;background:rgba(255,255,255,0.04);border-radius:10px;animation:skeletonPulse 1.2s ease-in-out infinite;"></div>
+              <div class="news-skeleton" style="height:56px;background:rgba(255,255,255,0.04);border-radius:10px;animation:skeletonPulse 1.2s ease-in-out infinite 0.2s;"></div>
+              <div class="news-skeleton" style="height:56px;background:rgba(255,255,255,0.04);border-radius:10px;animation:skeletonPulse 1.2s ease-in-out infinite 0.4s;"></div>
+            </div>
+
+            <a href="https://coinmarketcap.com/cmc-ai/wfi/latest-updates/" target="_blank"
+              style="display:block;text-align:center;margin-top:12px;font-size:0.75em;color:#7a9980;text-decoration:none;letter-spacing:0.03em;">
+              더 많은 뉴스 보기 →
+            </a>
+          </div>
+    </div>
+
+
+
+  </div>
+  <div class="footer">
+    <!-- 홈화면 추가 안내 -->
+    <div id="install-banner" style="background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.3);border-radius:14px;padding:14px 16px;margin-bottom:16px;text-align:left;">
+      <div style="font-weight:700;color:#00ff88;margin-bottom:6px;font-size:0.9em;">📱 홈화면 단축앱으로 추가하기</div>
+      <div style="font-size:0.78em;color:#b8d4bc;line-height:1.7;">
+        <strong style="color:#fff;">안드로이드(크롬):</strong><br>
+        브라우저 우측 상단 <strong style="color:#ffcc00;">⋮ 메뉴</strong> → <strong style="color:#ffcc00;">"홈 화면에 추가"</strong><br><br>
+        <strong style="color:#fff;">아이폰(사파리):</strong><br>
+        하단 <strong style="color:#ffcc00;">공유 버튼 □↑</strong> → <strong style="color:#ffcc00;">"홈 화면에 추가"</strong>
+      </div>
+    </div>
+    ⚠️ 본 자료는 참고용이며 투자 권유가 아닙니다.<br>
+    가상자산 투자는 원금 손실 가능성이 있습니다.<br><br>
+    Made by <strong>Mark Shim (발란스)</strong><br><br>
+    <div style="margin-top:10px;padding:14px 16px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;font-size:0.78em;color:#7a9980;line-height:1.8;text-align:center;">
+      이 앱은 커뮤니티의 활성화로 만들어졌으며<br>
+      <strong style="color:#b8d4bc;">본사와는 아무런 관련이 없습니다.</strong>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// 팀 데이터
+const teamData = {
+  rc: {
+    name: 'Reeve Collins',
+    role: 'Chairman & Co-founder · STBL | WeFi | ReserveOne',
+    avatar: 'data:image/jpeg;base64,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',
+    color: 'linear-gradient(135deg, #00ff88, #00ccff)',
+    initials: 'RC',
+    achievements: [
+      { icon: '🏆', text: '테더(USDT) 공동 창업자 & 초대 CEO — 현재 시총 1,400억 달러, <strong style="color:#00ff88;font-size:1.05em">스테이블코인의 아버지</strong><br><span style="font-size:0.82em;color:#aaaaaa">관련 기사 ▶</span> <a href="https://iq.wiki/wiki/reeve-collins" target="_blank" style="color:#00ccff;font-size:0.82em;text-decoration:none;border:1px solid rgba(0,204,255,0.3);border-radius:6px;padding:2px 8px;margin:2px">Wiki</a> <a href="https://www.bloomberg.com/news/articles/2025-02-18/tether-co-founder-is-working-on-yield-bearing-stablecoin-rival" target="_blank" style="color:#00ccff;font-size:0.82em;text-decoration:none;border:1px solid rgba(0,204,255,0.3);border-radius:6px;padding:2px 8px;margin:2px">Bloomberg</a> <a href="https://coinmarketcap.com/academy/article/tether-co-founder-reeve-collins-launches-new-stablecoin-offering-yield-in-dollar225b-market" target="_blank" style="color:#00ccff;font-size:0.82em;text-decoration:none;border:1px solid rgba(0,204,255,0.3);border-radius:6px;padding:2px 8px;margin:2px">CoinMarketCap</a>' },
+      { icon: '👑', text: '<strong style="color:#ffcc00">3개 회사 동시 운영</strong> — <span style="color:#00ff88">WeFi DeoBank</span> · <span style="color:#00ccff">STBL</span> · <span style="color:#ffcc00">ReserveOne</span>' },
+      { icon: '📈', text: 'ReserveOne — <strong style="color:#ffcc00">나스닥 RONE 티커 2026년 3~4월 상장 예정</strong>, SEC S-4 제출 완료' },
+      { icon: '💰', text: 'STBL — <strong style="color:#00ccff">바이낸스(알파) 상장 완료 ✅</strong> · 블랙록 BUIDL, 프랭클린 템플턴 파트너 · 5억 달러 투자 확약' },
+      { icon: '📺', text: 'CNBC Fast Money 출연 — STBL | WeFi | ReserveOne Co-Founder 자격으로 전 세계 투자자 대상 발표' },
+      { icon: '🏛️', text: 'iConnections Global Alts Miami (2026.02) · FT Digital Assets Summit 런던 (2026.05) 연사' },
+      { icon: '🚀', text: 'NFT 플랫폼 BLOCKv 공동창업자 — ICO로 2,200만 달러 모금' },
+    ]
+  },
+  ms: {
+    name: 'Maksym Sakharov',
+    role: 'Group CEO & Co-founder',
+    avatar: 'data:image/jpeg;base64,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',
+    color: 'linear-gradient(135deg, #00ccff, #0088ff)',
+    initials: 'MS',
+    achievements: [
+      { icon: '🌍', text: '우크라이나 출신 연쇄 창업가 · 핀테크 & 블록체인 분야 10년 이상 경력<br><span style="font-size:0.82em;color:#aaaaaa">관련 기사 ▶</span> <a href="https://financefeeds.com/how-wefi-plans-to-power-the-future-of-global-finance-interview-with-maksym-sakharov/" target="_blank" style="color:#00ccff;font-size:0.82em;text-decoration:none;border:1px solid rgba(0,204,255,0.3);border-radius:6px;padding:2px 8px;margin:2px">FinanceFeeds</a> <a href="https://www.ccn.com/news/crypto/neobanks-deobanks-wefi-bridge-finance-crypto/" target="_blank" style="color:#00ccff;font-size:0.82em;text-decoration:none;border:1px solid rgba(0,204,255,0.3);border-radius:6px;padding:2px 8px;margin:2px">CCN</a> <a href="https://blockchainreporter.net/wefis-maksym-sakharov-on-compliance-stablecoins-and-why-distribution-will-win-the-next-crypto-cycle" target="_blank" style="color:#00ccff;font-size:0.82em;text-decoration:none;border:1px solid rgba(0,204,255,0.3);border-radius:6px;padding:2px 8px;margin:2px">BlockchainReporter</a> <a href="https://mpost.io/wefi-ceo-maksym-sakharov-on-how-crypto-payments-are-redefining-global-finance/" target="_blank" style="color:#00ccff;font-size:0.82em;text-decoration:none;border:1px solid rgba(0,204,255,0.3);border-radius:6px;padding:2px 8px;margin:2px">MetaversePost</a>' },
+      { icon: '🏢', text: 'Aeon Labs 창업 (2015) — 핀테크·블록체인 스타트업 지원 회사' },
+      { icon: '🏘️', text: 'Whitemark 공동창업 (2020) — 블록체인 기반 부동산 플랫폼' },
+      { icon: '💱', text: 'EXFLOW 공동창업 & CEO (2021) — 유럽 OTC 암호화폐 거래소' },
+      { icon: '🚀', text: 'WeFi 공동창업 (2024) — Group CEO로 전체 사업 총괄' },
+      { icon: '🎤', text: '다수의 글로벌 블록체인 컨퍼런스 연사 참가' },
+    ]
+  },
+  rr: {
+    name: 'Roman Rossov',
+    role: 'CPO & Co-founder',
+    avatar: 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA4KCw0LCQ4NDA0QDw4RFiQXFhQUFiwgIRokNC43NjMuMjI6QVNGOj1OPjIySGJJTlZYXV5dOEVmbWVabFNbXVn/2wBDAQ8QEBYTFioXFypZOzI7WVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVn/wAARCACWAJYDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDzaiiigAoop0cbyuERSzHsKAG1o6bomo6mQbS1d0zjzCMKPxrY0uz0ywCzXcLX1wOQhO2Jf6t/KtefxReMuyERW6DgBF6VlKUtooVyvZeAHAD390qjuqf41pJpHhnTuJNk7jsTvNc7d6lcTH99NJKx6BmP8qjhTy/3s7HPXbWbhN/FL7gUW9zrP7XtIBjT9MTpgMygVUn1HVLnIiSGIeiKM/max/7YfyzHDGEU98Zalt5TKcCQg+lNU4xLUER31tcZL3cTHd1ZhnNZslpA/wDBt+nFdfbyzqnly4ljbja4yDVLVNHCwG7s1OxeZIupT3HqK2jJbCcGjk5NPI5jfPsaqSRPGcOpFbWRUUkseCrYYelUSY9FTTImcx5A9DUNAwooooAKKKKACiinIjSOEUZY9KAHQQvPIEQfU+lbMEcdqm1ByerdzTIYlt4gi8nufWhmzQIkaU0sCGaXGflA3Mfaq9W7dxb2csrDO87FHrjn/CkxpEQ+Wfc33j0UdhU1180Kn9B0FVEy75JySeTV8R748dqzbNkrlOKLew+baT0J6VqWsTKwWeNuO45P4VBbweXcbJRmJ+tdBpDoGazusFlOEf19KQWLdqiCNdzK8TcZI/Q1rWtv5XGd8R6E8lfb3FRWgt3Z4SASR8ykdR6imSW0lpKGhdth5Ck5BpDOQ8YaMdPmWe1H+jSnBUc7G9Poe1O0nwVcXMK3GoTfZYyM7f4se/pXaTGKa3V5IlJRgxUj0NcT4m1aW+1GWFZCLaJiqqDwcdzRJzk+WJhJWZrC38K6N123cw/7aH/Cuf8AEl7ZauytbWIt5U4EmcFh6EDis2kqo0Undu7JMtgVJBGCKSr9xD5i5H3h+tUK1KCiiigArV0+38uLzWHzN09hVC1h8+4VO3U/Stx+FwOBQJkDmozTzUZoAKlvSRaWqg8YJ/WohU7/AL6zSJAN4JySe3WhjQ2DBANaMXSsyD92o3cVcS5iXGWI+orJo6Is0IhjhxkdjU/3pAynnAqrBcxuMKwI9ql+0RQEGRgM+tSaaGlazSm9DNxnofeugjaVo8tgqeh61g6fqNq5CiRSPda3TFvjJt5AAfmx2NCRLsZ19eiBjHIuQw+U9Me1cC53Ox9Tmu1mWORnF45Qtny+Op9a4phhiPQ1pAwqdBhopTSVoZBVK8i2tvA4PWrtNdQ6FT3oAy6KVgVYg9RRSKNPSYsK8p7/ACir0nSs+3u1htkQDnqaa97I/CigRZaoy6jqahSG7uD8kMjfRTVlNEvn5eMRj/bOKTkluwITOg6c1JaXI88ErwvzflVtNBxzNOP+AiphZWlpGzIxZyNoyannT2GtyJIFlZlYkEdDSrZlWHmBiAe54NNhl/fFjxk1o/KybmPAqW7HRGKaKNtEBqEUSdGPINaOqWUiTlSh+U4wKpacQ+qpL/ApyPeuu15x9nS4i2MhIDEfeBpMtdjB0/ThI7MxljB5AXoPzrqNIt5IYGMrluwzWZpl2jkCTk5610JZdihD8tG+oNW0OV8SCX7C5dQDFNsDDupGf5gVyldx4jSOfRpmR+Y3D8+5rh60hsc9X4hppKdSVZkJRRRQBRvE2y7uzCiprtN6LjqDRSGd7beEdI0+3R9Rl8yTHzF32rn2FSPf+HdPXFtBG7D+5Hn9TWBrN697qE0rElQxVB6KOlZTmuZUXJXmybXN678S7yRb2+1f9o/0FZM2qXUpPzBf90VTNGK2jSitkOw55ZJPvuzfU1PagOro3QfOPwquFJOAMmpVUx8scZGMCra0GtxowJD9auTNIkWFUshGeKz5CY5sMecc1ctrjcBGTWTR0RZHZofPEgcDHQE4rY80mPcxTcR82O5qpFGw4TBJ7EV0tgki2u2SEYI9KTZqlZGLpj77jhSADyCMV0sE+IWJPTpWG6+TcvtGBmrunOJ7uGEn5WYZ+lTuwexBrSzrpTbUZkbAbaM7RnOTXJV6pIFtppImHI/UGsS98M2WoMz2ji2mP8IHyk/Tt+FdMYWRyTd3c4WkNaGp6VeaVN5d3EUz91xyrfQ1ntwCaCBpYDqaYZVHeoCSzVZhgRvvUm7DsRGXPaite3sUdcgKPrRWXtUOxAH3xq2c5AOaiYUliTLaxgDJHy1fjtAeZD+A/wAa2sSUo4nkbailj7VcXTyqZc5b07VdQBAFQBV9AKkIDdyKpIVzMEbKdoGPpTNpM/PRf51oy4jX5RyahEWE56nk0WHcyL/Ibd2qCORo5Bk1t3Fl5tsTjmskQnmNxyOlRJGkdTRtL1Y+Scmty114JbFWb6VyYtm7GrUFmcgyN+ArJo2UnsaH2ya8usRglScCtewITVo4YjuaMDe3uT/9asdZBaxkpheOtXvDe77Wsj/ekYk/SnBahJ2R2+rxF7WO6QfNHw3uKyYZSJAyHp8wro4gskTROMqwwa5WVGsb6SCTop4PtXQcyOmlWG/twJUWWB1+ZWGRmuN1TwX5xd9KfA/55S9Pwb/Gt7TLjNxsyTGRlgKsajetbXELREMhBVlHeiwjyW+0y902fy722khPYsOD9D0NNR9tezFbe9tG3os0TDJRxkVxfiTwcIYmvdJVmjAy8HUqPVfUe1RKI0zjTM+MlyBRVe6baigcEmilZAWtCl/evD/e5FdAUwoI6VxtvMYJ0lXqpzXbW7rNEGU5VhkVcRSGhKfjH4UoHOKUiqEVZFfcXZc46CovtDYI8o8e9XnX5PpURQEhhSsMksZUuYnQKVZecH0qrdafuOUwGHSpfIaOQSRNtaplnlbh40LD04zRa+jBaO6MfYQDlSrDqDQkwHXiteaMTxf6plcdGxWfY6ZJPK0kw2xqcAf3v/rVk4O9jdVFa4kUJumDPxEvOP71a1pFJGN6ko3bHGKlWGOEDAy3bNPL7VrSMbGUp3JYrq8ifIupeO240tzeS3kqmYhnVcbsYJHvVbOBk02JuGb1qhXLtjeG3uUfsDg/SrWoyCW9OxgFC8tWIGyxqZZTK+3oM80hs2LK4aCNpEZlUsFQdd3rXR28paNM9SMnFcetyse1jyV4RfT3q7ea2NM0ee8YgyBcRg93PT/PtTexB594yNsPE96loMRI+CAeN38WPxzRWI7M7szElmOST3NFZFiVveHb4K32WQ45zGf5isGlUlWBUkEcgimnYGd7KMOD705hxWZp2qLfW6K5AuEIDD+8PUVpg5rTcgF5X9KgYFGqaM4bBomTIzTAEwy1G4KtmmxvsbB6VYdQy0ARiQ/KFOCxC/nWi2IYSFxgDjisnG2eE+jitWRg0bZ54poTKqtn5icmm7tzewqNG4Ip+dq0hiytn5R1NDtsjwPpTFHOTTSd8mOwpDHINq5NMtm+V29TinueCPaooDtt/wAzQA5pCXyO1c3r+qfbpUhjbMEGcH+83c1Nq+o7Ua3hb5jw5HYelYVQ2NIKKKKkYUUUUAOjkeKRXjYqynIIrqdM1eO6KpJhJsYI7N9K5SgHByKadhNXO+cfxCpFbetczp+vvEBFdgyJ03j7w/xrdtriGYb4JFdD6dq0TTJaCVcNT4ZP4TUki7hVQ5U0xFmRclT/ALQ/nVtgQGFUg+6LPcEVfY5U00Jmcpw5+tP6monOGNPRgVpFDmOBSJ8o96bnJqG6vre0XM0gB7KOSfwoAnY8GsPUtXWOP7PatlsYZx0H0qlqGrzXYMaDyoj1APJ+prNrNy7FJB1oooqRhRRRQAUUUUAFFFFABTo5HicPGxRh0IOKKKANW28QXcQCyhZl9+D+dXYtahnODFIrfgRRRVpslovwEzuI04LetaUz+QcNz9KKKu5Jhz6pCrsCknBx0H+NVZNcjTiOJ2P+0cUUVLbKSKE+sXc2QriJfRP8azySSSSST3NFFZ3KCiiigAooooAKKKKAP//Z',
+    color: 'linear-gradient(135deg, #ff9944, #ff6622)',
+    initials: 'RR',
+    achievements: [
+      { icon: '🏦', text: 'Wise (前 TransferWise) 전 Product Director — 전 세계 수천만 명이 사용하는 핀테크 서비스 설계<br><span style="font-size:0.82em;color:#aaaaaa">관련 기사 ▶</span> <a href="https://blockchainreporter.net/exclusive-interview-how-ton-telegram-integration-is-transforming-defi-adoption/" target="_blank" style="color:#00ccff;font-size:0.82em;text-decoration:none;border:1px solid rgba(0,204,255,0.3);border-radius:6px;padding:2px 8px;margin:2px">BlockchainReporter</a> <a href="https://thedefiant.io/news/press-releases/wefi-launches-wenix-a-telegram-game-directly-contributing-to-token-mining" target="_blank" style="color:#00ccff;font-size:0.82em;text-decoration:none;border:1px solid rgba(0,204,255,0.3);border-radius:6px;padding:2px 8px;margin:2px">TheDefiant</a> <a href="https://fastercapital.com/mentor/roman-rossov.html" target="_blank" style="color:#00ccff;font-size:0.82em;text-decoration:none;border:1px solid rgba(0,204,255,0.3);border-radius:6px;padding:2px 8px;margin:2px">FasterCapital</a>' },
+      { icon: '💳', text: 'Wise에서 국제 송금, 멀티커런시 계좌, 비자 직불카드 제품 개발 총괄' },
+      { icon: '🌐', text: 'WeFi의 온체인 뱅킹 제품 전략 및 사용자 경험(UX) 총괄' },
+      { icon: '🤖', text: 'AI 기반 음성 송금, 자동 수익 최적화 기능 설계 주도' },
+      { icon: '📱', text: 'WeFi 앱 및 웹 플랫폼 제품 로드맵 총괄 책임' },
+    ]
+  },
+  ks: {
+    name: 'Khaled Suleiman',
+    role: 'Board Member',
+    avatar: 'data:image/jpeg;base64,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',
+    color: 'linear-gradient(135deg, #ffcc00, #ff9900)',
+    initials: 'KS',
+    achievements: [
+      { icon: '🏦', text: '아부다비 국립은행(NBAD) 전 CEO — UAE 최대 은행 중 하나를 이끈 금융 최고 경영자<br><span style="font-size:0.82em;color:#aaaaaa">관련 기사 ▶</span> <a href="https://studylib.net/doc/5554211/khaled-ahmed-suleiman" target="_blank" style="color:#00ccff;font-size:0.82em;text-decoration:none;border:1px solid rgba(0,204,255,0.3);border-radius:6px;padding:2px 8px;margin:2px">NBAD 자료</a> <a href="https://www.linkedin.com/company/national-bank-of-abu-dhabi" target="_blank" style="color:#00ccff;font-size:0.82em;text-decoration:none;border:1px solid rgba(0,204,255,0.3);border-radius:6px;padding:2px 8px;margin:2px">LinkedIn NBAD</a>' },
+      { icon: '🌍', text: '중동 금융권 40년 이상 경력 · GCC 지역 금융 네트워크 보유' },
+      { icon: '🤝', text: 'WeFi의 UAE · 중동 금융권 진출 및 규제 대응 전략 자문' },
+      { icon: '📋', text: 'UAE VARA 라이선스 취득 과정 전략적 지원' },
+      { icon: '💼', text: '기관 투자자 및 글로벌 은행과의 파트너십 구축 역할' },
+    ]
+  },
+  mb: {
+    name: 'Michael Batuev',
+    role: 'Global Head of Payments',
+    avatar: 'data:image/jpeg;base64,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',
+    color: 'linear-gradient(135deg, #aa44ff, #6622cc)',
+    initials: 'MB',
+    achievements: [
+      { icon: '💳', text: 'Visa 18년 근무 — 글로벌 결제 혁신 총괄, 모바일 결제 시스템 구축<br><span style="font-size:0.82em;color:#aaaaaa">관련 기사 ▶</span> <a href="https://blockchainreporter.net/ex-visa-payments-leader-michael-batuev-joins-wefi-to-supercharge-global-payments-roll-out" target="_blank" style="color:#00ccff;font-size:0.82em;text-decoration:none;border:1px solid rgba(0,204,255,0.3);border-radius:6px;padding:2px 8px;margin:2px">BlockchainReporter</a> <a href="https://www.theblock.co/press-releases/378525/ex-visa-payments-leader-michael-batuev-joins-wefi-to-supercharge-global-payments-roll-out" target="_blank" style="color:#00ccff;font-size:0.82em;text-decoration:none;border:1px solid rgba(0,204,255,0.3);border-radius:6px;padding:2px 8px;margin:2px">TheBlock</a> <a href="https://mpost.io/former-visa-payments-executive-michael-batuev-joins-wefi-to-drive-global-payments-expansion/" target="_blank" style="color:#00ccff;font-size:0.82em;text-decoration:none;border:1px solid rgba(0,204,255,0.3);border-radius:6px;padding:2px 8px;margin:2px">MetaversePost</a> <a href="https://chainwire.org/2025/11/12/ex-visa-payments-leader-michael-batuev-joins-wefi-to-supercharge-global-payments-roll-out/" target="_blank" style="color:#00ccff;font-size:0.82em;text-decoration:none;border:1px solid rgba(0,204,255,0.3);border-radius:6px;padding:2px 8px;margin:2px">Chainwire</a>' },
+      { icon: '📱', text: 'Apple Pay · Google Pay 글로벌 확장 진두지휘 — 전 세계 수십억 명이 사용하는 결제 인프라 구축' },
+      { icon: '🌐', text: '컨택리스(비접촉) 결제 및 P2P 송금 글로벌 표준화 이끌어' },
+      { icon: '🎓', text: 'MIT · FESAEM (금융과 기술 융합 전공) 졸업 · 핀테크 20년+ 경력' },
+      { icon: '🚀', text: 'WeFi 글로벌 결제 책임자 — 비자 네트워크 1억 4천만 가맹점 연동 총괄' },
+      { icon: '📰', text: '2025년 11월 두바이에서 WeFi 합류 공식 발표 (Chainwire)' },
+    ]
+  },
+  al: {
+    name: 'Agne Ringė',
+    role: '성장 책임자 (CGO)',
+    avatar: 'data:image/jpeg;base64,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',
+    color: 'linear-gradient(135deg, #ff44aa, #cc2277)',
+    initials: 'AL',
+    achievements: [
+      { icon: '📈', text: 'Binance Lithuania 전 이사 — 세계 최대 암호화폐 거래소의 리투아니아 법인 이사로 활동<br><span style="font-size:0.82em;color:#aaaaaa">관련 기사 ▶</span> <a href="https://www.crunchbase.com/organization/wefi-d629" target="_blank" style="color:#00ccff;font-size:0.82em;text-decoration:none;border:1px solid rgba(0,204,255,0.3);border-radius:6px;padding:2px 8px;margin:2px">Crunchbase</a> <a href="https://financefeeds.com/how-wefi-plans-to-power-the-future-of-global-finance-interview-with-maksym-sakharov/" target="_blank" style="color:#00ccff;font-size:0.82em;text-decoration:none;border:1px solid rgba(0,204,255,0.3);border-radius:6px;padding:2px 8px;margin:2px">FinanceFeeds</a>' },
+      { icon: '🌍', text: '유럽 크립토 시장 성장 전략 및 규제 대응 전문가' },
+      { icon: '🤝', text: 'WeFi 글로벌 사용자 확장 전략 총괄 — 153개국 20만명+ 성장 주도' },
+      { icon: '📊', text: '파트너십, 커뮤니티 구축, 브랜드 확산 전략 담당' },
+    ]
+  },
+  ed: {
+    name: 'Evelina Dobrovolska',
+    role: 'WeFi Foundation 이사회 멤버',
+    avatar: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Evelina_Dobrovolska_2021.jpg/440px-Evelina_Dobrovolska_2021.jpg',
+    color: 'linear-gradient(135deg, #44ddaa, #229977)',
+    initials: 'ED',
+    achievements: [
+      { icon: '⚖️', text: '리투아니아 법무부 장관 역임 (2021년 취임) — 국가급 법률 최고 책임자' },
+      { icon: '🏛️', text: '리투아니아 국회(세이마스) 현직 의원 · 법학 석사 학위 보유' },
+      { icon: '🇪🇺', text: 'WeFi Foundation 이사회 멤버로 EU MiCA 규정 준수 법률 가이드라인 제공' },
+      { icon: '🔏', text: '유럽 암호화폐 규제 전문가 — WeFi의 유럽 제도권 진입 전략 자문' },
+      { icon: '📰', text: 'GlobeNewswire 공식 보도 (2024.02.15) — WeFi Foundation 합류 발표' },
+    ]
+  }
+};
+
+function openModal(id) {
+  const data = teamData[id];
+  if (!data) return;
+
+  const avatarEl = document.getElementById('modalAvatar');
+  avatarEl.style.background = data.color || 'linear-gradient(135deg, #00ff88, #00ccff)';
+
+  if (data.avatar) {
+    avatarEl.innerHTML = '';
+    const imgEl = document.createElement('img');
+    imgEl.src = data.avatar;
+    imgEl.style.width = '100%';
+    imgEl.style.height = '100%';
+    imgEl.style.objectFit = 'cover';
+    imgEl.style.borderRadius = '50%';
+    imgEl.onerror = function() {
+      avatarEl.innerHTML = `<span style="color:#000;font-weight:900">${data.initials}</span>`;
+    };
+    avatarEl.appendChild(imgEl);
+  } else {
+    avatarEl.innerHTML = `<span style="color:#000;font-weight:900">${data.initials}</span>`;
+  }
+
+  document.getElementById('modalName').textContent = data.name;
+  document.getElementById('modalRole').textContent = data.role;
+
+  let html = '<div class="modal-section-title">주요 업적 & 경력</div>';
+  html += '<div class="modal-achievement">';
+  data.achievements.forEach(a => {
+    html += `<div class="modal-ach-item">
+      <div class="modal-ach-icon">${a.icon}</div>
+      <div class="modal-ach-text">${a.text}</div>
+    </div>`;
+  });
+  html += '</div>';
+  document.getElementById('modalContent').innerHTML = html;
+  document.getElementById('teamModal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('teamModal')) closeModalDirect();
+}
+function closeModalDirect() {
+  document.getElementById('teamModal').classList.remove('show');
+  document.body.style.overflow = '';
+}
+
+// PC 네비 드래그 스크롤
+(function() {
+  var nav = document.querySelector('.nav');
+  if (!nav) return;
+  var isDown = false, startX, scrollLeft;
+  nav.addEventListener('mousedown', function(e) {
+    isDown = true; nav.classList.add('dragging');
+    startX = e.pageX - nav.offsetLeft; scrollLeft = nav.scrollLeft;
+  });
+  nav.addEventListener('mouseleave', function() { isDown = false; nav.classList.remove('dragging'); });
+  nav.addEventListener('mouseup', function() { isDown = false; nav.classList.remove('dragging'); });
+  nav.addEventListener('mousemove', function(e) {
+    if (!isDown) return;
+    e.preventDefault();
+    nav.scrollLeft = scrollLeft - (e.pageX - nav.offsetLeft - startX);
+  });
+})();
+
+function toggleWefiNews() {
+  var full = document.getElementById('wefi-news-full');
+  var btn = document.getElementById('wefi-news-btn');
+  if (full.style.display === 'none') {
+    full.style.display = 'block';
+    btn.textContent = '📖 접기 ▲';
+  } else {
+    full.style.display = 'none';
+    btn.textContent = '📖 전체 내용 보기 ▼';
+  }
+}
+
+function toggleBBS() {
+  var full = document.getElementById('bbs-full');
+  var btn = document.getElementById('bbs-toggle-btn');
+  if (full.style.display === 'none') {
+    full.style.display = 'block';
+    btn.textContent = '📖 접기 ▲';
+  } else {
+    full.style.display = 'none';
+    btn.textContent = '📖 전체 내용 보기 ▼';
+  }
+}
+
+function showSection(id, btn) {
+  var allSections = ['intro','team','ecosystem','ito','calc','news','video','chat'];
+  allSections.forEach(function(s) {
+    var el = document.getElementById('sec-' + s);
+    if (el) {
+      if (s === id) {
+        el.classList.add('show');
+        el.style.cssText = 'display:block !important; padding:0 16px;';
+      } else {
+        el.classList.remove('show');
+        el.style.cssText = 'display:none !important; padding:0 16px;';
+      }
+    }
+  });
+  document.querySelectorAll('.nav-btn').forEach(function(b) {
+    b.classList.remove('active');
+  });
+  if (btn) btn.classList.add('active');
+}
+
+// 페이지 로드 시 초기화
+(function() {
+  var allSections = ['intro','team','ecosystem','ito','calc','news','video','chat'];
+  allSections.forEach(function(s) {
+    var el = document.getElementById('sec-' + s);
+    if (el) {
+      if (s === 'intro') {
+        el.classList.add('show');
+        el.style.cssText = 'display:block !important; padding:0 16px;';
+      } else {
+        el.classList.remove('show');
+        el.style.cssText = 'display:none !important; padding:0 16px;';
+      }
+    }
+  });
+})();
+
+// 카운트다운
+function updateCountdown() {
+  const target = new Date('2026-09-18T00:00:00');
+  const now = new Date();
+  const diff = target - now;
+
+  // 반감기 D-day 카드 업데이트
+  const halvingDaysEl = document.getElementById('halving-days');
+  if (halvingDaysEl) {
+    if (diff <= 0) {
+      halvingDaysEl.textContent = 'D-0';
+      halvingDaysEl.style.color = '#00ff88';
+    } else {
+      const ddays = Math.ceil(diff / 86400000);
+      halvingDaysEl.textContent = 'D-' + ddays;
+    }
+  }
+  if (diff <= 0) {
+    document.getElementById('cd-days').textContent = '00';
+    document.getElementById('cd-hours').textContent = '00';
+    document.getElementById('cd-mins').textContent = '00';
+    document.getElementById('cd-secs').textContent = '00';
+    return;
+  }
+  const days = Math.floor(diff / 86400000);
+  const hours = Math.floor((diff % 86400000) / 3600000);
+  const mins = Math.floor((diff % 3600000) / 60000);
+  const secs = Math.floor((diff % 60000) / 1000);
+  document.getElementById('cd-days').textContent = String(days).padStart(2,'0');
+  document.getElementById('cd-hours').textContent = String(hours).padStart(2,'0');
+  document.getElementById('cd-mins').textContent = String(mins).padStart(2,'0');
+  document.getElementById('cd-secs').textContent = String(secs).padStart(2,'0');
+}
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
+// 간단 계산기
+function krwFmt(v) {
+  if (!isFinite(v) || isNaN(v)) return '-';
+  const abs = Math.abs(v);
+  if (abs >= 10000) return (Math.round(abs/1000)/10).toFixed(1) + '억원';
+  return Math.round(abs).toLocaleString() + '만원';
+}
+
+// WFI 보유량 → 원화 계산
+function calcWfiValue() {
+  const amt = parseFloat(document.getElementById('wfi-amount-input').value) || 0;
+  const resultEl = document.getElementById('wfi-value-result');
+  if (amt <= 0) { resultEl.style.display = 'none'; return; }
+
+  const priceEl = document.getElementById('wfi-price');
+  const price = parseFloat((priceEl ? priceEl.textContent : '').replace('$','')) || 2.11;
+  const exRate = window._exRate || 1480;
+
+  const usd = amt * price;
+  const krw = usd * exRate;
+
+  const fmtKrwVal = (v) => {
+    if (v >= 1e8) return (v/1e8).toFixed(2) + '억원';
+    if (v >= 1e4) return Math.round(v/1e4).toLocaleString() + '만원';
+    return Math.round(v).toLocaleString() + '원';
+  };
+
+  document.getElementById('wfi-value-usd').textContent = '$' + usd.toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2});
+  document.getElementById('wfi-value-krw').textContent = '₩' + fmtKrwVal(krw);
+  resultEl.style.display = 'block';
+}
+
+function calcMini() {
+  const invest = parseFloat(document.getElementById('ci-invest').value) || 150;
+  const growth = parseFloat(document.getElementById('ci-growth').value) || 4;
+  const price = parseFloat(document.getElementById('ci-price').value) || 2.14;
+  const exRate = parseFloat(document.getElementById('ci-exrate').value) || 1490;
+  const ratio = invest / 150;
+  const halvingDate = new Date('2026-09-18T00:00:00');
+  const endDate = new Date('2032-09-18T00:00:00');
+  const today = new Date();
+
+  // 기간 계산
+  const halvings = [];
+  let h = new Date(halvingDate);
+  while (h <= endDate) { halvings.push(new Date(h)); h = new Date(h); h.setFullYear(h.getFullYear()+2); }
+
+  let total = 0;
+  // 반감기 전
+  const preDays = Math.max(0, Math.round((halvingDate - today) / 86400000));
+  total += (1.5 * ratio) * preDays;
+  // 반감기 후
+  for (let i = 0; i < halvings.length; i++) {
+    const ps = halvings[i];
+    const pe = i+1 < halvings.length ? halvings[i+1] : endDate;
+    if (ps >= endDate) break;
+    const days = Math.max(0, Math.round((pe - ps) / 86400000));
+    const daily = (1.5 * ratio) / Math.pow(2, i+1) / Math.pow(growth, i+1);
+    total += daily * days;
+  }
+
+  const investKRW = invest * 10000;
+  const bePrice = total > 0 ? investKRW / exRate / total : 0;
+
+  document.getElementById('mini-summary').innerHTML = `
+    <div class="result-item"><div class="ri-label">총 채굴량</div><div class="ri-value">${Math.round(total).toLocaleString()}개</div></div>
+    <div class="result-item"><div class="ri-label">원금 회복 가격</div><div class="ri-value">$${bePrice.toFixed(2)}</div></div>
+    <div class="result-item"><div class="ri-label">투자금</div><div class="ri-value">${invest.toLocaleString()}만원</div></div>
+    <div class="result-item"><div class="ri-label">현재 평가액</div><div class="ri-value">${krwFmt(total*price*exRate/10000)}</div></div>
+  `;
+
+  const prices = [5, 10, 30, 50, 100, 300, 500, 1000];
+  let pt = '<tr><th>WFI가격</th><th>총금액</th><th>배수</th></tr>';
+  prices.forEach(p => {
+    const krw = total * p * exRate;
+    const mult = krw / investKRW;
+    pt += `<tr><td>$${p}</td><td class="pmt-profit">${krwFmt(krw/10000)}</td><td class="pmt-profit">${mult.toFixed(1)}배</td></tr>`;
+  });
+  document.getElementById('mini-price-table').innerHTML = pt;
+  document.getElementById('mini-result').classList.add('show');
+}
+// WFI 실시간 시세 로드
+async function loadWFILive() {
+  const fmt = (n) => n >= 1e9 ? '$' + (n/1e9).toFixed(2) + 'B' : '$' + (n/1e6).toFixed(0) + 'M';
+  const fmtKrw = (usd) => {
+    const exRate = window._exRate || 1480;
+    const krw = usd * exRate;
+    if (krw >= 1e12) return '약 ' + (krw/1e12).toFixed(1) + '조원';
+    if (krw >= 1e8) return '약 ' + Math.round(krw/1e8) + '억원';
+    return '약 ' + Math.round(krw/1e4) + '만원';
+  };
+  const render = (price, change, mcap, vol, rank) => {
+    document.getElementById('wfi-price').textContent = '$' + price.toFixed(3);
+    // 현재가격 원화 표시
+    const priceKrwEl = document.getElementById('wfi-price-krw');
+    if (priceKrwEl) priceKrwEl.textContent = '약 ' + Math.round(price * (window._exRate || 1480)).toLocaleString() + '원';
+    // 계산기 현재가 자동 동기화
+    const ciPrice = document.getElementById('ci-price');
+    if (ciPrice) ciPrice.value = price.toFixed(2);
+    const c = change || 0;
+    const color = c >= 0 ? '#00aaff' : '#ff5555';
+    const arrow = c >= 0 ? '▲' : '▼';
+    // 24h 등락 카드
+    document.getElementById('wfi-vol').innerHTML =
+      `<span style="color:${color}">${arrow} ${Math.abs(c).toFixed(2)}%</span>`;
+    document.getElementById('wfi-mcap').textContent = fmt(mcap);
+    // 시가총액 원화 표시
+    const mcapKrwEl = document.getElementById('wfi-mcap-krw');
+    if (mcapKrwEl) mcapKrwEl.textContent = fmtKrw(mcap);
+    // 거래량 원화 표시
+    const volKrwEl = document.getElementById('wfi-vol-krw');
+    if (volKrwEl) volKrwEl.textContent = '거래량 ' + fmtKrw(vol);
+    // 순위 + 총 개수
+    if (rank) {
+      document.getElementById('wfi-rank').textContent = '#' + rank;
+      const totalCoins = 15000;
+      const pct = ((rank / totalCoins) * 100).toFixed(1);
+      const rankTotalEl = document.getElementById('wfi-rank-total');
+      if (rankTotalEl) rankTotalEl.textContent = '15,000개 중 상위 ' + pct + '%';
+    }
+    const now = new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'});
+    const el = document.getElementById('wfi-update-time');
+    if (el) el.textContent = now + ' 기준';
+  };
+
+  const proxies = [
+    // 1. CoinGecko 직접
+    () => fetch('https://api.coingecko.com/api/v3/coins/wefi?localization=false&tickers=false&market_data=true&community_data=false&developer_data=false')
+      .then(r=>r.json()).then(d=>{ if(!d.market_data) throw 0;
+        render(d.market_data.current_price.usd, d.market_data.price_change_percentage_24h,
+               d.market_data.market_cap.usd, d.market_data.total_volume.usd, d.market_cap_rank); }),
+    // 2. CoinGecko simple 직접
+    () => fetch('https://api.coingecko.com/api/v3/simple/price?ids=wefi&vs_currencies=usd&include_market_cap=true&include_24hr_vol=true&include_24hr_change=true')
+      .then(r=>r.json()).then(d=>{ if(!d.wefi) throw 0;
+        render(d.wefi.usd, d.wefi.usd_24h_change, d.wefi.usd_market_cap, d.wefi.usd_24h_vol, null); }),
+    // 3. allorigins 프록시
+    () => fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://api.coingecko.com/api/v3/simple/price?ids=wefi&vs_currencies=usd&include_market_cap=true&include_24hr_vol=true&include_24hr_change=true'))
+      .then(r=>r.json()).then(d=>{ const p=JSON.parse(d.contents); if(!p.wefi) throw 0;
+        render(p.wefi.usd, p.wefi.usd_24h_change, p.wefi.usd_market_cap, p.wefi.usd_24h_vol, null); }),
+    // 4. corsproxy.io
+    () => fetch('https://corsproxy.io/?' + encodeURIComponent('https://api.coingecko.com/api/v3/simple/price?ids=wefi&vs_currencies=usd&include_market_cap=true&include_24hr_vol=true&include_24hr_change=true'))
+      .then(r=>r.json()).then(d=>{ if(!d.wefi) throw 0;
+        render(d.wefi.usd, d.wefi.usd_24h_change, d.wefi.usd_market_cap, d.wefi.usd_24h_vol, null); }),
+    // 5. CoinCap API (별도 소스)
+    () => fetch('https://api.coincap.io/v2/assets/wefi')
+      .then(r=>r.json()).then(d=>{ if(!d.data) throw 0;
+        render(parseFloat(d.data.priceUsd), parseFloat(d.data.changePercent24Hr),
+               parseFloat(d.data.marketCapUsd), parseFloat(d.data.volumeUsd24Hr), parseInt(d.data.rank)||null); }),
+  ];
+
+  for (const fn of proxies) {
+    try { await fn(); return; } catch(e) {}
+  }
+}
+loadWFILive();
+setInterval(loadWFILive, 60000);
+
+// 실시간 환율 동기화
+async function loadExRate() {
+  try {
+    const r = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
+    const d = await r.json();
+    const krw = Math.round(d.rates.KRW);
+    if (!krw) throw 0;
+    const el = document.getElementById('ci-exrate');
+    if (el) el.value = krw;
+    // fmtKrw 환율도 갱신
+    window._exRate = krw;
+  } catch(e) {
+    try {
+      const r = await fetch('https://open.er-api.com/v6/latest/USD');
+      const d = await r.json();
+      const krw = Math.round(d.rates.KRW);
+      if (!krw) throw 0;
+      const el = document.getElementById('ci-exrate');
+      if (el) el.value = krw;
+      window._exRate = krw;
+    } catch(e2) {}
+  }
+}
+loadExRate();
+
+// 24시간 차트
+async function loadWFIChart() {
+  const svg = document.getElementById('wfi-chart');
+  if (!svg) return;
+  try {
+    const urls = [
+      'https://api.coingecko.com/api/v3/coins/wefi/market_chart?vs_currency=usd&days=1&interval=hourly',
+      'https://api.allorigins.win/get?url=' + encodeURIComponent('https://api.coingecko.com/api/v3/coins/wefi/market_chart?vs_currency=usd&days=1&interval=hourly'),
+      'https://corsproxy.io/?' + encodeURIComponent('https://api.coingecko.com/api/v3/coins/wefi/market_chart?vs_currency=usd&days=1&interval=hourly'),
+    ];
+    let prices = null;
+    for (const url of urls) {
+      try {
+        const r = await fetch(url);
+        const d = await r.json();
+        const raw = d.prices || (d.contents && JSON.parse(d.contents).prices);
+        if (raw && raw.length > 2) { prices = raw.map(p => p[1]); break; }
+      } catch(e) {}
+    }
+    if (!prices || prices.length < 2) throw 0;
+
+    const W = 300, H = 80, pad = 6;
+    const min = Math.min(...prices);
+    const max = Math.max(...prices);
+    const range = max - min || 0.0001;
+    const pts = prices.map((p, i) => {
+      const x = pad + (i / (prices.length - 1)) * (W - pad * 2);
+      const y = H - pad - ((p - min) / range) * (H - pad * 2);
+      return `${x.toFixed(1)},${y.toFixed(1)}`;
+    });
+    const isUp = prices[prices.length - 1] >= prices[0];
+    const color = isUp ? '#00aaff' : '#ff5555';
+    const fillColor = isUp ? 'rgba(0,170,255,0.08)' : 'rgba(255,85,85,0.08)';
+
+    // 마지막 점 좌표
+    const lastPt = pts[pts.length - 1].split(',');
+    const lx = parseFloat(lastPt[0]);
+    const ly = parseFloat(lastPt[1]);
+
+    svg.innerHTML = `
+      <defs>
+        <linearGradient id="cg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="${color}" stop-opacity="0.3"/>
+          <stop offset="100%" stop-color="${color}" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <polygon points="${pts.join(' ')} ${(W-pad).toFixed(1)},${H} ${pad},${H}" fill="url(#cg)"/>
+      <polyline points="${pts.join(' ')}" fill="none" stroke="${color}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+      <circle cx="${lx}" cy="${ly}" r="3" fill="${color}" opacity="0.9"/>
+    `;
+  } catch(e) {
+    const svg = document.getElementById('wfi-chart');
+    if (svg) svg.innerHTML = '<text x="150" y="45" text-anchor="middle" fill="#555" font-size="10">데이터 없음</text>';
+  }
+}
+loadWFIChart();
+setInterval(loadWFIChart, 5 * 60 * 1000);
+
+// ── 오늘의 주요뉴스 (AI 자동 업데이트) ──────────────────────────────
+var currentNewsTab = 'wefi';
+var newsLoaded = { wefi: false, reeve: false, stbl: false };
+
+const WEFI_NEWS_FALLBACK = [
+  { icon: '🏦', media: 'Chainwire', title: 'WeFi, 세계 최초 탈중앙화 온체인 뱅크(Deobank) 공식 런칭', date: '2025.02.06', url: 'https://chainwire.org/2025/02/06/wefi-launches-deobank-the-worlds-first-decentralized-onchain-bank/' },
+  { icon: '📈', media: '99Bitcoins', title: 'WFI 코인, 30일간 +90% 급등 — 비트코인 부진 속 독보적 상승', date: '2025.11.19', url: 'https://99bitcoins.com/news/altcoins/what-is-wefi-crypto-wfi-crypto-slams-90-in-30d-as-bitcoin-dips/' },
+  { icon: '💳', media: 'WeFi 공식', title: '실물 WeFi Visa 카드 출시 — 글로벌 1억 4천만 가맹점 사용 가능', date: '2025.12', url: 'https://coinmarketcap.com/cmc-ai/wfi/latest-updates/' },
+  { icon: '📊', media: 'CoinMarketCap', title: 'WeFi CEO, 스테이블코인·기업 금융 인프라 전환 선두에 서다', date: '2025.12.29', url: 'https://coinmarketcap.com/cmc-ai/wfi/latest-updates/' },
+  { icon: '🔐', media: 'CoinGecko', title: 'WFI 시총 $1.9억 돌파 · CMC #185 — Episode 3 출시 기대감 고조', date: '2026.03', url: 'https://www.coingecko.com/en/coins/wfi' }
+];
+const REEVE_NEWS_FALLBACK = [
+  { icon: '🤖', media: 'CoinReporter', title: '리브 콜린스 "AI 에이전트가 스테이블코인을 혁신한다"', date: '2026.02.28', url: 'https://www.coinreporter.io/2026/02/tether-co-founder-ai-agents-will-transform-stablecoins-and-crypto-wallets/' },
+  { icon: '🌍', media: 'BitcoinGuide', title: 'WeFi, 리야드 글로벌 블록체인 쇼 주요 연사 참가', date: '2026.02.26', url: 'https://bitcoinguide.com/news/2026/02/26/global-blockchain-show-riyadh-unveils-world-class-speakers-redefining-the-future-of-web3-and-digital-assets' },
+  { icon: '📣', media: 'CryptoNews', title: '테더 창업자의 새 도전 — DeoBank로 탈중앙화 금융 재정의', date: '2025.03', url: 'https://coinmarketcap.com/cmc-ai/wfi/latest-updates/' },
+  { icon: '👤', media: 'Bloomberg', title: '테더 공동창업자 리브 콜린스, 수익형 스테이블코인 경쟁자 개발 중', date: '2025.02.18', url: 'https://www.bloomberg.com/news/articles/2025-02-18/tether-co-founder-is-working-on-yield-bearing-stablecoin-rival' },
+  { icon: '🏦', media: 'CoinMarketCap', title: '테더 공동창업자 리브 콜린스, $225B 시장서 수익형 스테이블코인 출시', date: '2025.02', url: 'https://coinmarketcap.com/academy/article/tether-co-founder-reeve-collins-launches-new-stablecoin-offering-yield-in-dollar225b-market' },
+  { icon: '🚀', media: 'WeFi 공식', title: '리브 콜린스, WeFi DeoBank로 블록체인 뱅킹 혁신 선언', date: '2025.01', url: 'https://wefi.co' },
+  { icon: '💡', media: 'IQ Wiki', title: '리브 콜린스 — 테더 초대 CEO, WeFi DeoBank 설계자', date: '2024.01', url: 'https://iq.wiki/wiki/reeve-collins' }
+];
+
+
+function sortByDate(items) {
+  return items.slice().sort(function(a, b) {
+    var da = (a.date||'').replace(/\./g,'-').replace(/[^0-9-]/g,'');
+    var db = (b.date||'').replace(/\./g,'-').replace(/[^0-9-]/g,'');
+    return db.localeCompare(da);
+  });
+}
+
+function renderNewsList(listId, items, isAI) {
+  var list = document.getElementById(listId);
+  if (!list) return;
+  var sorted = sortByDate(items);
+  list.style.display = 'flex';
+  list.innerHTML = sorted.map(function(n) {
+    var el = document.createElement('a');
+    el.href = n.url || '#';
+    el.target = '_blank';
+    el.style.cssText = 'display:flex;align-items:center;gap:10px;padding:10px 12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:10px;text-decoration:none;transition:background 0.2s;';
+    el.addEventListener('mouseover', function(){ this.style.background='rgba(0,255,136,0.06)'; });
+    el.addEventListener('mouseout',  function(){ this.style.background='rgba(255,255,255,0.03)'; });
+    el.innerHTML =
+      '<div style="font-size:1.3em;flex-shrink:0;">' + (n.icon||'📰') + '</div>'
+      + '<div style="flex:1;min-width:0;">'
+      + '<div style="font-size:0.68em;color:#00ff88;font-weight:600;margin-bottom:2px;">' + (n.media||n.source||'') + '</div>'
+      + '<div style="font-size:0.82em;color:#e8f5ec;line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + (n.title||'') + '</div>'
+      + '<div style="font-size:0.68em;color:#555;margin-top:2px;">' + (n.date||'') + '</div>'
+      + '</div>'
+      + '<div style="color:#555;font-size:0.8em;flex-shrink:0;">&#x203A;</div>';
+    return el.outerHTML;
+  }).join('');
+  if (isAI !== undefined) {
+    var timeEl = document.getElementById('news-refresh-time');
+    if (timeEl) {
+      var badge = isAI ? '<span style="background:rgba(0,255,136,0.15);color:#00ff88;border-radius:6px;padding:1px 6px;font-size:0.85em;margin-right:4px;">AI 자동</span>' : '';
+      timeEl.innerHTML = badge + new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'}) + ' 기준';
+    }
+  }
+}
+
+function renderWeFiNews(items, isAI) { renderNewsList('wefi-news-list', items, isAI); }
+
+function switchNewsTab(tab) {
+  currentNewsTab = tab;
+  ['wefi','reeve'].forEach(function(t) {
+    var btn = document.getElementById('ntab-' + t);
+    if (!btn) return;
+    if (t === tab) {
+      btn.style.background = 'rgba(0,255,136,0.15)';
+      btn.style.borderColor = 'rgba(0,255,136,0.5)';
+      btn.style.color = '#00ff88';
+    } else {
+      btn.style.background = 'rgba(255,255,255,0.04)';
+      btn.style.borderColor = 'rgba(255,255,255,0.1)';
+      btn.style.color = '#7a9980';
+    }
+  });
+  var ids = { wefi:'wefi-news-list', reeve:'reeve-news-list' };
+  Object.keys(ids).forEach(function(t) {
+    var el = document.getElementById(ids[t]);
+    if (el) el.style.display = (t === tab) ? 'flex' : 'none';
+  });
+  if (!newsLoaded[tab]) {
+    if (tab === 'reeve') loadReeveNewsAI();
+  }
+}
+
+// 공통 AI 뉴스 로더
+async function loadNewsAI(query, listId, fallback, flagKey) {
+  var statusEl = document.getElementById('news-refresh-time');
+  if (statusEl) statusEl.innerHTML = '<span style="color:#ffcc00;font-size:0.85em;">⟳ AI 검색 중...</span>';
+  try {
+    var today = new Date().toLocaleDateString('ko-KR', {year:'numeric',month:'long',day:'numeric'});
+    var res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1200,
+        tools: [{ type: 'web_search_20250305', name: 'web_search' }],
+        system: 'You are a crypto news aggregator. Return ONLY a valid JSON array of 5 positive/neutral news items. No markdown, no explanation. Each item: {"icon":"emoji","media":"source","title":"Korean title","date":"YYYY.MM.DD","url":"real url"}.',
+        messages: [{ role: 'user', content: '오늘(' + today + ') 기준 ' + query + ' 웹에서 검색해서 긍정적인 뉴스 5개를 최신순으로 JSON 배열로만 반환해줘.' }]
+      })
+    });
+    var data = await res.json();
+    var text = (data.content||[]).filter(function(b){return b.type==='text';}).map(function(b){return b.text;}).join('');
+    var clean = text.replace(/```json|```/g,'').trim();
+    var match = clean.match(/\[[\s\S]*\]/);
+    if (!match) throw new Error('no array');
+    var news = JSON.parse(match[0]);
+    if (!Array.isArray(news)||news.length===0) throw new Error('empty');
+    renderNewsList(listId, news, true);
+    newsLoaded[flagKey] = true;
+  } catch(e) {
+    renderNewsList(listId, fallback, false);
+    newsLoaded[flagKey] = true;
+  }
+}
+
+function loadWeFiNewsAI()  { loadNewsAI('WeFi DeoBank WFI 코인 관련 최신 뉴스', 'wefi-news-list',  WEFI_NEWS_FALLBACK,  'wefi');  }
+function loadReeveNewsAI() { loadNewsAI('리브 콜린스(Reeve Collins) 테더 WeFi 관련 긍정적인 최신 뉴스', 'reeve-news-list', REEVE_NEWS_FALLBACK, 'reeve'); }
+
+const MAJOR_NEWS_FALLBACK = [
+  { icon: '📺', media: 'CNBC Fast Money', title: '리브 콜린스 (STBL·WeFi·ReserveOne) 출연 — "크립토 기관·개인 관심 역사상 최고"', date: '2026.02.23', url: 'https://www.cnbc.com/video/2026/02/23/crypto-panel.html' },
+  { icon: '📺', media: 'CNBC Squawk Box', title: 'ReserveOne CEO 출연 — "2026년 비트코인 기관 도입 급증 전망"', date: '2025.12.30', url: 'https://www.cnbc.com/video/2025/12/30/expecting-increased-institutional-adoption-of-bitcoin-in-2026-says-reserveone-ceo.html' },
+  { icon: '📊', media: 'Bloomberg Crypto', title: 'ReserveOne CEO Bloomberg 출연 — "혼란스런 변동성에도 강세 유지"', date: '2025.11.18', url: 'https://www.bloomberg.com/news/videos/2025-11-18/bullish-even-with-confusing-crypto-volatility-leverton-video' },
+  { icon: '📊', media: 'Bloomberg', title: 'ReserveOne, SPAC 통해 나스닥 상장 추진 공식 발표', date: '2025.07.08', url: 'https://www.bloomberg.com/news/videos/2025-07-08/reserveone-will-list-on-nasdaq-via-spac' },
+  { icon: '💹', media: 'Yahoo Finance', title: '리브 콜린스 — "스테이블코인 2.0, 기존 은행 시스템을 위협한다"', date: '2025.10.16', url: 'https://finance.yahoo.com/news/tether-co-founder-reeve-collins-144715773.html' },
+  { icon: '💹', media: 'Yahoo Finance', title: 'WFI 코인 30일간 +90% 급등 — WeFi 세계 최초 Deobank', date: '2025.11', url: 'https://finance.yahoo.com/news/wefi-crypto-wfi-crypto-slams-111808200.html' },
+  { icon: '🎙️', media: 'The Defiant Podcast', title: '리브 콜린스 — "JP모건의 악몽, 스테이블코인으로 내가 은행이 된다"', date: '2025.09.12', url: 'https://thedefiant.io/podcasts-and-videos/podcast/j-p-morgan-s-nightmare-how-stablecoins-let-you-be-your-own-bank-or-reeve-collins' },
+  { icon: '📰', media: 'Bloomberg', title: '테더 공동창업자 리브 콜린스, 수익형 스테이블코인 경쟁자 개발 중', date: '2025.02.18', url: 'https://www.bloomberg.com/news/articles/2025-02-18/tether-co-founder-is-working-on-yield-bearing-stablecoin-rival' },
+  { icon: '🌐', media: 'CoinReporter', title: '리브 콜린스 — "AI 에이전트가 스테이블코인과 크립토 지갑을 혁신한다"', date: '2026.02.28', url: 'https://www.coinreporter.io/2026/02/tether-co-founder-ai-agents-will-transform-stablecoins-and-crypto-wallets/' },
+];
+
+async function loadMajorNewsAI() {
+  const listId = 'major-news-list';
+  const timeEl = document.getElementById('major-refresh-time');
+  // 폴백 먼저 표시
+  renderNewsList(listId, MAJOR_NEWS_FALLBACK, false);
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        tools: [{ type: 'web_search_20250305', name: 'web_search' }],
+        messages: [{
+          role: 'user',
+          content: 'CNBC Bloomberg Reuters Yahoo Finance 등 메이저 언론에 보도된 WeFi DeoBank, Reeve Collins, ReserveOne, STBL 관련 최신 뉴스 8건을 찾아서 JSON 배열로만 반환해줘. 형식: [{"icon":"📺","media":"언론사명","title":"제목","date":"날짜","url":"링크"}]. JSON만 출력, 다른 텍스트 없이.'
+        }]
+      })
+    });
+    const data = await res.json();
+    const text = (data.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('');
+    const clean = text.replace(/```json|```/g,'').trim();
+    const match = clean.match(/\[[\s\S]*\]/);
+    if (!match) throw new Error('no array');
+    const news = JSON.parse(match[0]);
+    if (!Array.isArray(news) || news.length === 0) throw new Error('empty');
+    renderNewsList(listId, news, true);
+    if (timeEl) {
+      const now = new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'});
+      timeEl.textContent = now + ' 기준';
+    }
+  } catch(e) {
+    // 폴백 유지
+    if (timeEl) timeEl.textContent = '저장된 데이터';
+  }
+}
+loadMajorNewsAI();
+setInterval(loadMajorNewsAI, 60 * 60 * 1000); // 1시간마다 갱신
+
+// 폴백 즉시 표시
+renderNewsList('wefi-news-list', WEFI_NEWS_FALLBACK, false);
+renderNewsList('reeve-news-list', REEVE_NEWS_FALLBACK, undefined);
+// 리브콜린스 탭 초기 숨김
+document.addEventListener('DOMContentLoaded', function() {
+  var rList = document.getElementById('reeve-news-list');
+  if (rList) rList.style.display = 'none';
+});
+
+loadWeFiNewsAI();
+setInterval(loadWeFiNewsAI, 30 * 60 * 1000);
+
+// 레퍼럴 코드 적용
+function applyRef() {
+  var input = document.getElementById('refInput').value.trim();
+  if (!input) { alert('레퍼럴 코드를 입력해주세요!'); return; }
+
+  // URL 전체 입력해도 코드만 추출
+  var code = input;
+  if (input.indexOf('ref=') !== -1) {
+    code = input.split('ref=').pop().split('&')[0].trim();
+  }
+
+  var base = 'https://app.wefi.co/register?ref=';
+  var url = base + code;
+
+  // 링크 전체 업데이트
+  ['refLink1','refLink2','refLink3'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.href = url;
+  });
+  document.getElementById('refUrl').textContent = url;
+
+  // 카톡 공유 버튼 표시
+  var shareBtn = document.getElementById('kakao-share-btn');
+  if (shareBtn) {
+    shareBtn.style.display = 'block';
+    shareBtn.setAttribute('data-url', url);
+    shareBtn.setAttribute('data-code', code);
+  }
+  var hint = document.getElementById('kakao-share-hint');
+  if (hint) hint.style.display = 'block';
+  alert('✅ 레퍼럴 코드 [' + code + '] 적용 완료!\n\n파일 다운로드 버튼을 눌러 카톡으로 전송하세요!');
+}
+
+// 레퍼럴 코드가 박힌 HTML 파일 다운로드 + 홍보 이미지 다운로드
+function shareKakao() {
+  var btn = document.getElementById('kakao-share-btn');
+  var code = btn ? btn.getAttribute('data-code') : '';
+  var url = btn ? btn.getAttribute('data-url') : 'https://app.wefi.co/register';
+
+  if (!code) { alert('레퍼럴 코드를 먼저 입력하고 적용해주세요!'); return; }
+
+  // 1. HTML 파일 다운로드
+  var html = document.documentElement.outerHTML;
+  html = html.replace(/f9vipn2iog/g, code);
+  var blob = new Blob([html], {type: 'text/html;charset=utf-8'});
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'WeFi_DeoBank_' + code + '.html';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(a.href);
+
+  // 2. 홍보 이미지 생성 (Canvas)
+  setTimeout(function() {
+    makePromoImage(code, url);
+  }, 800);
+}
+
+// 홍보 이미지 생성
+function makePromoImage(code, url) {
+  var canvas = document.createElement('canvas');
+  canvas.width = 800;
+  canvas.height = 900;
+  var ctx = canvas.getContext('2d');
+
+  // 배경
+  var bg = ctx.createLinearGradient(0, 0, 0, 900);
+  bg.addColorStop(0, '#080e0a');
+  bg.addColorStop(1, '#0d1a10');
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, 800, 900);
+
+  // 상단 글로우
+  var glow = ctx.createRadialGradient(400, 0, 0, 400, 0, 400);
+  glow.addColorStop(0, 'rgba(0,255,136,0.12)');
+  glow.addColorStop(1, 'transparent');
+  ctx.fillStyle = glow;
+  ctx.fillRect(0, 0, 800, 900);
+
+  // 테두리
+  ctx.strokeStyle = 'rgba(0,255,136,0.3)';
+  ctx.lineWidth = 2;
+  ctx.strokeRect(20, 20, 760, 860);
+
+  // 배지
+  ctx.fillStyle = 'rgba(0,255,136,0.1)';
+  ctx.beginPath();
+  ctx.roundRect(260, 50, 280, 44, 22);
+  ctx.fill();
+  ctx.strokeStyle = 'rgba(0,255,136,0.3)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.roundRect(260, 50, 280, 44, 22);
+  ctx.stroke();
+  ctx.fillStyle = '#00ff88';
+  ctx.font = 'bold 14px monospace';
+  ctx.textAlign = 'center';
+  ctx.fillText('🌐 WORLD\'S FIRST DEOBANK', 400, 78);
+
+  // 타이틀
+  ctx.font = 'bold 56px sans-serif';
+  var grad = ctx.createLinearGradient(200, 100, 600, 180);
+  grad.addColorStop(0, '#00ff88');
+  grad.addColorStop(1, '#00ccff');
+  ctx.fillStyle = grad;
+  ctx.textAlign = 'center';
+  ctx.fillText('WeFi DeoBank', 400, 170);
+
+  ctx.fillStyle = '#7a9980';
+  ctx.font = '18px sans-serif';
+  ctx.fillText('Beyond Banking · 블록체인이 만든 새로운 은행', 400, 210);
+
+  // 구분선
+  ctx.strokeStyle = 'rgba(0,255,136,0.2)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(60, 240); ctx.lineTo(740, 240);
+  ctx.stroke();
+
+  // 핵심 정보 카드들
+  var cards = [
+    { label: '📊 CMC 순위', value: '#217', sub: '상위 1.4%', color: '#ffcc00' },
+    { label: '💰 현재 가격', value: '$2.11', sub: '실시간 시세', color: '#00ccff' },
+    { label: '🌍 글로벌 사용자', value: '20만명+', sub: '153개국', color: '#00ff88' },
+    { label: '⛏️ 일 채굴량', value: '1.5개/일', sub: '반감기 전 지금!', color: '#00ff88' },
+  ];
+  cards.forEach(function(c, i) {
+    var x = (i % 2) * 360 + 60;
+    var y = 260 + Math.floor(i / 2) * 160;
+    ctx.fillStyle = 'rgba(0,255,136,0.05)';
+    ctx.beginPath();
+    ctx.roundRect(x, y, 320, 130, 14);
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(0,255,136,0.15)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.roundRect(x, y, 320, 130, 14);
+    ctx.stroke();
+    ctx.fillStyle = '#7a9980';
+    ctx.font = '14px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(c.label, x + 160, y + 30);
+    ctx.fillStyle = c.color;
+    ctx.font = 'bold 32px sans-serif';
+    ctx.fillText(c.value, x + 160, y + 75);
+    ctx.fillStyle = '#7a9980';
+    ctx.font = '13px sans-serif';
+    ctx.fillText(c.sub, x + 160, y + 105);
+  });
+
+  // 구분선
+  ctx.strokeStyle = 'rgba(0,255,136,0.2)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(60, 600); ctx.lineTo(740, 600);
+  ctx.stroke();
+
+  // 레퍼럴 코드 박스
+  ctx.fillStyle = 'rgba(0,255,136,0.08)';
+  ctx.beginPath();
+  ctx.roundRect(60, 620, 680, 90, 14);
+  ctx.fill();
+  ctx.strokeStyle = 'rgba(0,255,136,0.4)';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.roundRect(60, 620, 680, 90, 14);
+  ctx.stroke();
+  ctx.fillStyle = '#7a9980';
+  ctx.font = '15px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('🔗 가입 링크 (아래 HTML 파일을 열어서 가입하세요)', 400, 650);
+  ctx.fillStyle = '#00ccff';
+  ctx.font = 'bold 18px monospace';
+  ctx.fillText(url, 400, 690);
+
+  // 하단 안내
+  ctx.fillStyle = '#e8f5ec';
+  ctx.font = 'bold 22px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('📁 아래 HTML 파일을 열어보세요!', 400, 760);
+  ctx.fillStyle = '#7a9980';
+  ctx.font = '16px sans-serif';
+  ctx.fillText('파일을 열면 상세 정보 확인 후 가입 가능합니다', 400, 795);
+
+  // 워터마크
+  ctx.fillStyle = 'rgba(0,255,136,0.3)';
+  ctx.font = '13px monospace';
+  ctx.textAlign = 'center';
+  ctx.fillText('Made by WeFi DeoBank · wefi.co', 400, 860);
+
+  // PNG 다운로드
+  canvas.toBlob(function(imgBlob) {
+    var imgA = document.createElement('a');
+    imgA.href = URL.createObjectURL(imgBlob);
+    imgA.download = 'WeFi_홍보이미지_' + code + '.png';
+    document.body.appendChild(imgA);
+    imgA.click();
+    document.body.removeChild(imgA);
+    URL.revokeObjectURL(imgA.href);
+
+    alert('✅ 다운로드 완료!\n\n📸 홍보 이미지 (PNG)\n📁 앱 파일 (HTML)\n\n카톡 전송 방법:\n1️⃣ 이미지 먼저 전송 (미리보기 보임)\n2️⃣ HTML 파일 전송 (클릭하면 앱 열림)\n\n받은 분이 파일 열면 [' + code + '] 코드로 자동 연결! 😊');
+  }, 'image/png');
+}
+
+
+</script>
+</body>
+</html>
