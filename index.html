@@ -569,6 +569,7 @@
     <button class="nav-btn" onclick="showSection('calc', this)">📊 계산기</button>
     <button class="nav-btn" onclick="showSection('news', this)">📰 뉴스</button>
     <button class="nav-btn" onclick="showSection('video', this)">▶️ 동영상</button>
+    <button class="nav-btn" onclick="showSection('chat', this)" style="background:linear-gradient(90deg,rgba(0,255,136,0.15),rgba(0,204,255,0.15));border-color:rgba(0,255,136,0.4);color:#00ff88;font-weight:700;">⚡ 레벨UP</button>
   </div>
 
   <!-- 소개 섹션 -->
@@ -1381,6 +1382,33 @@
     </div>
   </div>
 
+  <!-- 레벨UP 소통방 섹션 -->
+  <div class="section" id="sec-chat">
+    <div class="card" style="border-color:rgba(0,255,136,0.4);">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+        <div class="card-title" style="margin-bottom:0;">⚡ 레벨UP 소통방</div>
+        <div id="chat-count" style="font-size:0.72em;color:#7a9980;"></div>
+      </div>
+      <div style="font-size:0.78em;color:#7a9980;margin-bottom:14px;">발란스 팀 자유 소통 공간입니다 😊</div>
+
+      <!-- 닉네임 입력 -->
+      <div style="display:flex;gap:8px;margin-bottom:10px;">
+        <input id="chat-nick" type="text" placeholder="닉네임" maxlength="12"
+          style="width:100px;padding:8px 10px;background:#0a1a0c;border:1px solid var(--border);border-radius:8px;color:#e8f5ec;font-size:0.82em;font-family:inherit;outline:none;">
+        <input id="chat-msg" type="text" placeholder="메시지를 입력하세요..." maxlength="100"
+          onkeydown="if(event.key==='Enter') sendChat()"
+          style="flex:1;padding:8px 10px;background:#0a1a0c;border:1px solid var(--border);border-radius:8px;color:#e8f5ec;font-size:0.82em;font-family:inherit;outline:none;">
+        <button onclick="sendChat()"
+          style="padding:8px 14px;background:linear-gradient(90deg,var(--green),var(--blue));border:none;border-radius:8px;color:#000;font-weight:700;font-size:0.82em;cursor:pointer;white-space:nowrap;">전송</button>
+      </div>
+
+      <!-- 채팅 목록 -->
+      <div id="chat-list" style="display:flex;flex-direction:column;gap:8px;max-height:420px;overflow-y:auto;padding-right:2px;">
+        <div style="text-align:center;color:#555;font-size:0.82em;padding:20px 0;">로딩 중...</div>
+      </div>
+    </div>
+  </div>
+
   <div class="footer">
     <!-- 홈화면 추가 안내 -->
     <div id="install-banner" style="background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.3);border-radius:14px;padding:14px 16px;margin-bottom:16px;text-align:left;">
@@ -1556,7 +1584,78 @@ function closeModalDirect() {
   document.getElementById('teamModal').classList.remove('show');
   document.body.style.overflow = '';
 }
-// BBS 더보기 토글
+// ── 레벨UP 소통방 ──────────────────────────────────────────
+var chatNickSaved = localStorage.getItem('chat_nick') || '';
+
+async function loadChat() {
+  const list = document.getElementById('chat-list');
+  if (!list) return;
+  try {
+    const raw = localStorage.getItem('levelup-chat');
+    const msgs = raw ? JSON.parse(raw) : [];
+    renderChat(msgs);
+  } catch(e) {
+    renderChat([]);
+  }
+}
+
+function renderChat(msgs) {
+  const list = document.getElementById('chat-list');
+  const countEl = document.getElementById('chat-count');
+  if (!list) return;
+  if (countEl) countEl.textContent = (msgs.length || 0) + '개의 메시지';
+
+  if (!msgs || msgs.length === 0) {
+    list.innerHTML = '<div style="text-align:center;color:#555;font-size:0.82em;padding:24px 0;">첫 메시지를 남겨보세요! 😊</div>';
+    return;
+  }
+
+  list.innerHTML = msgs.slice().reverse().map(m => {
+    const timeStr = new Date(m.ts).toLocaleString('ko-KR',{month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'});
+    return `<div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:10px;padding:10px 12px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+        <span style="font-size:0.8em;font-weight:700;color:#00ff88;">${escHtml(m.nick)}</span>
+        <span style="font-size:0.68em;color:#555;">${timeStr}</span>
+      </div>
+      <div style="font-size:0.88em;color:#e8f5ec;line-height:1.5;word-break:break-all;">${escHtml(m.text)}</div>
+    </div>`;
+  }).join('');
+}
+
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+async function sendChat() {
+  const nickEl = document.getElementById('chat-nick');
+  const msgEl = document.getElementById('chat-msg');
+  const nick = (nickEl.value.trim() || '익명').slice(0,12);
+  const text = msgEl.value.trim();
+  if (!text) { msgEl.focus(); return; }
+
+  // 닉네임 저장
+  try { localStorage.setItem('chat_nick', nick); } catch(e) {}
+  nickEl.value = nick;
+  msgEl.value = '';
+
+  try {
+    const raw = localStorage.getItem('levelup-chat');
+    const msgs = raw ? JSON.parse(raw) : [];
+    msgs.push({ nick, text, ts: Date.now() });
+    if (msgs.length > 200) msgs.splice(0, msgs.length - 200);
+    localStorage.setItem('levelup-chat', JSON.stringify(msgs));
+    renderChat(msgs);
+  } catch(e) {
+    alert('저장 실패. 잠시 후 다시 시도해주세요.');
+  }
+}
+
+// 소통방 탭 진입 시 로드
+const _origShowSection = showSection;
+showSection = function(id, btn) {
+  _origShowSection(id, btn);
+  if (id === 'chat') loadChat();
+};
 function toggleBBS() {
   var full = document.getElementById('bbs-full');
   var btn = document.getElementById('bbs-toggle-btn');
@@ -1570,7 +1669,7 @@ function toggleBBS() {
 }
 
 function showSection(id, btn) {
-  var allSections = ['intro','team','ecosystem','ito','calc','news','video'];
+  var allSections = ['intro','team','ecosystem','ito','calc','news','video','chat'];
   allSections.forEach(function(s) {
     var el = document.getElementById('sec-' + s);
     if (el) {
@@ -1591,7 +1690,7 @@ function showSection(id, btn) {
 
 // 페이지 로드 시 초기화
 (function() {
-  var allSections = ['intro','team','ecosystem','ito','calc','news','video'];
+  var allSections = ['intro','team','ecosystem','ito','calc','news','video','chat'];
   allSections.forEach(function(s) {
     var el = document.getElementById('sec-' + s);
     if (el) {
