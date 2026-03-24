@@ -108,12 +108,18 @@
   .nav {
     display: flex;
     gap: 8px;
-    padding: 0 16px;
-    margin-bottom: 20px;
+    padding: 0 16px 8px;
+    margin-bottom: 12px;
     overflow-x: auto;
-    scrollbar-width: none;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0,255,136,0.3) transparent;
+    cursor: grab;
+    -webkit-overflow-scrolling: touch;
   }
-  .nav::-webkit-scrollbar { display: none; }
+  .nav::-webkit-scrollbar { height: 3px; }
+  .nav::-webkit-scrollbar-track { background: transparent; }
+  .nav::-webkit-scrollbar-thumb { background: rgba(0,255,136,0.3); border-radius: 3px; }
+  .nav.dragging { cursor: grabbing; user-select: none; }
   .nav-btn {
     flex-shrink: 0;
     padding: 10px 18px;
@@ -1449,7 +1455,7 @@
         </svg>
         <div style="text-align:left;">
           <div style="font-size:0.72em;color:#3A1D1D;opacity:0.7;margin-bottom:2px;">👥 팀 단체 소통방</div>
-          <div style="font-size:1.0em;font-weight:900;color:#3A1D1D;">레벨UP 오픈채팅 입장하기</div>
+          <div style="font-size:1.0em;font-weight:900;color:#3A1D1D;">발란스 오픈채팅 입장하기</div>
         </div>
       </a>
 
@@ -1650,6 +1656,25 @@ function closeModalDirect() {
   document.getElementById('teamModal').classList.remove('show');
   document.body.style.overflow = '';
 }
+
+// PC 네비 드래그 스크롤
+(function() {
+  var nav = document.querySelector('.nav');
+  if (!nav) return;
+  var isDown = false, startX, scrollLeft;
+  nav.addEventListener('mousedown', function(e) {
+    isDown = true; nav.classList.add('dragging');
+    startX = e.pageX - nav.offsetLeft; scrollLeft = nav.scrollLeft;
+  });
+  nav.addEventListener('mouseleave', function() { isDown = false; nav.classList.remove('dragging'); });
+  nav.addEventListener('mouseup', function() { isDown = false; nav.classList.remove('dragging'); });
+  nav.addEventListener('mousemove', function(e) {
+    if (!isDown) return;
+    e.preventDefault();
+    nav.scrollLeft = scrollLeft - (e.pageX - nav.offsetLeft - startX);
+  });
+})();
+
 function toggleBBS() {
   var full = document.getElementById('bbs-full');
   var btn = document.getElementById('bbs-toggle-btn');
