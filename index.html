@@ -621,6 +621,27 @@
                 <span>24h 전</span><span>12h 전</span><span>현재</span>
               </div>
             </div>
+
+            <!-- WFI 보유량 → 원화 계산기 -->
+            <div style="margin-top:10px;background:rgba(0,204,255,0.05);border:1px solid rgba(0,204,255,0.2);border-radius:12px;padding:12px 12px 10px;">
+              <div style="font-size:0.72em;color:#7a9980;margin-bottom:8px;">💰 내 WFI 평가액</div>
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+                <input id="wfi-amount-input" type="number" placeholder="WFI 갯수 입력"
+                  oninput="calcWfiValue()"
+                  style="flex:1;padding:9px 12px;background:#0a1a0c;border:1px solid rgba(0,204,255,0.3);border-radius:8px;color:#e8f5ec;font-size:0.9em;font-family:inherit;outline:none;">
+                <span style="font-size:0.82em;color:#7a9980;white-space:nowrap;">WFI</span>
+              </div>
+              <div id="wfi-value-result" style="display:none;background:rgba(0,0,0,0.3);border-radius:8px;padding:10px 12px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+                  <span style="font-size:0.75em;color:#7a9980;">달러 평가액</span>
+                  <span id="wfi-value-usd" style="font-size:1em;font-weight:700;color:#00ccff;">$0</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;align-items:center;">
+                  <span style="font-size:0.75em;color:#7a9980;">원화 평가액</span>
+                  <span id="wfi-value-krw" style="font-size:1.15em;font-weight:900;color:#00ff88;">₩0</span>
+                </div>
+              </div>
+            </div>
             <a href="https://coinmarketcap.com/currencies/wfi/" target="_blank"
               style="display:block;text-align:center;background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.3);border-radius:10px;padding:10px;color:#00ff88;font-size:0.8em;text-decoration:none;font-weight:600;margin-top:10px;">
               🔗 CoinMarketCap에서 자세히 보기 →
@@ -1627,6 +1648,30 @@ function krwFmt(v) {
   const abs = Math.abs(v);
   if (abs >= 10000) return (Math.round(abs/1000)/10).toFixed(1) + '억원';
   return Math.round(abs).toLocaleString() + '만원';
+}
+
+// WFI 보유량 → 원화 계산
+function calcWfiValue() {
+  const amt = parseFloat(document.getElementById('wfi-amount-input').value) || 0;
+  const resultEl = document.getElementById('wfi-value-result');
+  if (amt <= 0) { resultEl.style.display = 'none'; return; }
+
+  const priceEl = document.getElementById('wfi-price');
+  const price = parseFloat((priceEl ? priceEl.textContent : '').replace('$','')) || 2.11;
+  const exRate = window._exRate || 1480;
+
+  const usd = amt * price;
+  const krw = usd * exRate;
+
+  const fmtKrwVal = (v) => {
+    if (v >= 1e8) return (v/1e8).toFixed(2) + '억원';
+    if (v >= 1e4) return Math.round(v/1e4).toLocaleString() + '만원';
+    return Math.round(v).toLocaleString() + '원';
+  };
+
+  document.getElementById('wfi-value-usd').textContent = '$' + usd.toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2});
+  document.getElementById('wfi-value-krw').textContent = '₩' + fmtKrwVal(krw);
+  resultEl.style.display = 'block';
 }
 
 function calcMini() {
