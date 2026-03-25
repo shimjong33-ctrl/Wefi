@@ -105,11 +105,32 @@
   }
 
   /* 네비게이션 탭 */
+  .nav-wrap { position: relative; margin-bottom: 16px; }
+  .nav-arrow {
+    position: absolute;
+    right: 0; top: 0; bottom: 8px;
+    width: 48px;
+    background: linear-gradient(to right, transparent, rgba(8,14,10,0.98));
+    display: flex; align-items: center; justify-content: center;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .nav-arrow span {
+    color: var(--green);
+    font-size: 1.6em;
+    font-weight: 900;
+    text-shadow: 0 0 8px rgba(0,255,136,0.8);
+    animation: arrowPulse 0.9s ease-in-out infinite;
+  }
+  @keyframes arrowPulse {
+    0%,100% { transform: translateX(0); opacity:0.5; }
+    50% { transform: translateX(6px); opacity:1; }
+  }
   .nav {
     display: flex;
     gap: 8px;
     padding: 0 16px 8px;
-    margin-bottom: 12px;
+    margin-bottom: 0;
     overflow-x: auto;
     scrollbar-width: thin;
     scrollbar-color: rgba(0,255,136,0.3) transparent;
@@ -122,13 +143,13 @@
   .nav.dragging { cursor: grabbing; user-select: none; }
   .nav-btn {
     flex-shrink: 0;
-    padding: 10px 18px;
-    border-radius: 20px;
+    padding: 14px 24px;
+    border-radius: 24px;
     border: 1px solid var(--border);
     background: var(--card);
     color: var(--muted);
-    font-size: 0.82em;
-    font-weight: 500;
+    font-size: 0.95em;
+    font-weight: 600;
     cursor: pointer;
     transition: all 0.2s;
     font-family: 'Noto Sans KR', sans-serif;
@@ -567,7 +588,8 @@
   </div>
 
   <!-- 탭 네비게이션 -->
-  <div class="nav">
+  <div class="nav-wrap">
+    <div class="nav" id="main-nav">
     <button class="nav-btn active" onclick="showSection('intro', this)">🏦 소개</button>
     <button class="nav-btn" onclick="showSection('team', this)">👥 팀</button>
     <button class="nav-btn" onclick="showSection('ecosystem', this)">🔗 생태계</button>
@@ -576,6 +598,8 @@
     <button class="nav-btn" onclick="showSection('news', this)">📰 뉴스</button>
     <button class="nav-btn" onclick="showSection('video', this)">▶️ 동영상</button>
     <button class="nav-btn" onclick="showSection('chat', this)" style="background:linear-gradient(90deg,rgba(0,255,136,0.15),rgba(0,204,255,0.15));border-color:rgba(0,255,136,0.4);color:#00ff88;font-weight:700;">⚡ 레벨UP</button>
+    </div>
+    <div class="nav-arrow" id="nav-arrow"><span>›</span></div>
   </div>
 
   <!-- 소개 섹션 -->
@@ -1231,28 +1255,6 @@
       </div>
     </div>
 
-    <!-- 레퍼럴 입력 카드 -->
-    <div class="card" style="border-color:rgba(0,255,136,0.3);background:rgba(0,255,136,0.04)">
-      <div class="card-title">🔗 내 레퍼럴 링크 설정</div>
-      <div style="font-size:0.82em;color:var(--muted);margin-bottom:10px">내 레퍼럴 코드를 입력하면 아래 모든 링크가 자동으로 바뀝니다</div>
-      <div style="display:flex;gap:8px;align-items:center">
-        <input id="refInput" type="text" placeholder="예: f9vipn2iog"
-          style="flex:1;padding:10px 12px;background:rgba(0,0,0,0.3);border:1px solid var(--border);border-radius:10px;color:#fff;font-size:0.88em;outline:none">
-        <button onclick="applyRef()" style="padding:10px 16px;background:var(--green);border:none;border-radius:10px;color:#000;font-weight:700;font-size:0.88em;cursor:pointer">적용</button>
-      </div>
-      <div id="refPreview" style="margin-top:8px;font-size:0.78em;color:var(--muted)">
-        현재 링크: <span id="refUrl" style="color:#00ccff">https://app.wefi.co/register?ref=f9vipn2iog</span>
-      </div>
-      <!-- 카톡 공유 버튼 (코드 적용 후 표시) -->
-      <button id="kakao-share-btn" onclick="shareKakao()"
-        style="display:none;width:100%;margin-top:12px;padding:14px;background:#FEE500;border:none;border-radius:12px;color:#3A1D1D;font-weight:900;font-size:1em;cursor:pointer;letter-spacing:0.02em;box-shadow:0 4px 15px rgba(254,229,0,0.3);">
-        📥 홍보이미지 + 앱파일 다운로드
-      </button>
-      <div id="kakao-share-hint" style="display:none;margin-top:8px;font-size:0.75em;color:var(--muted);text-align:center;">
-        💡 이미지를 먼저 전송하면 미리보기가 보여요!<br>이미지 + HTML 파일 같이 전송하세요 😊
-      </div>
-    </div>
-
     <div class="card">
       <div class="card-title">⚡ 지금이 유리한 이유</div>
       <div style="display:flex;flex-direction:column;gap:8px">
@@ -1432,24 +1434,56 @@
       <div style="margin-bottom:16px;">
         <div class="card-title" style="font-size:0.9em;margin-bottom:12px;">📍 센터 위치</div>
         <div style="display:flex;flex-direction:column;gap:8px;">
+
+          <!-- 부산센터 -->
           <div style="background:rgba(0,255,136,0.05);border:1px solid rgba(0,255,136,0.2);border-radius:12px;padding:14px;">
             <div style="font-weight:700;color:#00ff88;font-size:0.88em;margin-bottom:6px;">🏢 부산센터</div>
             <div style="font-size:0.82em;color:#e8f5ec;line-height:1.8;">부산 연제구 중앙대로 1039번길 13. 202호<br><span style="color:#7a9980;">🚇 시청역 7번출구 도보 3분</span></div>
+            <div style="font-size:0.8em;color:#b8d4bc;margin-top:4px;">👤 센터장 김희종</div>
             <div style="margin-top:8px;padding:6px 10px;background:rgba(0,255,136,0.12);border-radius:8px;font-size:0.8em;color:#00ff88;font-weight:700;">📅 강의 : 매주 화요일 오후 2시</div>
+            <div style="display:flex;gap:8px;margin-top:8px;">
+              <a href="https://open.kakao.com/o/sJFC98mi" target="_blank"
+                onclick="window.open('https://open.kakao.com/o/sJFC98mi','_blank','noopener');return false;"
+                style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:8px;background:#FEE500;border-radius:8px;text-decoration:none;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="#3A1D1D"><path d="M12 3C6.477 3 2 6.477 2 10.5c0 2.667 1.557 5.012 3.926 6.393L5 21l4.353-2.312C10.2 18.89 11.09 19 12 19c5.523 0 10-3.477 10-8.5S17.523 3 12 3z"/></svg>
+                <span style="font-size:0.78em;font-weight:700;color:#3A1D1D;">1대1 문의</span>
+              </a>
+              <a href="tel:01099123211" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:8px;background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.3);border-radius:8px;text-decoration:none;">
+                <span>📞</span><span style="font-size:0.78em;font-weight:700;color:#00ff88;">010-9912-3211</span>
+              </a>
+            </div>
             <a href="https://map.kakao.com/link/search/부산 연제구 중앙대로 1039번길 13" target="_blank" style="display:inline-block;margin-top:8px;padding:5px 12px;background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.3);border-radius:6px;color:#00ff88;font-size:0.75em;text-decoration:none;">🗺️ 지도 보기</a>
           </div>
+
+          <!-- 구미 형곡센터 -->
           <div style="background:rgba(0,204,255,0.05);border:1px solid rgba(0,204,255,0.2);border-radius:12px;padding:14px;">
-            <div style="font-weight:700;color:#00ccff;font-size:0.88em;margin-bottom:6px;">🏢 구미센터</div>
+            <div style="font-weight:700;color:#00ccff;font-size:0.88em;margin-bottom:6px;">🏢 구미 형곡센터</div>
             <div style="font-size:0.82em;color:#e8f5ec;line-height:1.8;">구미시 형곡동로 39 K1빌딩 3층 303호</div>
+            <div style="font-size:0.8em;color:#b8d4bc;margin-top:4px;">👤 센터장 010-4502-8956</div>
             <div style="margin-top:8px;padding:6px 10px;background:rgba(0,204,255,0.12);border-radius:8px;font-size:0.8em;color:#00ccff;font-weight:700;">📅 강의 : 매주 금요일 오후 2시</div>
-            <a href="https://map.kakao.com/link/search/구미시 형곡동로 39 K1빌딩" target="_blank" style="display:inline-block;margin-top:8px;padding:5px 12px;background:rgba(0,204,255,0.1);border:1px solid rgba(0,204,255,0.3);border-radius:6px;color:#00ccff;font-size:0.75em;text-decoration:none;">🗺️ 지도 보기</a>
+            <a href="tel:01045028956" style="display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:5px 12px;background:rgba(0,204,255,0.1);border:1px solid rgba(0,204,255,0.3);border-radius:6px;color:#00ccff;font-size:0.75em;text-decoration:none;">📞 010-4502-8956</a>
+            <a href="https://map.kakao.com/link/search/구미시 형곡동로 39 K1빌딩" target="_blank" style="display:inline-block;margin-top:8px;margin-left:4px;padding:5px 12px;background:rgba(0,204,255,0.1);border:1px solid rgba(0,204,255,0.3);border-radius:6px;color:#00ccff;font-size:0.75em;text-decoration:none;">🗺️ 지도 보기</a>
           </div>
+
+          <!-- 구미 임수센터 -->
+          <div style="background:rgba(0,204,255,0.05);border:1px solid rgba(0,204,255,0.2);border-radius:12px;padding:14px;">
+            <div style="font-weight:700;color:#00ccff;font-size:0.88em;margin-bottom:6px;">🏢 구미 임수센터</div>
+            <div style="font-size:0.82em;color:#e8f5ec;line-height:1.8;">구미시 임수동 92-14<br>보미더리즌타워 8층 821호</div>
+            <div style="font-size:0.8em;color:#b8d4bc;margin-top:4px;">👤 센터장 010-3823-0225</div>
+            <a href="tel:01038230225" style="display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:5px 12px;background:rgba(0,204,255,0.1);border:1px solid rgba(0,204,255,0.3);border-radius:6px;color:#00ccff;font-size:0.75em;text-decoration:none;">📞 010-3823-0225</a>
+            <a href="https://map.kakao.com/link/search/구미시 임수동 92-14 보미더리즌타워" target="_blank" style="display:inline-block;margin-top:8px;margin-left:4px;padding:5px 12px;background:rgba(0,204,255,0.1);border:1px solid rgba(0,204,255,0.3);border-radius:6px;color:#00ccff;font-size:0.75em;text-decoration:none;">🗺️ 지도 보기</a>
+          </div>
+
+          <!-- 영주센터 -->
           <div style="background:rgba(255,204,0,0.05);border:1px solid rgba(255,204,0,0.2);border-radius:12px;padding:14px;">
             <div style="font-weight:700;color:#ffcc00;font-size:0.88em;margin-bottom:6px;">🏢 영주센터</div>
             <div style="font-size:0.82em;color:#e8f5ec;line-height:1.8;">경북 영주시 대학로 226 강남빌딩 2층</div>
+            <div style="font-size:0.8em;color:#b8d4bc;margin-top:4px;">👤 센터장 박성우 (Charlie Park)</div>
             <div style="margin-top:8px;padding:6px 10px;background:rgba(255,204,0,0.12);border-radius:8px;font-size:0.8em;color:#ffcc00;font-weight:700;">📅 강의 : 매주 월요일 오후 2시</div>
-            <a href="https://map.kakao.com/link/search/경북 영주시 대학로 226 강남빌딩" target="_blank" style="display:inline-block;margin-top:8px;padding:5px 12px;background:rgba(255,204,0,0.1);border:1px solid rgba(255,204,0,0.3);border-radius:6px;color:#ffcc00;font-size:0.75em;text-decoration:none;">🗺️ 지도 보기</a>
+            <a href="tel:01064102939" style="display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:5px 12px;background:rgba(255,204,0,0.1);border:1px solid rgba(255,204,0,0.3);border-radius:6px;color:#ffcc00;font-size:0.75em;text-decoration:none;">📞 010-6410-2939</a>
+            <a href="https://map.kakao.com/link/search/경북 영주시 대학로 226 강남빌딩" target="_blank" style="display:inline-block;margin-top:8px;margin-left:4px;padding:5px 12px;background:rgba(255,204,0,0.1);border:1px solid rgba(255,204,0,0.3);border-radius:6px;color:#ffcc00;font-size:0.75em;text-decoration:none;">🗺️ 지도 보기</a>
           </div>
+
         </div>
       </div>
 
@@ -1663,7 +1697,19 @@ function closeModalDirect() {
 // PC 네비 드래그 스크롤
 (function() {
   var nav = document.querySelector('.nav');
+  var arrow = document.getElementById('nav-arrow');
   if (!nav) return;
+
+  // 스크롤 끝 감지 → 화살표 숨기기
+  function checkArrow() {
+    if (!arrow) return;
+    var atEnd = nav.scrollLeft + nav.clientWidth >= nav.scrollWidth - 8;
+    arrow.style.opacity = atEnd ? '0' : '1';
+    arrow.style.transition = 'opacity 0.3s';
+  }
+  nav.addEventListener('scroll', checkArrow);
+  checkArrow();
+
   var isDown = false, startX, scrollLeft;
   nav.addEventListener('mousedown', function(e) {
     isDown = true; nav.classList.add('dragging');
