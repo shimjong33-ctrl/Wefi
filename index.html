@@ -17,8 +17,8 @@
 <meta name="msapplication-TileColor" content="#080e0a">
 
 <!-- 홈화면 아이콘 (SVG로 직접 생성) -->
-<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOTIgMTkyIj4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZyIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMwMGZmODgiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMDBjY2ZmIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8cmVjdCB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgcng9IjQwIiBmaWxsPSIjMDgwZTBhIi8+CiAgPHJlY3QgeD0iNCIgeT0iNCIgd2lkdGg9IjE4NCIgaGVpZ2h0PSIxODQiIHJ4PSIzOCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDBmZjg4IiBzdHJva2Utd2lkdGg9IjMiIG9wYWNpdHk9IjAuNCIvPgogIDx0ZXh0IHg9Ijk2IiB5PSIxMjUiIGZvbnQtc2l6ZT0iMTEwIiBmb250LXdlaWdodD0iOTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iQXJpYWwsc2Fucy1zZXJpZiIgZmlsbD0idXJsKCNnKSI+VzwvdGV4dD4KPC9zdmc+">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOTIgMTkyIj4KICA8ZGVmcz4KICAgIDxsaW5lYXJHcmFkaWVudCBpZD0iZyIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMTAwJSI+CiAgICAgIDxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiMwMGZmODgiLz4KICAgICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjMDBjY2ZmIi8+CiAgICA8L2xpbmVhckdyYWRpZW50PgogIDwvZGVmcz4KICA8cmVjdCB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgcng9IjQwIiBmaWxsPSIjMDgwZTBhIi8+CiAgPHJlY3QgeD0iNCIgeT0iNCIgd2lkdGg9IjE4NCIgaGVpZ2h0PSIxODQiIHJ4PSIzOCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDBmZjg4IiBzdHJva2Utd2lkdGg9IjMiIG9wYWNpdHk9IjAuNCIvPgogIDx0ZXh0IHg9Ijk2IiB5PSIxMjUiIGZvbnQtc2l6ZT0iMTEwIiBmb250LXdlaWdodD0iOTAwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iQXJpYWwsc2Fucy1zZXJpZiIgZmlsbD0idXJsKCNnKSI+VzwvdGV4dD4KPC9zdmc+">
+<link rel="apple-touch-icon" href="">
+<link rel="icon" type="image/svg+xml" href="">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Space+Mono:wght@400;700&display=swap');
 
@@ -616,6 +616,7 @@
     <button class="nav-btn active" onclick="showSection('intro', this)">🏦 소개</button>
     <button class="nav-btn" onclick="showSection('team', this)">👥 팀</button>
     <button class="nav-btn" onclick="showSection('ecosystem', this)">🔗 생태계</button>
+    <button class="nav-btn" onclick="showSection('fact', this)">✅ 팩트체크</button>
     <button class="nav-btn" onclick="showSection('ito', this)">⛏️ ITO참여</button>
     <button class="nav-btn" onclick="showSection('calc', this)">📊 계산기</button>
     <button class="nav-btn" onclick="showSection('news', this)">📰 뉴스</button>
@@ -1065,7 +1066,7 @@
       <div class="team-grid">
         <div class="team-item" onclick="openModal('rc')">
           <div class="team-avatar">
-            <img src="data:image/jpeg;base64,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" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+            
           </div>
           <div class="team-info">
             <div class="ti-name">Reeve Collins</div>
@@ -1076,7 +1077,7 @@
         </div>
         <div class="team-item" onclick="openModal('ms')">
           <div class="team-avatar">
-            <img src="data:image/jpeg;base64,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" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+            
           </div>
           <div class="team-info">
             <div class="ti-name">Maksym Sakharov</div>
@@ -1087,7 +1088,7 @@
         </div>
         <div class="team-item" onclick="openModal('rr')">
           <div class="team-avatar">
-            <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA0JCgsKCA0LCgsODg0PEyAVExISEyccHhcgLikxMC4pLSwzOko+MzZGNywtQFdBRkxOUlNSMj5aYVpQYEpRUk//2wBDAQ4ODhMREyYVFSZPNS01T09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0//wAARCABvAHgDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDz+rNkhkkKqOTVauh8LXFnYmS4vLZ5i+AgBAAA/wDr/wAq1nLljdIxJIbCbAAVga0LfQrybG2JzVmbxWUyLOxgi/2n+Y1l3fiPUrjIe8dR6J8o/SuO9WXSxWptr4fEC7r26hgH+0/NMkn8O2K5e5kuSO0a8fnXJmd5mZiS2BlmJzSW6+a++bk/wpSdOX2pFqFzsINZjlH/ABLNMiX0eU5qncapfTsUbUIofaKMAfn1rmJLidpCisQo6IpwKuWG93C8E/3X4NChGJoqaLV3p16IzcLL9qTqzRsWI+o61ll2/vH867Gzs3GGiDLIvJXofwNQa/4fM1qdQsY/3qjM0Srgt6kDsfUd61jLoKULbHKb2/vN+dNLt/fb86rRyXF1MIbOF5JG6Kikk1tWvgzXLtd9z5VpH3Mr8j8BTlUjHdmZlPcBesh/OoHvccBmJ+tdONB8MadzqWrvdyDrHB0/TP8AOnr4h0fThjRtDiDDpJNjP9T+tZ+2b+FNgYulQeIZbmO40u2uQ6HKyYwv5njFFXbzxXrN0CPtXkJ/dhXb+vWij98+wanOqpdgo6k4rW4jjCjoBiqNgm6Yseij9atzGumbJiMeQ1CSTQ3WmioLLayC3sCSPnmb5foP/r/yptoG3E5PP61Fe7gtq4zs8vAz3OTmrNrjg1nI2ghz2zB/MChlzyK3tLhtmmFvdYIYAxSnv7GqMK7iCpGfQ96tKN7KAuCvpUXNeQ6mzt4ZIzHFMyyxdDnlf8RU0E1wkpiucntuUYIrG02O5E7SliwYdQea1LqYJAf3+WA4PQ0IlxsYuq3lv4at5V0qGNLu7mZmkIBwvByPz4HTrXIXmo3t62bu6mm9mbj8ulXvEdxJcXkbSoFYJjjoeetZBq6dOK16nNJWY2ilorUQlFLRQBYsU2wbu7HNLNVYahHHGqKpOBimiS8uT+4tpG/3UJobBIkamkqOpAp66Rq0vLW7xj1chalGgyjm4uY0HtzUc8e4xkTJcIUYg+WPl9Rz/wDrqQLOgDJwh7g9KkFpbWUReOUyux49OKnsZAV2GpbvqbU1cgWa6hVXdgV7juK0bpriGKNkO1nAOcVSv9pkSFW5JyfQV1l81s2iwSII3ljRVZd3zAdM47ip8zdLoZ2k3upRkyFRKiHrxyPpXSXflzWUUtzGY8sMkDkZ6frWdos1rIVVlVTnsODW5cPFtAcjZkYGM5xzj9KQmraHm+tXc11ekT43w5jyBjODWaa0dci8nWrtN2794Tn681n1utjjk7sbRSmkpiCikzRQB3Nxc+HtBkNraaWk80XDOwB592Ocms698X3kqlLa3gt09gTWNcSGSR3Y5ZiST9aqNnNYRoR+1qxWLE+pXs5JkuH57Dj+VVSWY5Ykn3NSw28s33FJA79qkFuFOHyT6dK2UUthiQuogdWxkcr+PWls2UvtLYyMA+hpyqPMKgYReo9TWc8hilYDPHNTKJrCVjRkt2e4HmMHHBBBxW7Z2lxcW7GEghemXH5ViWV0sgVXx7mun0q609IGHKsO4PWsmdMbWuVdMEkEkhm2hhkYFb6brsIq52p94j1Nc39rS5vmjt1LMxwDXU+FAtxb3cG7O44Dj1HQj8aIR5mTOVo3OQ1/RNQtrmW5dDNE5z5kYJx7EdR/KsLFeofaZYpSjcOrbWU9jTNT8MaZrNslxAv2W5cHLxj5Sf8AaX+vWurlONnmDcDJqAzDOFBNbOt+HtT01X823MkSn/Ww/Mv49x+NYcGM5qXoNEqrPJ9xKKtw3ghIwgc+/Sisrz6IehOI2kOFH4noKsxWcSnLjefQ9Kfb43gYwvarnlgHPY10JEDF+5joPYdKjlVUXdjcx6ZqyF4qOSInL7ueg46UwKYgwvPUnJqnqWnNG4lQZBHIrQK3IyBICRyPlFXIpY7qBUnKrKOCDxn3FTa+g07anLLbHrG2AatW9rIf9ZKdvoO9asumEEvAMqeq/wBRWcHdZxEgLMTgAVjJNaHRFxauWvO+xwlLcYkf5Qe9dn4MIhtCpIG04yeK5e109+ZJR85GNxHAHtWiYY1QA5OK0hC2pFSaeiOl8RW5jeO/i5R8LJj17Gm6VeE3CxKSUf7y1z4ldEEKOwVuCueCOtLFdNb3CuhwVbIrQzWp1dxqS2t+I1I8hl+bHBQ1T1XwrpGsJ5ixLBO4JFxAAOfcdDWVc3QuLxpFXLMQFUngfWtXS7gRyqA/7tV2jn759cUWuI821nRbzRL0214g55SRfuyD1H+HaivUvEmlJrehyxBQbiMGSBu4Ydvx6UVFrAeeW2GRSO4yKvp80ZB7c1laQ4ktVTPzKOPw/wAitWI4YZ78GtCQQZXntxShdykfhTY2HI/2jTgdsnPQ0AQjhsN2p7xKy52g06eP+IUkEgI2N1oGNj8sclQD3xxVq2tIIw915eHlGc98dhVS4jIR9vcGtCNw1oox/wAsx/KmkJsjMm47jwB0FNDbjuPTtUCMSu2nMc/KKQx6tucv2HAqMHcxY9KHOFCL3obCrtHpQO4tvL8jN6kj8KsWd432oO7YH8hWep22oHf/AOvSRt8w9utID0bTLkSIuPx9qKx9Euz5C7gI06DPAooaFc800qcRS4Y4AIJ+h4P9DXSYrj4HEcqseV6MPUHg10dhfxvbhZX/AHifKTg846GqJTJYWJRweGVj/OrIPmJ7iqPnxi7YgjYy8nnrUiXEaNkN+hoGXUbcu09RVaRSj5FP+0wkhg/P0NJLNCw+9z9DQBKjiRMHrVmJQbZCD/AKyklCMCprSjYxW6CUbePrQhMpg4cipc4GaoS3tuJCPM5B/umlF/ARgyfoaRRbHXcaRz8pqt/aFqP+Wv8A46f8KadQtc/63/x0/wCFAC3kuwRovUkCpIBtXc35Vmi+tpLhnd+VPyEqTV23vrTcrSSBgDnbtPP6UhnXaCC8YeUdT1PUj29KKh07xHo7gK0htmHojMD+nFFO4j//2Q==" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+            
           </div>
           <div class="team-info">
             <div class="ti-name">Roman Rossov</div>
@@ -1098,7 +1099,7 @@
         </div>
         <div class="team-item" onclick="openModal('ks')">
           <div class="team-avatar">
-            <img src="data:image/jpeg;base64,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" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+            
           </div>
           <div class="team-info">
             <div class="ti-name">Khaled Suleiman</div>
@@ -1109,7 +1110,7 @@
         </div>
         <div class="team-item" onclick="openModal('mb')">
           <div class="team-avatar">
-            <img src="data:image/jpeg;base64,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" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+            
           </div>
           <div class="team-info">
             <div class="ti-name">Michael Batuev</div>
@@ -1120,7 +1121,7 @@
         </div>
         <div class="team-item" onclick="openModal('al')">
           <div class="team-avatar">
-            <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA0JCgsKCA0LCgsODg0PEyAVExISEyccHhcgLikxMC4pLSwzOko+MzZGNywtQFdBRkxOUlNSMj5aYVpQYEpRUk//2wBDAQ4ODhMREyYVFSZPNS01T09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0//wAARCABPAHgDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDvpf8AWtTKfL/rGplAgJwM0wun9zNRzPltg7UiDC8muSrUbdkdFOFldkwZefk/Cqd5JEqHdCD9TU0I/wBJpniIf8Sa4/3DRTd1cclqcmlutxrRlbBjhjy2PXPAq9Lay6jJ5auU3As7jqq9OPc/oKw9PnENnFEDgzOWY/7Iro7TULWzg3XBffNyduDtHbjrVpk2Mufw9Z2x3W+9WA4JbJzV3wtq08l7Npd6Qzou+Jv7y9xUt/dW4g3tIEUjIJNYGlzonirTpY3BEjtEfcEGpjJ8xpKK5TvmUGeMnsauhQcgjIPUVTb/AF8dXcHnFU/iZmvhRzuqWotryLb9xiSp/DpUSn5hW7e2v2q1KkZkQ7kPvXPggMO1bxd0YSVmTA/MPrRUTPhhjnmiqYjopf8AWtTGYIhY9AMmny/61qy/EFz9l0eaTOC2FB+pqW7K5SV2UL7VktTvfoxrQsbkXVuJV6GuQ1AG/s0ET/MMHNdJoMTQ6XGjHJA5rz7aHXfU0o3Au1Xuafrq7tJnH+warKhOoRvngVd1dS2mygdSprWl8LJnujzm0tDNe29uWxuAjz6Dqf5V0l34bt2uI5oXKle5PFYWnuP7cs1z/wAtCP8Ax010s8jM4WacQwg5JJxmqTsO1zO8R6aJmt4Ucr+7OD61z9tZy2WtaUskhci8HU54IrWvrtnv0AvluFUHHTP6VnQSGfxXpaMeku7+lCfvWKlG0bs9EkOLqIetaA61nuM3MRrRFafaZh0Ada5bU4/I1F0HCkhh9DXUjrWF4jQLNby+oKn8D/8AXq47mctjN/iH1op8cbyONozzRWjIOim/1rVjeJLR77T1gTvICfyNbM3+tas3WJXit0ZOpfH6VnUvyOxcPi1OctdFlhXAfit6zUw24QnJFZwu5iOop4nl28muF36nWrdDViJa5Q5q/qBC2ErHshP6VzMV48V1GzH5c81q3+orNYSxxKXZlxtUZJrWn8LImtUeZX91Ja6hG0RIkjKsMdiOa76CSK9VTJhXK9GHTNc/YaE/2+WS8AMpQkrnO3PatVtktqpHDBcH2IpscdzM1S1htp/O8xWK5wcAYrB0a+E3iu0mPCidUUH0/wAmrt8rYkLMSAOMms+1sFTUo5iWG1gw2+opRkr3ZdS7PWm/4+I/rWgK5u01m3uJI2kPlsDyDXQxSxy8o6txng1qpJs52mkOHWqOsQLPDFuJ+Vv6VdPWquon9yv+9/StFuQ9jPVREFVBgUUhbJAoqyDTm/1rVm6yu7T2P91gf6f1rSm/1rVWuovPtZYv76kfjR0A5qEBnAzVl1wKhsYGEhLdqsTggVxVn71jqp/DcelpAkUVxcMx3fwjp7U64uvLZIowqBucAdhUtyAdNjXBUhBjNYcszs7zshPRWKnO38KpaLQN9zThkB1AN/z0XFZsgeG8uYh90/MKksbuCSZSsqsUPIB5H4UXmRdLMf4jg/Sk9io7lKawkkRGK/KW5qFrdRcHHpxXQSMGhVQOBzWKxKzHGOemaLDb1GnZCN0jBR057+1avh27K6pEpZgr5UA9enFY8No/nma5mMsh6fLgKPQClkf7PqEGyQr5ZDtzznPFVsTuekE81S1FuEX6moV1RTLhgQD3pl1MJZ8rnAAwe1bR1ZhLREQ6iio5ZY4V8yZ1RQerHFFaGZrzf61qZU8kLM+Vwc0zyJPQfnQBkzQiK5YgfK/zCq1yPlNbU9o7x8gZHI5rKuYZNpwufxFcdaL57nVSkuUZfs6xp6FBz+FZm4uPl2LnhgFHUVq6hDK8a4T+EcZHpWFBbXiaiUKHy5EJ5YHkdKqwJolESITJtTce4QAn8aku13Wu4dRyKfJbzsUGzj6ipvs0piKlOvuKLMd0iC1nMsQ9MVQkx9qUe9T6ZBcLNPG6HCZxlh/jTRZzmfcYz19R/jRYG1ceBkg9Kwkk+1XU90Wwpc7SegA4Fbd7DcpYzFIzvI2j5h3/ABqrbaZNFZovlHOP7wosK5uwSRmyjlkYBNgJZjis698RRIDHYrvI/wCWjDCj6DvT59J1e+063W0s1MQHRplGSOKzJfB/iObraxAegmXFbU1ZGFR3Zm3N7JPcK8szTPkY54HP6UVqWfgbWjdRi5SKOIMCz+YDgewFFaaGep//2Q==" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">
+            
           </div>
           <div class="team-info">
             <div class="ti-name">Agne Ringė</div>
@@ -1280,15 +1281,40 @@
 
     <div class="card">
       <div class="card-title">⚡ 지금이 유리한 이유</div>
-      <div style="display:flex;flex-direction:column;gap:8px">
-        <div style="padding:10px 12px;background:rgba(0,255,136,0.06);border:1px solid rgba(0,255,136,0.15);border-radius:10px;font-size:0.82em;color:var(--muted)">
-          💡 예시 기준 : <strong style="color:#00ff88">$1,000 (약 150만원)</strong> 투자
+      <div style="display:flex;flex-direction:column;gap:10px;">
+
+        <!-- 비교표 -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <div style="background:rgba(0,255,136,0.1);border:2px solid rgba(0,255,136,0.4);border-radius:12px;padding:14px;text-align:center;">
+            <div style="font-size:0.75em;color:#7a9980;margin-bottom:6px;">✅ 지금 참여하면</div>
+            <div style="font-size:1.6em;font-weight:900;color:#00ff88;line-height:1;">1.5개</div>
+            <div style="font-size:0.75em;color:#00ff88;margin-top:4px;">하루 채굴량</div>
+          </div>
+          <div style="background:rgba(255,85,85,0.08);border:2px solid rgba(255,85,85,0.25);border-radius:12px;padding:14px;text-align:center;">
+            <div style="font-size:0.75em;color:#7a9980;margin-bottom:6px;">⏰ 2026.09 이후</div>
+            <div style="font-size:1.6em;font-weight:900;color:#ff5555;line-height:1;">0.19개</div>
+            <div style="font-size:0.75em;color:#ff5555;margin-top:4px;">하루 채굴량 ↓</div>
+          </div>
         </div>
-        <div style="padding:12px;background:rgba(255,200,0,0.08);border:1px solid rgba(255,200,0,0.2);border-radius:10px;font-size:0.85em;line-height:1.6">
-          🔥 반감기 전 <strong style="color:#00ff88">지금</strong> → <strong style="color:#ffcc00">일 1.5개 채굴</strong><br>
-          반감기 이후 <strong style="color:#ff6666">(2026.09.18 이후)</strong> → <strong style="color:#ff6666">일 0.1875개 채굴</strong> (가입자 4배 증가 기준)<br>
-          <strong style="color:#ffcc00">→ 지금이 2.7배 더 유리</strong>
+
+        <!-- 핵심 메시지 -->
+        <div style="background:rgba(255,204,0,0.1);border:1px solid rgba(255,204,0,0.35);border-radius:12px;padding:14px;text-align:center;">
+          <div style="font-size:0.82em;color:#e8f5ec;margin-bottom:6px;">📌 쉽게 말하면</div>
+          <div style="font-size:1.0em;font-weight:700;color:#ffcc00;line-height:1.6;">
+            지금 참여 = 반감기 후보다<br>
+            <span style="font-size:1.3em;color:#ff9944;">약 8배</span> 더 많이 채굴
+          </div>
+          <div style="font-size:0.75em;color:#7a9980;margin-top:6px;">반감기 + 가입자 4배 증가 기준</div>
         </div>
+
+        <!-- 반감기 설명 -->
+        <div style="background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:12px;font-size:0.8em;color:#b8d4bc;line-height:1.8;">
+          🔄 <strong style="color:#fff;">반감기란?</strong><br>
+          비트코인처럼 일정 시점마다 채굴량이 절반으로 줄어드는 시스템입니다.<br>
+          WeFi는 <strong style="color:#ffcc00;">2026년 9월 18일</strong>이 첫 번째 반감기로,<br>
+          이후에는 지금보다 훨씬 적은 양만 채굴됩니다.
+        </div>
+
       </div>
     </div>
 
@@ -1379,6 +1405,114 @@
            style="display:inline-block;padding:12px 24px;background:linear-gradient(90deg,var(--green),var(--blue));border-radius:12px;font-weight:700;color:#000;font-size:0.88em;text-decoration:none;">
           📊 상세 채굴 수익 계산기 →
         </a>
+        <div style="text-align:center;margin-top:10px;font-size:0.72em;color:#555;line-height:1.6;">
+          ⚠️ 본 계산기는 정확하지 않을 수 있습니다.<br>단순 참고용 자료로만 활용하시길 바랍니다.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 팩트체크 섹션 -->
+  <div class="section" id="sec-fact">
+    <div class="card">
+      <div class="card-title">✅ 신규 회원을 위한 10가지 팩트체크</div>
+      <div style="font-size:0.82em;color:#7a9980;margin-bottom:16px;">신뢰할 수 있는 데이터와 글로벌 지표로 WeFi의 가치를 확인하세요.</div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+
+        <!-- Q1 -->
+        <div style="background:rgba(0,255,136,0.05);border:1px solid rgba(0,255,136,0.15);border-radius:12px;padding:14px;">
+          <div style="font-size:0.88em;font-weight:700;color:#00ff88;margin-bottom:6px;">1️⃣ 전 세계가 주목하는 RWA 금융인가?</div>
+          <div style="font-size:0.82em;color:#c8e6cc;line-height:1.8;">WeFi는 단순한 암호화폐가 아닙니다. 골드만삭스, 블랙록 등 글로벌 금융사들이 사활을 걸고 있는 <strong style="color:#00ff88;">RWA(실물자산 토큰화)</strong> 시장의 선두주자로서, 실제 자산을 기반으로 한 디지털 뱅킹 시스템을 구축하고 있습니다. 전통은행의 장점과 블록체인의 장점을 통합한 <strong style="color:#00ccff;">세계 최초의 디오뱅크</strong>입니다.</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;">
+            <a href="https://iq.wiki/wiki/wefi" target="_blank" style="padding:4px 10px;background:rgba(0,204,255,0.1);border:1px solid rgba(0,204,255,0.3);border-radius:6px;color:#00ccff;font-size:0.75em;text-decoration:none;">📖 Wiki 백과</a>
+            <a href="https://coinmarketcap.com/currencies/wfi/" target="_blank" style="padding:4px 10px;background:rgba(0,204,255,0.1);border:1px solid rgba(0,204,255,0.3);border-radius:6px;color:#00ccff;font-size:0.75em;text-decoration:none;">📊 CoinMarketCap</a>
+            <a href="https://www.google.com/search?q=WeFi+DeoBank" target="_blank" style="padding:4px 10px;background:rgba(0,204,255,0.1);border:1px solid rgba(0,204,255,0.3);border-radius:6px;color:#00ccff;font-size:0.75em;text-decoration:none;">🔍 구글 검색</a>
+            <a href="https://www.coingecko.com/en/coins/wfi" target="_blank" style="padding:4px 10px;background:rgba(0,204,255,0.1);border:1px solid rgba(0,204,255,0.3);border-radius:6px;color:#00ccff;font-size:0.75em;text-decoration:none;">🦎 CoinGecko</a>
+          </div>
+        </div>
+
+        <!-- Q2 -->
+        <div style="background:rgba(0,255,136,0.05);border:1px solid rgba(0,255,136,0.15);border-radius:12px;padding:14px;">
+          <div style="font-size:0.88em;font-weight:700;color:#00ff88;margin-bottom:6px;">2️⃣ 창업자의 신뢰도는 검증되었는가?</div>
+          <div style="font-size:0.82em;color:#c8e6cc;line-height:1.8;">전 세계 스테이블코인 1위 <strong style="color:#ffcc00;">테더(USDT) 공동 창업자 리브 콜린스</strong>가 회장으로 참여 중입니다. 엑스플로워 전 CEO 막심, 바이낸스 전 이사, Wise를 설계한 로만 로스프, 아부다비 국립은행장 칼레이드 슐레이만, <strong style="color:#00ccff;">VISA 18년 임원·구글페이·애플페이·세계 최초 탭결제를 만든 마이클 바투예프</strong>가 결제 CEO로 참여 중입니다. 전 리투아니아 법무부장관도 합류했습니다.<br><br>
+          <strong style="color:#00ff88;">회사 임원들의 과거는 모두 인터넷에서 검증 가능하며, 각 분야에서 최고의 전문가인 것을 확인할 수 있습니다.</strong></div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;">
+            <a href="https://iq.wiki/wiki/reeve-collins" target="_blank" style="padding:4px 10px;background:rgba(0,204,255,0.1);border:1px solid rgba(0,204,255,0.3);border-radius:6px;color:#00ccff;font-size:0.75em;text-decoration:none;">📖 리브 콜린스 Wiki</a>
+            <a href="https://www.bloomberg.com/news/articles/2025-02-18/tether-co-founder-is-working-on-yield-bearing-stablecoin-rival" target="_blank" style="padding:4px 10px;background:rgba(0,204,255,0.1);border:1px solid rgba(0,204,255,0.3);border-radius:6px;color:#00ccff;font-size:0.75em;text-decoration:none;">📰 Bloomberg</a>
+            <a href="https://blockchainreporter.net/ex-visa-payments-leader-michael-batuev-joins-wefi-to-supercharge-global-payments-roll-out" target="_blank" style="padding:4px 10px;background:rgba(0,204,255,0.1);border:1px solid rgba(0,204,255,0.3);border-radius:6px;color:#00ccff;font-size:0.75em;text-decoration:none;">💳 마이클 바투예프</a>
+            <a href="https://www.theblock.co/press-releases/378525/ex-visa-payments-leader-michael-batuev-joins-wefi-to-supercharge-global-payments-roll-out" target="_blank" style="padding:4px 10px;background:rgba(0,204,255,0.1);border:1px solid rgba(0,204,255,0.3);border-radius:6px;color:#00ccff;font-size:0.75em;text-decoration:none;">📰 TheBlock</a>
+            <a href="https://reevecollins.com" target="_blank" style="padding:4px 10px;background:rgba(0,204,255,0.1);border:1px solid rgba(0,204,255,0.3);border-radius:6px;color:#00ccff;font-size:0.75em;text-decoration:none;">🌐 리브 콜린스 공식</a>
+          </div>
+        </div>
+
+        <!-- Q3 -->
+        <div style="background:rgba(0,255,136,0.05);border:1px solid rgba(0,255,136,0.15);border-radius:12px;padding:14px;">
+          <div style="font-size:0.88em;font-weight:700;color:#00ff88;margin-bottom:6px;">3️⃣ 시세 조작의 위험은 없는가?</div>
+          <div style="font-size:0.82em;color:#c8e6cc;line-height:1.8;">WFI의 모든 데이터는 <strong style="color:#00ff88;">CoinMarketCap</strong>과 <strong style="color:#00ff88;">CoinGecko</strong>에 실시간 등재되어 있습니다. 누구나 투명하게 가격과 거래량을 확인할 수 있는 공개된 자산입니다.</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;">
+            <a href="https://coinmarketcap.com/currencies/wfi/" target="_blank" style="padding:4px 10px;background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.3);border-radius:6px;color:#00ff88;font-size:0.75em;text-decoration:none;">📊 CoinMarketCap WFI</a>
+            <a href="https://www.coingecko.com/en/coins/wfi" target="_blank" style="padding:4px 10px;background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.3);border-radius:6px;color:#00ff88;font-size:0.75em;text-decoration:none;">🦎 CoinGecko WFI</a>
+          </div>
+        </div>
+
+        <!-- Q4 -->
+        <div style="background:rgba(0,255,136,0.05);border:1px solid rgba(0,255,136,0.15);border-radius:12px;padding:14px;">
+          <div style="font-size:0.88em;font-weight:700;color:#00ff88;margin-bottom:6px;">4️⃣ 보안 감사(Audit)를 마쳤는가?</div>
+          <div style="font-size:0.82em;color:#c8e6cc;line-height:1.8;">세계 1위 블록체인 보안 기관 <strong style="color:#00ccff;">SolidProof</strong>으로부터 스마트 컨트랙트 보안 감사를 완료했습니다. 또한 세계 최고 보안 서비스 <strong style="color:#6B2EFF;">Fireblocks</strong>와 기술제휴를 맺어 개인 휴대폰 뱅킹이 기관급 보안 서비스를 받습니다.<br><br>
+          <strong style="color:#00ff88;">Fireblocks는 2018년 창사 이래 단 한 건의 해킹도 없는, 말 그대로 세계 최고 수준의 해킹 보안 업체입니다. 구글 검색에서 직접 확인하시길 바랍니다.</strong></div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;">
+            <a href="https://solidproof.io" target="_blank" style="padding:4px 10px;background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.3);border-radius:6px;color:#00ff88;font-size:0.75em;text-decoration:none;">🔒 SolidProof 공식</a>
+            <a href="https://www.fireblocks.com" target="_blank" style="padding:4px 10px;background:rgba(107,46,255,0.15);border:1px solid rgba(107,46,255,0.4);border-radius:6px;color:#a97fff;font-size:0.75em;text-decoration:none;">🛡️ Fireblocks 공식</a>
+            <a href="https://www.google.com/search?q=Fireblocks+security+no+hack" target="_blank" style="padding:4px 10px;background:rgba(0,204,255,0.1);border:1px solid rgba(0,204,255,0.3);border-radius:6px;color:#00ccff;font-size:0.75em;text-decoration:none;">🔍 구글 검색</a>
+            <a href="https://mpost.io/former-visa-payments-executive-michael-batuev-joins-wefi-to-drive-global-payments-expansion/" target="_blank" style="padding:4px 10px;background:rgba(0,204,255,0.1);border:1px solid rgba(0,204,255,0.3);border-radius:6px;color:#00ccff;font-size:0.75em;text-decoration:none;">📰 MetaversePost</a>
+          </div>
+        </div>
+
+        <!-- Q5 -->
+        <div style="background:rgba(0,255,136,0.05);border:1px solid rgba(0,255,136,0.15);border-radius:12px;padding:14px;">
+          <div style="font-size:0.88em;font-weight:700;color:#00ff88;margin-bottom:6px;">5️⃣ 수익의 근거는 무엇인가?</div>
+          <div style="font-size:0.82em;color:#c8e6cc;line-height:1.8;">신규 가입자 자금으로 수익을 주는 구조가 아닙니다. WeFi는 <strong style="color:#ffcc00;">ICO 코인을 판매하지 않았으며, 회사는 단 1개의 코인도 보유하지 않습니다.</strong> 수익은 송금·대출·결제 등 실물 자산 운용 수익과 트랜잭션 수수료를 통해 창출되는 <strong style="color:#00ff88;">지속 가능한 경제 모델</strong>을 따릅니다.</div>
+        </div>
+
+        <!-- Q6 -->
+        <div style="background:rgba(0,255,136,0.05);border:1px solid rgba(0,255,136,0.15);border-radius:12px;padding:14px;">
+          <div style="font-size:0.88em;font-weight:700;color:#00ff88;margin-bottom:6px;">6️⃣ 내 자산의 통제권은 누구에게 있는가?</div>
+          <div style="font-size:0.82em;color:#c8e6cc;line-height:1.8;">WeFi는 <strong style="color:#00ccff;">비수탁형(Non-custodial)</strong> 방식을 채택합니다. 회사가 사용자의 자금을 보관하는 것이 아니라, 사용자가 자신의 개인 지갑으로 직접 통제합니다. <strong style="color:#00ff88;">나 말고는 아무도 지갑을 통제할 수 없습니다.</strong></div>
+        </div>
+
+        <!-- Q7 -->
+        <div style="background:rgba(0,255,136,0.05);border:1px solid rgba(0,255,136,0.15);border-radius:12px;padding:14px;">
+          <div style="font-size:0.88em;font-weight:700;color:#00ff88;margin-bottom:6px;">7️⃣ 글로벌 규제를 준수하는가?</div>
+          <div style="font-size:0.82em;color:#c8e6cc;line-height:1.8;">WeFi는 규제를 피하는 것이 아니라 <strong style="color:#00ff88;">규제 안에서 보호받는 Compliance 프로젝트</strong>입니다. 이미 <strong style="color:#ffcc00;">캐나다·EU·UAE 라이선스 및 상표권 등록을 완료</strong>했고, 한국 등 기타 지역도 VASP 신청 중입니다.</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;">
+            <a href="https://www.globenewswire.com/news-release/2025/02/06/3022054/0/en/WeFi-Launches-Deobank-the-World-s-First-Decentralized-Onchain-Bank.html" target="_blank" style="padding:4px 10px;background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.3);border-radius:6px;color:#00ff88;font-size:0.75em;text-decoration:none;">📰 GlobeNewswire</a>
+            <a href="https://wefi.co" target="_blank" style="padding:4px 10px;background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.3);border-radius:6px;color:#00ff88;font-size:0.75em;text-decoration:none;">🌐 WeFi 공식</a>
+          </div>
+        </div>
+
+        <!-- Q8 -->
+        <div style="background:rgba(0,255,136,0.05);border:1px solid rgba(0,255,136,0.15);border-radius:12px;padding:14px;">
+          <div style="font-size:0.88em;font-weight:700;color:#00ff88;margin-bottom:6px;">8️⃣ 실제로 사용 가능한 기술인가?</div>
+          <div style="font-size:0.82em;color:#c8e6cc;line-height:1.8;">WeFi는 이론에 그치지 않고 <strong style="color:#00ff88;">이미 가동 중인 생태계</strong>입니다. <strong style="color:#ffcc00;">153개국 20만 명</strong>이 실제 카드를 사용 중이며, 실시간 온체인 데이터를 통해 모든 활동이 기록됩니다.</div>
+          <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;">
+            <a href="https://app.wefi.co/register?ref=f9vipn2iog" target="_blank" onclick="window.open('https://app.wefi.co/register?ref=f9vipn2iog','_blank','noopener');return false;" style="padding:4px 10px;background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.3);border-radius:6px;color:#00ff88;font-size:0.75em;text-decoration:none;">📱 WeFi 앱 체험</a>
+            <a href="https://coinmarketcap.com/currencies/wfi/" target="_blank" style="padding:4px 10px;background:rgba(0,204,255,0.1);border:1px solid rgba(0,204,255,0.3);border-radius:6px;color:#00ccff;font-size:0.75em;text-decoration:none;">📊 온체인 데이터</a>
+            <a href="https://99bitcoins.com/news/altcoins/what-is-wefi-crypto-wfi-crypto-slams-90-in-30d-as-bitcoin-dips/" target="_blank" style="padding:4px 10px;background:rgba(0,204,255,0.1);border:1px solid rgba(0,204,255,0.3);border-radius:6px;color:#00ccff;font-size:0.75em;text-decoration:none;">📰 99Bitcoins</a>
+          </div>
+        </div>
+
+        <!-- Q9 -->
+        <div style="background:rgba(0,255,136,0.05);border:1px solid rgba(0,255,136,0.15);border-radius:12px;padding:14px;">
+          <div style="font-size:0.88em;font-weight:700;color:#00ff88;margin-bottom:6px;">9️⃣ '발란스 팀'의 지원을 받을 수 있는가?</div>
+          <div style="font-size:0.82em;color:#c8e6cc;line-height:1.8;">대한민국 최고의 WeFi 전문가 그룹 <strong style="color:#00ff88;">발란스 팀</strong>이 1:1 온보딩부터 오프라인 세미나까지 완벽한 교육 시스템을 제공합니다. 매주 줌 미팅·오프라인 미팅을 통해 <strong style="color:#ffcc00;">당신을 위파이 전문가로 만들어 드립니다.</strong></div>
+        </div>
+
+        <!-- Q10 -->
+        <div style="background:rgba(255,204,0,0.08);border:1px solid rgba(255,204,0,0.3);border-radius:12px;padding:14px;">
+          <div style="font-size:0.88em;font-weight:700;color:#ffcc00;margin-bottom:6px;">🔟 지금 참여하는 것이 왜 기회인가?</div>
+          <div style="font-size:0.82em;color:#c8e6cc;line-height:1.8;">WeFi는 <strong style="color:#ff9944;">반감기(Halving) 시스템</strong>을 가지고 있습니다. 시간이 지날수록 채굴 효율이 낮아지도록 설계되어 있어, <strong style="color:#ffcc00;">지금처럼 초기 단계에 참여하는 것이 자산 형성 측면에서 가장 유리합니다.</strong></div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -1772,7 +1906,7 @@ function toggleBBS() {
 }
 
 function showSection(id, btn) {
-  var allSections = ['intro','team','ecosystem','ito','calc','news','video','chat'];
+  var allSections = ['intro','team','ecosystem','ito','calc','fact','news','video','chat'];
   allSections.forEach(function(s) {
     var el = document.getElementById('sec-' + s);
     if (el) {
@@ -1793,7 +1927,7 @@ function showSection(id, btn) {
 
 // 페이지 로드 시 초기화
 (function() {
-  var allSections = ['intro','team','ecosystem','ito','calc','news','video','chat'];
+  var allSections = ['intro','team','ecosystem','ito','calc','fact','news','video','chat'];
   allSections.forEach(function(s) {
     var el = document.getElementById('sec-' + s);
     if (el) {
@@ -2329,151 +2463,6 @@ function shareKakao() {
   }, 800);
 }
 
-// 홍보 이미지 생성
-function makePromoImage(code, url) {
-  var canvas = document.createElement('canvas');
-  canvas.width = 800;
-  canvas.height = 900;
-  var ctx = canvas.getContext('2d');
-
-  // 배경
-  var bg = ctx.createLinearGradient(0, 0, 0, 900);
-  bg.addColorStop(0, '#080e0a');
-  bg.addColorStop(1, '#0d1a10');
-  ctx.fillStyle = bg;
-  ctx.fillRect(0, 0, 800, 900);
-
-  // 상단 글로우
-  var glow = ctx.createRadialGradient(400, 0, 0, 400, 0, 400);
-  glow.addColorStop(0, 'rgba(0,255,136,0.12)');
-  glow.addColorStop(1, 'transparent');
-  ctx.fillStyle = glow;
-  ctx.fillRect(0, 0, 800, 900);
-
-  // 테두리
-  ctx.strokeStyle = 'rgba(0,255,136,0.3)';
-  ctx.lineWidth = 2;
-  ctx.strokeRect(20, 20, 760, 860);
-
-  // 배지
-  ctx.fillStyle = 'rgba(0,255,136,0.1)';
-  ctx.beginPath();
-  ctx.roundRect(260, 50, 280, 44, 22);
-  ctx.fill();
-  ctx.strokeStyle = 'rgba(0,255,136,0.3)';
-  ctx.lineWidth = 1;
-  ctx.beginPath();
-  ctx.roundRect(260, 50, 280, 44, 22);
-  ctx.stroke();
-  ctx.fillStyle = '#00ff88';
-  ctx.font = 'bold 14px monospace';
-  ctx.textAlign = 'center';
-  ctx.fillText('🌐 WORLD\'S FIRST DEOBANK', 400, 78);
-
-  // 타이틀
-  ctx.font = 'bold 56px sans-serif';
-  var grad = ctx.createLinearGradient(200, 100, 600, 180);
-  grad.addColorStop(0, '#00ff88');
-  grad.addColorStop(1, '#00ccff');
-  ctx.fillStyle = grad;
-  ctx.textAlign = 'center';
-  ctx.fillText('WeFi DeoBank', 400, 170);
-
-  ctx.fillStyle = '#7a9980';
-  ctx.font = '18px sans-serif';
-  ctx.fillText('Beyond Banking · 블록체인이 만든 새로운 은행', 400, 210);
-
-  // 구분선
-  ctx.strokeStyle = 'rgba(0,255,136,0.2)';
-  ctx.lineWidth = 1;
-  ctx.beginPath();
-  ctx.moveTo(60, 240); ctx.lineTo(740, 240);
-  ctx.stroke();
-
-  // 핵심 정보 카드들
-  var cards = [
-    { label: '📊 CMC 순위', value: '#217', sub: '상위 1.4%', color: '#ffcc00' },
-    { label: '💰 현재 가격', value: '$2.11', sub: '실시간 시세', color: '#00ccff' },
-    { label: '🌍 글로벌 사용자', value: '20만명+', sub: '153개국', color: '#00ff88' },
-    { label: '⛏️ 일 채굴량', value: '1.5개/일', sub: '반감기 전 지금!', color: '#00ff88' },
-  ];
-  cards.forEach(function(c, i) {
-    var x = (i % 2) * 360 + 60;
-    var y = 260 + Math.floor(i / 2) * 160;
-    ctx.fillStyle = 'rgba(0,255,136,0.05)';
-    ctx.beginPath();
-    ctx.roundRect(x, y, 320, 130, 14);
-    ctx.fill();
-    ctx.strokeStyle = 'rgba(0,255,136,0.15)';
-    ctx.lineWidth = 1;
-    ctx.beginPath();
-    ctx.roundRect(x, y, 320, 130, 14);
-    ctx.stroke();
-    ctx.fillStyle = '#7a9980';
-    ctx.font = '14px sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText(c.label, x + 160, y + 30);
-    ctx.fillStyle = c.color;
-    ctx.font = 'bold 32px sans-serif';
-    ctx.fillText(c.value, x + 160, y + 75);
-    ctx.fillStyle = '#7a9980';
-    ctx.font = '13px sans-serif';
-    ctx.fillText(c.sub, x + 160, y + 105);
-  });
-
-  // 구분선
-  ctx.strokeStyle = 'rgba(0,255,136,0.2)';
-  ctx.lineWidth = 1;
-  ctx.beginPath();
-  ctx.moveTo(60, 600); ctx.lineTo(740, 600);
-  ctx.stroke();
-
-  // 레퍼럴 코드 박스
-  ctx.fillStyle = 'rgba(0,255,136,0.08)';
-  ctx.beginPath();
-  ctx.roundRect(60, 620, 680, 90, 14);
-  ctx.fill();
-  ctx.strokeStyle = 'rgba(0,255,136,0.4)';
-  ctx.lineWidth = 1.5;
-  ctx.beginPath();
-  ctx.roundRect(60, 620, 680, 90, 14);
-  ctx.stroke();
-  ctx.fillStyle = '#7a9980';
-  ctx.font = '15px sans-serif';
-  ctx.textAlign = 'center';
-  ctx.fillText('🔗 가입 링크 (아래 HTML 파일을 열어서 가입하세요)', 400, 650);
-  ctx.fillStyle = '#00ccff';
-  ctx.font = 'bold 18px monospace';
-  ctx.fillText(url, 400, 690);
-
-  // 하단 안내
-  ctx.fillStyle = '#e8f5ec';
-  ctx.font = 'bold 22px sans-serif';
-  ctx.textAlign = 'center';
-  ctx.fillText('📁 아래 HTML 파일을 열어보세요!', 400, 760);
-  ctx.fillStyle = '#7a9980';
-  ctx.font = '16px sans-serif';
-  ctx.fillText('파일을 열면 상세 정보 확인 후 가입 가능합니다', 400, 795);
-
-  // 워터마크
-  ctx.fillStyle = 'rgba(0,255,136,0.3)';
-  ctx.font = '13px monospace';
-  ctx.textAlign = 'center';
-  ctx.fillText('Made by WeFi DeoBank · wefi.co', 400, 860);
-
-  // PNG 다운로드
-  canvas.toBlob(function(imgBlob) {
-    var imgA = document.createElement('a');
-    imgA.href = URL.createObjectURL(imgBlob);
-    imgA.download = 'WeFi_홍보이미지_' + code + '.png';
-    document.body.appendChild(imgA);
-    imgA.click();
-    document.body.removeChild(imgA);
-    URL.revokeObjectURL(imgA.href);
-
-    alert('✅ 다운로드 완료!\n\n📸 홍보 이미지 (PNG)\n📁 앱 파일 (HTML)\n\n카톡 전송 방법:\n1️⃣ 이미지 먼저 전송 (미리보기 보임)\n2️⃣ HTML 파일 전송 (클릭하면 앱 열림)\n\n받은 분이 파일 열면 [' + code + '] 코드로 자동 연결! 😊');
-  }, 'image/png');
-}
 
 
 </script>
