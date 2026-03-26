@@ -635,7 +635,7 @@
     <button class="nav-btn" onclick="showSection('ito', this)">⛏️ ITO참여</button>
     <button class="nav-btn" onclick="showSection('calc', this)">📊 계산기</button>
     <button class="nav-btn" onclick="showSection('news', this)">📰 뉴스</button>
-    <button class="nav-btn" onclick="showSection('video', this)">▶️ 동영상</button>
+    <button class="nav-btn" onclick="showSection('video', this)"><svg width="20" height="14" viewBox="0 0 40 28" fill="none" style="vertical-align:middle;margin-right:4px;"><rect width="40" height="28" rx="7" fill="#FF0000"/><polygon points="16,8 16,20 28,14" fill="white"/></svg>위파이TV</button>
     <button class="nav-btn" onclick="showSection('guide', this)">📋 가이드</button>
     <button class="nav-btn" onclick="showSection('faq', this)">❓ FAQ</button>
     <button class="nav-btn" onclick="showSection('review', this)">⭐ 후기</button>
@@ -1645,6 +1645,8 @@
             <button onclick="setPrice(10)" class="price-btn active-price" style="padding:8px 14px;border-radius:8px;border:1px solid rgba(0,255,136,0.5);background:rgba(0,255,136,0.1);color:#00ff88;font-size:0.82em;cursor:pointer;font-family:inherit;">$10</button>
             <button onclick="setPrice(30)" class="price-btn" style="padding:8px 14px;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.05);color:#e8f5ec;font-size:0.82em;cursor:pointer;font-family:inherit;">$30</button>
             <button onclick="setPrice(100)" class="price-btn" style="padding:8px 14px;border-radius:8px;border:1px solid rgba(255,204,0,0.4);background:rgba(255,204,0,0.06);color:#ffcc00;font-size:0.82em;cursor:pointer;font-family:inherit;">$100</button>
+            <button onclick="setPrice(500)" class="price-btn" style="padding:8px 14px;border-radius:8px;border:1px solid rgba(255,153,0,0.4);background:rgba(255,153,0,0.06);color:#ff9900;font-size:0.82em;cursor:pointer;font-family:inherit;">$500</button>
+            <button onclick="setPrice(1000)" class="price-btn" style="padding:8px 14px;border-radius:8px;border:1px solid rgba(255,68,68,0.4);background:rgba(255,68,68,0.06);color:#ff4444;font-size:0.82em;cursor:pointer;font-family:inherit;">$1,000</button>
           </div>
         </div>
 
@@ -1674,6 +1676,21 @@
             <div style="margin-bottom:4px;color:#b8d4bc;font-weight:600;">📉 반감기별 채굴 상세</div>
             <div id="sim-halving-detail" style="display:flex;flex-direction:column;gap:3px;"></div>
           </div>
+          <!-- 가격별 배수 테이블 -->
+          <div style="margin-top:12px;">
+            <div style="font-size:0.75em;font-weight:600;color:#b8d4bc;margin-bottom:6px;">💹 WFI 가격별 수익 예상</div>
+            <table style="width:100%;border-collapse:collapse;font-size:0.78em;">
+              <thead>
+                <tr style="background:rgba(0,255,136,0.1);">
+                  <th style="padding:6px 8px;text-align:center;color:#00ff88;border-bottom:1px solid rgba(0,255,136,0.2);">WFI 가격</th>
+                  <th style="padding:6px 8px;text-align:center;color:#00ff88;border-bottom:1px solid rgba(0,255,136,0.2);">원화 환산</th>
+                  <th style="padding:6px 8px;text-align:center;color:#00ff88;border-bottom:1px solid rgba(0,255,136,0.2);">투자 대비</th>
+                  <th style="padding:6px 8px;text-align:center;color:#00ff88;border-bottom:1px solid rgba(0,255,136,0.2);">수익/손실</th>
+                </tr>
+              </thead>
+              <tbody id="sim-price-table"></tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
@@ -1686,7 +1703,7 @@
         onclick="window.open('https://open.kakao.com/o/pqaEQWmi','_blank','noopener');return false;"
         style="display:flex;align-items:center;justify-content:center;gap:12px;padding:16px;background:#FEE500;border-radius:14px;text-decoration:none;margin-bottom:10px;">
         <svg width="26" height="26" viewBox="0 0 24 24" fill="#3A1D1D"><path d="M12 3C6.477 3 2 6.477 2 10.5c0 2.667 1.557 5.012 3.926 6.393L5 21l4.353-2.312C10.2 18.89 11.09 19 12 19c5.523 0 10-3.477 10-8.5S17.523 3 12 3z"/></svg>
-        <span style="font-size:1.0em;font-weight:900;color:#3A1D1D;">카카오톡으로 공유하기</span>
+        <span style="font-size:1.0em;font-weight:900;color:#3A1D1D;">위파이디오뱅크 실시간 정보방</span>
       </a>
       <button onclick="copyLink()" style="width:100%;padding:14px;background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.3);border-radius:14px;color:#00ff88;font-size:0.9em;font-weight:700;cursor:pointer;font-family:inherit;">
         🔗 링크 복사하기
@@ -1813,19 +1830,40 @@
   <!-- 동영상 섹션 -->
   <div class="section" id="sec-video">
     <div class="card">
-      <div class="card-title">▶️ 동영상 자료</div>
-      <div style="font-size:0.8em;color:#00ccff;margin-bottom:12px;">👆 클릭하시면 유튜브 영상을 바로 보실 수 있습니다</div>
+      <div class="card-title">📺 위파이 TV</div>
+      <div style="font-size:0.8em;color:#00ccff;margin-bottom:12px;">👆 클릭하시면 위파이 TV로 바로 연결됩니다</div>
       <div class="news-list">
         <a href="https://youtu.be/6IWHja2jN9w?si=5xralOrQPTXWGYwX" target="_blank" onclick="window.open('https://youtu.be/6IWHja2jN9w?si=5xralOrQPTXWGYwX','_blank','noopener');return false;" style="text-decoration:none;">
           <div class="news-item">
-            <div class="news-icon" style="font-size:1.8em;">▶️</div>
+            <div class="news-icon" style="font-size:1.8em;">
+              <svg width="40" height="28" viewBox="0 0 40 28" fill="none">
+                <rect width="40" height="28" rx="7" fill="#FF0000"/>
+                <polygon points="16,8 16,20 28,14" fill="white"/>
+              </svg>
+            </div>
             <div class="news-info">
-              <div class="ni-media" style="color:#ff4444;font-size:0.8em;">YouTube</div>
+              <div class="ni-media" style="color:#ff4444;font-size:0.8em;">📺 위파이TV</div>
               <div class="ni-title" style="color:var(--text);">WeFi DeoBank 소개 영상</div>
               <div class="ni-date">youtu.be/6IWHja2jN9w</div>
             </div>
           </div>
         </a>
+      </div>
+    </div>
+
+    <!-- 팟캐스트 -->
+    <div class="card">
+      <div class="card-title">🎙️ 위파이 팟캐스트</div>
+      <div style="font-size:0.8em;color:#00ccff;margin-bottom:12px;">👆 클릭하시면 팟캐스트를 바로 들으실 수 있습니다</div>
+      <div class="news-list">
+        <div class="news-item" style="opacity:0.5;">
+          <div class="news-icon" style="font-size:1.8em;">🎙️</div>
+          <div class="news-info">
+            <div class="ni-media" style="color:#a97fff;font-size:0.8em;">Podcast</div>
+            <div class="ni-title" style="color:var(--text);">위파이 팟캐스트 — 준비 중</div>
+            <div class="ni-date">링크 추가 예정</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -2170,17 +2208,8 @@ function toggleFaq(el) {
   if (!isOpen) { answer.style.display = 'block'; arrow.style.transform = 'rotate(180deg)'; }
 }
 
-// 시뮬레이터 (반감기 적용)
-var simAmount = 1000, simPrice = 10;
-
-// 반감기 일정: 시작일, 종료일, 일 채굴률(per $1000)
-var HALVINGS = [
-  { name: '1기', start: new Date('2024-09-18'), end: new Date('2026-09-18'), ratePerK: 1.5 },
-  { name: '2기', start: new Date('2026-09-18'), end: new Date('2028-09-18'), ratePerK: 0.75 },
-  { name: '3기', start: new Date('2028-09-18'), end: new Date('2030-09-18'), ratePerK: 0.375 },
-  { name: '4기', start: new Date('2030-09-18'), end: new Date('2032-09-18'), ratePerK: 0.1875 }
-];
-var END_DATE = new Date('2032-09-18');
+// 시뮬레이터 (계산기 탭과 동일한 로직)
+var simAmount = 1000, simPrice = 10, simGrowth = 4;
 
 function setSim(val) {
   simAmount = val;
@@ -2207,40 +2236,84 @@ function setPrice(val) {
 }
 function calcSim() {
   var amt = parseFloat(document.getElementById('sim-input').value) || simAmount;
-  var now = new Date();
-  if (now >= END_DATE) return;
+  var exRate = window._exRate || 1480;
+  var today = new Date();
+  var halvingDate = new Date('2026-09-18T00:00:00');
+  var endDate = new Date('2032-09-18T00:00:00');
+  var ratio = amt / 150 / (1480/10000); // $1000 = 약 148만원 기준
 
-  var totalWFI = 0;
+  // 계산기 탭과 동일: $1000 = 150만원 기준으로 ratio 계산
+  ratio = amt / 1000;
+
+  var halvings = [];
+  var h = new Date(halvingDate);
+  while (h <= endDate) { halvings.push(new Date(h)); var nh = new Date(h); nh.setFullYear(nh.getFullYear()+2); h = nh; }
+
+  var total = 0;
   var details = [];
-  var exRate = 1480;
 
-  HALVINGS.forEach(function(h) {
-    var s = h.start < now ? now : h.start;
-    var e = h.end > END_DATE ? END_DATE : h.end;
-    if (s >= e) return;
-    var days = Math.max(0, Math.round((e - s) / 86400000));
-    var daily = amt * h.ratePerK / 1000;
-    var wfi = daily * days;
-    totalWFI += wfi;
-    details.push({ name: h.name, days: days, daily: daily, wfi: wfi });
-  });
+  // 반감기 전
+  var preDays = Math.max(0, Math.round((halvingDate - today) / 86400000));
+  var preDaily = 1.5 * ratio;
+  total += preDaily * preDays;
+  if (preDays > 0) details.push({ name: '반감기 전', days: preDays, daily: preDaily, wfi: preDaily * preDays });
 
-  var remainDays = Math.round((END_DATE - now) / 86400000);
-  var krw = totalWFI * simPrice * exRate;
-  var roi = ((totalWFI * simPrice - amt) / amt * 100).toFixed(0);
+  // 반감기 후 (가입자 증가율 적용)
+  for (var i = 0; i < halvings.length; i++) {
+    var ps = halvings[i];
+    var pe = i+1 < halvings.length ? halvings[i+1] : endDate;
+    if (ps >= endDate) break;
+    var days = Math.max(0, Math.round((pe - ps) / 86400000));
+    var daily = (1.5 * ratio) / Math.pow(2, i+1) / Math.pow(simGrowth, i+1);
+    total += daily * days;
+    var names = ['1차 반감기','2차 반감기','3차 반감기'];
+    details.push({ name: names[i]||((i+1)+'차'), days: days, daily: daily, wfi: daily * days });
+  }
+
+  var remainDays = Math.round((endDate - today) / 86400000);
+  var krw = total * simPrice * exRate;
+  var investKRW = amt * exRate;
+  var roi = ((total * simPrice * exRate - investKRW) / investKRW * 100).toFixed(0);
 
   document.getElementById('sim-days').textContent = remainDays.toLocaleString() + '일';
-  document.getElementById('sim-total').textContent = Math.round(totalWFI).toLocaleString() + '개';
+  document.getElementById('sim-total').textContent = Math.round(total).toLocaleString() + '개';
   document.getElementById('sim-value').textContent = '약 ' + Math.round(krw/10000).toLocaleString() + '만원';
   document.getElementById('sim-roi').textContent = (roi > 0 ? '+' : '') + roi + '%';
   document.getElementById('sim-roi').style.color = roi > 0 ? '#ff9944' : '#ff5555';
   document.getElementById('sim-title').textContent = '📊 2032.09.18 채굴 종료까지 총 예상 결과 (목표가 $' + simPrice + ')';
 
+  // 가격별 배수 테이블
+  var tbl = document.getElementById('sim-price-table');
+  if (tbl) {
+    var prices = [1, 2, 3, 5, 10, 20, 30, 50, 100, 200, 300, 500, 1000];
+    var exR = window._exRate || 1480;
+    var investKRW = amt * exR;
+    tbl.innerHTML = prices.map(function(p) {
+      var krw = total * p * exR;
+      var mult = krw / investKRW;
+      var profit = krw - investKRW;
+      var isProfit = profit >= 0;
+      var profitStr = (isProfit ? '+' : '') + (Math.abs(profit) >= 1e8
+        ? (isProfit?'+':'') + Math.round(profit/1e8*10)/10 + '억원'
+        : Math.round(profit/10000).toLocaleString() + '만원');
+      var krwStr = krw >= 1e8
+        ? Math.round(krw/1e8*10)/10 + '억원'
+        : Math.round(krw/10000).toLocaleString() + '만원';
+      var color = mult >= 1 ? '#00ff88' : '#ff5555';
+      return '<tr style="border-bottom:1px solid rgba(255,255,255,0.05);">' +
+        '<td style="padding:6px 8px;text-align:center;color:#b8d4bc;">$' + p + '</td>' +
+        '<td style="padding:6px 8px;text-align:center;color:#e8f5ec;">' + krwStr + '</td>' +
+        '<td style="padding:6px 8px;text-align:center;font-weight:700;color:' + color + ';">' + mult.toFixed(1) + '배</td>' +
+        '<td style="padding:6px 8px;text-align:center;color:' + color + ';">' + (profit >= 0 ? '+' : '') + (Math.abs(profit) >= 1e8 ? Math.round(profit/1e8*10)/10 + '억원' : Math.round(profit/10000).toLocaleString() + '만원') + '</td>' +
+        '</tr>';
+    }).join('');
+  }
+
   var det = document.getElementById('sim-halving-detail');
   if (det) {
     det.innerHTML = details.map(function(d) {
       return '<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.05);">' +
-        '<span style="color:#7a9980;">' + d.name + ' (' + d.days + '일)</span>' +
+        '<span style="color:#7a9980;">' + d.name + ' (' + d.days.toLocaleString() + '일)</span>' +
         '<span style="color:#00ff88;">일 ' + d.daily.toFixed(3) + '개 → <strong>' + Math.round(d.wfi).toLocaleString() + '개</strong></span>' +
         '</div>';
     }).join('');
