@@ -126,6 +126,21 @@
     0%,100% { transform: translateX(0); opacity:0.5; }
     50% { transform: translateX(6px); opacity:1; }
   }
+  @keyframes fireGlow {
+    0%,100% { box-shadow: 0 0 6px rgba(107,46,255,0.3); border-color: rgba(107,46,255,0.3); }
+    50% { box-shadow: 0 0 18px rgba(107,46,255,0.9), 0 0 30px rgba(107,46,255,0.4); border-color: rgba(107,46,255,0.9); }
+  }
+  @keyframes visaGlow {
+    0%,100% { box-shadow: 0 0 6px rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.18); }
+    50% { box-shadow: 0 0 18px rgba(255,255,255,0.6), 0 0 30px rgba(100,150,255,0.4); border-color: rgba(255,255,255,0.7); }
+  }
+  @keyframes titleGlow {
+    0%,100% { text-shadow: 0 0 10px rgba(0,255,136,0.3); }
+    50% { text-shadow: 0 0 25px rgba(0,255,136,1), 0 0 50px rgba(0,204,255,0.8), 0 0 80px rgba(0,255,136,0.5); }
+  }
+  .partner-fire { animation: fireGlow 0.8s ease-in-out infinite; }
+  .partner-visa { animation: visaGlow 0.8s ease-in-out infinite 0.4s; }
+  .title-glow { animation: titleGlow 0.8s ease-in-out infinite; }
   .nav {
     display: flex;
     gap: 8px;
@@ -578,7 +593,7 @@
       🇰🇷 대한민국 위파이 디오뱅크 · <span style="color:var(--green)">발란스 팀</span>
     </div>
     <div class="hero-badge">🌐 WORLD'S FIRST DEOBANK</div>
-    <div class="hero-logo">WeFi DeoBank</div>
+    <div class="hero-logo" id="hero-title">WeFi DeoBank</div>
     <div class="hero-sub">Beyond Banking · 블록체인이 만든 새로운 은행</div>
 
     <!-- 공식 제휴 파트너 -->
@@ -586,7 +601,7 @@
       <div style="font-size:0.7em;color:#7a9980;letter-spacing:0.12em;text-align:center;margin-bottom:8px;">✅ 공식 제휴 파트너</div>
       <div style="display:flex;align-items:center;justify-content:center;gap:10px;">
         <!-- Fireblocks -->
-        <div style="display:flex;align-items:center;gap:7px;background:rgba(107,46,255,0.12);border:1px solid rgba(107,46,255,0.3);border-radius:10px;padding:9px 14px;">
+        <div class="partner-fire" style="display:flex;align-items:center;gap:7px;background:rgba(107,46,255,0.12);border:1px solid rgba(107,46,255,0.3);border-radius:10px;padding:9px 14px;">
           <svg width="18" height="18" viewBox="0 0 32 32" fill="none">
             <rect width="32" height="32" rx="6" fill="#6B2EFF"/>
             <path d="M16 4L28 10V22L16 28L4 22V10L16 4Z" fill="white" opacity="0.9"/>
@@ -597,7 +612,7 @@
         </div>
         <div style="width:1px;height:30px;background:rgba(255,255,255,0.1);"></div>
         <!-- VISA -->
-        <div style="display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.18);border-radius:10px;padding:9px 18px;">
+        <div class="partner-visa" style="display:flex;align-items:center;gap:6px;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.18);border-radius:10px;padding:9px 18px;">
           <span style="font-family:Arial,sans-serif;font-size:1.3em;font-weight:900;font-style:italic;color:#ffffff;letter-spacing:1px;text-shadow:0 0 12px rgba(255,255,255,0.5);">VISA</span>
         </div>
       </div>
@@ -621,6 +636,9 @@
     <button class="nav-btn" onclick="showSection('calc', this)">📊 계산기</button>
     <button class="nav-btn" onclick="showSection('news', this)">📰 뉴스</button>
     <button class="nav-btn" onclick="showSection('video', this)">▶️ 동영상</button>
+    <button class="nav-btn" onclick="showSection('guide', this)">📋 가이드</button>
+    <button class="nav-btn" onclick="showSection('faq', this)">❓ FAQ</button>
+    <button class="nav-btn" onclick="showSection('review', this)">⭐ 후기</button>
     <button class="nav-btn" onclick="showSection('chat', this)" style="background:linear-gradient(90deg,rgba(0,255,136,0.15),rgba(0,204,255,0.15));border-color:rgba(0,255,136,0.4);color:#00ff88;font-weight:700;">⚡ 레벨UP</button>
     </div>
     <div class="nav-arrow" id="nav-arrow"><span>›</span></div>
@@ -1559,6 +1577,239 @@
 
 
   </div>
+  <!-- 가이드 섹션 -->
+  <div class="section" id="sec-guide">
+
+    <!-- 단계별 체크리스트 -->
+    <div class="card">
+      <div class="card-title">✅ 시작 체크리스트</div>
+      <div style="font-size:0.82em;color:#7a9980;margin-bottom:14px;">아래 단계를 하나씩 완료해보세요!</div>
+      <div style="display:flex;flex-direction:column;gap:8px;" id="checklist">
+        <div class="chk-item" onclick="toggleCheck(this)" style="display:flex;align-items:center;gap:12px;padding:13px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;cursor:pointer;">
+          <div class="chk-box" style="width:22px;height:22px;border:2px solid rgba(0,255,136,0.4);border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:0.9em;"></div>
+          <div><div style="font-size:0.88em;font-weight:600;color:#e8f5ec;">1. WeFi 앱 다운로드</div><div style="font-size:0.75em;color:#7a9980;">wefi.co 공식 사이트에서 설치</div></div>
+        </div>
+        <div class="chk-item" onclick="toggleCheck(this)" style="display:flex;align-items:center;gap:12px;padding:13px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;cursor:pointer;">
+          <div class="chk-box" style="width:22px;height:22px;border:2px solid rgba(0,255,136,0.4);border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:0.9em;"></div>
+          <div><div style="font-size:0.88em;font-weight:600;color:#e8f5ec;">2. 회원가입 & 이메일 인증</div><div style="font-size:0.75em;color:#7a9980;">이메일 등록 후 인증 완료</div></div>
+        </div>
+        <div class="chk-item" onclick="toggleCheck(this)" style="display:flex;align-items:center;gap:12px;padding:13px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;cursor:pointer;">
+          <div class="chk-box" style="width:22px;height:22px;border:2px solid rgba(0,255,136,0.4);border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:0.9em;"></div>
+          <div><div style="font-size:0.88em;font-weight:600;color:#e8f5ec;">3. USDT 구매 & 입금</div><div style="font-size:0.75em;color:#7a9980;">거래소에서 USDT → WeFi 지갑으로 전송</div></div>
+        </div>
+        <div class="chk-item" onclick="toggleCheck(this)" style="display:flex;align-items:center;gap:12px;padding:13px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;cursor:pointer;">
+          <div class="chk-box" style="width:22px;height:22px;border:2px solid rgba(0,255,136,0.4);border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:0.9em;"></div>
+          <div><div style="font-size:0.88em;font-weight:600;color:#e8f5ec;">4. ITO 노드 구매</div><div style="font-size:0.75em;color:#7a9980;">앱 내 ITO 메뉴 → 노드 활성화</div></div>
+        </div>
+        <div class="chk-item" onclick="toggleCheck(this)" style="display:flex;align-items:center;gap:12px;padding:13px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;cursor:pointer;">
+          <div class="chk-box" style="width:22px;height:22px;border:2px solid rgba(0,255,136,0.4);border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:0.9em;"></div>
+          <div><div style="font-size:0.88em;font-weight:600;color:#e8f5ec;">5. 채굴 시작 확인</div><div style="font-size:0.75em;color:#7a9980;">매일 자동 채굴 → Energy 누적 → WFI 클레임</div></div>
+        </div>
+        <div class="chk-item" onclick="toggleCheck(this)" style="display:flex;align-items:center;gap:12px;padding:13px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:10px;cursor:pointer;">
+          <div class="chk-box" style="width:22px;height:22px;border:2px solid rgba(0,255,136,0.4);border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:0.9em;"></div>
+          <div><div style="font-size:0.88em;font-weight:600;color:#e8f5ec;">6. 발란스 오픈채팅 참여</div><div style="font-size:0.75em;color:#7a9980;">팀원들과 소통 & 정보 공유</div></div>
+        </div>
+      </div>
+      <div id="chk-complete" style="display:none;margin-top:14px;padding:14px;background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.4);border-radius:12px;text-align:center;">
+        <div style="font-size:1.2em;">🎉</div>
+        <div style="font-weight:700;color:#00ff88;margin-top:4px;">모든 단계 완료!</div>
+        <div style="font-size:0.78em;color:#7a9980;margin-top:4px;">WeFi 여정을 시작하셨습니다!</div>
+      </div>
+    </div>
+
+    <!-- 예상 수익 시뮬레이터 -->
+    <div class="card">
+      <div class="card-title">💰 내 예상 수익 시뮬레이터</div>
+      <div style="font-size:0.78em;color:#7a9980;margin-bottom:14px;">⚠️ 반감기 적용 · 2032년 9월 18일 채굴 종료 기준 · 단순 참고용</div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+
+        <div>
+          <div style="font-size:0.8em;color:#7a9980;margin-bottom:6px;">💵 투자금액 (USD)</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;">
+            <button onclick="setSim(500)" class="sim-btn" style="padding:8px 14px;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.05);color:#e8f5ec;font-size:0.82em;cursor:pointer;font-family:inherit;">$500</button>
+            <button onclick="setSim(1000)" class="sim-btn active-sim" style="padding:8px 14px;border-radius:8px;border:1px solid rgba(0,255,136,0.5);background:rgba(0,255,136,0.1);color:#00ff88;font-size:0.82em;cursor:pointer;font-family:inherit;">$1,000</button>
+            <button onclick="setSim(3000)" class="sim-btn" style="padding:8px 14px;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.05);color:#e8f5ec;font-size:0.82em;cursor:pointer;font-family:inherit;">$3,000</button>
+            <button onclick="setSim(5000)" class="sim-btn" style="padding:8px 14px;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.05);color:#e8f5ec;font-size:0.82em;cursor:pointer;font-family:inherit;">$5,000</button>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <input id="sim-input" type="number" value="1000" placeholder="직접 입력"
+              style="flex:1;padding:10px 12px;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.15);border-radius:10px;color:#fff;font-size:0.88em;outline:none;" oninput="calcSim()">
+            <span style="font-size:0.82em;color:#7a9980;">USD</span>
+          </div>
+        </div>
+
+        <div>
+          <div style="font-size:0.8em;color:#7a9980;margin-bottom:6px;">📈 WFI 목표가 ($)</div>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;">
+            <button onclick="setPrice(5)" class="price-btn" style="padding:8px 14px;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.05);color:#e8f5ec;font-size:0.82em;cursor:pointer;font-family:inherit;">$5</button>
+            <button onclick="setPrice(10)" class="price-btn active-price" style="padding:8px 14px;border-radius:8px;border:1px solid rgba(0,255,136,0.5);background:rgba(0,255,136,0.1);color:#00ff88;font-size:0.82em;cursor:pointer;font-family:inherit;">$10</button>
+            <button onclick="setPrice(30)" class="price-btn" style="padding:8px 14px;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.05);color:#e8f5ec;font-size:0.82em;cursor:pointer;font-family:inherit;">$30</button>
+            <button onclick="setPrice(100)" class="price-btn" style="padding:8px 14px;border-radius:8px;border:1px solid rgba(255,204,0,0.4);background:rgba(255,204,0,0.06);color:#ffcc00;font-size:0.82em;cursor:pointer;font-family:inherit;">$100</button>
+          </div>
+        </div>
+
+        <!-- 결과 -->
+        <div id="sim-result" style="background:rgba(0,255,136,0.06);border:1px solid rgba(0,255,136,0.2);border-radius:12px;padding:14px;">
+          <div style="font-size:0.8em;color:#7a9980;margin-bottom:10px;text-align:center;" id="sim-title">📊 2032.09.18 채굴 종료까지 총 예상 결과</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+            <div style="background:rgba(0,0,0,0.2);border-radius:8px;padding:10px;text-align:center;">
+              <div style="font-size:0.72em;color:#7a9980;">📅 남은 채굴 일수</div>
+              <div style="font-size:1.0em;font-weight:700;color:#00ccff;" id="sim-days">-일</div>
+            </div>
+            <div style="background:rgba(0,0,0,0.2);border-radius:8px;padding:10px;text-align:center;">
+              <div style="font-size:0.72em;color:#7a9980;">⛏️ 총 채굴량</div>
+              <div style="font-size:1.0em;font-weight:700;color:#00ff88;" id="sim-total">-개</div>
+            </div>
+            <div style="background:rgba(0,0,0,0.2);border-radius:8px;padding:10px;text-align:center;">
+              <div style="font-size:0.72em;color:#7a9980;">💰 목표가 평가액</div>
+              <div style="font-size:1.0em;font-weight:700;color:#ffcc00;" id="sim-value">-만원</div>
+            </div>
+            <div style="background:rgba(0,0,0,0.2);border-radius:8px;padding:10px;text-align:center;">
+              <div style="font-size:0.72em;color:#7a9980;">📈 총 수익률</div>
+              <div style="font-size:1.0em;font-weight:700;color:#ff9944;" id="sim-roi">-%</div>
+            </div>
+          </div>
+          <!-- 반감기별 상세 -->
+          <div style="margin-top:10px;font-size:0.75em;color:#7a9980;">
+            <div style="margin-bottom:4px;color:#b8d4bc;font-weight:600;">📉 반감기별 채굴 상세</div>
+            <div id="sim-halving-detail" style="display:flex;flex-direction:column;gap:3px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 카카오톡 공유 버튼 -->
+    <div class="card">
+      <div class="card-title">📤 지인에게 공유하기</div>
+      <div style="font-size:0.82em;color:#7a9980;margin-bottom:14px;">소중한 사람에게 WeFi를 알려보세요 😊</div>
+      <a href="https://open.kakao.com/o/g0isCS1h" target="_blank"
+        onclick="window.open('https://open.kakao.com/o/g0isCS1h','_blank','noopener');return false;"
+        style="display:flex;align-items:center;justify-content:center;gap:12px;padding:16px;background:#FEE500;border-radius:14px;text-decoration:none;margin-bottom:10px;">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="#3A1D1D"><path d="M12 3C6.477 3 2 6.477 2 10.5c0 2.667 1.557 5.012 3.926 6.393L5 21l4.353-2.312C10.2 18.89 11.09 19 12 19c5.523 0 10-3.477 10-8.5S17.523 3 12 3z"/></svg>
+        <span style="font-size:1.0em;font-weight:900;color:#3A1D1D;">카카오톡으로 공유하기</span>
+      </a>
+      <button onclick="copyLink()" style="width:100%;padding:14px;background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.3);border-radius:14px;color:#00ff88;font-size:0.9em;font-weight:700;cursor:pointer;font-family:inherit;">
+        🔗 링크 복사하기
+      </button>
+      <div id="copy-msg" style="display:none;text-align:center;margin-top:8px;font-size:0.78em;color:#00ff88;">✅ 링크가 복사됐습니다!</div>
+    </div>
+
+  </div>
+
+  <!-- FAQ 섹션 -->
+  <div class="section" id="sec-faq">
+    <div class="card">
+      <div class="card-title">❓ 자주 묻는 질문</div>
+      <div style="display:flex;flex-direction:column;gap:8px;" id="faq-list">
+
+        <div class="faq-item" onclick="toggleFaq(this)" style="border:1px solid rgba(255,255,255,0.08);border-radius:12px;overflow:hidden;cursor:pointer;">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:14px;background:rgba(255,255,255,0.03);">
+            <span style="font-size:0.88em;font-weight:600;color:#e8f5ec;">💸 사기 아닌가요?</span>
+            <span class="faq-arrow" style="color:#7a9980;transition:transform 0.3s;">▼</span>
+          </div>
+          <div class="faq-answer" style="display:none;padding:12px 14px;font-size:0.82em;color:#b8d4bc;line-height:1.8;border-top:1px solid rgba(255,255,255,0.06);">
+            USDT 창업자 리브 콜린스가 직접 참여하고, Fireblocks·VISA와 공식 제휴한 글로벌 프로젝트입니다. CoinMarketCap·CoinGecko에 등재되어 있으며, SolidProof 보안 감사도 완료했습니다. 캐나다·EU·UAE 라이선스도 보유하고 있어요.
+          </div>
+        </div>
+
+        <div class="faq-item" onclick="toggleFaq(this)" style="border:1px solid rgba(255,255,255,0.08);border-radius:12px;overflow:hidden;cursor:pointer;">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:14px;background:rgba(255,255,255,0.03);">
+            <span style="font-size:0.88em;font-weight:600;color:#e8f5ec;">💰 최소 투자금이 얼마인가요?</span>
+            <span class="faq-arrow" style="color:#7a9980;transition:transform 0.3s;">▼</span>
+          </div>
+          <div class="faq-answer" style="display:none;padding:12px 14px;font-size:0.82em;color:#b8d4bc;line-height:1.8;border-top:1px solid rgba(255,255,255,0.06);">
+            최소 $100 (약 15만원)부터 시작할 수 있습니다. 단, 반감기 전인 지금 더 많은 채굴량을 확보하려면 $1,000 이상을 권장합니다.
+          </div>
+        </div>
+
+        <div class="faq-item" onclick="toggleFaq(this)" style="border:1px solid rgba(255,255,255,0.08);border-radius:12px;overflow:hidden;cursor:pointer;">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:14px;background:rgba(255,255,255,0.03);">
+            <span style="font-size:0.88em;font-weight:600;color:#e8f5ec;">🏦 출금은 어떻게 하나요?</span>
+            <span class="faq-arrow" style="color:#7a9980;transition:transform 0.3s;">▼</span>
+          </div>
+          <div class="faq-answer" style="display:none;padding:12px 14px;font-size:0.82em;color:#b8d4bc;line-height:1.8;border-top:1px solid rgba(255,255,255,0.06);">
+            채굴된 WFI 토큰을 클레임한 후, 거래소로 전송해 USDT로 교환 → 원화 출금이 가능합니다. 또는 WeFi Visa 카드로 직접 사용할 수도 있어요.
+          </div>
+        </div>
+
+        <div class="faq-item" onclick="toggleFaq(this)" style="border:1px solid rgba(255,255,255,0.08);border-radius:12px;overflow:hidden;cursor:pointer;">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:14px;background:rgba(255,255,255,0.03);">
+            <span style="font-size:0.88em;font-weight:600;color:#e8f5ec;">⏰ 채굴은 언제까지 가능한가요?</span>
+            <span class="faq-arrow" style="color:#7a9980;transition:transform 0.3s;">▼</span>
+          </div>
+          <div class="faq-answer" style="display:none;padding:12px 14px;font-size:0.82em;color:#b8d4bc;line-height:1.8;border-top:1px solid rgba(255,255,255,0.06);">
+            채굴 종료일은 <strong style="color:#ffcc00;">2032년 9월 18일</strong>입니다. 그 전까지 매일 자동으로 채굴됩니다. 단, 반감기(2026.09.18)마다 채굴량이 줄어드니 지금이 가장 유리합니다.
+          </div>
+        </div>
+
+        <div class="faq-item" onclick="toggleFaq(this)" style="border:1px solid rgba(255,255,255,0.08);border-radius:12px;overflow:hidden;cursor:pointer;">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:14px;background:rgba(255,255,255,0.03);">
+            <span style="font-size:0.88em;font-weight:600;color:#e8f5ec;">🔒 내 자산이 안전한가요?</span>
+            <span class="faq-arrow" style="color:#7a9980;transition:transform 0.3s;">▼</span>
+          </div>
+          <div class="faq-answer" style="display:none;padding:12px 14px;font-size:0.82em;color:#b8d4bc;line-height:1.8;border-top:1px solid rgba(255,255,255,0.06);">
+            비수탁형(Non-custodial) 방식으로 회사가 내 자산을 보관하지 않습니다. 개인 지갑에서 직접 관리하며, Fireblocks 기관급 보안으로 보호됩니다. 창사 이래 해킹 0건입니다.
+          </div>
+        </div>
+
+        <div class="faq-item" onclick="toggleFaq(this)" style="border:1px solid rgba(255,255,255,0.08);border-radius:12px;overflow:hidden;cursor:pointer;">
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:14px;background:rgba(255,255,255,0.03);">
+            <span style="font-size:0.88em;font-weight:600;color:#e8f5ec;">📱 어떤 기기에서 사용하나요?</span>
+            <span class="faq-arrow" style="color:#7a9980;transition:transform 0.3s;">▼</span>
+          </div>
+          <div class="faq-answer" style="display:none;padding:12px 14px;font-size:0.82em;color:#b8d4bc;line-height:1.8;border-top:1px solid rgba(255,255,255,0.06);">
+            안드로이드·iOS 스마트폰 모두 지원합니다. WeFi 공식 앱을 wefi.co에서 다운로드하세요. 설치 후에는 매일 앱을 열지 않아도 자동으로 채굴됩니다.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- 후기 섹션 -->
+  <div class="section" id="sec-review">
+    <div class="card">
+      <div class="card-title">⭐ 실제 회원 후기</div>
+      <div style="font-size:0.82em;color:#7a9980;margin-bottom:14px;">발란스 팀 실제 회원들의 이야기입니다.</div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+
+        <div style="background:rgba(0,255,136,0.04);border:1px solid rgba(0,255,136,0.15);border-radius:12px;padding:14px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+            <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#00ff88,#00ccff);display:flex;align-items:center;justify-content:center;font-weight:700;color:#000;font-size:0.9em;">김</div>
+            <div>
+              <div style="font-size:0.85em;font-weight:700;color:#e8f5ec;">김○○님 · 부산</div>
+              <div style="color:#ffcc00;font-size:0.78em;">⭐⭐⭐⭐⭐</div>
+            </div>
+          </div>
+          <div style="font-size:0.82em;color:#c8e6cc;line-height:1.8;">"처음엔 반신반의했는데 센터에서 직접 설명 듣고 결정했어요. 가입한 지 3개월 됐는데 매일 WFI가 쌓이는 게 보여서 신기하고 뿌듯합니다. 반감기 전에 시작한 게 정말 잘한 것 같아요!"</div>
+        </div>
+
+        <div style="background:rgba(0,204,255,0.04);border:1px solid rgba(0,204,255,0.15);border-radius:12px;padding:14px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+            <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#00ccff,#6B2EFF);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;font-size:0.9em;">이</div>
+            <div>
+              <div style="font-size:0.85em;font-weight:700;color:#e8f5ec;">이○○님 · 구미</div>
+              <div style="color:#ffcc00;font-size:0.78em;">⭐⭐⭐⭐⭐</div>
+            </div>
+          </div>
+          <div style="font-size:0.82em;color:#c8e6cc;line-height:1.8;">"USDT 창업자가 만든 프로젝트라는 말에 믿음이 갔어요. 발란스 팀에서 1:1로 가입부터 다 도와줘서 어렵지 않게 시작했습니다. 매주 줌 미팅도 도움이 많이 돼요."</div>
+        </div>
+
+        <div style="background:rgba(255,204,0,0.04);border:1px solid rgba(255,204,0,0.15);border-radius:12px;padding:14px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+            <div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#ffcc00,#ff9944);display:flex;align-items:center;justify-content:center;font-weight:700;color:#000;font-size:0.9em;">박</div>
+            <div>
+              <div style="font-size:0.85em;font-weight:700;color:#e8f5ec;">박○○님 · 영주</div>
+              <div style="color:#ffcc00;font-size:0.78em;">⭐⭐⭐⭐⭐</div>
+            </div>
+          </div>
+          <div style="font-size:0.82em;color:#c8e6cc;line-height:1.8;">"은행 이자도 안 되는 세상에 이런 기회가 있다니 놀랍습니다. 팩트체크 탭에서 하나하나 확인하고 결정했어요. 지인들한테도 소개해줬는데 다들 만족하고 있어요."</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
   <!-- 동영상 섹션 -->
   <div class="section" id="sec-video">
     <div class="card">
@@ -1690,14 +1941,6 @@
     ⚠️ 본 자료는 참고용이며 투자 권유가 아닙니다.<br>
     가상자산 투자는 원금 손실 가능성이 있습니다.<br><br>
     Made by <strong>Mark Shim (발란스)</strong><br><br>
-
-    <!-- 방문자 카운터 -->
-    <div style="text-align:center;margin:12px 0;">
-      <div style="font-size:0.72em;color:#7a9980;margin-bottom:6px;">👀 누적 방문자</div>
-      <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fshimjong33-ctrl.github.io%2FWefi&count_bg=%2300ff88&title_bg=%23111d14&icon=&icon_color=%23E7E7E7&title=방문자&edge_flat=true"
-        style="height:24px;border-radius:6px;"
-        onerror="this.style.display='none'">
-    </div>
     <div style="margin-top:10px;padding:14px 16px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;font-size:0.78em;color:#7a9980;line-height:1.8;text-align:center;">
       이 앱은 커뮤니티의 활성화로 만들어졌으며<br>
       <strong style="color:#b8d4bc;">본사와는 아무런 관련이 없습니다.</strong>
@@ -1902,6 +2145,138 @@ function toggleWefiNews() {
   }
 }
 
+
+// 체크리스트
+function toggleCheck(el) {
+  var box = el.querySelector('.chk-box');
+  var done = box.textContent === '✅';
+  box.textContent = done ? '' : '✅';
+  box.style.background = done ? '' : 'rgba(0,255,136,0.2)';
+  box.style.borderColor = done ? 'rgba(0,255,136,0.4)' : '#00ff88';
+  el.style.opacity = done ? '1' : '0.6';
+  var completed = document.querySelectorAll('.chk-item .chk-box');
+  var allDone = Array.from(completed).every(function(b) { return b.textContent === '✅'; });
+  var msg = document.getElementById('chk-complete');
+  if (msg) msg.style.display = allDone ? 'block' : 'none';
+}
+
+// FAQ 토글
+function toggleFaq(el) {
+  var answer = el.querySelector('.faq-answer');
+  var arrow = el.querySelector('.faq-arrow');
+  var isOpen = answer.style.display === 'block';
+  document.querySelectorAll('.faq-answer').forEach(function(a) { a.style.display = 'none'; });
+  document.querySelectorAll('.faq-arrow').forEach(function(a) { a.style.transform = ''; });
+  if (!isOpen) { answer.style.display = 'block'; arrow.style.transform = 'rotate(180deg)'; }
+}
+
+// 시뮬레이터 (반감기 적용)
+var simAmount = 1000, simPrice = 10;
+
+// 반감기 일정: 시작일, 종료일, 일 채굴률(per $1000)
+var HALVINGS = [
+  { name: '1기', start: new Date('2024-09-18'), end: new Date('2026-09-18'), ratePerK: 1.5 },
+  { name: '2기', start: new Date('2026-09-18'), end: new Date('2028-09-18'), ratePerK: 0.75 },
+  { name: '3기', start: new Date('2028-09-18'), end: new Date('2030-09-18'), ratePerK: 0.375 },
+  { name: '4기', start: new Date('2030-09-18'), end: new Date('2032-09-18'), ratePerK: 0.1875 }
+];
+var END_DATE = new Date('2032-09-18');
+
+function setSim(val) {
+  simAmount = val;
+  document.getElementById('sim-input').value = val;
+  document.querySelectorAll('.sim-btn').forEach(function(b) {
+    var bval = parseInt(b.textContent.replace(/[$,]/g,''));
+    var on = bval === val;
+    b.style.borderColor = on ? 'rgba(0,255,136,0.5)' : 'rgba(255,255,255,0.15)';
+    b.style.background = on ? 'rgba(0,255,136,0.1)' : 'rgba(255,255,255,0.05)';
+    b.style.color = on ? '#00ff88' : '#e8f5ec';
+  });
+  calcSim();
+}
+function setPrice(val) {
+  simPrice = val;
+  document.querySelectorAll('.price-btn').forEach(function(b) {
+    var bval = parseInt(b.textContent.replace('$',''));
+    var on = bval === val;
+    b.style.borderColor = on ? 'rgba(0,255,136,0.5)' : 'rgba(255,255,255,0.15)';
+    b.style.background = on ? 'rgba(0,255,136,0.1)' : 'rgba(255,255,255,0.05)';
+    b.style.color = on ? '#00ff88' : '#e8f5ec';
+  });
+  calcSim();
+}
+function calcSim() {
+  var amt = parseFloat(document.getElementById('sim-input').value) || simAmount;
+  var now = new Date();
+  if (now >= END_DATE) return;
+
+  var totalWFI = 0;
+  var details = [];
+  var exRate = 1480;
+
+  HALVINGS.forEach(function(h) {
+    var s = h.start < now ? now : h.start;
+    var e = h.end > END_DATE ? END_DATE : h.end;
+    if (s >= e) return;
+    var days = Math.max(0, Math.round((e - s) / 86400000));
+    var daily = amt * h.ratePerK / 1000;
+    var wfi = daily * days;
+    totalWFI += wfi;
+    details.push({ name: h.name, days: days, daily: daily, wfi: wfi });
+  });
+
+  var remainDays = Math.round((END_DATE - now) / 86400000);
+  var krw = totalWFI * simPrice * exRate;
+  var roi = ((totalWFI * simPrice - amt) / amt * 100).toFixed(0);
+
+  document.getElementById('sim-days').textContent = remainDays.toLocaleString() + '일';
+  document.getElementById('sim-total').textContent = Math.round(totalWFI).toLocaleString() + '개';
+  document.getElementById('sim-value').textContent = '약 ' + Math.round(krw/10000).toLocaleString() + '만원';
+  document.getElementById('sim-roi').textContent = (roi > 0 ? '+' : '') + roi + '%';
+  document.getElementById('sim-roi').style.color = roi > 0 ? '#ff9944' : '#ff5555';
+  document.getElementById('sim-title').textContent = '📊 2032.09.18 채굴 종료까지 총 예상 결과 (목표가 $' + simPrice + ')';
+
+  var det = document.getElementById('sim-halving-detail');
+  if (det) {
+    det.innerHTML = details.map(function(d) {
+      return '<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.05);">' +
+        '<span style="color:#7a9980;">' + d.name + ' (' + d.days + '일)</span>' +
+        '<span style="color:#00ff88;">일 ' + d.daily.toFixed(3) + '개 → <strong>' + Math.round(d.wfi).toLocaleString() + '개</strong></span>' +
+        '</div>';
+    }).join('');
+  }
+}
+function copyLink() {
+  var url = 'https://shimjong33-ctrl.github.io/Wefi';
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(url).then(function() {
+      var msg = document.getElementById('copy-msg');
+      if (msg) { msg.style.display='block'; setTimeout(function(){ msg.style.display='none'; },2000); }
+    });
+  }
+}
+
+// 파트너 로고 번쩍임 → 5초 후 종료 → 타이틀 번쩍임 5초
+(function() {
+  // 5초 후 파트너 로고 번쩍임 종료
+  setTimeout(function() {
+    var fire = document.querySelector('.partner-fire');
+    var visa = document.querySelector('.partner-visa');
+    if (fire) fire.style.animation = 'none';
+    if (visa) visa.style.animation = 'none';
+
+    // 타이틀 번쩍임 시작
+    var title = document.getElementById('hero-title');
+    if (title) {
+      title.classList.add('title-glow');
+      // 5초 후 타이틀 번쩍임 종료
+      setTimeout(function() {
+        title.classList.remove('title-glow');
+      }, 5000);
+    }
+  }, 5000);
+})();
+
 function toggleBBS() {
   var full = document.getElementById('bbs-full');
   var btn = document.getElementById('bbs-toggle-btn');
@@ -1915,7 +2290,7 @@ function toggleBBS() {
 }
 
 function showSection(id, btn) {
-  var allSections = ['intro','team','ecosystem','ito','calc','fact','news','video','chat'];
+  var allSections = ['intro','team','ecosystem','ito','calc','fact','news','video','guide','faq','review','chat'];
   allSections.forEach(function(s) {
     var el = document.getElementById('sec-' + s);
     if (el) {
@@ -1936,7 +2311,7 @@ function showSection(id, btn) {
 
 // 페이지 로드 시 초기화
 (function() {
-  var allSections = ['intro','team','ecosystem','ito','calc','fact','news','video','chat'];
+  var allSections = ['intro','team','ecosystem','ito','calc','fact','news','video','guide','faq','review','chat'];
   allSections.forEach(function(s) {
     var el = document.getElementById('sec-' + s);
     if (el) {
@@ -2411,7 +2786,9 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 loadWeFiNewsAI();
-setInterval(loadWeFiNewsAI, 30 * 60 * 1000);
+setInterval(loadWeFiNewsAI, 60 * 60 * 1000); // 1시간마다 갱신
+loadReeveNewsAI();
+setInterval(loadReeveNewsAI, 60 * 60 * 1000); // 1시간마다 갱신
 
 // 레퍼럴 코드 적용
 function applyRef() {
