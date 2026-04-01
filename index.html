@@ -1460,11 +1460,11 @@
         <strong style="color:#ffcc00;">2026년입니다. 당신은 자신의 삶을 살고, 그것을 스스로 주도합니다. ⚡</strong><br><br>
         부는 단순히 돈만을 의미하지 않습니다. 자신의 시간을 주도하고, 매일 설렘을 주는 자원과 경험에 접근할 수 있는 것, 그것이 바로 진정한 부입니다.
       </div>
-      <button onclick="toggleBBS()" id="bbs-toggle-btn"
+      <button onclick="toggleBBS2()" id="bbs2-toggle-btn"
         style="width:100%;padding:10px;background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.25);border-radius:8px;color:#00ff88;font-size:0.85em;font-weight:700;cursor:pointer;font-family:inherit;margin-bottom:8px;">
         📖 전체 내용 보기 ▼
       </button>
-      <div id="bbs-full" style="display:none;font-size:0.85em;line-height:1.9;color:#c8e6cc;">
+      <div id="bbs2-full" style="display:none;font-size:0.85em;line-height:1.9;color:#c8e6cc;">
         <p>Beyond Banking Summit 2026은 단순한 행사가 아닙니다. 이것은 새로운 금융 패러다임을 선도하는 사람들의 모임입니다.</p>
         <p>WeFi DeoBank와 함께하는 이 서밋은 블록체인 금융의 미래를 직접 경험하고, 글로벌 네트워크를 구축하며, 새로운 기회를 발견하는 자리입니다.</p>
         <div style="margin-top:12px;padding:12px;background:rgba(0,255,136,0.06);border-radius:10px;border:1px solid rgba(0,255,136,0.2);">
@@ -2890,6 +2890,19 @@ function togglePromo5() {
   else { full.style.display = 'none'; btn.textContent = '📖 자세히 보기 ▼'; }
 }
 
+function toggleBBS2() {
+  var full = document.getElementById('bbs2-full');
+  var btn = document.getElementById('bbs2-toggle-btn');
+  if (!full || !btn) return;
+  if (full.style.display === 'none') {
+    full.style.display = 'block';
+    btn.textContent = '📖 접기 ▲';
+  } else {
+    full.style.display = 'none';
+    btn.textContent = '📖 전체 내용 보기 ▼';
+  }
+}
+
 function toggleBBS() {
   var full = document.getElementById('bbs-full');
   var btn = document.getElementById('bbs-toggle-btn');
@@ -3220,6 +3233,7 @@ var currentNewsTab = 'wefi';
 var newsLoaded = { wefi: false, reeve: false, stbl: false };
 
 const WEFI_NEWS_FALLBACK = [
+  { icon:'🏆', media:'GFM Review (글로벌 금융 리뷰)', title:'WeFi — FinTech Banking Startup Asia 2026 수상! GFM 권위 어워드 선정', date:'2026.03.30', url:'https://www.gfmreview.com/press-release/gfm-review-announces-the-winner-of-its-prestigious-industry-award-for-5th-week-of-march-2026', isNew: true },
   { icon: '🏦', media: 'Chainwire', title: 'WeFi, 세계 최초 탈중앙화 온체인 뱅크(Deobank) 공식 런칭', date: '2025.02.06', url: 'https://chainwire.org/2025/02/06/wefi-launches-deobank-the-worlds-first-decentralized-onchain-bank/' },
   { icon: '📈', media: '99Bitcoins', title: 'WFI 코인, 30일간 +90% 급등 — 비트코인 부진 속 독보적 상승', date: '2025.11.19', url: 'https://99bitcoins.com/news/altcoins/what-is-wefi-crypto-wfi-crypto-slams-90-in-30d-as-bitcoin-dips/' },
   { icon: '💳', media: 'WeFi 공식', title: '실물 WeFi Visa 카드 출시 — 글로벌 1억 4천만 가맹점 사용 가능', date: '2025.12', url: 'https://coinmarketcap.com/cmc-ai/wfi/latest-updates/' },
@@ -3250,23 +3264,60 @@ function renderNewsList(listId, items, isAI) {
   if (!list) return;
   var sorted = sortByDate(items);
   list.style.display = 'flex';
+
+  // NEW 배지 - 30일 이내 새 뉴스
+  var newKey = 'news_seen_' + listId;
+  var storedNew = JSON.parse(localStorage.getItem(newKey + '_ts') || '{}');
+  var seenTitles = JSON.parse(localStorage.getItem(newKey) || '[]');
+  var now = Date.now();
+  var isNewItem = {};
+
+  // 수동 추가된 isNew:true 항목 처리
+  sorted.forEach(function(n) {
+    var t = n.title || '';
+    if (n.isNew) {
+      if (!storedNew[t]) storedNew[t] = now;
+      isNewItem[t] = true;
+    }
+  });
+
+  // AI 뉴스: 이전에 없던 항목 NEW 처리
+  if (isAI) {
+    var newTitles = sorted.map(function(n){ return n.title||''; });
+    newTitles.forEach(function(t) {
+      if (seenTitles.indexOf(t) === -1) {
+        if (!storedNew[t]) storedNew[t] = now;
+        isNewItem[t] = true;
+      }
+    });
+    localStorage.setItem(newKey, JSON.stringify(newTitles));
+  }
+
+  // 30일 지난 항목 제거
+  Object.keys(storedNew).forEach(function(t) {
+    if (now - storedNew[t] > 30 * 24 * 60 * 60 * 1000) delete storedNew[t];
+    else isNewItem[t] = true;
+  });
+  localStorage.setItem(newKey + '_ts', JSON.stringify(storedNew));
+
   list.innerHTML = sorted.map(function(n) {
-    var el = document.createElement('a');
-    el.href = n.url || '#';
-    el.target = '_blank';
-    el.style.cssText = 'display:flex;align-items:center;gap:10px;padding:10px 12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:10px;text-decoration:none;transition:background 0.2s;';
-    el.addEventListener('mouseover', function(){ this.style.background='rgba(0,255,136,0.06)'; });
-    el.addEventListener('mouseout',  function(){ this.style.background='rgba(255,255,255,0.03)'; });
-    el.innerHTML =
-      '<div style="font-size:1.3em;flex-shrink:0;">' + (n.icon||'📰') + '</div>'
+    var isNew = isNewItem[n.title||''];
+    var newBadge = isNew
+      ? '<div style="margin-bottom:3px;"><span style="background:linear-gradient(90deg,#ff4444,#ff6644);color:#fff;border-radius:5px;padding:2px 8px;font-size:0.7em;font-weight:900;letter-spacing:0.05em;">🔴 NEW</span></div>'
+      : '';
+    var borderStyle = isNew ? 'border:1px solid rgba(255,68,68,0.35);background:rgba(255,68,68,0.04);' : 'border:1px solid rgba(255,255,255,0.07);background:rgba(255,255,255,0.03);';
+    return '<a href="' + (n.url||'#') + '" target="_blank" style="display:flex;align-items:flex-start;gap:10px;padding:10px 12px;' + borderStyle + 'border-radius:10px;text-decoration:none;">'
+      + '<div style="font-size:1.3em;flex-shrink:0;margin-top:2px;">' + (n.icon||'📰') + '</div>'
       + '<div style="flex:1;min-width:0;">'
+      + newBadge
       + '<div style="font-size:0.68em;color:#00ff88;font-weight:600;margin-bottom:2px;">' + (n.media||n.source||'') + '</div>'
       + '<div style="font-size:0.82em;color:#e8f5ec;line-height:1.4;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + (n.title||'') + '</div>'
       + '<div style="font-size:0.68em;color:#555;margin-top:2px;">' + (n.date||'') + '</div>'
       + '</div>'
-      + '<div style="color:#555;font-size:0.8em;flex-shrink:0;">&#x203A;</div>';
-    return el.outerHTML;
+      + '<div style="color:#555;font-size:0.8em;flex-shrink:0;margin-top:4px;">›</div>'
+      + '</a>';
   }).join('');
+
   if (isAI !== undefined) {
     var timeEl = document.getElementById('news-refresh-time');
     if (timeEl) {
@@ -3328,7 +3379,7 @@ async function loadNewsAI(query, listId, fallback, flagKey) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-sonnet-4-6',
         max_tokens: 1200,
         tools: [{ type: 'web_search_20250305', name: 'web_search' }],
         system: 'You are a crypto news aggregator. Return ONLY a valid JSON array of 5 positive/neutral news items. No markdown, no explanation. Each item: {"icon":"emoji","media":"source","title":"Korean title","date":"YYYY.MM.DD","url":"real url"}.',
@@ -3375,7 +3426,7 @@ async function loadMajorNewsAI() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-sonnet-4-6',
         max_tokens: 1000,
         tools: [{ type: 'web_search_20250305', name: 'web_search' }],
         messages: [{
@@ -3402,7 +3453,7 @@ async function loadMajorNewsAI() {
   }
 }
 loadMajorNewsAI();
-setInterval(loadMajorNewsAI, 60 * 60 * 1000); // 1시간마다 갱신
+setInterval(loadMajorNewsAI, 2 * 60 * 60 * 1000); // 2시간마다 갱신
 
 // 폴백 즉시 표시
 renderNewsList('wefi-news-list', WEFI_NEWS_FALLBACK, false);
@@ -3414,9 +3465,9 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 loadWeFiNewsAI();
-setInterval(loadWeFiNewsAI, 60 * 60 * 1000); // 1시간마다 갱신
+setInterval(loadWeFiNewsAI, 2 * 60 * 60 * 1000); // 2시간마다 갱신
 loadReeveNewsAI();
-setInterval(loadReeveNewsAI, 60 * 60 * 1000); // 1시간마다 갱신
+setInterval(loadReeveNewsAI, 2 * 60 * 60 * 1000); // 2시간마다 갱신
 
 // 레퍼럴 코드 적용
 function applyRef() {
