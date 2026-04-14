@@ -659,41 +659,97 @@
       <div class="card-title">📢 공지 & 다음 강의</div>
       <div style="display:flex;flex-direction:column;gap:8px;">
 
+        <!-- 반감기 강조 배너 -->
+        <div style="background:linear-gradient(135deg,rgba(255,80,0,0.18),rgba(255,180,0,0.13));border:2px solid rgba(255,140,0,0.7);border-radius:12px;padding:14px 16px;text-align:center;position:relative;overflow:hidden;">
+          <div style="position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(255,140,0,0.12),transparent);pointer-events:none;"></div>
+          <div style="font-size:0.72em;color:#ffaa00;font-weight:700;letter-spacing:0.12em;margin-bottom:6px;">🔥 반감기 카운트다운</div>
+          <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:4px;">
+            <span style="font-size:2.4em;font-weight:900;color:#ff6600;font-family:'Space Mono',monospace;text-shadow:0 0 18px rgba(255,100,0,0.9),0 0 40px rgba(255,160,0,0.5);" id="notice-halving-days">-</span>
+            <span style="font-size:1.1em;font-weight:700;color:#ffcc00;">일 남았습니다!</span>
+          </div>
+          <div style="font-size:0.72em;color:#cc8800;">📅 반감기 예정일: 2026년 9월 18일 · 채굴량 50% 감소</div>
+        </div>
+
         <!-- 공지사항 -->
         <div style="background:rgba(255,204,0,0.07);border:1px solid rgba(255,204,0,0.25);border-radius:10px;padding:12px;">
           <div style="font-size:0.72em;color:#ffcc00;font-weight:700;margin-bottom:6px;">📌 이번 주 소식</div>
           <div style="font-size:0.82em;color:#e8f5ec;line-height:1.7;">
             🦾 새로운 WeFi 공식 웹사이트 오픈<br>
-            📅 반감기까지 <strong style="color:#ff9944;" id="notice-halving-days">-</strong>일 남았습니다!<br>
             💳 WeFi Visa 실물카드 배송 시작!<br>
             ⚡ 에너지 추가 5배 이벤트 (~6월 11일까지)
           </div>
         </div>
 
         <!-- 센터별 D-day -->
-        <div style="font-size:0.78em;color:#7a9980;margin-bottom:4px;margin-top:4px;">📍 센터별 다음 강의</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
-          <div style="background:rgba(0,255,136,0.06);border:1px solid rgba(0,255,136,0.18);border-radius:8px;padding:10px;text-align:center;">
-            <div style="font-size:0.72em;color:#7a9980;">🏢 부산센터 (화)</div>
-            <div style="font-size:1.1em;font-weight:700;color:#00ff88;" id="dday-busan">D-?</div>
-            <div style="font-size:0.68em;color:#7a9980;">매주 화요일 4시</div>
+        <div style="font-size:0.78em;color:#7a9980;margin-bottom:6px;margin-top:4px;">📍 센터별 다음 강의</div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+
+          <!-- 월요일 줌 미팅 (신규소식) -->
+          <div style="background:rgba(107,46,255,0.08);border:1px solid rgba(107,46,255,0.3);border-radius:10px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;">
+            <div>
+              <div style="font-size:0.7em;color:#a97fff;font-weight:700;margin-bottom:2px;">💻 줌 미팅 (월) · 오후 9시</div>
+              <div style="font-size:0.75em;color:#c8bfff;">신규소식 및 업데이트 소식</div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
+              <div style="font-size:1.05em;font-weight:700;color:#a97fff;" id="dday-zoom">D-?</div>
+              <a href="https://us06web.zoom.us/j/89889663297?pwd=jx4BJAkcuIXtaUyuXb3hT0kL8v9mzf.1" target="_blank" style="padding:3px 10px;background:rgba(107,46,255,0.25);border:1px solid rgba(107,46,255,0.6);border-radius:6px;color:#a97fff;font-size:0.68em;font-weight:700;text-decoration:none;">🔗 줌 입장</a>
+            </div>
           </div>
-          <div style="background:rgba(0,204,255,0.06);border:1px solid rgba(0,204,255,0.18);border-radius:8px;padding:10px;text-align:center;">
-            <div style="font-size:0.72em;color:#7a9980;">🏢 구미센터 (토)</div>
-            <div style="font-size:1.1em;font-weight:700;color:#00ccff;" id="dday-gumi">D-?</div>
-            <div style="font-size:0.68em;color:#7a9980;">토요일 2시</div>
+
+          <!-- 월요일 영주센터 -->
+          <div style="background:rgba(255,204,0,0.06);border:1px solid rgba(255,204,0,0.25);border-radius:10px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;">
+            <div>
+              <div style="font-size:0.7em;color:#ffcc00;font-weight:700;margin-bottom:2px;">🏢 영주센터 (월) · 오후 2시</div>
+              <div style="font-size:0.75em;color:#e8d87a;">사업설명회</div>
+            </div>
+            <div style="font-size:1.05em;font-weight:700;color:#ffcc00;" id="dday-youngju">D-?</div>
           </div>
-          <div style="background:rgba(255,204,0,0.06);border:1px solid rgba(255,204,0,0.18);border-radius:8px;padding:10px;text-align:center;">
-            <div style="font-size:0.72em;color:#7a9980;">🏢 영주센터 (월)</div>
-            <div style="font-size:1.1em;font-weight:700;color:#ffcc00;" id="dday-youngju">D-?</div>
-            <div style="font-size:0.68em;color:#7a9980;">매주 월요일 2시</div>
+
+          <!-- 화요일 부산센터 -->
+          <div style="background:rgba(0,255,136,0.06);border:1px solid rgba(0,255,136,0.2);border-radius:10px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;">
+            <div>
+              <div style="font-size:0.7em;color:#00ff88;font-weight:700;margin-bottom:2px;">🏢 부산센터 (화) · 오후 4시</div>
+              <div style="font-size:0.75em;color:#a8e6c4;">사업설명회</div>
+            </div>
+            <div style="font-size:1.05em;font-weight:700;color:#00ff88;" id="dday-busan">D-?</div>
           </div>
-          <div style="background:rgba(107,46,255,0.06);border:1px solid rgba(107,46,255,0.18);border-radius:8px;padding:10px;text-align:center;">
-            <div style="font-size:0.72em;color:#7a9980;">💻 줌 미팅 (월)</div>
-            <div style="font-size:1.1em;font-weight:700;color:#a97fff;" id="dday-zoom">D-?</div>
-            <div style="font-size:0.68em;color:#7a9980;">매주 월요일 저녁 9시</div>
-            <a href="https://us06web.zoom.us/j/89889663297?pwd=jx4BJAkcuIXtaUyuXb3hT0kL8v9mzf.1" target="_blank" style="display:inline-block;margin-top:6px;padding:4px 10px;background:rgba(107,46,255,0.2);border:1px solid rgba(107,46,255,0.5);border-radius:6px;color:#a97fff;font-size:0.68em;font-weight:700;text-decoration:none;">🔗 줌 입장하기</a>
+
+          <!-- 수요일 줌 미팅 (신규사업) -->
+          <div style="background:rgba(0,204,255,0.06);border:1px solid rgba(0,204,255,0.25);border-radius:10px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;">
+            <div>
+              <div style="font-size:0.7em;color:#00ccff;font-weight:700;margin-bottom:2px;">💻 줌 미팅 (수) · 오후 9시</div>
+              <div style="font-size:0.75em;color:#a0d8f0;">신규사업 설명회</div>
+            </div>
+            <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
+              <div style="font-size:1.05em;font-weight:700;color:#00ccff;" id="dday-zoom-wed">D-?</div>
+              <a href="https://us06web.zoom.us/j/89889663297?pwd=jx4BJAkcuIXtaUyuXb3hT0kL8v9mzf.1" target="_blank" style="padding:3px 10px;background:rgba(0,204,255,0.15);border:1px solid rgba(0,204,255,0.5);border-radius:6px;color:#00ccff;font-size:0.68em;font-weight:700;text-decoration:none;">🔗 줌 입장</a>
+            </div>
           </div>
+
+          <!-- 목요일 부산센터 (셀포인트) -->
+          <div style="background:rgba(255,100,100,0.06);border:1px solid rgba(255,120,80,0.25);border-radius:10px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;">
+            <div>
+              <div style="font-size:0.7em;color:#ff9966;font-weight:700;margin-bottom:2px;">🏢 부산센터 (목) · 오후 2시</div>
+              <div style="font-size:0.75em;color:#f0c0a0;">셀 포인트 및 전산설명</div>
+            </div>
+            <div style="font-size:1.05em;font-weight:700;color:#ff9966;" id="dday-busan-thu">D-?</div>
+          </div>
+
+          <!-- 금요일 구미센터 -->
+          <div style="background:rgba(180,255,100,0.06);border:1px solid rgba(160,230,80,0.25);border-radius:10px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;">
+            <div>
+              <div style="font-size:0.7em;color:#aaee55;font-weight:700;margin-bottom:2px;">🏢 구미센터 (금) · 오후 2시</div>
+              <div style="font-size:0.75em;color:#c8e898;">신규사업 설명회</div>
+            </div>
+            <div style="font-size:1.05em;font-weight:700;color:#aaee55;" id="dday-gumi">D-?</div>
+          </div>
+
+          <!-- 토/일 특별세미나 -->
+          <div style="background:rgba(255,200,50,0.07);border:1px dashed rgba(255,200,50,0.4);border-radius:10px;padding:10px 14px;text-align:center;">
+            <div style="font-size:0.72em;color:#ffcc33;font-weight:700;margin-bottom:2px;">🎤 토요일 · 일요일</div>
+            <div style="font-size:0.78em;color:#e8d070;">특별세미나 — <span style="color:#ffaa00;font-weight:700;">별도 공지</span></div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -2871,11 +2927,13 @@ function copyLink() {
     next.setHours(14, 0, 0, 0);
     return diff;
   }
-  // 부산(화=2), 구미형곡(토=6), 영주(월=1), 줌(월=1)
-  var ddBusan = getNextWeekday(2);
-  var ddGumi = getNextWeekday(6);
-  var ddYoungju = getNextWeekday(1);
-  var ddZoom = getNextWeekday(1);
+  // 월=1(줌9시/영주2시), 화=2(부산4시), 수=3(줌9시), 목=4(부산2시), 금=5(구미2시)
+  var ddBusan = getNextWeekday(2);     // 화
+  var ddGumi  = getNextWeekday(5);     // 금
+  var ddYoungju = getNextWeekday(1);   // 월
+  var ddZoom    = getNextWeekday(1);   // 월
+  var ddZoomWed = getNextWeekday(3);   // 수
+  var ddBusanThu = getNextWeekday(4);  // 목
 
   // 반감기까지
   var halvingDate = new Date('2026-09-18');
@@ -2893,6 +2951,10 @@ function copyLink() {
   if (elY) elY.textContent = ddYoungju === 0 ? 'D-day!' : 'D-' + ddYoungju;
   var elZ = document.getElementById('dday-zoom');
   if (elZ) elZ.textContent = ddZoom === 0 ? 'D-day!' : 'D-' + ddZoom;
+  var elZW = document.getElementById('dday-zoom-wed');
+  if (elZW) elZW.textContent = ddZoomWed === 0 ? 'D-day!' : 'D-' + ddZoomWed;
+  var elBT = document.getElementById('dday-busan-thu');
+  if (elBT) elBT.textContent = ddBusanThu === 0 ? 'D-day!' : 'D-' + ddBusanThu;
   if (elH1) elH1.textContent = halvingDays;
   if (elH2) elH2.textContent = halvingDays + '일';
 })();
