@@ -138,6 +138,10 @@
     0%,100% { text-shadow: 0 0 10px rgba(0,255,136,0.3); }
     50% { text-shadow: 0 0 25px rgba(0,255,136,1), 0 0 50px rgba(0,204,255,0.8), 0 0 80px rgba(0,255,136,0.5); }
   }
+  @keyframes todayPulse {
+    0%,100% { opacity:1; transform:scale(1); }
+    50% { opacity:0.7; transform:scale(1.12); }
+  }
   .partner-fire { animation: fireGlow 0.8s ease-in-out infinite; }
   .partner-visa { animation: visaGlow 0.8s ease-in-out infinite 0.4s; }
   .title-glow { animation: titleGlow 0.8s ease-in-out infinite; }
@@ -685,7 +689,7 @@
         <div style="display:flex;flex-direction:column;gap:6px;">
 
           <!-- 월요일 줌 미팅 (신규소식) -->
-          <div style="background:rgba(107,46,255,0.08);border:1px solid rgba(107,46,255,0.3);border-radius:10px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;">
+          <div id="card-zoom" style="background:rgba(107,46,255,0.08);border:1px solid rgba(107,46,255,0.3);border-radius:10px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;transition:all 0.3s;">
             <div>
               <div style="font-size:0.7em;color:#a97fff;font-weight:700;margin-bottom:2px;">💻 줌 미팅 (월) · 오후 9시</div>
               <div style="font-size:0.75em;color:#c8bfff;">신규소식 및 업데이트 소식</div>
@@ -697,7 +701,7 @@
           </div>
 
           <!-- 월요일 영주센터 -->
-          <div style="background:rgba(255,204,0,0.06);border:1px solid rgba(255,204,0,0.25);border-radius:10px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;">
+          <div id="card-youngju" style="background:rgba(255,204,0,0.06);border:1px solid rgba(255,204,0,0.25);border-radius:10px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;transition:all 0.3s;">
             <div>
               <div style="font-size:0.7em;color:#ffcc00;font-weight:700;margin-bottom:2px;">🏢 영주센터 (월) · 오후 2시</div>
               <div style="font-size:0.75em;color:#e8d87a;">사업설명회</div>
@@ -706,7 +710,7 @@
           </div>
 
           <!-- 화요일 부산센터 -->
-          <div style="background:rgba(0,255,136,0.06);border:1px solid rgba(0,255,136,0.2);border-radius:10px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;">
+          <div id="card-busan" style="background:rgba(0,255,136,0.06);border:1px solid rgba(0,255,136,0.2);border-radius:10px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;transition:all 0.3s;">
             <div>
               <div style="font-size:0.7em;color:#00ff88;font-weight:700;margin-bottom:2px;">🏢 부산센터 (화) · 오후 4시</div>
               <div style="font-size:0.75em;color:#a8e6c4;">사업설명회</div>
@@ -715,7 +719,7 @@
           </div>
 
           <!-- 수요일 줌 미팅 (신규사업) -->
-          <div style="background:rgba(0,204,255,0.06);border:1px solid rgba(0,204,255,0.25);border-radius:10px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;">
+          <div id="card-zoom-wed" style="background:rgba(0,204,255,0.06);border:1px solid rgba(0,204,255,0.25);border-radius:10px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;transition:all 0.3s;">
             <div>
               <div style="font-size:0.7em;color:#00ccff;font-weight:700;margin-bottom:2px;">💻 줌 미팅 (수) · 오후 9시</div>
               <div style="font-size:0.75em;color:#a0d8f0;">신규사업 설명회</div>
@@ -727,7 +731,7 @@
           </div>
 
           <!-- 목요일 부산센터 (셀포인트) -->
-          <div style="background:rgba(255,100,100,0.06);border:1px solid rgba(255,120,80,0.25);border-radius:10px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;">
+          <div id="card-busan-thu" style="background:rgba(255,100,100,0.06);border:1px solid rgba(255,120,80,0.25);border-radius:10px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;transition:all 0.3s;">
             <div>
               <div style="font-size:0.7em;color:#ff9966;font-weight:700;margin-bottom:2px;">🏢 부산센터 (목) · 오후 2시</div>
               <div style="font-size:0.75em;color:#f0c0a0;">셀 포인트 및 전산설명</div>
@@ -736,7 +740,7 @@
           </div>
 
           <!-- 금요일 구미센터 -->
-          <div style="background:rgba(180,255,100,0.06);border:1px solid rgba(160,230,80,0.25);border-radius:10px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;">
+          <div id="card-gumi" style="background:rgba(180,255,100,0.06);border:1px solid rgba(160,230,80,0.25);border-radius:10px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;transition:all 0.3s;">
             <div>
               <div style="font-size:0.7em;color:#aaee55;font-weight:700;margin-bottom:2px;">🏢 구미센터 (금) · 오후 2시</div>
               <div style="font-size:0.75em;color:#c8e898;">신규사업 설명회</div>
@@ -2921,40 +2925,50 @@ function copyLink() {
     var now = new Date();
     var day = now.getDay();
     var diff = (dayOfWeek - day + 7) % 7;
-    if (diff === 0) diff = 7; // 오늘이면 다음 주
-    var next = new Date(now);
-    next.setDate(now.getDate() + diff);
-    next.setHours(14, 0, 0, 0);
+    // diff===0 이면 오늘 당일 → 0 반환 (강조 처리용)
     return diff;
   }
+
+  function setDday(elId, diff, cardId) {
+    var el = document.getElementById(elId);
+    var card = cardId ? document.getElementById(cardId) : null;
+    if (!el) return;
+    if (diff === 0) {
+      // 오늘! 강조
+      el.textContent = '오늘! 🔴';
+      el.style.cssText += 'color:#fff!important;font-size:1.3em;text-shadow:0 0 12px rgba(255,80,80,1),0 0 28px rgba(255,60,60,0.8);animation:todayPulse 0.7s ease-in-out infinite;';
+      if (card) {
+        card.style.boxShadow = '0 0 0 2px rgba(255,80,80,0.8), 0 0 20px rgba(255,60,60,0.5)';
+        card.style.borderColor = 'rgba(255,80,80,0.9)';
+        card.style.background = 'rgba(255,60,60,0.13)';
+      }
+    } else {
+      el.textContent = 'D-' + diff;
+    }
+  }
+
   // 월=1(줌9시/영주2시), 화=2(부산4시), 수=3(줌9시), 목=4(부산2시), 금=5(구미2시)
-  var ddBusan = getNextWeekday(2);     // 화
-  var ddGumi  = getNextWeekday(5);     // 금
-  var ddYoungju = getNextWeekday(1);   // 월
-  var ddZoom    = getNextWeekday(1);   // 월
-  var ddZoomWed = getNextWeekday(3);   // 수
+  var ddZoom     = getNextWeekday(1);  // 월
+  var ddYoungju  = getNextWeekday(1);  // 월
+  var ddBusan    = getNextWeekday(2);  // 화
+  var ddZoomWed  = getNextWeekday(3);  // 수
   var ddBusanThu = getNextWeekday(4);  // 목
+  var ddGumi     = getNextWeekday(5);  // 금
 
   // 반감기까지
   var halvingDate = new Date('2026-09-18');
   var today = new Date();
   var halvingDays = Math.ceil((halvingDate - today) / 86400000);
 
-  var elB = document.getElementById('dday-busan');
-  var elG = document.getElementById('dday-gumi');
-  var elY = document.getElementById('dday-youngju');
+  setDday('dday-zoom',      ddZoom,     'card-zoom');
+  setDday('dday-youngju',   ddYoungju,  'card-youngju');
+  setDday('dday-busan',     ddBusan,    'card-busan');
+  setDday('dday-zoom-wed',  ddZoomWed,  'card-zoom-wed');
+  setDday('dday-busan-thu', ddBusanThu, 'card-busan-thu');
+  setDday('dday-gumi',      ddGumi,     'card-gumi');
+
   var elH1 = document.getElementById('notice-halving-days');
   var elH2 = document.getElementById('fact-halving-days');
-
-  if (elB) elB.textContent = ddBusan === 0 ? 'D-day!' : 'D-' + ddBusan;
-  if (elG) elG.textContent = ddGumi === 0 ? 'D-day!' : 'D-' + ddGumi;
-  if (elY) elY.textContent = ddYoungju === 0 ? 'D-day!' : 'D-' + ddYoungju;
-  var elZ = document.getElementById('dday-zoom');
-  if (elZ) elZ.textContent = ddZoom === 0 ? 'D-day!' : 'D-' + ddZoom;
-  var elZW = document.getElementById('dday-zoom-wed');
-  if (elZW) elZW.textContent = ddZoomWed === 0 ? 'D-day!' : 'D-' + ddZoomWed;
-  var elBT = document.getElementById('dday-busan-thu');
-  if (elBT) elBT.textContent = ddBusanThu === 0 ? 'D-day!' : 'D-' + ddBusanThu;
   if (elH1) elH1.textContent = halvingDays;
   if (elH2) elH2.textContent = halvingDays + '일';
 })();
