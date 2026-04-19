@@ -647,6 +647,9 @@
     <button class="nav-btn" onclick="showSection('faq', this)">❓ FAQ</button>
     <button class="nav-btn" onclick="showSection('review', this)">⭐ 후기</button>
     <button class="nav-btn" onclick="showSection('chat', this)" style="background:linear-gradient(90deg,rgba(0,255,136,0.15),rgba(0,204,255,0.15));border-color:rgba(0,255,136,0.4);color:#00ff88;font-weight:700;">⚡ 레벨UP</button>
+    <button class="nav-btn" onclick="showSection('welcome', this)">🎉 온보딩</button>
+    <button class="nav-btn" onclick="showSection('mymine', this)">⛏️ 내채굴</button>
+    <button class="nav-btn" onclick="showSection('quiz', this)">🧠 퀴즈</button>
     </div>
     <div class="nav-arrow" id="nav-arrow"><span>›</span></div>
   </div>
@@ -660,20 +663,20 @@
       <div style="display:flex;flex-direction:column;gap:8px;">
 
         <!-- 반감기 강조 배너 -->
-        <div style="background:linear-gradient(135deg,rgba(255,80,0,0.18),rgba(255,180,0,0.13));border:2px solid rgba(255,140,0,0.7);border-radius:12px;padding:14px 16px;text-align:center;position:relative;overflow:hidden;">
-          <div style="position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(255,140,0,0.12),transparent);pointer-events:none;"></div>
-          <div style="font-size:0.72em;color:#ffaa00;font-weight:700;letter-spacing:0.12em;margin-bottom:6px;">🔥 반감기 카운트다운</div>
+        <div style="background:linear-gradient(135deg,rgba(255,80,0,0.18),rgba(255,180,0,0.12));border:2px solid rgba(255,140,0,0.7);border-radius:12px;padding:14px 16px;text-align:center;">
+          <div style="font-size:0.72em;color:#ffaa00;font-weight:700;letter-spacing:0.1em;margin-bottom:6px;">🔥 반감기 카운트다운</div>
           <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:4px;">
-            <span style="font-size:2.4em;font-weight:900;color:#ff6600;font-family:'Space Mono',monospace;text-shadow:0 0 18px rgba(255,100,0,0.9),0 0 40px rgba(255,160,0,0.5);" id="notice-halving-days">-</span>
+            <span style="font-size:2.4em;font-weight:900;color:#ff6600;font-family:'Space Mono',monospace;text-shadow:0 0 18px rgba(255,100,0,0.9);" id="notice-halving-days">-</span>
             <span style="font-size:1.1em;font-weight:700;color:#ffcc00;">일 남았습니다!</span>
           </div>
-          <div style="font-size:0.72em;color:#cc8800;">📅 반감기 예정일: 2026년 9월 18일 · 채굴량 50% 감소</div>
+          <div style="font-size:0.72em;color:#cc8800;">반감기 예정일: 2026년 9월 18일</div>
         </div>
 
         <!-- 공지사항 -->
         <div style="background:rgba(255,204,0,0.07);border:1px solid rgba(255,204,0,0.25);border-radius:10px;padding:12px;">
           <div style="font-size:0.72em;color:#ffcc00;font-weight:700;margin-bottom:6px;">📌 이번 주 소식</div>
           <div style="font-size:0.82em;color:#e8f5ec;line-height:1.7;">
+            📲 <strong style="color:#00ccff;">Beyond Banking Summit 2026</strong> 티켓이 WeFi 앱에 곧 출시됩니다!<br>
             🦾 새로운 WeFi 공식 웹사이트 오픈<br>
             💳 WeFi Visa 실물카드 배송 시작!<br>
             ⚡ 에너지 추가 5배 이벤트 (~6월 11일까지)
@@ -683,73 +686,40 @@
         <!-- 센터별 D-day -->
         <div style="font-size:0.78em;color:#7a9980;margin-bottom:6px;margin-top:4px;">📍 센터별 다음 강의</div>
         <div style="display:flex;flex-direction:column;gap:6px;">
-
-          <!-- 월요일 줌 미팅 (신규소식) -->
-          <div style="background:rgba(107,46,255,0.08);border:1px solid rgba(107,46,255,0.3);border-radius:10px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;">
-            <div>
-              <div style="font-size:0.7em;color:#a97fff;font-weight:700;margin-bottom:2px;">💻 줌 미팅 (월) · 오후 9시</div>
-              <div style="font-size:0.75em;color:#c8bfff;">신규소식 및 업데이트 소식</div>
-            </div>
+          <div id="cd-zoom" style="background:rgba(107,46,255,0.08);border:1px solid rgba(107,46,255,0.3);border-radius:10px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;transition:all 0.3s;">
+            <div><div style="font-size:0.7em;color:#a97fff;font-weight:700;">💻 줌 미팅 (월) · 오후 9시</div><div style="font-size:0.72em;color:#c8bfff;">신규소식 및 업데이트</div></div>
             <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
-              <div style="font-size:1.05em;font-weight:700;color:#a97fff;" id="dday-zoom">D-?</div>
+              <div id="dday-zoom" style="font-size:1.05em;font-weight:700;color:#a97fff;">D-?</div>
               <a href="https://us06web.zoom.us/j/89889663297?pwd=jx4BJAkcuIXtaUyuXb3hT0kL8v9mzf.1" target="_blank" style="padding:3px 10px;background:rgba(107,46,255,0.25);border:1px solid rgba(107,46,255,0.6);border-radius:6px;color:#a97fff;font-size:0.68em;font-weight:700;text-decoration:none;">🔗 줌 입장</a>
             </div>
           </div>
-
-          <!-- 월요일 영주센터 -->
-          <div style="background:rgba(255,204,0,0.06);border:1px solid rgba(255,204,0,0.25);border-radius:10px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;">
-            <div>
-              <div style="font-size:0.7em;color:#ffcc00;font-weight:700;margin-bottom:2px;">🏢 영주센터 (월) · 오후 2시</div>
-              <div style="font-size:0.75em;color:#e8d87a;">사업설명회</div>
-            </div>
-            <div style="font-size:1.05em;font-weight:700;color:#ffcc00;" id="dday-youngju">D-?</div>
+          <div id="cd-youngju" style="background:rgba(255,204,0,0.06);border:1px solid rgba(255,204,0,0.25);border-radius:10px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;transition:all 0.3s;">
+            <div><div style="font-size:0.7em;color:#ffcc00;font-weight:700;">🏢 영주센터 (월) · 오후 2시</div><div style="font-size:0.72em;color:#e8d87a;">사업설명회</div></div>
+            <div id="dday-youngju" style="font-size:1.05em;font-weight:700;color:#ffcc00;">D-?</div>
           </div>
-
-          <!-- 화요일 부산센터 -->
-          <div style="background:rgba(0,255,136,0.06);border:1px solid rgba(0,255,136,0.2);border-radius:10px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;">
-            <div>
-              <div style="font-size:0.7em;color:#00ff88;font-weight:700;margin-bottom:2px;">🏢 부산센터 (화) · 오후 4시</div>
-              <div style="font-size:0.75em;color:#a8e6c4;">사업설명회</div>
-            </div>
-            <div style="font-size:1.05em;font-weight:700;color:#00ff88;" id="dday-busan">D-?</div>
+          <div id="cd-busan" style="background:rgba(0,255,136,0.06);border:1px solid rgba(0,255,136,0.2);border-radius:10px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;transition:all 0.3s;">
+            <div><div style="font-size:0.7em;color:#00ff88;font-weight:700;">🏢 부산센터 (화) · 오후 4시</div><div style="font-size:0.72em;color:#a8e6c4;">사업설명회</div></div>
+            <div id="dday-busan" style="font-size:1.05em;font-weight:700;color:#00ff88;">D-?</div>
           </div>
-
-          <!-- 수요일 줌 미팅 (신규사업) -->
-          <div style="background:rgba(0,204,255,0.06);border:1px solid rgba(0,204,255,0.25);border-radius:10px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;">
-            <div>
-              <div style="font-size:0.7em;color:#00ccff;font-weight:700;margin-bottom:2px;">💻 줌 미팅 (수) · 오후 9시</div>
-              <div style="font-size:0.75em;color:#a0d8f0;">신규사업 설명회</div>
-            </div>
+          <div id="cd-zoomwed" style="background:rgba(0,204,255,0.06);border:1px solid rgba(0,204,255,0.25);border-radius:10px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;transition:all 0.3s;">
+            <div><div style="font-size:0.7em;color:#00ccff;font-weight:700;">💻 줌 미팅 (수) · 오후 9시</div><div style="font-size:0.72em;color:#a0d8f0;">신규사업 설명회</div></div>
             <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
-              <div style="font-size:1.05em;font-weight:700;color:#00ccff;" id="dday-zoom-wed">D-?</div>
+              <div id="dday-zoomwed" style="font-size:1.05em;font-weight:700;color:#00ccff;">D-?</div>
               <a href="https://us06web.zoom.us/j/89889663297?pwd=jx4BJAkcuIXtaUyuXb3hT0kL8v9mzf.1" target="_blank" style="padding:3px 10px;background:rgba(0,204,255,0.15);border:1px solid rgba(0,204,255,0.5);border-radius:6px;color:#00ccff;font-size:0.68em;font-weight:700;text-decoration:none;">🔗 줌 입장</a>
             </div>
           </div>
-
-          <!-- 목요일 부산센터 (셀포인트) -->
-          <div style="background:rgba(255,100,100,0.06);border:1px solid rgba(255,120,80,0.25);border-radius:10px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;">
-            <div>
-              <div style="font-size:0.7em;color:#ff9966;font-weight:700;margin-bottom:2px;">🏢 부산센터 (목) · 오후 2시</div>
-              <div style="font-size:0.75em;color:#f0c0a0;">셀 포인트 및 전산설명</div>
-            </div>
-            <div style="font-size:1.05em;font-weight:700;color:#ff9966;" id="dday-busan-thu">D-?</div>
+          <div id="cd-busanthu" style="background:rgba(255,100,100,0.06);border:1px solid rgba(255,120,80,0.25);border-radius:10px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;transition:all 0.3s;">
+            <div><div style="font-size:0.7em;color:#ff9966;font-weight:700;">🏢 부산센터 (목) · 오후 2시</div><div style="font-size:0.72em;color:#f0c0a0;">셀 포인트 및 전산설명</div></div>
+            <div id="dday-busanthu" style="font-size:1.05em;font-weight:700;color:#ff9966;">D-?</div>
           </div>
-
-          <!-- 금요일 구미센터 -->
-          <div style="background:rgba(180,255,100,0.06);border:1px solid rgba(160,230,80,0.25);border-radius:10px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;">
-            <div>
-              <div style="font-size:0.7em;color:#aaee55;font-weight:700;margin-bottom:2px;">🏢 구미센터 (금) · 오후 2시</div>
-              <div style="font-size:0.75em;color:#c8e898;">신규사업 설명회</div>
-            </div>
-            <div style="font-size:1.05em;font-weight:700;color:#aaee55;" id="dday-gumi">D-?</div>
+          <div id="cd-gumi" style="background:rgba(180,255,100,0.06);border:1px solid rgba(160,230,80,0.25);border-radius:10px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;transition:all 0.3s;">
+            <div><div style="font-size:0.7em;color:#aaee55;font-weight:700;">🏢 구미센터 (금) · 오후 2시</div><div style="font-size:0.72em;color:#c8e898;">신규사업 설명회</div></div>
+            <div id="dday-gumi" style="font-size:1.05em;font-weight:700;color:#aaee55;">D-?</div>
           </div>
-
-          <!-- 토/일 특별세미나 -->
           <div style="background:rgba(255,200,50,0.07);border:1px dashed rgba(255,200,50,0.4);border-radius:10px;padding:10px 14px;text-align:center;">
-            <div style="font-size:0.72em;color:#ffcc33;font-weight:700;margin-bottom:2px;">🎤 토요일 · 일요일</div>
-            <div style="font-size:0.78em;color:#e8d070;">특별세미나 — <span style="color:#ffaa00;font-weight:700;">별도 공지</span></div>
+            <div style="font-size:0.72em;color:#ffcc33;font-weight:700;">🎤 토요일 · 일요일</div>
+            <div style="font-size:0.78em;color:#e8d070;margin-top:2px;">특별세미나 — <span style="color:#ffaa00;font-weight:700;">별도 공지</span></div>
           </div>
-
         </div>
       </div>
     </div>
@@ -1510,6 +1480,72 @@
   <!-- 계산기 섹션 -->
   <!-- BBS 2026 섹션 -->
   <div class="section" id="sec-bbs2026">
+
+    <!-- 📲 티켓 출시 공지 카드 -->
+    <div class="card" style="border-color:rgba(0,204,255,0.6);background:linear-gradient(135deg,rgba(0,204,255,0.1),rgba(0,255,136,0.06));padding:20px;">
+      <div style="text-align:center;margin-bottom:14px;">
+        <div style="font-size:1.8em;margin-bottom:6px;">📲</div>
+        <div style="font-size:1.1em;font-weight:900;color:#00ccff;margin-bottom:4px;">BBS2026 티켓 — WeFi 앱 출시 예정!</div>
+        <div style="font-size:0.8em;color:#b8d4bc;line-height:1.6;">곧 공개됩니다. 이른 구매가 더 저렴합니다 👀</div>
+      </div>
+
+      <!-- 얼리버드 가격 강조 -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;">
+        <div style="background:rgba(0,255,136,0.1);border:2px solid rgba(0,255,136,0.5);border-radius:12px;padding:12px;text-align:center;">
+          <div style="font-size:0.7em;color:#00ff88;font-weight:700;margin-bottom:4px;">🔥 지금 ~ 5월 1일</div>
+          <div style="font-size:1.6em;font-weight:900;color:#00ff88;">$199</div>
+          <div style="font-size:0.68em;color:#7a9980;margin-top:2px;">얼리버드 가격</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.12);border-radius:12px;padding:12px;text-align:center;">
+          <div style="font-size:0.7em;color:#7a9980;font-weight:700;margin-bottom:4px;">8월 1일 이후</div>
+          <div style="font-size:1.6em;font-weight:900;color:#7a9980;text-decoration:line-through;">$299+</div>
+          <div style="font-size:0.68em;color:#7a9980;margin-top:2px;">가격 인상 예정</div>
+        </div>
+      </div>
+
+      <!-- 주요 혜택 -->
+      <div style="background:rgba(0,0,0,0.3);border-radius:12px;padding:14px;margin-bottom:14px;">
+        <div style="font-size:0.78em;font-weight:700;color:#ffcc00;margin-bottom:10px;">🏆 행사 하이라이트</div>
+        <div style="display:flex;flex-direction:column;gap:7px;font-size:0.82em;color:#e8f5ec;line-height:1.5;">
+          <div>🚘 <strong style="color:#fff;">메인 경품:</strong> Bentley Continental</div>
+          <div>💰 <strong style="color:#fff;">총 상금:</strong> 100,000 USDT</div>
+          <div>🍽️ <strong style="color:#fff;">갈라 디너</strong> & 슈퍼스타 게스트</div>
+          <div>🇹🇭 <strong style="color:#fff;">장소:</strong> 파타야 (역대 최대 규모)</div>
+        </div>
+      </div>
+
+      <!-- 티켓 등급 -->
+      <div style="margin-bottom:14px;">
+        <div style="font-size:0.78em;font-weight:700;color:#b8d4bc;margin-bottom:8px;">🎫 티켓 등급</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+          <div style="background:rgba(205,127,50,0.12);border:1px solid rgba(205,127,50,0.35);border-radius:8px;padding:8px 10px;text-align:center;font-size:0.82em;color:#cd7f32;font-weight:700;">🥉 Bronze</div>
+          <div style="background:rgba(192,192,192,0.12);border:1px solid rgba(192,192,192,0.35);border-radius:8px;padding:8px 10px;text-align:center;font-size:0.82em;color:#c8c8c8;font-weight:700;">🥈 Silver</div>
+          <div style="background:rgba(255,215,0,0.12);border:1px solid rgba(255,215,0,0.35);border-radius:8px;padding:8px 10px;text-align:center;font-size:0.82em;color:#ffd700;font-weight:700;">🥇 Gold</div>
+          <div style="background:rgba(0,204,255,0.12);border:1px solid rgba(0,204,255,0.35);border-radius:8px;padding:8px 10px;text-align:center;font-size:0.82em;color:#00ccff;font-weight:700;">💎 Platinum</div>
+        </div>
+        <div style="font-size:0.72em;color:#7a9980;margin-top:6px;line-height:1.5;">상위 등급일수록 더 많은 추첨 응모권 + 갈라 디너 좌석 제공</div>
+      </div>
+
+      <!-- 입장 후 독점 접근 -->
+      <div style="background:rgba(0,255,136,0.05);border:1px solid rgba(0,255,136,0.2);border-radius:10px;padding:12px;margin-bottom:14px;">
+        <div style="font-size:0.78em;font-weight:700;color:#00ff88;margin-bottom:8px;">🔐 입장 후 독점 접근</div>
+        <div style="font-size:0.8em;color:#c8e6cc;line-height:1.8;">
+          • WeFi 최신 뉴스<br>
+          • 생태계 업데이트<br>
+          • 전략 계획<br>
+          • 내부 정보
+        </div>
+      </div>
+
+      <!-- 구매 안내 -->
+      <div style="background:rgba(255,204,0,0.08);border:1px solid rgba(255,204,0,0.3);border-radius:10px;padding:12px;text-align:center;">
+        <div style="font-size:0.82em;color:#ffcc00;font-weight:700;line-height:1.7;">
+          로그인 → 티켓 구매 → 달력에 날짜 표시 📆<br>
+          <span style="font-size:0.9em;color:#e8d87a;font-weight:400;">WeFi 앱에서 간단하게 구매 가능!</span>
+        </div>
+      </div>
+    </div>
+
     <div class="card" style="border-color:rgba(0,255,136,0.4);background:linear-gradient(135deg,#0d1f10,#111d14);">
       <div class="card-title" style="color:#00ff88;">🏆 Beyond Banking Summit 2026</div>
       <div style="font-size:0.85em;line-height:1.8;color:#e8f5ec;margin-bottom:12px;">
@@ -2380,23 +2416,27 @@
   <!-- 동영상 섹션 -->
   <div class="section" id="sec-video">
     <div class="card">
-      <div class="card-title">📺 위파이 TV</div>
-      <div style="font-size:0.8em;color:#00ccff;margin-bottom:12px;">👆 클릭하시면 위파이 TV로 바로 연결됩니다</div>
-      <div class="news-list">
-        <a href="https://youtu.be/6IWHja2jN9w?si=5xralOrQPTXWGYwX" target="_blank" onclick="window.open('https://youtu.be/6IWHja2jN9w?si=5xralOrQPTXWGYwX','_blank','noopener');return false;" style="text-decoration:none;">
-          <div class="news-item">
-            <div class="news-icon" style="font-size:1.8em;">
-              <svg width="40" height="28" viewBox="0 0 40 28" fill="none">
-                <rect width="40" height="28" rx="7" fill="#FF0000"/>
-                <polygon points="16,8 16,20 28,14" fill="white"/>
-              </svg>
-            </div>
-            <div class="news-info">
-              <div class="ni-media" style="color:#ff4444;font-size:0.8em;">📺 위파이TV</div>
-              <div class="ni-title" style="color:var(--text);">WeFi DeoBank 소개 영상</div>
-              <div class="ni-date">youtu.be/6IWHja2jN9w</div>
-            </div>
-          </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+        <div class="card-title" style="margin-bottom:0;">📺 위파이 TV</div>
+        <a href="https://youtube.com/channel/UCqQEobqZMnWYjADq7g9ol2w" target="_blank"
+          style="display:flex;align-items:center;gap:5px;padding:5px 12px;background:rgba(255,0,0,0.15);border:1px solid rgba(255,0,0,0.4);border-radius:20px;color:#ff4444;font-size:0.75em;font-weight:700;text-decoration:none;">
+          <svg width="16" height="11" viewBox="0 0 40 28" fill="none"><rect width="40" height="28" rx="7" fill="#FF0000"/><polygon points="16,8 16,20 28,14" fill="white"/></svg>
+          채널 구독
+        </a>
+      </div>
+      <div style="font-size:0.78em;color:#7a9980;margin-bottom:14px;">발란스팀 WeFi 공식 채널 · 최신 영상을 확인하세요</div>
+
+      <!-- 자동 로드 영역 -->
+      <div id="yt-loading" style="text-align:center;padding:20px;color:#7a9980;font-size:0.82em;">
+        <div style="font-size:1.5em;margin-bottom:8px;">📡</div>
+        영상 불러오는 중...
+      </div>
+      <div id="yt-list" style="display:flex;flex-direction:column;gap:10px;"></div>
+      <div id="yt-error" style="display:none;text-align:center;padding:16px;">
+        <div style="font-size:0.82em;color:#7a9980;margin-bottom:10px;">자동 로드 실패 — 채널에서 직접 확인하세요</div>
+        <a href="https://youtube.com/channel/UCqQEobqZMnWYjADq7g9ol2w" target="_blank"
+          style="display:inline-block;padding:10px 20px;background:rgba(255,0,0,0.15);border:1px solid rgba(255,0,0,0.4);border-radius:10px;color:#ff4444;font-size:0.85em;font-weight:700;text-decoration:none;">
+          📺 유튜브 채널 열기
         </a>
       </div>
     </div>
@@ -2917,44 +2957,39 @@ function copyLink() {
 
 // D-day 카운트다운 계산
 (function() {
-  function getNextWeekday(dayOfWeek) { // 0=일,1=월,2=화,3=수,4=목,5=금,6=토
-    var now = new Date();
-    var day = now.getDay();
-    var diff = (dayOfWeek - day + 7) % 7;
-    if (diff === 0) diff = 7; // 오늘이면 다음 주
-    var next = new Date(now);
-    next.setDate(now.getDate() + diff);
-    next.setHours(14, 0, 0, 0);
-    return diff;
+  function getDiff(dayOfWeek) {
+    var d = new Date().getDay();
+    return (dayOfWeek - d + 7) % 7;
   }
-  // 월=1(줌9시/영주2시), 화=2(부산4시), 수=3(줌9시), 목=4(부산2시), 금=5(구미2시)
-  var ddBusan = getNextWeekday(2);     // 화
-  var ddGumi  = getNextWeekday(5);     // 금
-  var ddYoungju = getNextWeekday(1);   // 월
-  var ddZoom    = getNextWeekday(1);   // 월
-  var ddZoomWed = getNextWeekday(3);   // 수
-  var ddBusanThu = getNextWeekday(4);  // 목
+  function setDday(elId, cardId, diff) {
+    var el = document.getElementById(elId);
+    var card = document.getElementById(cardId);
+    if (!el) return;
+    if (diff === 0) {
+      el.textContent = '오늘!';
+      el.style.color = '#fff';
+      el.style.fontSize = '1.2em';
+      el.style.textShadow = '0 0 12px rgba(255,80,80,1),0 0 28px rgba(255,60,60,0.8)';
+      if (card) {
+        card.style.boxShadow = '0 0 0 2px rgba(255,80,80,0.8),0 0 20px rgba(255,60,60,0.4)';
+        card.style.borderColor = 'rgba(255,80,80,0.9)';
+        card.style.background = 'rgba(255,60,60,0.13)';
+      }
+    } else {
+      el.textContent = 'D-' + diff;
+    }
+  }
+  setDday('dday-zoom',    'cd-zoom',    getDiff(1));
+  setDday('dday-youngju', 'cd-youngju', getDiff(1));
+  setDday('dday-busan',   'cd-busan',   getDiff(2));
+  setDday('dday-zoomwed', 'cd-zoomwed', getDiff(3));
+  setDday('dday-busanthu','cd-busanthu',getDiff(4));
+  setDday('dday-gumi',    'cd-gumi',    getDiff(5));
 
-  // 반감기까지
   var halvingDate = new Date('2026-09-18');
-  var today = new Date();
-  var halvingDays = Math.ceil((halvingDate - today) / 86400000);
-
-  var elB = document.getElementById('dday-busan');
-  var elG = document.getElementById('dday-gumi');
-  var elY = document.getElementById('dday-youngju');
+  var halvingDays = Math.ceil((halvingDate - new Date()) / 86400000);
   var elH1 = document.getElementById('notice-halving-days');
   var elH2 = document.getElementById('fact-halving-days');
-
-  if (elB) elB.textContent = ddBusan === 0 ? 'D-day!' : 'D-' + ddBusan;
-  if (elG) elG.textContent = ddGumi === 0 ? 'D-day!' : 'D-' + ddGumi;
-  if (elY) elY.textContent = ddYoungju === 0 ? 'D-day!' : 'D-' + ddYoungju;
-  var elZ = document.getElementById('dday-zoom');
-  if (elZ) elZ.textContent = ddZoom === 0 ? 'D-day!' : 'D-' + ddZoom;
-  var elZW = document.getElementById('dday-zoom-wed');
-  if (elZW) elZW.textContent = ddZoomWed === 0 ? 'D-day!' : 'D-' + ddZoomWed;
-  var elBT = document.getElementById('dday-busan-thu');
-  if (elBT) elBT.textContent = ddBusanThu === 0 ? 'D-day!' : 'D-' + ddBusanThu;
   if (elH1) elH1.textContent = halvingDays;
   if (elH2) elH2.textContent = halvingDays + '일';
 })();
@@ -3022,7 +3057,7 @@ function toggleBBS() {
 }
 
 function showSection(id, btn) {
-  var allSections = ['intro','team','ecosystem','ito','bbs2026','promo','calc','fact','news','video','guide','faq','review','chat'];
+  var allSections = ['intro','team','ecosystem','ito','bbs2026','promo','calc','fact','news','video','guide','faq','review','chat','welcome','mymine','quiz'];
   allSections.forEach(function(s) {
     var el = document.getElementById('sec-' + s);
     if (el) {
@@ -3043,7 +3078,7 @@ function showSection(id, btn) {
 
 // 페이지 로드 시 초기화
 (function() {
-  var allSections = ['intro','team','ecosystem','ito','bbs2026','promo','calc','fact','news','video','guide','faq','review','chat'];
+  var allSections = ['intro','team','ecosystem','ito','bbs2026','promo','calc','fact','news','video','guide','faq','review','chat','welcome','mymine','quiz'];
   allSections.forEach(function(s) {
     var el = document.getElementById('sec-' + s);
     if (el) {
@@ -3816,5 +3851,566 @@ function makePromoImage(code, url) {
 
 
 </script>
+
+  <!-- ===== 🎉 온보딩 ===== -->
+  <div class="section" id="sec-welcome">
+    <div class="card" style="border-color:rgba(0,255,136,0.5);background:linear-gradient(135deg,rgba(0,255,136,0.1),rgba(0,204,255,0.07));text-align:center;padding:28px 20px;">
+      <div id="wb-form">
+        <div style="font-size:2.4em;margin-bottom:10px;">🎉</div>
+        <div style="font-size:1.2em;font-weight:900;color:#00ff88;margin-bottom:8px;">WeFi DeoBank에 오신 걸 환영합니다!</div>
+        <div style="font-size:0.82em;color:#b8d4bc;line-height:1.7;margin-bottom:16px;">닉네임을 입력하고 온보딩을 시작해보세요!</div>
+        <div style="display:flex;gap:8px;">
+          <input id="wb-name-input" type="text" placeholder="닉네임 입력" maxlength="10"
+            style="flex:1;padding:12px 14px;background:rgba(0,0,0,0.5);border:1px solid rgba(0,255,136,0.4);border-radius:12px;color:#e8f5ec;font-size:0.9em;font-family:inherit;outline:none;">
+          <button onclick="wbSaveName()" style="padding:12px 18px;background:linear-gradient(90deg,#00ff88,#00ccff);border:none;border-radius:12px;font-size:0.9em;font-weight:700;color:#000;cursor:pointer;font-family:inherit;">시작 🚀</button>
+        </div>
+      </div>
+      <div id="wb-greet" style="display:none;">
+        <div style="font-size:2em;margin-bottom:8px;">👋</div>
+        <div style="font-size:1.3em;font-weight:900;color:#00ff88;" id="wb-name-disp">다시 오셨군요!</div>
+        <div style="font-size:0.82em;color:#b8d4bc;margin-top:6px;">오늘도 WeFi와 함께 성장하세요 🌱</div>
+        <button onclick="wbReset()" style="margin-top:12px;padding:6px 14px;background:transparent;border:1px solid rgba(255,255,255,0.15);border-radius:8px;color:#7a9980;font-size:0.75em;cursor:pointer;font-family:inherit;">닉네임 변경</button>
+      </div>
+    </div>
+    <div class="card">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+        <div class="card-title" style="margin-bottom:0;">📋 온보딩 체크리스트</div>
+        <div id="wb-level" style="padding:4px 12px;border-radius:20px;font-size:0.72em;font-weight:700;background:rgba(255,255,255,0.07);color:#7a9980;border:1px solid rgba(255,255,255,0.1);">Lv.0 신입</div>
+      </div>
+      <div style="margin-bottom:14px;">
+        <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
+          <span style="font-size:0.78em;color:#7a9980;">진행률</span>
+          <span style="font-size:0.85em;font-weight:700;color:#00ff88;" id="wb-pct">0%</span>
+        </div>
+        <div style="height:10px;background:rgba(255,255,255,0.08);border-radius:5px;overflow:hidden;">
+          <div id="wb-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#00ff88,#00ccff);border-radius:5px;transition:width 0.5s;"></div>
+        </div>
+        <div style="font-size:0.72em;color:#7a9980;margin-top:4px;" id="wb-count">0 / 10 완료</div>
+      </div>
+      <div id="wb-list" style="display:flex;flex-direction:column;gap:8px;"></div>
+    </div>
+    <div id="wb-complete" style="display:none;">
+      <div class="card" style="border-color:rgba(255,204,0,0.7);background:rgba(255,204,0,0.08);text-align:center;padding:24px;">
+        <div style="font-size:2.4em;margin-bottom:8px;">🏆</div>
+        <div style="font-size:1.15em;font-weight:900;color:#ffcc00;">온보딩 완료!</div>
+        <div style="font-size:0.82em;color:#e8d87a;margin-top:6px;">WeFi 마스터 달성! 🎊</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== ⛏️ 내채굴 ===== -->
+  <div class="section" id="sec-mymine">
+    <div class="card" style="text-align:center;border-color:rgba(0,255,136,0.4);padding:20px;">
+      <div style="font-size:2em;margin-bottom:6px;">⛏️</div>
+      <div style="font-size:1.1em;font-weight:900;color:#00ff88;">내 채굴 목표 관리</div>
+      <div style="font-size:0.8em;color:#7a9980;margin-top:4px;">목표 설정 후 북마크로 저장하세요</div>
+    </div>
+    <div class="card">
+      <div class="card-title">📝 목표 설정</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;">
+        <div class="input-g"><label>현재 보유 WFI</label>
+          <input id="mm-cur" type="number" placeholder="예: 120" oninput="mmCalc()"
+            style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:10px 12px;color:#e8f5ec;font-size:0.9em;outline:none;font-family:inherit;width:100%;"></div>
+        <div class="input-g"><label>일 채굴량 (WFI)</label>
+          <input id="mm-daily" type="number" placeholder="예: 1.5" step="0.01" oninput="mmCalc()"
+            style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:10px 12px;color:#e8f5ec;font-size:0.9em;outline:none;font-family:inherit;width:100%;"></div>
+        <div class="input-g"><label>목표 WFI 수량</label>
+          <input id="mm-goal" type="number" placeholder="예: 500" oninput="mmCalc()"
+            style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:10px 12px;color:#e8f5ec;font-size:0.9em;outline:none;font-family:inherit;width:100%;"></div>
+        <div class="input-g"><label>목표 가격 (USD)</label>
+          <input id="mm-price" type="number" placeholder="예: 10" step="0.1" oninput="mmCalc()"
+            style="background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:10px 12px;color:#e8f5ec;font-size:0.9em;outline:none;font-family:inherit;width:100%;"></div>
+      </div>
+      <button onclick="mmSave()" style="width:100%;padding:14px;background:linear-gradient(90deg,#00ff88,#00ccff);border:none;border-radius:12px;font-size:0.95em;font-weight:700;color:#000;cursor:pointer;font-family:inherit;">🔖 북마크에 저장</button>
+    </div>
+    <div id="mm-result" style="display:none;">
+      <div class="card" style="border-color:rgba(0,255,136,0.3);">
+        <div class="card-title">📊 분석 결과</div>
+        <div style="margin-bottom:12px;">
+          <div style="display:flex;justify-content:space-between;margin-bottom:5px;">
+            <span style="font-size:0.78em;color:#7a9980;">달성률</span>
+            <span style="font-size:0.85em;font-weight:700;color:#00ff88;" id="mm-pct">0%</span>
+          </div>
+          <div style="height:10px;background:rgba(255,255,255,0.08);border-radius:5px;overflow:hidden;">
+            <div id="mm-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#00ff88,#00ccff);border-radius:5px;transition:width 0.6s;"></div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+          <div style="background:rgba(0,255,136,0.07);border:1px solid rgba(0,255,136,0.15);border-radius:10px;padding:12px;text-align:center;">
+            <div style="font-size:0.7em;color:#7a9980;margin-bottom:4px;">목표까지 필요</div>
+            <div id="mm-need" style="font-size:1.1em;font-weight:700;color:#00ff88;">-</div>
+          </div>
+          <div style="background:rgba(0,204,255,0.07);border:1px solid rgba(0,204,255,0.15);border-radius:10px;padding:12px;text-align:center;">
+            <div style="font-size:0.7em;color:#7a9980;margin-bottom:4px;">채굴 완료까지</div>
+            <div id="mm-days" style="font-size:1.1em;font-weight:700;color:#00ccff;">-</div>
+          </div>
+          <div style="background:rgba(255,204,0,0.07);border:1px solid rgba(255,204,0,0.15);border-radius:10px;padding:12px;text-align:center;">
+            <div style="font-size:0.7em;color:#7a9980;margin-bottom:4px;">목표 달성일</div>
+            <div id="mm-date" style="font-size:0.95em;font-weight:700;color:#ffcc00;">-</div>
+          </div>
+          <div style="background:rgba(0,255,136,0.07);border:1px solid rgba(0,255,136,0.15);border-radius:10px;padding:12px;text-align:center;">
+            <div style="font-size:0.7em;color:#7a9980;margin-bottom:4px;">목표가 평가액</div>
+            <div id="mm-val" style="font-size:0.88em;font-weight:700;color:#00ff88;">-</div>
+          </div>
+        </div>
+        <div id="mm-warn" style="display:none;margin-top:10px;padding:10px 12px;background:rgba(255,100,0,0.1);border:1px solid rgba(255,100,0,0.35);border-radius:10px;font-size:0.8em;color:#ff9944;line-height:1.6;"></div>
+      </div>
+      <div class="card">
+        <div class="card-title">🔖 저장된 북마크</div>
+        <div id="mm-bm-list" style="display:flex;flex-direction:column;gap:8px;"></div>
+        <div id="mm-bm-empty" style="font-size:0.82em;color:#7a9980;text-align:center;padding:12px;">저장된 목표가 없습니다</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 🧠 퀴즈 ===== -->
+  <div class="section" id="sec-quiz">
+    <div class="card" style="text-align:center;border-color:rgba(255,204,0,0.45);background:rgba(255,204,0,0.06);padding:20px;">
+      <div style="font-size:2em;margin-bottom:8px;">🧠</div>
+      <div style="font-size:1.1em;font-weight:900;color:#ffcc00;margin-bottom:4px;">WeFi 핵심 개념 퀴즈</div>
+      <div style="font-size:0.8em;color:#b8d4bc;margin-bottom:14px;">O / X 로 맞춰보세요!</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+        <div style="background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.2);border-radius:10px;padding:10px 6px;">
+          <div style="font-size:1.5em;font-weight:900;color:#00ff88;" id="qz-score">0</div>
+          <div style="font-size:0.68em;color:#7a9980;margin-top:2px;">정답</div>
+        </div>
+        <div style="background:rgba(0,204,255,0.08);border:1px solid rgba(0,204,255,0.2);border-radius:10px;padding:10px 6px;">
+          <div style="font-size:1.5em;font-weight:900;color:#00ccff;" id="qz-total">0</div>
+          <div style="font-size:0.68em;color:#7a9980;margin-top:2px;">총 문제</div>
+        </div>
+        <div style="background:rgba(255,204,0,0.08);border:1px solid rgba(255,204,0,0.2);border-radius:10px;padding:10px 6px;">
+          <div style="font-size:1.5em;font-weight:900;color:#ffcc00;" id="qz-streak">0</div>
+          <div style="font-size:0.68em;color:#7a9980;margin-top:2px;">🔥 연속</div>
+        </div>
+      </div>
+      <div id="qz-best" style="margin-top:8px;font-size:0.75em;color:#7a9980;"></div>
+    </div>
+    <div class="card" id="qz-card" style="border-color:rgba(0,204,255,0.3);">
+      <div style="height:4px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden;margin-bottom:12px;">
+        <div id="qz-prog" style="height:100%;width:5%;background:linear-gradient(90deg,#00ff88,#00ccff);border-radius:2px;transition:width 0.4s;"></div>
+      </div>
+      <div style="font-size:0.72em;color:#7a9980;margin-bottom:8px;" id="qz-num">문제 1 / 20</div>
+      <div style="font-size:1.0em;font-weight:700;color:#e8f5ec;line-height:1.7;min-height:60px;margin-bottom:20px;" id="qz-q">로딩 중...</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <button onclick="qzAnswer(true)" id="qz-o" style="padding:20px;background:rgba(0,255,136,0.1);border:2px solid rgba(0,255,136,0.4);border-radius:14px;color:#00ff88;font-size:1.8em;font-weight:900;cursor:pointer;font-family:inherit;">⭕</button>
+        <button onclick="qzAnswer(false)" id="qz-x" style="padding:20px;background:rgba(255,80,80,0.1);border:2px solid rgba(255,80,80,0.4);border-radius:14px;color:#ff5555;font-size:1.8em;font-weight:900;cursor:pointer;font-family:inherit;">❌</button>
+      </div>
+      <div id="qz-explain" style="display:none;margin-top:14px;padding:12px 14px;background:rgba(255,255,255,0.04);border-radius:10px;border:1px solid rgba(255,255,255,0.1);">
+        <div id="qz-icon" style="font-size:1.05em;font-weight:700;margin-bottom:6px;"></div>
+        <div id="qz-text" style="font-size:0.84em;color:#b8d4bc;line-height:1.7;"></div>
+        <button onclick="qzNext()" style="margin-top:10px;width:100%;padding:12px;background:linear-gradient(90deg,#00ff88,#00ccff);border:none;border-radius:8px;font-size:0.88em;font-weight:700;color:#000;cursor:pointer;font-family:inherit;">다음 문제 →</button>
+      </div>
+    </div>
+    <div id="qz-done" style="display:none;">
+      <div class="card" style="text-align:center;border-color:rgba(255,204,0,0.5);background:rgba(255,204,0,0.06);padding:26px 20px;">
+        <div style="font-size:2.4em;margin-bottom:8px;">🎊</div>
+        <div style="font-size:1.1em;font-weight:900;color:#ffcc00;margin-bottom:8px;">퀴즈 완료!</div>
+        <div id="qz-final" style="font-size:1.4em;font-weight:700;color:#00ff88;margin-bottom:6px;"></div>
+        <div id="qz-grade" style="font-size:0.85em;color:#b8d4bc;margin-bottom:8px;"></div>
+        <div id="qz-newbest" style="display:none;font-size:0.8em;color:#ffcc00;margin-bottom:12px;">🏆 최고 기록 갱신!</div>
+        <button onclick="qzReset()" style="padding:12px 28px;background:linear-gradient(90deg,#00ff88,#00ccff);border:none;border-radius:10px;font-size:0.9em;font-weight:700;color:#000;cursor:pointer;font-family:inherit;">🔄 다시 풀기</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+// ====== 위파이TV 유튜브 자동 로드 ======
+var YT_CHANNEL = 'UCqQEobqZMnWYjADq7g9ol2w';
+var YT_RSS = 'https://www.youtube.com/feeds/videos.xml?channel_id=' + YT_CHANNEL;
+var YT_PROXIES = [
+  'https://api.allorigins.win/get?url=' + encodeURIComponent(YT_RSS),
+  'https://corsproxy.io/?' + encodeURIComponent(YT_RSS)
+];
+
+function ytRenderItem(id, title, date, thumb) {
+  var url = 'https://www.youtube.com/watch?v=' + id;
+  var d = date ? date.substring(0, 10).replace(/-/g, '.') : '';
+  return '<a href="' + url + '" target="_blank" style="text-decoration:none;display:block;">' +
+    '<div style="display:flex;gap:12px;padding:12px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.07);border-radius:12px;transition:all 0.2s;" ' +
+    'onmouseover="this.style.background=\'rgba(255,0,0,0.07)\';this.style.borderColor=\'rgba(255,0,0,0.25)\'" ' +
+    'onmouseout="this.style.background=\'rgba(255,255,255,0.03)\';this.style.borderColor=\'rgba(255,255,255,0.07)\'">' +
+    '<div style="flex-shrink:0;width:96px;height:54px;border-radius:8px;overflow:hidden;background:#111;position:relative;">' +
+    '<img src="' + thumb + '" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentNode.innerHTML=\'<div style=\\\"width:100%;height:100%;display:flex;align-items:center;justify-content:center;\\\"><svg width=\\\"28\\\" height=\\\"20\\\" viewBox=\\\"0 0 40 28\\\" fill=\\\"none\\\"><rect width=\\\"40\\\" height=\\\"28\\\" rx=\\\"7\\\" fill=\\\"#FF0000\\\"/><polygon points=\\\"16,8 16,20 28,14\\\" fill=\\\"white\\\"/></svg></div>\'">' +
+    '<div style="position:absolute;bottom:3px;right:3px;background:rgba(255,0,0,0.85);border-radius:3px;padding:1px 4px;">' +
+    '<svg width="10" height="7" viewBox="0 0 40 28" fill="none"><rect width="40" height="28" rx="4" fill="#FF0000"/><polygon points="16,8 16,20 28,14" fill="white"/></svg>' +
+    '</div></div>' +
+    '<div style="flex:1;min-width:0;">' +
+    '<div style="font-size:0.85em;font-weight:600;color:#e8f5ec;line-height:1.4;margin-bottom:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">' + title + '</div>' +
+    '<div style="font-size:0.7em;color:#7a9980;">' + d + '</div>' +
+    '</div></div></a>';
+}
+
+function ytLoad() {
+  var loadEl = document.getElementById('yt-loading');
+  var listEl = document.getElementById('yt-list');
+  var errEl  = document.getElementById('yt-error');
+  var proxyIdx = 0;
+
+  function tryProxy() {
+    if (proxyIdx >= YT_PROXIES.length) {
+      if (loadEl) loadEl.style.display = 'none';
+      if (errEl) errEl.style.display = 'block';
+      return;
+    }
+    var url = YT_PROXIES[proxyIdx++];
+    fetch(url)
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        var xml = data.contents || data.data || '';
+        if (!xml) { tryProxy(); return; }
+        var parser = new DOMParser();
+        var doc = parser.parseFromString(xml, 'text/xml');
+        var entries = doc.querySelectorAll('entry');
+        if (!entries || entries.length === 0) { tryProxy(); return; }
+        var html = '';
+        var count = 0;
+        for (var i = 0; i < entries.length && count < 8; i++) {
+          var entry = entries[i];
+          var vidId = '';
+          var vidEl = entry.querySelector('videoId');
+          if (vidEl) { vidId = vidEl.textContent; }
+          else {
+            var idEl = entry.querySelector('id');
+            if (idEl) { vidId = idEl.textContent.split(':').pop(); }
+          }
+          var titleEl = entry.querySelector('title');
+          var title = titleEl ? titleEl.textContent : '제목 없음';
+          var pubEl = entry.querySelector('published');
+          var pubDate = pubEl ? pubEl.textContent : '';
+          var thumb = vidId ? 'https://img.youtube.com/vi/' + vidId + '/mqdefault.jpg' : '';
+          if (vidId) { html += ytRenderItem(vidId, title, pubDate, thumb); count++; }
+        }
+        if (!html) { tryProxy(); return; }
+        if (loadEl) loadEl.style.display = 'none';
+        if (listEl) listEl.innerHTML = html;
+      })
+      .catch(function() { tryProxy(); });
+  }
+  tryProxy();
+}
+
+document.addEventListener('DOMContentLoaded', function() { ytLoad(); });
+// ====== 온보딩 ======
+var WB_ITEMS = [
+  {id:'ob1', icon:'✅', text:'WeFi 앱 가입 완료',        tip:'앱스토어에서 WeFi 설치 후 레퍼럴 코드 입력'},
+  {id:'ob2', icon:'🔗', text:'레퍼럴 코드 입력 완료',   tip:'가입 시 발란스 팀 코드를 꼭 입력하세요!'},
+  {id:'ob3', icon:'⚡', text:'첫 에너지 충전 완료',      tip:'에너지를 충전해야 채굴이 시작됩니다'},
+  {id:'ob4', icon:'⛏️', text:'채굴 시작 확인',           tip:'앱에서 채굴 중 표시를 확인하세요'},
+  {id:'ob5', icon:'💼', text:'WFI 지갑 주소 확인',       tip:'출금 시 필요한 지갑 주소를 저장해두세요'},
+  {id:'ob6', icon:'💬', text:'카카오 단체방 참여',        tip:'담당자에게 단체방 초대를 요청하세요'},
+  {id:'ob7', icon:'💻', text:'첫 줌 미팅 참석',          tip:'매주 월요일 오후 9시 — 최신 소식 공유'},
+  {id:'ob8', icon:'🏢', text:'오프라인 센터 방문',        tip:'부산/영주/구미 센터에서 1:1 설명을 받아보세요'},
+  {id:'ob9', icon:'📱', text:'WeFi 공식 SNS 팔로우',     tip:'공식 SNS에서 업데이트 소식을 받으세요'},
+  {id:'ob10',icon:'🧠', text:'퀴즈 1회 완료',            tip:'퀴즈 탭에서 WeFi 개념을 공부해보세요!'}
+];
+var WB_LV = [
+  {min:0,  name:'신입 🌱', color:'#7a9980'},
+  {min:3,  name:'초보 🌿', color:'#00cc6a'},
+  {min:5,  name:'멤버 ⭐', color:'#00ff88'},
+  {min:7,  name:'활성 💎', color:'#00ccff'},
+  {min:9,  name:'전문가 🏆',color:'#ffcc00'},
+  {min:10, name:'마스터 👑',color:'#ff9944'}
+];
+function wbGetLv(n) {
+  var lv = WB_LV[0];
+  for (var i = 0; i < WB_LV.length; i++) { if (n >= WB_LV[i].min) lv = WB_LV[i]; }
+  return lv;
+}
+function wbLoad() {
+  var saved = {};
+  try { saved = JSON.parse(localStorage.getItem('wefi_ob') || '{}'); } catch(e) {}
+  var name = localStorage.getItem('wefi_name') || '';
+  var formEl = document.getElementById('wb-form');
+  var greetEl = document.getElementById('wb-greet');
+  var dispEl = document.getElementById('wb-name-disp');
+  if (name) {
+    if (formEl) formEl.style.display = 'none';
+    if (greetEl) greetEl.style.display = 'block';
+    if (dispEl) dispEl.textContent = name + '님, 안녕하세요! 👋';
+  } else {
+    if (formEl) formEl.style.display = 'block';
+    if (greetEl) greetEl.style.display = 'none';
+  }
+  var list = document.getElementById('wb-list');
+  if (!list) return;
+  list.innerHTML = '';
+  var done = 0;
+  for (var i = 0; i < WB_ITEMS.length; i++) {
+    var item = WB_ITEMS[i];
+    var chk = !!saved[item.id];
+    if (chk) done++;
+    var div = document.createElement('div');
+    div.style.cssText = 'display:flex;align-items:flex-start;gap:12px;padding:12px 14px;border-radius:12px;cursor:pointer;transition:all 0.2s;background:' + (chk ? 'rgba(0,255,136,0.09)' : 'rgba(255,255,255,0.03)') + ';border:1px solid ' + (chk ? 'rgba(0,255,136,0.3)' : 'rgba(255,255,255,0.07)') + ';';
+    div.innerHTML = '<div style="width:22px;height:22px;border-radius:50%;border:2px solid ' + (chk ? '#00ff88' : 'rgba(255,255,255,0.2)') + ';background:' + (chk ? '#00ff88' : 'transparent') + ';display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:0.7em;color:#000;font-weight:900;margin-top:1px;">' + (chk ? '✓' : '') + '</div>' +
+      '<div><div style="font-size:0.88em;font-weight:600;' + (chk ? 'color:#00ff88;text-decoration:line-through;' : 'color:#e8f5ec;') + '">' + item.icon + ' ' + item.text + '</div>' +
+      '<div style="font-size:0.72em;color:#7a9980;margin-top:2px;line-height:1.4;">' + item.tip + '</div></div>';
+    (function(id){ div.onclick = function() { wbToggle(id); }; })(item.id);
+    list.appendChild(div);
+  }
+  var pct = Math.round(done / WB_ITEMS.length * 100);
+  var lv = wbGetLv(done);
+  var barEl = document.getElementById('wb-bar');
+  var pctEl = document.getElementById('wb-pct');
+  var cntEl = document.getElementById('wb-count');
+  var lvEl  = document.getElementById('wb-level');
+  var compEl= document.getElementById('wb-complete');
+  if (barEl) barEl.style.width = pct + '%';
+  if (pctEl) pctEl.textContent = pct + '%';
+  if (cntEl) cntEl.textContent = done + ' / ' + WB_ITEMS.length + ' 완료';
+  if (lvEl) { lvEl.textContent = 'Lv.' + done + ' ' + lv.name; lvEl.style.color = lv.color; lvEl.style.borderColor = lv.color; }
+  if (compEl) compEl.style.display = (done === WB_ITEMS.length) ? 'block' : 'none';
+}
+function wbToggle(id) {
+  var saved = {};
+  try { saved = JSON.parse(localStorage.getItem('wefi_ob') || '{}'); } catch(e) {}
+  if (saved[id]) { delete saved[id]; } else { saved[id] = true; }
+  localStorage.setItem('wefi_ob', JSON.stringify(saved));
+  wbLoad();
+}
+function wbSaveName() {
+  var v = document.getElementById('wb-name-input').value.trim();
+  if (!v) return;
+  localStorage.setItem('wefi_name', v);
+  wbLoad();
+}
+function wbReset() {
+  localStorage.removeItem('wefi_name');
+  var inp = document.getElementById('wb-name-input');
+  if (inp) inp.value = '';
+  wbLoad();
+}
+document.addEventListener('DOMContentLoaded', function() { wbLoad(); });
+
+// ====== 내채굴 ======
+function mmCalc() {
+  var cur   = parseFloat(document.getElementById('mm-cur').value)   || 0;
+  var daily = parseFloat(document.getElementById('mm-daily').value) || 0;
+  var goal  = parseFloat(document.getElementById('mm-goal').value)  || 0;
+  var price = parseFloat(document.getElementById('mm-price').value) || 0;
+  if (!daily && !goal) return;
+  var resEl = document.getElementById('mm-result');
+  if (resEl) resEl.style.display = 'block';
+  var need = Math.max(0, goal - cur);
+  var days = daily > 0 ? Math.ceil(need / daily) : null;
+  var dateStr = '-';
+  if (days !== null) {
+    var d = new Date(); d.setDate(d.getDate() + days);
+    dateStr = d.getFullYear() + '.' + (d.getMonth()+1 < 10 ? '0' : '') + (d.getMonth()+1) + '.' + (d.getDate() < 10 ? '0' : '') + d.getDate();
+  }
+  var pct = goal > 0 ? Math.min(100, Math.round(cur / goal * 100)) : 0;
+  var needEl = document.getElementById('mm-need');
+  var daysEl = document.getElementById('mm-days');
+  var dateEl = document.getElementById('mm-date');
+  var valEl  = document.getElementById('mm-val');
+  var barEl  = document.getElementById('mm-bar');
+  var pctEl  = document.getElementById('mm-pct');
+  var warnEl = document.getElementById('mm-warn');
+  if (needEl) needEl.textContent = need.toLocaleString() + ' WFI';
+  if (daysEl) daysEl.textContent = days !== null ? days.toLocaleString() + '일' : '-';
+  if (dateEl) dateEl.textContent = dateStr;
+  if (valEl)  valEl.textContent  = (goal > 0 && price > 0) ? '$' + (goal*price).toLocaleString() + ' (약 ' + Math.round(goal*price*1480).toLocaleString() + '원)' : '-';
+  if (barEl)  barEl.style.width  = pct + '%';
+  if (pctEl)  pctEl.textContent  = pct + '%';
+  if (warnEl) {
+    var halvLeft = Math.ceil((new Date('2026-09-18') - new Date()) / 86400000);
+    if (days !== null && days > halvLeft) {
+      warnEl.style.display = 'block';
+      warnEl.textContent = '⚠️ 목표 달성일이 반감기(2026.9.18) 이후입니다! 에너지 추가 충전을 고려해보세요.';
+    } else {
+      warnEl.style.display = 'none';
+    }
+  }
+  mmRenderBm();
+}
+function mmSave() {
+  var cur   = parseFloat(document.getElementById('mm-cur').value)   || 0;
+  var daily = parseFloat(document.getElementById('mm-daily').value) || 0;
+  var goal  = parseFloat(document.getElementById('mm-goal').value)  || 0;
+  var price = parseFloat(document.getElementById('mm-price').value) || 0;
+  if (!goal) { alert('목표 수량을 입력해주세요!'); return; }
+  var list = [];
+  try { list = JSON.parse(localStorage.getItem('wefi_bm') || '[]'); } catch(e) {}
+  var now = new Date();
+  var ds = now.getFullYear() + '.' + (now.getMonth()+1 < 10?'0':'') + (now.getMonth()+1) + '.' + (now.getDate()<10?'0':'') + now.getDate();
+  list.unshift({cur:cur, daily:daily, goal:goal, price:price, date:ds});
+  if (list.length > 5) list = list.slice(0, 5);
+  localStorage.setItem('wefi_bm', JSON.stringify(list));
+  mmCalc();
+  alert('저장 완료!');
+}
+function mmRenderBm() {
+  var list = [];
+  try { list = JSON.parse(localStorage.getItem('wefi_bm') || '[]'); } catch(e) {}
+  var el    = document.getElementById('mm-bm-list');
+  var empty = document.getElementById('mm-bm-empty');
+  if (!el) return;
+  if (!list.length) { el.innerHTML = ''; if (empty) empty.style.display = 'block'; return; }
+  if (empty) empty.style.display = 'none';
+  var html = '';
+  for (var i = 0; i < list.length; i++) {
+    var b = list[i];
+    var need = Math.max(0, b.goal - b.cur);
+    var days = b.daily > 0 ? Math.ceil(need / b.daily) : null;
+    html += '<div style="padding:12px 14px;background:rgba(0,255,136,0.05);border:1px solid rgba(0,255,136,0.15);border-radius:12px;margin-bottom:0;">' +
+      '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">' +
+      '<div style="font-size:0.85em;font-weight:700;color:#00ff88;">🎯 목표 ' + b.goal.toLocaleString() + ' WFI' + (b.price ? ' @ $' + b.price : '') + '</div>' +
+      '<div style="display:flex;gap:6px;">' +
+      '<button onclick="mmLoad(' + i + ')" style="padding:3px 9px;background:rgba(0,255,136,0.15);border:1px solid rgba(0,255,136,0.3);border-radius:6px;color:#00ff88;font-size:0.7em;cursor:pointer;font-family:inherit;">불러오기</button>' +
+      '<button onclick="mmDel(' + i + ')" style="padding:3px 7px;background:rgba(255,80,80,0.1);border:1px solid rgba(255,80,80,0.25);border-radius:6px;color:#ff7777;font-size:0.7em;cursor:pointer;font-family:inherit;">삭제</button>' +
+      '</div></div>' +
+      '<div style="font-size:0.72em;color:#7a9980;">현재 ' + b.cur + ' · 일채굴 ' + b.daily + ' · ' + (days !== null ? days + '일 후' : '') + ' · ' + b.date + '</div>' +
+      '</div>';
+  }
+  el.innerHTML = html;
+}
+function mmLoad(i) {
+  var list = [];
+  try { list = JSON.parse(localStorage.getItem('wefi_bm') || '[]'); } catch(e) {}
+  var b = list[i]; if (!b) return;
+  document.getElementById('mm-cur').value   = b.cur;
+  document.getElementById('mm-daily').value = b.daily;
+  document.getElementById('mm-goal').value  = b.goal;
+  document.getElementById('mm-price').value = b.price;
+  mmCalc();
+}
+function mmDel(i) {
+  var list = [];
+  try { list = JSON.parse(localStorage.getItem('wefi_bm') || '[]'); } catch(e) {}
+  list.splice(i, 1);
+  localStorage.setItem('wefi_bm', JSON.stringify(list));
+  mmRenderBm();
+}
+document.addEventListener('DOMContentLoaded', function() { mmRenderBm(); });
+
+// ====== 퀴즈 ======
+var QZ_DATA = [
+  {q:'WeFi DeoBank는 세계 최초의 디오뱅크(DeoBank)이다.', a:true,  e:'맞습니다! DeoBank(탈중앙화 은행) 개념을 세계 최초로 구현한 프로젝트입니다.'},
+  {q:'WFI 토큰의 채굴량은 반감기마다 50% 감소한다.', a:true,  e:'맞습니다! 비트코인처럼 반감기마다 일 채굴량이 절반으로 줄어듭니다.'},
+  {q:'WeFi의 첫 번째 반감기는 2027년에 예정되어 있다.', a:false, e:'틀렸습니다! 첫 번째 반감기는 2026년 9월 18일 예정입니다.'},
+  {q:'USDT(테더)의 창업자가 WeFi 프로젝트에 관여했다.', a:true,  e:'맞습니다! USDT 창업자와의 연관성이 WeFi 신뢰도의 핵심 근거 중 하나입니다.'},
+  {q:'WeFi Visa 실물카드는 WFI 토큰으로 결제가 가능하다.', a:true,  e:'맞습니다! 실물 Visa 카드를 통해 실생활에서 활용할 수 있습니다.'},
+  {q:'WeFi 앱에서 채굴한 WFI는 즉시 출금이 가능하다.', a:false, e:'틀렸습니다! ITO 완료 후 단계적으로 출금이 가능해집니다.'},
+  {q:'WeFi는 현재 153개국 이상에서 서비스되고 있다.', a:true,  e:'맞습니다! 전 세계 153개국, 20만 명 이상 참여 중입니다.'},
+  {q:'WFI 토큰은 CMC(코인마켓캡)에 상장되어 있다.', a:true,  e:'맞습니다! CMC에 상장되어 실시간 시세를 확인할 수 있습니다.'},
+  {q:'WeFi의 에너지는 한 번 구매하면 영구적으로 사용된다.', a:false, e:'틀렸습니다! 에너지는 소모되며 지속적으로 충전해야 합니다.'},
+  {q:'발란스 팀 줌 미팅은 매주 월요일 오후 9시에 진행된다.', a:true,  e:'맞습니다! 매주 월요일 저녁 9시 신규소식을 공유합니다.'},
+  {q:'WeFi DeoBank는 2024년에 출시되었다.', a:true,  e:'맞습니다! 2024년 출시 후 빠르게 글로벌 사용자를 확보했습니다.'},
+  {q:'WFI 채굴은 스마트폰만 있으면 누구나 할 수 있다.', a:true,  e:'맞습니다! 별도 채굴 장비 없이 앱에서 간편하게 가능합니다.'},
+  {q:'WeFi의 STBL은 USD에 고정된 스테이블코인이다.', a:true,  e:'맞습니다! STBL은 1:1로 USD에 페깅된 스테이블코인입니다.'},
+  {q:'반감기 이후에도 채굴 참여자 수는 동일하게 유지된다.', a:false, e:'틀렸습니다! 반감기 후 신규 유입이 늘어날 수 있습니다.'},
+  {q:'WeFi 레퍼럴 코드를 쓰면 추천인에게도 혜택이 있다.', a:true,  e:'맞습니다! 추천인과 피추천인 모두 혜택을 받습니다.'},
+  {q:'WeFi 앱은 iOS와 Android 모두 지원한다.', a:true,  e:'맞습니다! 안드로이드와 아이폰 모두 지원합니다.'},
+  {q:'WFI 가격은 채굴량과 무관하게 시장에서만 결정된다.', a:false, e:'틀렸습니다! 반감기로 인한 공급 감소는 가격에 영향을 줍니다.'},
+  {q:'부산센터는 매주 화요일 오후 4시에 사업설명회를 진행한다.', a:true,  e:'맞습니다! 매주 화요일 오후 4시 진행합니다.'},
+  {q:'WeFi Reserve는 프로젝트 안정성을 위한 준비금이다.', a:true,  e:'맞습니다! 생태계 유동성과 안정성을 보장합니다.'},
+  {q:'지금 반감기 전이므로 채굴 효율이 가장 높은 시기이다.', a:true,  e:'맞습니다! 반감기 전 지금이 가장 많이 채굴할 수 있는 황금기입니다! 🔥'}
+];
+var qzState = {idx:0, score:0, total:0, streak:0, order:[]};
+function qzShuffle() {
+  var arr = [];
+  for (var i = 0; i < QZ_DATA.length; i++) arr.push(i);
+  for (var i = arr.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var t = arr[i]; arr[i] = arr[j]; arr[j] = t;
+  }
+  return arr;
+}
+function qzInit() {
+  qzState.idx = 0; qzState.score = 0; qzState.total = 0; qzState.streak = 0;
+  qzState.order = qzShuffle();
+  var doneEl = document.getElementById('qz-done');
+  var cardEl = document.getElementById('qz-card');
+  if (doneEl) doneEl.style.display = 'none';
+  if (cardEl) cardEl.style.display = 'block';
+  qzRender();
+  qzUpdateBest();
+}
+function qzUpdateBest() {
+  var best = parseInt(localStorage.getItem('wefi_qzbest') || '0');
+  var el = document.getElementById('qz-best');
+  if (el) el.textContent = best > 0 ? '최고 기록: ' + best + ' / ' + QZ_DATA.length : '';
+}
+function qzRender() {
+  var s = qzState;
+  var q = QZ_DATA[s.order[s.idx]];
+  var prog = Math.max(5, Math.round(s.idx / QZ_DATA.length * 100));
+  var pbEl = document.getElementById('qz-prog');
+  var numEl = document.getElementById('qz-num');
+  var qEl  = document.getElementById('qz-q');
+  var expEl= document.getElementById('qz-explain');
+  var oBt  = document.getElementById('qz-o');
+  var xBt  = document.getElementById('qz-x');
+  var scEl = document.getElementById('qz-score');
+  var toEl = document.getElementById('qz-total');
+  var stEl = document.getElementById('qz-streak');
+  if (pbEl) pbEl.style.width = prog + '%';
+  if (numEl) numEl.textContent = '문제 ' + (s.idx+1) + ' / ' + QZ_DATA.length;
+  if (qEl)  qEl.textContent = q.q;
+  if (expEl) expEl.style.display = 'none';
+  if (oBt) { oBt.disabled = false; oBt.style.opacity = '1'; }
+  if (xBt) { xBt.disabled = false; xBt.style.opacity = '1'; }
+  if (scEl) scEl.textContent = s.score;
+  if (toEl) toEl.textContent = s.total;
+  if (stEl) stEl.textContent = s.streak;
+}
+function qzAnswer(ans) {
+  var s = qzState;
+  var q = QZ_DATA[s.order[s.idx]];
+  var ok = (ans === q.a);
+  s.total++;
+  if (ok) { s.score++; s.streak++; } else { s.streak = 0; }
+  var oBt = document.getElementById('qz-o');
+  var xBt = document.getElementById('qz-x');
+  if (oBt) { oBt.disabled = true; oBt.style.opacity = q.a === true ? '1' : '0.25'; }
+  if (xBt) { xBt.disabled = true; xBt.style.opacity = q.a === false ? '1' : '0.25'; }
+  var iconEl = document.getElementById('qz-icon');
+  var textEl = document.getElementById('qz-text');
+  var expEl  = document.getElementById('qz-explain');
+  if (iconEl) { iconEl.textContent = ok ? '✅ 정답!' : '❌ 오답!'; iconEl.style.color = ok ? '#00ff88' : '#ff5555'; }
+  if (textEl) textEl.textContent = q.e;
+  if (expEl) expEl.style.display = 'block';
+  var scEl = document.getElementById('qz-score');
+  var toEl = document.getElementById('qz-total');
+  var stEl = document.getElementById('qz-streak');
+  if (scEl) scEl.textContent = s.score;
+  if (toEl) toEl.textContent = s.total;
+  if (stEl) stEl.textContent = s.streak;
+  // 온보딩 연동
+  if (s.total >= 1) {
+    var ob = {}; try { ob = JSON.parse(localStorage.getItem('wefi_ob') || '{}'); } catch(e) {}
+    ob['ob10'] = true; localStorage.setItem('wefi_ob', JSON.stringify(ob));
+  }
+}
+function qzNext() {
+  var s = qzState;
+  s.idx++;
+  if (s.idx >= QZ_DATA.length) {
+    var cardEl = document.getElementById('qz-card');
+    var doneEl = document.getElementById('qz-done');
+    if (cardEl) cardEl.style.display = 'none';
+    if (doneEl) doneEl.style.display = 'block';
+    var pct = Math.round(s.score / QZ_DATA.length * 100);
+    var finalEl = document.getElementById('qz-final');
+    var gradeEl = document.getElementById('qz-grade');
+    var bestEl  = document.getElementById('qz-newbest');
+    if (finalEl) finalEl.textContent = s.score + ' / ' + QZ_DATA.length + '문제 정답 (' + pct + '%)';
+    var grade = pct >= 90 ? '🏆 WeFi 전문가!' : pct >= 70 ? '⭐ 우수 회원!' : pct >= 50 ? '📚 조금 더 공부해요!' : '💪 다시 도전해보세요!';
+    if (gradeEl) gradeEl.textContent = grade;
+    var best = parseInt(localStorage.getItem('wefi_qzbest') || '0');
+    if (s.score > best) {
+      localStorage.setItem('wefi_qzbest', s.score);
+      if (bestEl) bestEl.style.display = 'block';
+    } else {
+      if (bestEl) bestEl.style.display = 'none';
+    }
+    qzUpdateBest();
+  } else {
+    qzRender();
+  }
+}
+function qzReset() { qzInit(); }
+document.addEventListener('DOMContentLoaded', function() { qzInit(); });
+</script>
+
 </body>
 </html>
