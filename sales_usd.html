@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>달러 매출 기록장</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Space+Grotesk:wght@500;600;700&display=swap');
+
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+
+:root {
+  --bg:#f0f2f5; --card:#fff;
+  --green:#1a9950; --green-light:#e8f5ee;
+  --blue:#2563eb; --blue-light:#eff6ff;
+  --red:#e74c3c; --red-light:#fdecea;
+  --text:#1a1a2e; --gray:#8892a4; --border:#e8eaf0;
+  --shadow:0 2px 16px rgba(0,0,0,0.08);
+}
+
+body { font-family:'Noto Sans KR',sans-serif; background:var(--bg); min-height:100vh; color:var(--text); }
+
+/* ── 헤더 ── */
+.header {
+  background:linear-gradient(135deg,#1a3a6b,#2563eb);
+  padding:20px 20px 28px; position:relative; overflow:hidden;
+}
+.header::after {
+  content:''; position:absolute; width:220px; height:220px; border-radius:50%;
+  background:rgba(255,255,255,0.05); top:-70px; right:-50px;
+}
+.header-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
+.app-title { font-size:17px; font-weight:700; color:white; letter-spacing:-0.3px; }
+.rate-badge {
+  display:flex; align-items:center; gap:5px;
+  background:rgba(255,255,255,0.15); border-radius:20px; padding:5px 12px;
+  cursor:pointer;
+}
+.rate-badge-label { font-size:10px; color:rgba(255,255,255,0.7); }
+.rate-badge-val { font-size:13px; font-weight:700; color:white; font-family:'Space Grotesk',sans-serif; }
+.rate-update { font-size:9px; color:rgba(255,255,255,0.5); margin-top:1px; text-align:right; }
+
+.today-usd-label { font-size:11px; color:rgba(255,255,255,0.65); margin-bottom:2px; }
+.today-usd { font-family:'Space Grotesk',sans-serif; font-size:38px; font-weight:700; color:white; letter-spacing:-1px; }
+.today-krw { font-size:16px; color:rgba(255,255,255,0.7); margin-top:3px; font-family:'Space Grotesk',sans-serif; }
+.today-count { font-size:11px; color:rgba(255,255,255,0.55); margin-top:3px; }
+
+/* ── 환율 수동 입력 모달 ── */
+.modal-overlay {
+  position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:200;
+  display:none; align-items:flex-end; justify-content:center;
+}
+.modal-overlay.open { display:flex; }
+.modal {
+  background:white; border-radius:20px 20px 0 0; padding:24px 20px 40px;
+  width:100%; max-width:480px;
+}
+.modal-title { font-size:16px; font-weight:700; margin-bottom:16px; text-align:center; }
+.modal-input-wrap { position:relative; margin-bottom:14px; }
+.modal-input {
+  width:100%; padding:14px 14px 14px 40px;
+  font-size:22px; font-weight:700; font-family:'Space Grotesk',sans-serif;
+  border:2px solid var(--border); border-radius:12px; outline:none;
+  color:var(--text); background:var(--bg);
+}
+.modal-input:focus { border-color:var(--blue); background:white; }
+.modal-prefix { position:absolute; left:14px; top:50%; transform:translateY(-50%); font-size:16px; font-weight:700; color:var(--blue); }
+.modal-btn {
+  width:100%; padding:15px; background:var(--blue); color:white;
+  border:none; border-radius:12px; font-size:15px; font-weight:700;
+  font-family:'Noto Sans KR',sans-serif; cursor:pointer;
+}
+.modal-presets { display:flex; gap:8px; margin-bottom:14px; flex-wrap:wrap; }
+.mp-btn {
+  flex:1; min-width:calc(33% - 6px); padding:8px; border:1.5px solid var(--border);
+  border-radius:8px; background:white; font-size:12px; font-weight:600;
+  cursor:pointer; text-align:center; color:var(--text);
+}
+
+/* ── 탭 ── */
+.tabs { display:flex; background:var(--card); border-bottom:1px solid var(--border); position:sticky; top:0; z-index:50; }
+.tab { flex:1; padding:14px 0; text-align:center; font-size:13px; font-weight:500; color:var(--gray); border-bottom:2px solid transparent; cursor:pointer; transition:all 0.2s; }
+.tab.active { color:var(--blue); border-bottom-color:var(--blue); font-weight:700; }
+
+.content { padding:16px; display:none; }
+.content.active { display:block; }
+
+/* ── 입력 카드 ── */
+.input-card { background:var(--card); border-radius:16px; padding:18px; margin-bottom:14px; box-shadow:var(--shadow); }
+.input-card-title { font-size:12px; font-weight:700; color:var(--gray); text-transform:uppercase; letter-spacing:1px; margin-bottom:14px; }
+
+.amount-row { display:flex; gap:8px; margin-bottom:10px; }
+.currency-toggle {
+  display:flex; align-items:center; justify-content:center;
+  width:52px; height:56px; border-radius:12px;
+  background:var(--blue-light); color:var(--blue);
+  font-size:16px; font-weight:800; font-family:'Space Grotesk',sans-serif;
+  border:2px solid #bfdbfe; cursor:pointer; flex-shrink:0;
+}
+.amount-input-wrap { position:relative; flex:1; }
+.currency-prefix { position:absolute; left:14px; top:50%; transform:translateY(-50%); font-size:20px; font-weight:700; color:var(--blue); }
+.amount-input {
+  width:100%; height:56px; padding:0 14px 0 38px;
+  font-size:26px; font-weight:700; font-family:'Space Grotesk',sans-serif;
+  border:2px solid var(--border); border-radius:12px;
+  color:var(--text); background:var(--bg); outline:none;
+}
+.amount-input:focus { border-color:var(--blue); background:white; }
+
+.krw-preview {
+  text-align:center; font-size:13px; color:var(--gray); margin-bottom:10px; min-height:20px;
+}
+.krw-preview span { color:var(--green); font-weight:700; font-family:'Space Grotesk',sans-serif; }
+
+.memo-input {
+  width:100%; padding:11px 14px; font-size:14px; font-family:'Noto Sans KR',sans-serif;
+  border:2px solid var(--border); border-radius:10px; color:var(--text);
+  background:var(--bg); outline:none; margin-bottom:10px;
+}
+.memo-input:focus { border-color:var(--blue); background:white; }
+
+.quick-amounts { display:grid; grid-template-columns:repeat(4,1fr); gap:6px; margin-bottom:10px; }
+.qa-btn {
+  padding:8px 4px; border:1.5px solid var(--border); border-radius:8px;
+  background:white; font-size:11px; font-weight:600; color:var(--text);
+  cursor:pointer; text-align:center;
+}
+.qa-btn:active { background:var(--blue-light); border-color:var(--blue); color:var(--blue); }
+
+.add-btn {
+  width:100%; padding:15px; background:var(--blue); color:white;
+  border:none; border-radius:12px; font-size:16px; font-weight:700;
+  font-family:'Noto Sans KR',sans-serif; cursor:pointer;
+}
+.add-btn:active { opacity:0.85; }
+
+/* ── 내역 ── */
+.section-title { font-size:12px; font-weight:700; color:var(--gray); text-transform:uppercase; letter-spacing:1px; margin:16px 0 10px; }
+.txn-list { display:flex; flex-direction:column; gap:8px; }
+.txn-item {
+  background:var(--card); border-radius:12px; padding:12px 14px;
+  display:flex; align-items:center; gap:11px; box-shadow:0 1px 8px rgba(0,0,0,0.05);
+}
+.txn-icon { width:36px; height:36px; border-radius:10px; background:var(--blue-light); display:flex; align-items:center; justify-content:center; font-size:15px; flex-shrink:0; }
+.txn-info { flex:1; min-width:0; }
+.txn-memo { font-size:13px; font-weight:600; }
+.txn-time { font-size:10px; color:var(--gray); margin-top:1px; }
+.txn-amounts { text-align:right; }
+.txn-usd { font-family:'Space Grotesk',sans-serif; font-size:15px; font-weight:700; color:var(--blue); }
+.txn-krw { font-size:10px; color:var(--green); font-family:'Space Grotesk',sans-serif; margin-top:1px; }
+.txn-del { width:26px; height:26px; border-radius:7px; background:var(--red-light); border:none; color:var(--red); font-size:12px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+
+.empty-state { text-align:center; padding:36px 20px; color:var(--gray); font-size:14px; }
+.empty-icon { font-size:38px; margin-bottom:8px; }
+
+/* ── 마감 배너 ── */
+.close-banner {
+  background:linear-gradient(135deg,#1a1a2e,#2d3561); border-radius:14px;
+  padding:13px 15px; margin-bottom:14px; display:flex; align-items:center; gap:11px;
+}
+.cb-icon { font-size:26px; }
+.cb-text { flex:1; }
+.cb-title { font-size:13px; font-weight:700; color:white; margin-bottom:2px; }
+.cb-sub { font-size:10px; color:rgba(255,255,255,0.5); }
+.cb-btn { padding:8px 13px; background:var(--blue); color:white; border:none; border-radius:8px; font-size:12px; font-weight:700; font-family:'Noto Sans KR',sans-serif; cursor:pointer; white-space:nowrap; }
+
+/* ── 일별/월별 리포트 ── */
+.report-card { background:var(--card); border-radius:16px; padding:16px; margin-bottom:10px; box-shadow:var(--shadow); }
+.report-date { font-size:11px; color:var(--gray); margin-bottom:4px; font-family:'Space Grotesk',sans-serif; }
+.report-usd { font-family:'Space Grotesk',sans-serif; font-size:22px; font-weight:700; color:var(--blue); }
+.report-krw { font-size:13px; color:var(--green); font-family:'Space Grotesk',sans-serif; margin-top:2px; margin-bottom:8px; }
+.report-meta { display:flex; gap:8px; flex-wrap:wrap; }
+.report-tag { font-size:10px; font-weight:600; padding:3px 8px; border-radius:20px; background:var(--blue-light); color:var(--blue); }
+.report-tag.green { background:var(--green-light); color:var(--green); }
+.report-divider { height:1px; background:var(--border); margin:8px 0; }
+.report-items { font-size:11px; color:var(--gray); line-height:1.8; }
+
+.month-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
+.month-nav { display:flex; align-items:center; gap:12px; }
+.month-btn { width:32px; height:32px; border-radius:50%; border:1.5px solid var(--border); background:white; font-size:16px; cursor:pointer; display:flex; align-items:center; justify-content:center; }
+.month-label { font-size:16px; font-weight:700; font-family:'Space Grotesk',sans-serif; }
+
+.month-summary { background:linear-gradient(135deg,#1a3a6b,#2563eb); border-radius:16px; padding:18px; margin-bottom:12px; color:white; }
+.ms-label { font-size:11px; color:rgba(255,255,255,0.65); margin-bottom:3px; }
+.ms-usd { font-family:'Space Grotesk',sans-serif; font-size:30px; font-weight:700; letter-spacing:-1px; }
+.ms-krw { font-size:14px; color:rgba(255,255,255,0.7); font-family:'Space Grotesk',sans-serif; margin-bottom:12px; }
+.ms-stats { display:flex; gap:16px; }
+.ms-stat-label { font-size:10px; color:rgba(255,255,255,0.55); }
+.ms-stat-val { font-size:15px; font-weight:700; font-family:'Space Grotesk',sans-serif; }
+
+.day-chart { display:flex; flex-direction:column; gap:7px; }
+.day-row { display:flex; align-items:center; gap:9px; }
+.day-label { font-size:10px; color:var(--gray); width:26px; flex-shrink:0; font-family:'Space Grotesk',sans-serif; text-align:right; }
+.day-bar-wrap { flex:1; height:26px; background:var(--bg); border-radius:6px; overflow:hidden; }
+.day-bar { height:100%; background:var(--blue-light); border-radius:6px; min-width:3px; display:flex; align-items:center; padding-left:7px; transition:width 0.6s ease; }
+.day-bar-val { font-size:10px; font-weight:700; color:var(--blue); font-family:'Space Grotesk',sans-serif; white-space:nowrap; }
+
+/* ── 토스트 ── */
+.toast { position:fixed; bottom:30px; left:50%; transform:translateX(-50%) translateY(80px); background:#1a1a2e; color:white; padding:11px 22px; border-radius:50px; font-size:13px; font-weight:600; transition:transform 0.3s; z-index:999; white-space:nowrap; }
+.toast.show { transform:translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- 환율 수동 입력 모달 -->
+<div class="modal-overlay" id="rateModal" onclick="closeModal(event)">
+  <div class="modal">
+    <div class="modal-title">💱 오늘 환율 입력</div>
+    <div class="modal-presets">
+      <div class="mp-btn" onclick="setRatePreset(1500)">₩1,500</div>
+      <div class="mp-btn" onclick="setRatePreset(1520)">₩1,520</div>
+      <div class="mp-btn" onclick="setRatePreset(1535)">₩1,535</div>
+      <div class="mp-btn" onclick="setRatePreset(1550)">₩1,550</div>
+      <div class="mp-btn" onclick="setRatePreset(1570)">₩1,570</div>
+      <div class="mp-btn" onclick="setRatePreset(1600)">₩1,600</div>
+    </div>
+    <div class="modal-input-wrap">
+      <span class="modal-prefix">₩</span>
+      <input type="number" class="modal-input" id="rateInput" placeholder="1535" inputmode="numeric">
+    </div>
+    <button class="modal-btn" onclick="saveRate()">환율 저장</button>
+  </div>
+</div>
+
+<!-- 헤더 -->
+<div class="header">
+  <div class="header-top">
+    <div class="app-title">💵 달러 매출 기록장</div>
+    <div>
+      <div class="rate-badge" onclick="openModal()">
+        <div class="rate-badge-label">USD/KRW</div>
+        <div class="rate-badge-val" id="rateBadge">₩1,535</div>
+      </div>
+      <div class="rate-update" id="rateUpdateTime"></div>
+    </div>
+  </div>
+  <div class="today-usd-label">오늘 총 매출</div>
+  <div class="today-usd" id="todayUSD">$0.00</div>
+  <div class="today-krw" id="todayKRW">≈ ₩0</div>
+  <div class="today-count" id="todayCount">기록 0건</div>
+</div>
+
+<!-- 탭 -->
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('today')">📝 오늘 입력</div>
+  <div class="tab" onclick="switchTab('daily')">📋 일별 마감</div>
+  <div class="tab" onclick="switchTab('monthly')">📊 월별 리포트</div>
+</div>
+
+<!-- 오늘 입력 -->
+<div class="content active" id="tab-today">
+  <div class="input-card">
+    <div class="input-card-title">💵 달러 매출 입력</div>
+    <div class="amount-row">
+      <div class="currency-toggle">$</div>
+      <div class="amount-input-wrap">
+        <span class="currency-prefix">$</span>
+        <input type="number" class="amount-input" id="amountInput"
+          placeholder="0.00" inputmode="decimal" step="0.01"
+          oninput="updatePreview()">
+      </div>
+    </div>
+    <div class="krw-preview" id="krwPreview">금액을 입력하면 원화로 환산돼요</div>
+    <input type="text" class="memo-input" id="memoInput" placeholder="메모 (고객명, 내용 등)">
+    <div class="quick-amounts">
+      <div class="qa-btn" onclick="addQuick(10)">$10</div>
+      <div class="qa-btn" onclick="addQuick(50)">$50</div>
+      <div class="qa-btn" onclick="addQuick(100)">$100</div>
+      <div class="qa-btn" onclick="addQuick(200)">$200</div>
+      <div class="qa-btn" onclick="addQuick(300)">$300</div>
+      <div class="qa-btn" onclick="addQuick(500)">$500</div>
+      <div class="qa-btn" onclick="addQuick(1000)">$1,000</div>
+      <div class="qa-btn" onclick="addQuick(2000)">$2,000</div>
+    </div>
+    <button class="add-btn" onclick="addTransaction()">+ 매출 추가</button>
+  </div>
+
+  <div id="closeBanner"></div>
+
+  <div class="section-title">오늘 내역</div>
+  <div class="txn-list" id="txnList">
+    <div class="empty-state"><div class="empty-icon">📭</div>아직 입력된 매출이 없어요</div>
+  </div>
+</div>
+
+<!-- 일별 마감 -->
+<div class="content" id="tab-daily">
+  <div class="section-title">일별 마감 기록</div>
+  <div id="dailyList"><div class="empty-state"><div class="empty-icon">📋</div>마감된 기록이 없어요</div></div>
+</div>
+
+<!-- 월별 리포트 -->
+<div class="content" id="tab-monthly">
+  <div class="month-header">
+    <div class="month-nav">
+      <button class="month-btn" onclick="changeMonth(-1)">‹</button>
+      <div class="month-label" id="monthLabel"></div>
+      <button class="month-btn" onclick="changeMonth(1)">›</button>
+    </div>
+  </div>
+  <div id="monthlyContent"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── 환율 ──
+function getRate() {
+  const saved = localStorage.getItem('usdkrw_rate');
+  const savedDate = localStorage.getItem('usdkrw_date');
+  // 오늘 저장된 환율이 있으면 사용
+  if(saved && savedDate === TODAY()) return parseFloat(saved);
+  // 없으면 기본값 1535
+  return 1535;
+}
+function getRateForDate(date) {
+  const saved = localStorage.getItem('rate_' + date);
+  return saved ? parseFloat(saved) : getRate();
+}
+
+function openModal() {
+  document.getElementById('rateModal').classList.add('open');
+  document.getElementById('rateInput').value = getRate();
+}
+function closeModal(e) {
+  if(e.target.id === 'rateModal') document.getElementById('rateModal').classList.remove('open');
+}
+function setRatePreset(val) {
+  document.getElementById('rateInput').value = val;
+}
+function saveRate() {
+  const val = parseFloat(document.getElementById('rateInput').value);
+  if(!val || val < 900 || val > 2000) { showToast('올바른 환율을 입력해주세요'); return; }
+  localStorage.setItem('usdkrw_rate', val);
+  localStorage.setItem('usdkrw_date', TODAY());
+  // 오늘 날짜에 환율 기록
+  localStorage.setItem('rate_' + TODAY(), val);
+  document.getElementById('rateModal').classList.remove('open');
+  updateRateBadge();
+  renderToday();
+  showToast(`환율 ₩${val.toLocaleString()} 저장됐어요 ✅`);
+}
+function updateRateBadge() {
+  const r = getRate();
+  document.getElementById('rateBadge').textContent = '₩' + r.toLocaleString();
+  const savedDate = localStorage.getItem('usdkrw_date');
+  document.getElementById('rateUpdateTime').textContent = savedDate === TODAY() ? '오늘 업데이트 됨' : '탭해서 환율 입력';
+}
+
+// ── 날짜 ──
+const TODAY = () => new Date().toISOString().slice(0,10);
+const NOW = () => new Date().toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'});
+function fmtUSD(n) { return '$' + n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,','); }
+function fmtKRW(n) { return '₩' + Math.round(n).toLocaleString(); }
+
+// ── 데이터 ──
+function loadData() { try { return JSON.parse(localStorage.getItem('salesDataUSD')||'{}'); } catch(e) { return {}; } }
+function saveData(d) { localStorage.setItem('salesDataUSD', JSON.stringify(d)); }
+function getToday() {
+  const d = loadData();
+  if(!d[TODAY()]) d[TODAY()] = { transactions:[], closed:false, totalUSD:0, rate:getRate() };
+  return d;
+}
+
+// ── 탭 ──
+function switchTab(tab) {
+  document.querySelectorAll('.tab').forEach((t,i) => t.classList.toggle('active',['today','daily','monthly'][i]===tab));
+  document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+  document.getElementById('tab-'+tab).classList.add('active');
+  if(tab==='daily') renderDaily();
+  if(tab==='monthly') renderMonthly();
+}
+
+// ── 빠른 금액 ──
+function addQuick(amount) {
+  const input = document.getElementById('amountInput');
+  input.value = (parseFloat(input.value||0) + amount).toFixed(2);
+  updatePreview();
+}
+
+// ── 환산 미리보기 ──
+function updatePreview() {
+  const val = parseFloat(document.getElementById('amountInput').value);
+  const preview = document.getElementById('krwPreview');
+  if(!val || val <= 0) { preview.innerHTML = '금액을 입력하면 원화로 환산돼요'; return; }
+  const krw = val * getRate();
+  preview.innerHTML = `${fmtUSD(val)} × ₩${getRate().toLocaleString()} = <span>${fmtKRW(krw)}</span>`;
+}
+
+// ── 매출 추가 ──
+function addTransaction() {
+  const amount = parseFloat(document.getElementById('amountInput').value);
+  const memo = document.getElementById('memoInput').value.trim() || '매출';
+  if(!amount || amount <= 0) { showToast('금액을 입력해주세요'); return; }
+  const rate = getRate();
+  const d = getToday();
+  const key = TODAY();
+  d[key].transactions.push({ amount, memo, time:NOW(), id:Date.now(), rate });
+  d[key].totalUSD = d[key].transactions.reduce((s,t)=>s+t.amount,0);
+  d[key].rate = rate;
+  saveData(d);
+  document.getElementById('amountInput').value = '';
+  document.getElementById('memoInput').value = '';
+  updatePreview();
+  renderToday();
+  showToast(`${fmtUSD(amount)} 추가! ≈ ${fmtKRW(amount*rate)} ✅`);
+}
+
+// ── 삭제 ──
+function deleteTransaction(id) {
+  const d = getToday();
+  const key = TODAY();
+  d[key].transactions = d[key].transactions.filter(t=>t.id!==id);
+  d[key].totalUSD = d[key].transactions.reduce((s,t)=>s+t.amount,0);
+  saveData(d);
+  renderToday();
+  showToast('삭제됐어요');
+}
+
+// ── 오늘 마감 ──
+function closeToday() {
+  const d = getToday();
+  const key = TODAY();
+  d[key].closed = true;
+  d[key].closedAt = new Date().toLocaleString('ko-KR');
+  d[key].rate = getRate();
+  saveData(d);
+  renderToday();
+  showToast(`오늘 마감! ${fmtUSD(d[key].totalUSD)} ≈ ${fmtKRW(d[key].totalUSD*getRate())}`);
+}
+
+// ── 자동 마감 ──
+function autoClose() {
+  const d = loadData();
+  const today = TODAY();
+  Object.keys(d).forEach(k => { if(k < today && !d[k].closed) { d[k].closed=true; d[k].closedAt='자동마감'; } });
+  saveData(d);
+}
+
+// ── 오늘 렌더 ──
+function renderToday() {
+  const d = getToday();
+  const key = TODAY();
+  const day = d[key];
+  const txns = day.transactions;
+  const totalUSD = day.totalUSD || 0;
+  const rate = getRate();
+
+  document.getElementById('todayUSD').textContent = fmtUSD(totalUSD);
+  document.getElementById('todayKRW').textContent = '≈ ' + fmtKRW(totalUSD * rate);
+  document.getElementById('todayCount').textContent = `기록 ${txns.length}건 · 적용환율 ₩${rate.toLocaleString()}`;
+
+  const now = new Date();
+  // 마감 배너
+  const banner = document.getElementById('closeBanner');
+  autoClose();
+  if(!day.closed && txns.length > 0) {
+    banner.innerHTML = `
+      <div class="close-banner">
+        <div class="cb-icon">🔔</div>
+        <div class="cb-text">
+          <div class="cb-title">오늘 하루 마감하기</div>
+          <div class="cb-sub">${fmtUSD(totalUSD)} · ≈ ${fmtKRW(totalUSD*rate)} · ${txns.length}건</div>
+        </div>
+        <button class="cb-btn" onclick="closeToday()">마감</button>
+      </div>`;
+  } else { banner.innerHTML = ''; }
+
+  // 리스트
+  const list = document.getElementById('txnList');
+  if(txns.length === 0) {
+    list.innerHTML = '<div class="empty-state"><div class="empty-icon">📭</div>아직 입력된 매출이 없어요</div>';
+    return;
+  }
+  list.innerHTML = [...txns].reverse().map(t => `
+    <div class="txn-item">
+      <div class="txn-icon">💵</div>
+      <div class="txn-info">
+        <div class="txn-memo">${t.memo}</div>
+        <div class="txn-time">${t.time} · ₩${(t.rate||rate).toLocaleString()}</div>
+      </div>
+      <div class="txn-amounts">
+        <div class="txn-usd">+${fmtUSD(t.amount)}</div>
+        <div class="txn-krw">≈ ${fmtKRW(t.amount*(t.rate||rate))}</div>
+      </div>
+      <button class="txn-del" onclick="deleteTransaction(${t.id})">✕</button>
+    </div>`).join('');
+}
+
+// ── 일별 렌더 ──
+function renderDaily() {
+  const d = loadData();
+  const list = document.getElementById('dailyList');
+  const closed = Object.keys(d).filter(k=>d[k].closed).sort().reverse();
+  if(closed.length===0) { list.innerHTML='<div class="empty-state"><div class="empty-icon">📋</div>마감된 기록이 없어요</div>'; return; }
+  list.innerHTML = closed.map(key => {
+    const day = d[key];
+    const r = day.rate || getRateForDate(key) || 1535;
+    const dateStr = new Date(key).toLocaleDateString('ko-KR',{month:'long',day:'numeric',weekday:'short'});
+    const items = (day.transactions||[]).map(t=>`${t.memo} ${fmtUSD(t.amount)}`).join(' · ');
+    return `<div class="report-card">
+      <div class="report-date">${dateStr} · 적용환율 ₩${r.toLocaleString()}</div>
+      <div class="report-usd">${fmtUSD(day.totalUSD||0)}</div>
+      <div class="report-krw">≈ ${fmtKRW((day.totalUSD||0)*r)}</div>
+      <div class="report-meta">
+        <div class="report-tag">${(day.transactions||[]).length}건</div>
+        <div class="report-tag green">${fmtKRW((day.totalUSD||0)*r)}</div>
+        ${day.closedAt!=='자동마감'?`<div class="report-tag" style="background:#f0f4ff;color:#4a6cf7">마감 ${day.closedAt}</div>`:''}
+      </div>
+      ${items?`<div class="report-divider"></div><div class="report-items">${items}</div>`:''}
+    </div>`;
+  }).join('');
+}
+
+// ── 월별 렌더 ──
+let cMonth = new Date().getMonth(), cYear = new Date().getFullYear();
+function changeMonth(delta) {
+  cMonth += delta;
+  if(cMonth<0){cMonth=11;cYear--;} if(cMonth>11){cMonth=0;cYear++;}
+  renderMonthly();
+}
+function renderMonthly() {
+  const label = `${cYear}년 ${cMonth+1}월`;
+  document.getElementById('monthLabel').textContent = label;
+  const d = loadData();
+  const prefix = `${cYear}-${String(cMonth+1).padStart(2,'0')}`;
+  const keys = Object.keys(d).filter(k=>k.startsWith(prefix)).sort();
+  const content = document.getElementById('monthlyContent');
+  if(keys.length===0) { content.innerHTML='<div class="empty-state"><div class="empty-icon">📊</div>이번 달 기록이 없어요</div>'; return; }
+
+  const monthUSD = keys.reduce((s,k)=>s+(d[k].totalUSD||0),0);
+  const monthKRW = keys.reduce((s,k)=>s+(d[k].totalUSD||0)*(d[k].rate||1535),0);
+  const monthCount = keys.reduce((s,k)=>s+(d[k].transactions?.length||0),0);
+  const avgUSD = monthUSD/keys.length;
+  const maxUSD = Math.max(...keys.map(k=>d[k].totalUSD||0));
+
+  content.innerHTML = `
+    <div class="month-summary">
+      <div class="ms-label">${label} 총 매출</div>
+      <div class="ms-usd">${fmtUSD(monthUSD)}</div>
+      <div class="ms-krw">≈ ${fmtKRW(monthKRW)}</div>
+      <div class="ms-stats">
+        <div><div class="ms-stat-label">영업일</div><div class="ms-stat-val">${keys.length}일</div></div>
+        <div><div class="ms-stat-label">총 건수</div><div class="ms-stat-val">${monthCount}건</div></div>
+        <div><div class="ms-stat-label">일 평균</div><div class="ms-stat-val">${fmtUSD(avgUSD)}</div></div>
+      </div>
+    </div>
+    <div class="report-card">
+      <div class="input-card-title" style="font-size:11px;color:var(--gray);font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:12px">일별 매출</div>
+      <div class="day-chart">
+        ${keys.map(k=>{
+          const pct = maxUSD>0 ? Math.max(((d[k].totalUSD||0)/maxUSD)*100,3) : 3;
+          const day = new Date(k).getDate();
+          const r = d[k].rate||1535;
+          return `<div class="day-row">
+            <div class="day-label">${day}일</div>
+            <div class="day-bar-wrap">
+              <div class="day-bar" style="width:${pct}%">
+                <span class="day-bar-val">${fmtUSD(d[k].totalUSD||0)} · ${fmtKRW((d[k].totalUSD||0)*r)}</span>
+              </div>
+            </div>
+          </div>`;
+        }).join('')}
+      </div>
+      <div style="font-size:11px;color:var(--gray);text-align:center;margin-top:10px">
+        💱 각 날짜의 기록 당시 환율로 환산됩니다
+      </div>
+    </div>`;
+}
+
+// ── 토스트 ──
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+// ── 초기화 ──
+updateRateBadge();
+renderToday();
+setInterval(()=>{ autoClose(); renderToday(); }, 60000);
+</script>
+</body>
+</html>
