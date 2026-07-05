@@ -168,6 +168,11 @@ h1{
   color:var(--gold-light);
   background:radial-gradient(circle at 35% 30%, rgba(201,162,39,0.18), transparent 70%);
 }
+.virtue-icon{
+  font-size:38px;
+  line-height:1;
+  margin-bottom:8px;
+}
 .week-range{
   font-size:11px;
   color:var(--muted);
@@ -359,6 +364,18 @@ textarea + textarea{ margin-top:12px; }
   padding-top:16px;
   border-top:1px dashed var(--line);
 }
+.storage-warning{
+  display:none;
+  background:#f6e6c8;
+  border:1px solid var(--burgundy);
+  color:var(--burgundy);
+  font-size:12px;
+  line-height:1.6;
+  padding:12px 14px;
+  border-radius:4px;
+  margin-bottom:18px;
+}
+.storage-warning.show{ display:block; }
 
 /* modal */
 .overlay{
@@ -429,12 +446,17 @@ textarea + textarea{ margin-top:12px; }
     <h1>13가지 덕목의 기록</h1>
   </header>
 
+  <div class="storage-warning" id="storageWarning">
+    ⚠ 이 브라우저에서는 기록이 기기에 영구 저장되지 않습니다. 브라우저를 완전히 닫으면 기록이 사라질 수 있어요. 설정 → 사이트 권한(쿠키) → 이 사이트 데이터 허용으로 바꿔주세요.
+  </div>
+
   <div class="ring" id="ring"></div>
 
   <div class="virtue-card" id="virtueCard">
     <button class="nav-arrow prev" id="prevBtn">‹</button>
     <button class="nav-arrow next" id="nextBtn">›</button>
     <div class="preview-badge" id="previewBadge">미리보기</div>
+    <div class="virtue-icon" id="virtueIcon">🍵</div>
     <div class="seal" id="seal">I</div>
     <div class="week-range" id="weekRange">이번 주</div>
     <div class="virtue-name" id="virtueName">절제</div>
@@ -491,34 +513,76 @@ textarea + textarea{ margin-top:12px; }
 
 <script>
 const virtues = [
-  {ko:"절제", en:"Temperance", desc:"배부르도록 먹지 않고, 취하도록 마시지 않는다.",
+  {ko:"절제", icon:"🍵", en:"Temperance", desc:"배부르도록 먹지 않고, 취하도록 마시지 않는다.",
    focus:["매 식사에서 배의 80% 정도만 채우기","술자리에서 취하지 않을 만큼만 마시기","야식과 과식 피하기","카페인·단 음식 섭취 줄이기"]},
-  {ko:"침묵", en:"Silence", desc:"나와 남에게 도움이 안 되는 말은 하지 않고, 쓸데없는 잡담을 피한다.",
+  {ko:"침묵", icon:"🤐", en:"Silence", desc:"나와 남에게 도움이 안 되는 말은 하지 않고, 쓸데없는 잡담을 피한다.",
    focus:["말하기 전 3초 생각하는 습관 만들기","뒷담화·불필요한 잡담 자제하기","하루 10분 온전한 침묵 시간 갖기","남의 말을 끝까지 듣고 나서 말하기"]},
-  {ko:"질서", en:"Order", desc:"모든 물건은 자리를 정해두고, 모든 일은 시간을 정해서 한다.",
+  {ko:"질서", icon:"🗂️", en:"Order", desc:"모든 물건은 자리를 정해두고, 모든 일은 시간을 정해서 한다.",
    focus:["매일 아침 오늘 할 일 목록 작성하기","책상과 방을 매일 정리하기","물건마다 정해진 자리에 두기","자료·파일 정리 규칙 만들기"]},
-  {ko:"결단", en:"Resolution", desc:"해야 할 일은 하기로 결심하고, 결심한 일은 반드시 끝까지 실행한다.",
+  {ko:"결단", icon:"🎯", en:"Resolution", desc:"해야 할 일은 하기로 결심하고, 결심한 일은 반드시 끝까지 실행한다.",
    focus:["미뤄둔 일 하나 정해 이번 주 안에 끝내기","매일 아침 오늘의 목표 1가지 정하기","정한 목표는 이유 불문 실행하기","흔들릴 때 다짐을 다시 적어보기"]},
-  {ko:"절약", en:"Frugality", desc:"나와 남에게 도움이 되는 일에만 돈을 쓰고, 낭비하지 않는다.",
+  {ko:"절약", icon:"🪙", en:"Frugality", desc:"나와 남에게 도움이 되는 일에만 돈을 쓰고, 낭비하지 않는다.",
    focus:["불필요한 지출 항목 하나 줄이기","매일 지출 내역 간단히 기록하기","충동구매 전 24시간 기다려보기","필요와 원함을 구분해서 소비하기"]},
-  {ko:"근면", en:"Industry", desc:"시간을 헛되이 보내지 않고, 늘 유익한 일에 힘쓰며 불필요한 행동을 줄인다.",
+  {ko:"근면", icon:"⚙️", en:"Industry", desc:"시간을 헛되이 보내지 않고, 늘 유익한 일에 힘쓰며 불필요한 행동을 줄인다.",
    focus:["가장 집중되는 시간에 중요한 일 배치하기","스마트폰 사용 시간 줄이기","매일 성장을 위한 시간 30분 확보하기","미루는 습관 하나 고쳐보기"]},
-  {ko:"진실", en:"Sincerity", desc:"남을 속이려는 마음을 갖지 않고, 생각은 공정하게, 말은 그 생각과 같게 한다.",
+  {ko:"진실", icon:"🤝", en:"Sincerity", desc:"남을 속이려는 마음을 갖지 않고, 생각은 공정하게, 말은 그 생각과 같게 한다.",
    focus:["작은 거짓말도 하지 않기","생각과 다른 말 하지 않기","지킬 수 있는 약속만 하기","하루를 솔직하게 스스로 돌아보기"]},
-  {ko:"정의", en:"Justice", desc:"남에게 손해를 입히거나 마땅히 돌아갈 이익을 가로채지 않는다.",
+  {ko:"정의", icon:"⚖️", en:"Justice", desc:"남에게 손해를 입히거나 마땅히 돌아갈 이익을 가로채지 않는다.",
    focus:["남의 몫이나 공로를 가로채지 않기","억울한 사람이 있으면 도와주기","역할과 이익을 공정하게 나누기","내 실수는 남 탓하지 않고 인정하기"]},
-  {ko:"중용", en:"Moderation", desc:"극단을 피하고, 부당한 대우를 받았다고 느껴도 화를 참는다.",
+  {ko:"중용", icon:"☯️", en:"Moderation", desc:"극단을 피하고, 부당한 대우를 받았다고 느껴도 화를 참는다.",
    focus:["화가 날 때 즉각 반응하지 않고 멈추기","한쪽으로 치우친 생각 경계하기","일과 휴식의 균형 점검하기","감정을 기록하며 스스로 다독이기"]},
-  {ko:"청결", en:"Cleanliness", desc:"몸과 옷, 생활하는 공간을 늘 청결하게 유지한다.",
+  {ko:"청결", icon:"✨", en:"Cleanliness", desc:"몸과 옷, 생활하는 공간을 늘 청결하게 유지한다.",
    focus:["매일 몸단장과 옷차림 신경쓰기","방·책상·차량 등 생활공간 청소하기","위생 습관(손씻기 등) 점검하기","하루 한 번 환기하고 정돈하기"]},
-  {ko:"평정", en:"Tranquility", desc:"작은 일, 흔히 있는 일, 피할 수 없는 사고에 마음이 흔들리지 않게 한다.",
+  {ko:"평정", icon:"🧘", en:"Tranquility", desc:"작은 일, 흔히 있는 일, 피할 수 없는 사고에 마음이 흔들리지 않게 한다.",
    focus:["사소한 일에 화내지 않기 연습하기","예상치 못한 일에도 침착하게 대응하기","하루 5분 명상 또는 호흡 정리하기","통제할 수 없는 일은 흘려보내기"]},
-  {ko:"순결", en:"Chastity", desc:"건강과 가정을 위한 경우가 아니면 육체적 쾌락에 치우치지 않고, 몸과 마음을 둔하게 하는 일을 피한다.",
+  {ko:"순결", icon:"🛡️", en:"Chastity", desc:"건강과 가정을 위한 경우가 아니면 육체적 쾌락에 치우치지 않고, 몸과 마음을 둔하게 하는 일을 피한다.",
    focus:["규칙적인 수면·운동 습관 유지하기","자극적인 콘텐츠·과식 등 줄이기","스스로와 상대를 존중하는 관계 유지하기","절제된 생활로 정신을 맑게 유지하기"]},
-  {ko:"겸손", en:"Humility", desc:"본받을 만한 이들의 겸손함을 따르려 애쓴다.",
+  {ko:"겸손", icon:"🙏", en:"Humility", desc:"본받을 만한 이들의 겸손함을 따르려 애쓴다.",
    focus:["남의 의견을 먼저 경청하기","내 성과를 과시하지 않기","배울 점이 있는 사람에게 배우려 하기","실수했을 때 바로 인정하고 사과하기"]}
 ];
 const roman = ["I","II","III","IV","V","VI","VII","VIII","IX","X","XI","XII","XIII"];
+
+let storageBlocked = false;
+const memFallback = {};
+
+function storageAvailable(){
+  try{
+    const t = '__test__';
+    localStorage.setItem(t, '1');
+    localStorage.removeItem(t);
+    return true;
+  }catch(e){
+    return false;
+  }
+}
+storageBlocked = !storageAvailable();
+
+const store = {
+  async get(key){
+    if(storageBlocked){
+      if(!(key in memFallback)) throw new Error('not found');
+      return {key, value: memFallback[key]};
+    }
+    const v = localStorage.getItem(key);
+    if(v === null) throw new Error('not found');
+    return {key, value: v};
+  },
+  async set(key, value){
+    if(storageBlocked){
+      memFallback[key] = value;
+      return {key, value};
+    }
+    localStorage.setItem(key, value);
+    return {key, value};
+  },
+  async list(prefix){
+    if(storageBlocked){
+      return {keys: Object.keys(memFallback).filter(k => k.startsWith(prefix))};
+    }
+    const keys = Object.keys(localStorage).filter(k => k.startsWith(prefix));
+    return {keys};
+  }
+};
 
 let startDate = null;
 let todayKey = null;
@@ -540,7 +604,7 @@ function weekIndexFor(dateObj){
 
 async function loadSettings(){
   try{
-    const r = await window.storage.get('settings', false);
+    const r = await store.get('settings');
     if(r && r.value){
       const parsed = JSON.parse(r.value);
       startDate = parsed.startDate;
@@ -549,7 +613,7 @@ async function loadSettings(){
     }
   }catch(e){
     startDate = fmt(todayDate());
-    await window.storage.set('settings', JSON.stringify({startDate}), false);
+    await store.set('settings', JSON.stringify({startDate}));
   }
 }
 
@@ -570,6 +634,7 @@ function renderRing(){
 
 function renderVirtueCard(){
   const v = virtues[viewingIdx];
+  document.getElementById('virtueIcon').textContent = v.icon || '';
   document.getElementById('seal').textContent = roman[viewingIdx];
   document.getElementById('virtueName').textContent = v.ko;
   document.getElementById('virtueEn').textContent = v.en;
@@ -623,7 +688,7 @@ function showToast(msg){
 async function loadTodayEntry(){
   todayKey = fmt(todayDate());
   try{
-    const r = await window.storage.get('entry:' + todayKey, false);
+    const r = await store.get('entry:' + todayKey);
     if(r && r.value){
       const e = JSON.parse(r.value);
       document.getElementById('morningInput').value = e.morning || '';
@@ -643,7 +708,7 @@ async function saveTodayEntry(){
     improve: document.getElementById('improveInput').value.trim()
   };
   try{
-    await window.storage.set('entry:' + todayKey, JSON.stringify(entry), false);
+    await store.set('entry:' + todayKey, JSON.stringify(entry));
     showToast('저장되었습니다');
     renderHistory();
   }catch(e){
@@ -654,7 +719,7 @@ async function saveTodayEntry(){
 async function renderHistory(){
   const listEl = document.getElementById('historyList');
   try{
-    const r = await window.storage.list('entry:', false);
+    const r = await store.list('entry:');
     if(!r || !r.keys || r.keys.length === 0){
       listEl.innerHTML = '<div class="empty">아직 기록이 없습니다.</div>';
       return;
@@ -667,7 +732,7 @@ async function renderHistory(){
     const entries = [];
     for(const k of keys){
       try{
-        const res = await window.storage.get(k, false);
+        const res = await store.get(k);
         if(res && res.value) entries.push(JSON.parse(res.value));
       }catch(e){}
     }
@@ -713,7 +778,7 @@ document.getElementById('confirmBtn').addEventListener('click', async () => {
   const val = document.getElementById('startDateInput').value;
   if(val){
     startDate = val;
-    try{ await window.storage.set('settings', JSON.stringify({startDate}), false); }catch(e){}
+    try{ await store.set('settings', JSON.stringify({startDate})); }catch(e){}
     const {idx, weeksElapsed} = weekIndexFor(todayDate());
     currentIdx = idx;
     currentWeeksElapsed = weeksElapsed;
@@ -748,6 +813,9 @@ document.getElementById('backBtn').addEventListener('click', goToCurrent);
 document.getElementById('saveBtn').addEventListener('click', saveTodayEntry);
 
 async function init(){
+  if(storageBlocked){
+    document.getElementById('storageWarning').classList.add('show');
+  }
   await loadSettings();
   const {idx, weeksElapsed} = weekIndexFor(todayDate());
   currentIdx = idx;
