@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>달러 매출 기록장</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Space+Grotesk:wght@500;600;700&display=swap');
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#f0f2f5;--card:#fff;
+  --green:#1a9950;--green-light:#e8f5ee;
+  --blue:#2563eb;--blue-light:#eff6ff;
+  --red:#e74c3c;--red-light:#fdecea;
+  --orange:#e67e22;--orange-light:#fff3e0;
+  --text:#1a1a2e;--gray:#8892a4;--border:#e8eaf0;
+  --shadow:0 2px 16px rgba(0,0,0,0.08);
+}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);min-height:100vh;color:var(--text);}
+
+/* 헤더 */
+.header{background:linear-gradient(135deg,#1a3a6b,#2563eb);padding:20px 20px 24px;position:relative;overflow:hidden;}
+.header::after{content:'';position:absolute;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,0.05);top:-70px;right:-50px;pointer-events:none;}
+.header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.app-title{font-size:17px;font-weight:700;color:white;}
+.rate-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,0.15);border-radius:20px;padding:5px 12px;cursor:pointer;border:none;}
+.rate-label{font-size:10px;color:rgba(255,255,255,0.7);}
+.rate-val{font-size:13px;font-weight:700;color:white;font-family:'Space Grotesk',sans-serif;}
+.rate-dot{width:6px;height:6px;border-radius:50%;background:#4ade80;animation:pulse 2s infinite;}
+.rate-dot.loading{background:#facc15;}.rate-dot.error{background:#f87171;animation:none;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.3;}}
+.rate-time{font-size:9px;color:rgba(255,255,255,0.5);margin-top:3px;}
+.today-label{font-size:11px;color:rgba(255,255,255,0.65);margin-bottom:2px;}
+.today-usd{font-family:'Space Grotesk',sans-serif;font-size:38px;font-weight:700;color:white;letter-spacing:-1px;}
+.today-krw{font-size:16px;color:rgba(255,255,255,0.7);margin-top:3px;}
+.today-count{font-size:11px;color:rgba(255,255,255,0.55);margin-top:3px;}
+
+/* 탭 */
+.tabs{display:flex;background:white;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;}
+.tab{flex:1;padding:12px 2px;text-align:center;font-size:11px;font-weight:500;color:var(--gray);cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;}
+.tab.active{color:var(--blue);border-bottom-color:var(--blue);font-weight:700;}
+.content{display:none;padding:14px;}.content.active{display:block;}
+
+/* 카드 */
+.card{background:var(--card);border-radius:16px;padding:16px;box-shadow:var(--shadow);margin-bottom:12px;}
+.card-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:12px;}
+
+/* 입력 */
+.amount-row{display:flex;gap:10px;margin-bottom:10px;align-items:center;}
+.currency-icon{width:36px;height:36px;border-radius:10px;background:var(--green-light);color:var(--green);font-weight:700;font-size:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.amount-wrap{flex:1;}
+.amount-input{width:100%;border:1.5px solid var(--border);border-radius:10px;padding:9px 12px;font-size:20px;font-weight:700;font-family:'Space Grotesk',sans-serif;color:var(--text);outline:none;transition:border-color 0.2s;}
+.amount-input:focus{border-color:var(--blue);}
+.preview{font-size:11px;color:var(--gray);margin-top:4px;}
+.field-row{display:flex;gap:8px;margin-bottom:8px;}
+.memo-input,.date-input{width:100%;border:1.5px solid var(--border);border-radius:10px;padding:9px 12px;font-size:13px;color:var(--text);outline:none;font-family:'Noto Sans KR',sans-serif;}
+.date-input{font-family:'Space Grotesk',sans-serif;font-size:13px;}
+.memo-input:focus,.date-input:focus{border-color:var(--blue);}
+.quick-btns{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;}
+.quick-btn{padding:5px 12px;border-radius:20px;background:var(--blue-light);color:var(--blue);font-size:12px;font-weight:600;cursor:pointer;border:none;font-family:'Noto Sans KR',sans-serif;}
+.add-btn{width:100%;padding:13px;background:var(--blue);color:white;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Noto Sans KR',sans-serif;}
+
+/* 마감 배너 */
+.close-banner{background:linear-gradient(135deg,#1a9950,#0d7a3a);border-radius:14px;padding:13px 15px;display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.cb-icon{font-size:20px;}.cb-text{flex:1;}
+.cb-title{font-size:13px;font-weight:700;color:white;}
+.cb-sub{font-size:11px;color:rgba(255,255,255,0.75);margin-top:2px;}
+.cb-btn{background:white;color:var(--green);border:none;border-radius:20px;padding:7px 16px;font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:'Noto Sans KR',sans-serif;}
+.closed-badge{display:inline-flex;align-items:center;gap:4px;background:var(--green-light);color:var(--green);border-radius:20px;padding:4px 10px;font-size:11px;font-weight:700;margin-bottom:10px;}
+
+/* 거래 항목 */
+.txn-list{display:flex;flex-direction:column;gap:8px;}
+.txn-item{background:var(--card);border-radius:12px;padding:12px 13px;display:flex;align-items:center;gap:10px;box-shadow:0 1px 6px rgba(0,0,0,0.05);}
+
+.txn-icon{font-size:18px;flex-shrink:0;}
+.txn-info{flex:1;min-width:0;}
+.txn-memo{font-size:13px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.txn-time{font-size:11px;color:var(--gray);margin-top:2px;}
+.txn-amounts{text-align:right;flex-shrink:0;}
+.txn-usd{font-size:15px;font-weight:700;color:var(--green);font-family:'Space Grotesk',sans-serif;}
+.txn-krw{font-size:11px;color:var(--gray);margin-top:1px;}
+.txn-actions{display:flex;gap:4px;flex-shrink:0;}
+.txn-btn{width:28px;height:28px;border-radius:8px;border:none;cursor:pointer;font-size:13px;display:flex;align-items:center;justify-content:center;}
+.txn-edit{background:#eff6ff;color:var(--blue);}.txn-del{background:var(--red-light);color:var(--red);}
+
+/* 일별 마감 */
+.daily-item{background:var(--card);border-radius:16px;padding:15px;box-shadow:var(--shadow);margin-bottom:10px;}
+.daily-date{font-size:12px;color:var(--gray);margin-bottom:5px;}
+.daily-usd{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;color:var(--blue);}
+.daily-krw{font-size:13px;color:var(--green);font-weight:600;margin-top:2px;}
+.daily-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px;margin-bottom:6px;}
+.tag{border-radius:20px;padding:3px 9px;font-size:11px;font-weight:600;}
+.tag-blue{background:var(--blue-light);color:var(--blue);}
+.tag-green{background:var(--green-light);color:var(--green);}
+.tag-gray{background:#f0f2f5;color:var(--gray);}
+.tag-orange{background:var(--orange-light);color:var(--orange);}
+.tag-red{background:var(--red-light);color:var(--red);}
+.daily-txns{font-size:11px;color:var(--gray);border-top:1px solid var(--border);padding-top:7px;}
+.daily-txn-list{border-top:1px solid var(--border);padding-top:8px;display:flex;flex-direction:column;gap:6px;}
+.zero-day-row{display:flex;align-items:center;justify-content:space-between;padding:8px 4px;}
+.zero-day-label{font-size:12px;color:var(--gray);}
+.zero-add-btn{background:var(--blue-light);color:var(--blue);border:none;border-radius:8px;padding:6px 12px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Noto Sans KR',sans-serif;}
+.daily-txn-row{display:flex;align-items:center;gap:8px;padding:6px 0;}
+.daily-txn-icon{font-size:16px;flex-shrink:0;}
+.daily-txn-info{flex:1;min-width:0;}
+.daily-txn-memo{font-size:12px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.daily-txn-time{font-size:10px;color:var(--gray);margin-top:1px;}
+.daily-txn-amounts{text-align:right;flex-shrink:0;}
+.daily-txn-usd{font-size:13px;font-weight:700;color:var(--green);font-family:'Space Grotesk',sans-serif;}
+.daily-txn-krw{font-size:10px;color:var(--gray);}
+
+/* 월별 */
+.month-nav{display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:14px;}
+.month-nav-btn{width:32px;height:32px;border-radius:50%;background:var(--card);border:1px solid var(--border);cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;}
+.month-label{font-size:16px;font-weight:700;}
+.month-summary{background:linear-gradient(135deg,#1a3a6b,#2563eb);border-radius:16px;padding:18px;margin-bottom:12px;color:white;}
+.ms-label{font-size:11px;opacity:0.7;margin-bottom:3px;}
+.ms-amount{font-family:'Space Grotesk',sans-serif;font-size:30px;font-weight:700;}
+.ms-stats{display:flex;margin-top:12px;border-top:1px solid rgba(255,255,255,0.2);padding-top:11px;}
+.ms-stats>div{flex:1;text-align:center;}
+.ms-stat-label{font-size:10px;opacity:0.65;}
+.ms-stat-val{font-size:15px;font-weight:700;margin-top:2px;}
+
+/* 설정 */
+.setting-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);}
+.setting-row:last-child{border-bottom:none;}
+.setting-info{flex:1;}
+.setting-label{font-size:13px;font-weight:600;color:var(--text);}
+.setting-sub{font-size:11px;color:var(--gray);margin-top:2px;}
+.setting-btn{background:var(--blue-light);color:var(--blue);border:none;border-radius:8px;padding:7px 12px;font-size:12px;font-weight:600;cursor:pointer;font-family:'Noto Sans KR',sans-serif;white-space:nowrap;}
+
+
+/* 월간 보고서 */
+.report-banner{background:linear-gradient(135deg,#1a3a6b,#2563eb);border-radius:16px;padding:18px;margin-bottom:12px;color:white;position:relative;overflow:hidden;}
+.report-banner::after{content:'📊';position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:48px;opacity:0.15;}
+.report-badge{display:inline-block;background:rgba(255,255,255,0.2);border-radius:20px;padding:3px 10px;font-size:10px;font-weight:600;margin-bottom:8px;}
+.report-title{font-size:15px;font-weight:700;margin-bottom:4px;}
+.report-total{font-family:'Space Grotesk',sans-serif;font-size:32px;font-weight:700;margin-bottom:6px;}
+.report-growth{display:inline-flex;align-items:center;gap:4px;border-radius:20px;padding:4px 10px;font-size:12px;font-weight:700;}
+.report-growth.up{background:rgba(74,222,128,0.2);color:#4ade80;}
+.report-growth.down{background:rgba(248,113,113,0.2);color:#f87171;}
+.report-growth.flat{background:rgba(255,255,255,0.15);color:rgba(255,255,255,0.7);}
+.report-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;}
+.report-stat{background:rgba(255,255,255,0.1);border-radius:10px;padding:10px 12px;}
+.report-stat-label{font-size:10px;opacity:0.7;margin-bottom:3px;}
+.report-stat-val{font-size:15px;font-weight:700;}
+
+.dow-chart{display:flex;flex-direction:column;gap:6px;margin-top:8px;}
+.dow-row{display:flex;align-items:center;gap:8px;}
+.dow-label{width:24px;font-size:11px;color:var(--gray);text-align:center;flex-shrink:0;}
+.dow-bar-wrap{flex:1;background:#f0f2f5;border-radius:20px;height:24px;overflow:hidden;position:relative;}
+.dow-bar{height:100%;border-radius:20px;display:flex;align-items:center;padding:0 8px;transition:width 0.5s;}
+.dow-bar-val{font-size:10px;font-weight:600;white-space:nowrap;}
+.dow-best{background:linear-gradient(90deg,#2563eb,#60a5fa);color:white;}
+.dow-normal{background:linear-gradient(90deg,#93c5fd,#bfdbfe);color:#1e40af;}
+.dow-zero{background:#f0f2f5;color:var(--gray);}
+
+.auto-report-notice{background:var(--green-light);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+.auto-report-notice .arn-icon{font-size:20px;flex-shrink:0;}
+.auto-report-notice .arn-text{font-size:12px;color:var(--green);font-weight:500;line-height:1.5;}
+
+/* 직급 슬라이더 */
+.grade-bar-wrap{padding:4px 0;}
+.grade-labels{display:flex;justify-content:space-between;font-size:10px;color:var(--gray);margin-bottom:4px;}
+.grade-slider{width:100%;-webkit-appearance:none;appearance:none;height:6px;border-radius:10px;background:linear-gradient(90deg,var(--blue),#60a5fa);outline:none;cursor:pointer;}
+.grade-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:24px;height:24px;border-radius:50%;background:var(--blue);cursor:pointer;box-shadow:0 2px 8px rgba(37,99,235,0.4);border:3px solid white;}
+.grade-slider::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:var(--blue);cursor:pointer;box-shadow:0 2px 8px rgba(37,99,235,0.4);border:3px solid white;}
+.grade-display{text-align:center;margin-top:10px;}
+.grade-current{font-size:28px;font-weight:900;color:var(--blue);font-family:'Space Grotesk',sans-serif;}
+.grade-sub{font-size:11px;color:var(--gray);margin-top:2px;}
+
+.grade-tag{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,#eff6ff,#dbeafe);border:1.5px solid #bfdbfe;border-radius:20px;padding:6px 14px;font-size:13px;color:var(--blue);font-weight:500;}
+.grade-tag b{font-weight:800;font-size:14px;}
+
+/* 직급 히스토리 차트 */
+.grade-history-wrap{margin-top:8px;}
+.grade-history-row{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+.grade-history-label{width:48px;font-size:11px;color:var(--gray);flex-shrink:0;text-align:right;}
+.grade-history-bar-wrap{flex:1;background:#f0f2f5;border-radius:20px;height:22px;overflow:hidden;}
+.grade-history-bar{height:100%;border-radius:20px;display:flex;align-items:center;padding:0 8px;transition:width 0.4s;}
+.grade-history-bar.current{background:linear-gradient(90deg,#2563eb,#60a5fa);}
+.grade-history-bar.past{background:linear-gradient(90deg,#93c5fd,#bfdbfe);}
+.grade-history-val{font-size:10px;font-weight:600;color:white;white-space:nowrap;}
+
+/* 모달 */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);display:none;align-items:flex-end;justify-content:center;z-index:999;}
+.modal-overlay.show{display:flex;}
+.modal{background:white;border-radius:20px 20px 0 0;padding:22px 18px 36px;width:100%;max-width:480px;}
+.modal-title{font-size:15px;font-weight:700;margin-bottom:14px;}
+.modal-input{width:100%;border:1.5px solid var(--border);border-radius:10px;padding:10px 12px;font-size:18px;font-weight:700;font-family:'Space Grotesk',sans-serif;outline:none;margin-bottom:8px;}
+.modal-input:focus{border-color:var(--blue);}
+.modal-memo{width:100%;border:1.5px solid var(--border);border-radius:10px;padding:10px 12px;font-size:13px;outline:none;font-family:'Noto Sans KR',sans-serif;margin-bottom:12px;}
+.modal-memo:focus{border-color:var(--blue);}
+.modal-btns{display:flex;gap:8px;}
+.modal-btn{flex:1;padding:13px;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Noto Sans KR',sans-serif;}
+.modal-cancel{background:#f0f2f5;color:var(--gray);}.modal-save{background:var(--blue);color:white;}
+
+/* 환율 모달 */
+.rate-modal-body{background:white;border-radius:20px 20px 0 0;padding:22px 18px 36px;width:100%;max-width:480px;}
+.rate-live-box{background:var(--green-light);border-radius:10px;padding:10px 12px;margin-bottom:12px;display:flex;align-items:center;gap:8px;cursor:pointer;}
+.rate-live-box .rlb-val{font-size:18px;font-weight:700;color:var(--green);font-family:'Space Grotesk',sans-serif;}
+.rate-live-box .rlb-label{font-size:11px;color:var(--green);opacity:0.8;}
+.rate-presets{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px;}
+.rate-preset-btn{padding:7px 13px;border-radius:20px;background:var(--blue-light);color:var(--blue);font-size:12px;font-weight:600;cursor:pointer;border:none;font-family:'Noto Sans KR',sans-serif;}
+.rate-input-wrap{display:flex;align-items:center;gap:8px;border:1.5px solid var(--border);border-radius:12px;padding:10px 12px;margin-bottom:12px;}
+.rate-prefix{font-size:18px;font-weight:700;color:var(--gray);}
+.rate-input{flex:1;border:none;outline:none;font-size:20px;font-weight:700;font-family:'Space Grotesk',sans-serif;}
+.rate-save-btn{width:100%;padding:13px;background:var(--blue);color:white;border:none;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Noto Sans KR',sans-serif;}
+
+/* 공통 */
+.empty-state{text-align:center;padding:36px 20px;color:var(--gray);}
+.empty-icon{font-size:34px;margin-bottom:8px;}
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:#1a1a2e;color:white;padding:10px 20px;border-radius:50px;font-size:13px;font-weight:600;z-index:9999;white-space:nowrap;opacity:0;transition:all 0.3s;pointer-events:none;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+</style>
+</head>
+<body>
+
+<!-- 수정 모달 -->
+<div class="modal-overlay" id="editOverlay" onclick="closeEdit(event)">
+  <div class="modal">
+    <div class="modal-title">✏️ 매출 수정</div>
+    <input type="number" class="modal-input" id="editAmount" placeholder="금액 ($)" inputmode="decimal" step="0.01">
+    <input type="text" class="modal-memo" id="editMemo" placeholder="메모">
+    <div class="modal-btns">
+      <button class="modal-btn modal-cancel" onclick="closeEdit()">취소</button>
+      <button class="modal-btn modal-save" onclick="saveEdit()">저장</button>
+    </div>
+  </div>
+</div>
+
+<!-- 환율 모달 -->
+<div class="modal-overlay" id="rateOverlay" onclick="closeRateModal(event)">
+  <div class="rate-modal-body">
+    <div class="modal-title">💱 환율 설정</div>
+    <div class="rate-live-box" onclick="applyLiveRate()">
+      <div>
+        <div class="rlb-label">실시간 환율 (탭해서 적용)</div>
+        <div class="rlb-val" id="rateLiveVal">불러오는 중...</div>
+      </div>
+      <div class="rate-dot loading" id="rateLiveDot"></div>
+    </div>
+    <div class="rate-presets">
+      <button class="rate-preset-btn" onclick="setRP(1500)">₩1,500</button>
+      <button class="rate-preset-btn" onclick="setRP(1520)">₩1,520</button>
+      <button class="rate-preset-btn" onclick="setRP(1535)">₩1,535</button>
+      <button class="rate-preset-btn" onclick="setRP(1550)">₩1,550</button>
+      <button class="rate-preset-btn" onclick="setRP(1570)">₩1,570</button>
+      <button class="rate-preset-btn" onclick="setRP(1600)">₩1,600</button>
+    </div>
+    <div class="rate-input-wrap">
+      <span class="rate-prefix">₩</span>
+      <input type="number" class="rate-input" id="rateInput" placeholder="직접 입력" inputmode="numeric">
+    </div>
+    <button class="rate-save-btn" onclick="saveRate()">이 환율로 저장</button>
+  </div>
+</div>
+
+<!-- 헤더 -->
+<div class="header">
+  <div class="header-top">
+    <div class="app-title">💵 달러 매출 기록장</div>
+    <div style="text-align:right">
+      <button class="rate-badge" onclick="openRateModal()">
+        <span class="rate-label">USD/KRW</span>
+        <span class="rate-val" id="rateBadgeVal">₩-</span>
+        <div class="rate-dot" id="headerRateDot"></div>
+      </button>
+      <div class="rate-time" id="rateTimeLabel">접속 시 자동 업데이트</div>
+    </div>
+  </div>
+  <div class="today-label">오늘 총 매출</div>
+  <div class="today-usd" id="todayUSD">$0.00</div>
+  <div class="today-krw" id="todayKRW">≈ ₩0</div>
+  <div class="today-count" id="todayCount">기록 0건</div>
+</div>
+
+<!-- 탭 -->
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('today',this)">📝 입력</div>
+  <div class="tab" onclick="switchTab('daily',this)">📋 일별</div>
+  <div class="tab" onclick="switchTab('monthly',this)">📊 월별</div>
+  <div class="tab" onclick="switchTab('setting',this)">⚙️ 설정</div>
+</div>
+
+<!-- 설정 탭 -->
+<div class="content" id="tab-setting">
+  <div class="card">
+    <div class="card-title">🏅 직급 설정</div>
+    <div style="font-size:12px;color:var(--gray);margin-bottom:12px">현재 직급을 설정하면 월마감 보고서에 직급별 매출 히스토리가 기록돼요</div>
+    <div class="grade-bar-wrap">
+      <div class="grade-labels">
+        <span>1직급</span><span>10직급</span><span>20직급</span>
+      </div>
+      <input type="range" class="grade-slider" id="gradeSlider" min="1" max="20" step="1" value="1" oninput="updateGradeDisplay()">
+      <div class="grade-display">
+        <div class="grade-current" id="gradeDisplay">1직급</div>
+        <div class="grade-sub" id="gradeSub">설정된 직급이 월보고서에 기록돼요</div>
+      </div>
+      <div class="grade-dots">
+        <div id="gradeDots"></div>
+      </div>
+    </div>
+    <button class="add-btn" style="margin-top:12px" onclick="saveGrade()">이 직급으로 저장</button>
+  </div>
+
+  <div class="card">
+    <div class="card-title">💾 데이터 관리</div>
+    <div class="setting-row" style="margin-bottom:10px">
+      <div class="setting-info">
+        <div class="setting-label">데이터 백업</div>
+        <div class="setting-sub">매출 데이터를 JSON 파일로 저장</div>
+      </div>
+      <button class="setting-btn" onclick="exportData()">내보내기</button>
+    </div>
+    <div class="setting-row">
+      <div class="setting-info">
+        <div class="setting-label">데이터 복원</div>
+        <div class="setting-sub">백업 파일에서 데이터 불러오기</div>
+      </div>
+      <button class="setting-btn" onclick="document.getElementById('importFile').click()">가져오기</button>
+      <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(event)">
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">ℹ️ 앱 정보</div>
+    <div style="font-size:12px;color:var(--gray);line-height:1.8">
+      💵 달러 매출 기록장 v2<br>
+      실시간 환율 자동 업데이트<br>
+      24시간 자동 마감
+    </div>
+  </div>
+</div>
+
+<!-- 오늘 입력 -->
+<div class="content active" id="tab-today">
+  <div id="closeBanner"></div>
+  <div class="card">
+    <div class="card-title">💵 매출 입력</div>
+    <div class="amount-row">
+      <div class="currency-icon">$</div>
+      <div class="amount-wrap">
+        <input type="number" class="amount-input" id="amountInput" placeholder="0.00" inputmode="decimal" step="0.01" oninput="updatePreview()">
+        <div class="preview" id="convertedPreview">≈ ₩0</div>
+      </div>
+    </div>
+    <div class="field-row">
+      <input type="text" class="memo-input" id="memoInput" placeholder="메모 (예: 홍길동 고객)" style="flex:2">
+      <input type="date" class="date-input" id="dateInput" style="flex:1">
+    </div>
+    <div class="quick-btns">
+      <button class="quick-btn" onclick="setAmount(30)">$30</button>
+      <button class="quick-btn" onclick="setAmount(50)">$50</button>
+      <button class="quick-btn" onclick="setAmount(100)">$100</button>
+      <button class="quick-btn" onclick="setAmount(150)">$150</button>
+      <button class="quick-btn" onclick="setAmount(200)">$200</button>
+      <button class="quick-btn" onclick="setAmount(500)">$500</button>
+    </div>
+    <button class="add-btn" onclick="addTransaction()">+ 매출 추가</button>
+  </div>
+  <div class="txn-list" id="txnList"></div>
+</div>
+
+
+<!-- 일별 마감 -->
+<div class="content" id="tab-daily">
+  <div id="gradeTagDaily" style="margin-bottom:10px"></div>
+  <div id="dailyList"></div>
+</div>
+
+<!-- 월별 -->
+<div class="content" id="tab-monthly">
+  <div id="gradeTagMonthly" style="margin-bottom:10px"></div>
+  <div class="month-nav">
+    <button class="month-nav-btn" onclick="changeMonth(-1)">&#8249;</button>
+    <div class="month-label" id="monthLabel"></div>
+    <button class="month-nav-btn" onclick="changeMonth(1)">&#8250;</button>
+  </div>
+  <div id="monthReport"></div>
+  <div id="monthContent"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const SKEY='dollar_sales_v5', RKEY='dollar_rate_v5', RTKEY='dollar_rate_time_v5', DEFAULT_RATE=1535;
+let _editId=null, _editKey=null, _liveRate=null, _lastDate=TODAY(), _currentMonth=new Date();
+let _lineChart=null, _barChart=null;
+
+function TODAY(){ const n=new Date(); return n.getFullYear()+'-'+pad(n.getMonth()+1)+'-'+pad(n.getDate()); }
+function pad(n){ return String(n).padStart(2,'0'); }
+function fmtDateLabel(k){ const [y,m,d]=k.split('-'); const days=['일','월','화','수','목','금','토']; const dow=new Date(+y,+m-1,+d).getDay(); return m+'월 '+d+'일 ('+days[dow]+')'; }
+function fmtUSD(v){ return '$'+(Number(v)||0).toFixed(2); }
+function fmtKRW(v){ return '₩'+Math.round(Number(v)||0).toLocaleString(); }
+
+// ── 환율 ──
+function getRate(){ return Number(localStorage.getItem(RKEY))||DEFAULT_RATE; }
+async function fetchLiveRate(){
+  const apis=[
+    {url:'https://open.er-api.com/v6/latest/USD',parse:d=>d.rates&&d.rates.KRW},
+    {url:'https://api.frankfurter.app/latest?from=USD&to=KRW',parse:d=>d.rates&&d.rates.KRW},
+    {url:'https://api.exchangerate-api.com/v4/latest/USD',parse:d=>d.rates&&d.rates.KRW},
+    {url:'https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json',parse:d=>d.usd&&d.usd.krw&&Math.round(d.usd.krw)},
+    {url:'https://latest.currency-api.pages.dev/v1/currencies/usd.json',parse:d=>d.usd&&d.usd.krw&&Math.round(d.usd.krw)},
+  ];
+  for(const api of apis){
+    try{
+      const r=await fetch(api.url,{signal:AbortSignal.timeout(5000)});
+      if(!r.ok) continue;
+      const d=await r.json();
+      const v=api.parse(d);
+      if(v&&v>900&&v<2200) return Math.round(v);
+    }catch(e){}
+  }
+  return null;
+}
+function updateRateBadge(rate,live){
+  document.getElementById('rateBadgeVal').textContent='₩'+rate.toLocaleString();
+  const dot=document.getElementById('headerRateDot');
+  dot.className='rate-dot'+(live?'':' error');
+  const t=Number(localStorage.getItem(RTKEY)||0);
+  const ago=t?(()=>{ const diff=Math.floor((Date.now()-t)/60000); return diff<1?'방금':diff<60?diff+'분 전':Math.floor(diff/60)+'시간 전'; })():'';
+  document.getElementById('rateTimeLabel').textContent=live?('실시간 · '+ago):('수동 · '+ago);
+}
+async function initRate(){
+  const saved=localStorage.getItem(RKEY), savedTime=Number(localStorage.getItem(RTKEY)||0), ageMin=(Date.now()-savedTime)/60000;
+  if(saved) updateRateBadge(Number(saved),ageMin<30);
+  document.getElementById('headerRateDot').className='rate-dot loading';
+  const live=await fetchLiveRate();
+  if(live){ _liveRate=live; localStorage.setItem(RKEY,live); localStorage.setItem(RTKEY,Date.now()); updateRateBadge(live,true); renderToday(); }
+  else{ document.getElementById('headerRateDot').className='rate-dot error'; }
+}
+function openRateModal(){
+  document.getElementById('rateInput').value=getRate();
+  if(_liveRate){ document.getElementById('rateLiveVal').textContent='₩'+_liveRate.toLocaleString(); document.getElementById('rateLiveDot').className='rate-dot'; }
+  else{ document.getElementById('rateLiveVal').textContent='불러오는 중...'; fetchLiveRate().then(v=>{ if(v){ _liveRate=v; document.getElementById('rateLiveVal').textContent='₩'+v.toLocaleString(); document.getElementById('rateLiveDot').className='rate-dot'; } else{ document.getElementById('rateLiveVal').textContent='실패'; document.getElementById('rateLiveDot').className='rate-dot error'; } }); }
+  document.getElementById('rateOverlay').classList.add('show');
+}
+function closeRateModal(e){ if(!e||e.target.id==='rateOverlay') document.getElementById('rateOverlay').classList.remove('show'); }
+function applyLiveRate(){ if(_liveRate) document.getElementById('rateInput').value=_liveRate; }
+function setRP(v){ document.getElementById('rateInput').value=v; }
+function saveRate(){ const v=Number(document.getElementById('rateInput').value); if(!v||v<900||v>2000){ showToast('유효한 환율을 입력해주세요'); return; } localStorage.setItem(RKEY,v); localStorage.setItem(RTKEY,Date.now()); updateRateBadge(v,false); closeRateModal(); renderToday(); showToast('환율 저장 ₩'+v.toLocaleString()); }
+
+// ── 데이터 ──
+function loadData(){ try{ return JSON.parse(localStorage.getItem(SKEY))||{}; }catch(e){ return {}; } }
+function saveData(d){ localStorage.setItem(SKEY,JSON.stringify(d)); }
+function getOrCreateDay(key){ const d=loadData(); if(!d[key]) d[key]={transactions:[],totalUSD:0,closed:false,closedAt:null,rate:getRate(),autoClosedAt:null}; return d; }
+
+// ── 자동 마감 ──
+function autoClose(){
+  const d=loadData(), today=TODAY();
+  let changed=false;
+
+  // 오늘 포함 최근 7일 — 기록 없는 날 자동 0 생성
+  for(let i=1;i<=7;i++){
+    const dt=new Date(); dt.setDate(dt.getDate()-i);
+    const k=dt.getFullYear()+'-'+pad(dt.getMonth()+1)+'-'+pad(dt.getDate());
+    if(!d[k]){
+      d[k]={transactions:[],totalUSD:0,closed:false,closedAt:null,rate:getRate(),autoClosedAt:null,autoZero:true};
+      changed=true;
+    }
+  }
+
+  // 오늘보다 이전 날짜 자동 마감
+  Object.keys(d).forEach(k=>{
+    if(k<today&&!d[k].closed){
+      d[k].closed=true;
+      d[k].autoClosedAt=new Date().toLocaleString('ko-KR');
+      d[k].closedAt='자동마감';
+      changed=true;
+    }
+  });
+  if(changed) saveData(d);
+}
+function midnightCheck(){ const now=TODAY(); if(now!==_lastDate){ _lastDate=now; autoClose(); renderAll(); showToast('자정이 지나 전날이 자동 마감됐습니다'); } }
+
+// ── 입력 ──
+function updatePreview(){ const v=parseFloat(document.getElementById('amountInput').value)||0; document.getElementById('convertedPreview').textContent='≈ '+fmtKRW(v*getRate()); }
+function setAmount(v){ document.getElementById('amountInput').value=v; updatePreview(); }
+
+function addTransaction(amount, memo, dateKey){
+  const amt=amount!=null?parseFloat(amount):parseFloat(document.getElementById('amountInput').value);
+  if(!amt||amt<=0){ showToast('금액을 입력해주세요'); return false; }
+  const m=memo||(document.getElementById('memoInput')?.value.trim()||'매출');
+  // 날짜: 파라미터 > 날짜 입력 > 오늘
+  const dateInputVal=document.getElementById('dateInput')?.value;
+  const key=dateKey||(dateInputVal&&dateInputVal!==''?dateInputVal:TODAY());
+  const d=getOrCreateDay(key);
+  // 마감 여부 관계없이 추가/수정 가능
+  const now=new Date();
+  d[key].transactions.push({ id:Date.now()+Math.random(), amount:amt, memo:m, time:pad(now.getHours())+':'+pad(now.getMinutes()), rate:getRate(),  date:key });
+  d[key].totalUSD=d[key].transactions.reduce((s,t)=>s+t.amount,0);
+  d[key].rate=getRate(); saveData(d);
+  if(amount==null){
+    document.getElementById('amountInput').value='';
+    document.getElementById('memoInput').value='';
+    document.getElementById('convertedPreview').textContent='≈ ₩0';
+    const isToday=key===TODAY();
+    renderToday();
+    showToast('✅ '+fmtUSD(amt)+(isToday?' 추가됐어요':' → '+fmtDateLabel(key)+' 추가됐어요'));
+  }
+  return true;
+}
+
+// ── 삭제 ──
+function deleteTransaction(id,key){ const d=loadData(); if(!d[key]) return; d[key].transactions=d[key].transactions.filter(t=>t.id!=id); d[key].totalUSD=d[key].transactions.reduce((s,t)=>s+t.amount,0); saveData(d); renderToday(); showToast('삭제됐어요'); }
+
+// ── 수정 ──
+function openAddForDate(el){
+  const key=el.dataset.key;
+  // 입력 탭으로 이동 후 날짜 세팅
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.content').forEach(c=>c.classList.remove('active'));
+  document.querySelector('.tab').classList.add('active');
+  document.getElementById('tab-today').classList.add('active');
+  document.getElementById('dateInput').value=key;
+  document.getElementById('amountInput').focus();
+  showToast(key+' 날짜로 설정됐어요');
+}
+
+function openEditDaily(el){
+  const id=el.dataset.id, key=el.dataset.key;
+  openEdit(id,key);
+}
+function openEdit(id,key){ const d=loadData(); const txn=d[key]?.transactions.find(t=>t.id==id); if(!txn) return; _editId=id; _editKey=key; document.getElementById('editAmount').value=txn.amount; document.getElementById('editMemo').value=txn.memo; document.getElementById('editOverlay').classList.add('show'); }
+function closeEdit(e){ if(!e||e.target.id==='editOverlay'){ document.getElementById('editOverlay').classList.remove('show'); _editId=null; _editKey=null; } }
+function saveEdit(){ if(!_editId) return; const amt=parseFloat(document.getElementById('editAmount').value); const mem=document.getElementById('editMemo').value.trim()||'매출'; if(!amt||amt<=0){ showToast('금액을 입력해주세요'); return; } const d=loadData(); const day=d[_editKey]; const idx=day.transactions.findIndex(t=>t.id==_editId); if(idx<0) return; day.transactions[idx].amount=amt; day.transactions[idx].memo=mem; day.totalUSD=day.transactions.reduce((s,t)=>s+t.amount,0); saveData(d); closeEdit(); renderToday(); renderDaily(); showToast('✏️ 수정됐어요'); }
+
+// ── 오늘 마감 ──
+function closeToday(){ const key=TODAY(),d=getOrCreateDay(key); d[key].closed=true; d[key].closedAt=new Date().toLocaleString('ko-KR'); d[key].rate=getRate(); saveData(d); renderToday(); showToast('마감! '+fmtUSD(d[key].totalUSD)+' ≈ '+fmtKRW(d[key].totalUSD*getRate())); }
+
+// ── 렌더 — 오늘 ──
+function renderToday(){
+  autoClose();
+  const key=TODAY(),d=getOrCreateDay(key),day=d[key];
+  const txns=day.transactions,totalUSD=day.totalUSD||0,rate=getRate();
+  document.getElementById('todayUSD').textContent=fmtUSD(totalUSD);
+  document.getElementById('todayKRW').textContent='≈ '+fmtKRW(totalUSD*rate);
+  document.getElementById('todayCount').textContent='기록 '+txns.length+'건 · ₩'+rate.toLocaleString();
+  document.getElementById('dateInput').max=TODAY();
+  const banner=document.getElementById('closeBanner');
+  if(day.closed){ const isAuto=day.autoClosedAt||day.closedAt==='자동마감'; banner.innerHTML='<div class="closed-badge">✅ 마감완료 · '+(isAuto?'자동':day.closedAt)+' · 수정 가능</div>'; }
+  else if(txns.length>0){ banner.innerHTML='<div class="close-banner"><div class="cb-icon">🔔</div><div class="cb-text"><div class="cb-title">오늘 하루 마감하기</div><div class="cb-sub">'+fmtUSD(totalUSD)+' · ≈ '+fmtKRW(totalUSD*rate)+' · '+txns.length+'건</div></div><button class="cb-btn" onclick="closeToday()">마감</button></div>'; }
+  else{ banner.innerHTML=''; }
+  const list=document.getElementById('txnList');
+  if(txns.length===0){ list.innerHTML='<div class="empty-state"><div class="empty-icon">📭</div>아직 입력된 매출이 없어요</div>'; return; }
+  list.innerHTML=[...txns].reverse().map(t=>'<div class="txn-item'+'"><div class="txn-icon">'+('💵')+'</div><div class="txn-info"><div class="txn-memo">'+t.memo+'</div><div class="txn-time">'+t.time+' · ₩'+(t.rate||rate).toLocaleString()+'</div></div><div class="txn-amounts"><div class="txn-usd">'+fmtUSD(t.amount)+'</div><div class="txn-krw">≈ '+fmtKRW(t.amount*(t.rate||rate))+'</div></div>'+'<div class="txn-actions"><button class="txn-btn txn-edit" onclick="openEdit('+t.id+',\''+key+'\')">✏️</button><button class="txn-btn txn-del" onclick="deleteTransaction('+t.id+',\''+key+'\')">🗑️</button></div>'+'</div>').join('');
+}
+
+// ── 렌더 — 일별 ──
+function renderDaily(){
+  autoClose();
+  // 직급 뱃지
+  const _g=loadGrade();
+  const _gel=document.getElementById('gradeTagDaily');
+  if(_gel) _gel.innerHTML='<div class="grade-tag">'+gradeEmoji(_g)+' 현재 <b>'+_g+'직급</b></div>';
+  const d=loadData(), keys=Object.keys(d).sort((a,b)=>b.localeCompare(a));
+  const list=document.getElementById('dailyList');
+  if(keys.length===0){ list.innerHTML='<div class="empty-state"><div class="empty-icon">📋</div>마감 기록이 없어요</div>'; return; }
+  list.innerHTML=keys.map(k=>{
+    const day=d[k], rate=day.rate||DEFAULT_RATE, totalUSD=day.totalUSD||0, totalKRW=totalUSD*rate;
+    const isAuto=day.autoClosedAt||day.closedAt==='자동마감';
+
+    // 거래 행
+    const txnRows=(day.transactions||[]).map(t=>{
+      const safeId=String(t.id).replace(/['"]/g,'');
+      return '<div class="daily-txn-row">'+
+        '<div class="daily-txn-icon">💵</div>'+
+        '<div class="daily-txn-info">'+
+          '<div class="daily-txn-memo">'+t.memo+'</div>'+
+          '<div class="daily-txn-time">'+t.time+'</div>'+
+        '</div>'+
+        '<div class="daily-txn-amounts">'+
+          '<div class="daily-txn-usd">'+fmtUSD(t.amount)+'</div>'+
+          '<div class="daily-txn-krw">≈ '+fmtKRW(t.amount*(t.rate||rate))+'</div>'+
+        '</div>'+
+        '<div class="txn-actions">'+
+          '<button class="txn-btn txn-edit" data-id="'+safeId+'" data-key="'+k+'" onclick="openEditDaily(this)">✏️</button>'+
+          '<button class="txn-btn txn-del" data-id="'+safeId+'" data-key="'+k+'" onclick="deleteDailyTxn(this)">🗑️</button>'+
+        '</div>'+
+      '</div>';
+    }).join('');
+
+    // 기록 없는 날 — 추가 버튼
+    const zeroRow=(day.transactions||[]).length===0
+      ? '<div class="zero-day-row">'+
+          '<span class="zero-day-label">📭 기록 없음 · $0.00</span>'+
+          '<button class="zero-add-btn" data-key="'+k+'" onclick="openAddForDate(this)">+ 추가</button>'+
+        '</div>'
+      : '';
+
+    return '<div class="daily-item">'+
+      '<div class="daily-date">'+fmtDateLabel(k)+' · ₩'+rate.toLocaleString()+'</div>'+
+      '<div class="daily-usd">'+fmtUSD(totalUSD)+'</div>'+
+      '<div class="daily-krw">≈ '+fmtKRW(totalKRW)+'</div>'+
+      '<div class="daily-tags">'+
+        '<span class="tag tag-blue">'+(day.transactions||[]).length+'건</span>'+
+        '<span class="tag tag-green">'+fmtKRW(totalKRW)+'</span>'+
+        (day.closed?'<span class="tag '+(isAuto?'tag-orange':'tag-gray')+'">마감 '+(isAuto?'🤖 자동':'✋ 수동')+'</span>':'<span class="tag tag-red">미마감</span>')+
+      '</div>'+
+      '<div class="daily-txn-list">'+zeroRow+txnRows+'</div>'+
+    '</div>';
+  }).join('');
+}
+
+function deleteDailyTxn(el){
+  const id=el.dataset.id, key=el.dataset.key;
+  const d=loadData();
+  if(!d[key]) return;
+  d[key].transactions=d[key].transactions.filter(t=>String(t.id)!==String(id));
+  d[key].totalUSD=d[key].transactions.reduce((s,t)=>s+t.amount,0);
+  saveData(d); renderDaily(); renderToday(); showToast('🗑️ 삭제됐어요');
+}
+
+// ── 월간 보고서 ──
+const REPORT_KEY = 'monthly_report_shown_v2';
+
+function getMonthData(y, m) {
+  const d = loadData();
+  const prefix = y+'-'+pad(m);
+  const keys = Object.keys(d).filter(k=>k.startsWith(prefix)).sort();
+  const totalUSD = keys.reduce((s,k)=>s+(d[k].totalUSD||0), 0);
+  const totalKRW = keys.reduce((s,k)=>s+(d[k].totalUSD||0)*(d[k].rate||DEFAULT_RATE), 0);
+  const txnCount = keys.reduce((s,k)=>s+(d[k].transactions||[]).length, 0);
+  const workDays = keys.filter(k=>(d[k].totalUSD||0)>0).length;
+
+  // 요일별 집계
+  const dowSum = [0,0,0,0,0,0,0]; // 일~토
+  const dowCnt = [0,0,0,0,0,0,0];
+  keys.forEach(k=>{
+    const [y2,m2,d2] = k.split('-');
+    const dow = new Date(+y2,+m2-1,+d2).getDay();
+    const usd = d[k].totalUSD||0;
+    if(usd>0){ dowSum[dow]+=usd; dowCnt[dow]++; }
+  });
+  const dowAvg = dowSum.map((s,i)=>dowCnt[i]>0?s/dowCnt[i]:0);
+
+  return { totalUSD, totalKRW, txnCount, workDays, dowAvg, dowSum, dowCnt, keys };
+}
+
+function renderMonthReport(y, m) {
+  const el = document.getElementById('monthReport');
+  if(!el) return;
+
+  const curr = getMonthData(y, m);
+  const today = new Date();
+
+  // 이번달이면 보고서 숨김
+  if(y===today.getFullYear() && m===today.getMonth()+1) { el.innerHTML=''; return; }
+  if(curr.totalUSD===0 && curr.keys.length===0) { el.innerHTML=''; return; }
+
+  // 전월 데이터
+  const prevM = m===1?12:m-1, prevY = m===1?y-1:y;
+  const prev = getMonthData(prevY, prevM);
+
+  // 성장률
+  const growth = prev.totalUSD>0 ? ((curr.totalUSD-prev.totalUSD)/prev.totalUSD*100) : null;
+  const growthStr = growth===null ? '전월 데이터 없음'
+    : (growth>=0?'+':'')+growth.toFixed(1)+'%';
+  const growthClass = growth===null?'flat':growth>0?'up':'down';
+  const growthIcon = growth===null?'➖':growth>0?'▲':'▼';
+
+  // 최고 요일
+  const dowNames = ['일','월','화','수','목','금','토'];
+  const maxDow = curr.dowAvg.indexOf(Math.max(...curr.dowAvg));
+  const dowRows = dowNames.map((name,i)=>{
+    const maxVal = Math.max(...curr.dowAvg, 1);
+    const pct = curr.dowAvg[i]>0 ? Math.max((curr.dowAvg[i]/maxVal)*100, 4) : 0;
+    const isBest = i===maxDow && curr.dowAvg[i]>0;
+    const barClass = pct===0?'dow-zero':isBest?'dow-best':'dow-normal';
+    return '<div class="dow-row">'+
+      '<div class="dow-label" style="'+(isBest?'font-weight:700;color:var(--blue)':'')+'">'+name+'</div>'+
+      '<div class="dow-bar-wrap">'+
+        (pct>0?'<div class="dow-bar '+barClass+'" style="width:'+pct+'%">'+
+          '<span class="dow-bar-val">'+fmtUSD(curr.dowAvg[i])+(isBest?' 🏆':'')+'</span>'+
+        '</div>':'<div style="padding:0 8px;line-height:24px;font-size:10px;color:#ccc">기록없음</div>')+
+      '</div>'+
+    '</div>';
+  }).join('');
+
+  el.innerHTML =
+    '<div class="auto-report-notice">'+
+      '<div class="arn-icon">📋</div>'+
+      '<div class="arn-text">'+y+'년 '+m+'월 월간 보고서가 자동 생성됐어요!</div>'+
+    '</div>'+
+    '<div class="report-banner">'+
+      '<div class="report-badge">'+y+'년 '+m+'월 월간 보고서</div>'+
+      '<div class="report-title">총 매출</div>'+
+      '<div class="report-total">'+fmtKRW(curr.totalKRW)+'</div>'+
+      '<div style="font-size:13px;opacity:0.7;margin-bottom:8px">'+fmtUSD(curr.totalUSD)+'</div>'+
+      '<span class="report-growth '+growthClass+'">'+growthIcon+' 전월 대비 '+growthStr+'</span>'+
+      '<div class="report-grid">'+
+        '<div class="report-stat"><div class="report-stat-label">영업일</div><div class="report-stat-val">'+curr.workDays+'일</div></div>'+
+        '<div class="report-stat"><div class="report-stat-label">총 건수</div><div class="report-stat-val">'+curr.txnCount+'건</div></div>'+
+        '<div class="report-stat"><div class="report-stat-label">일 평균</div><div class="report-stat-val">'+fmtKRW(curr.workDays>0?curr.totalKRW/curr.workDays:0)+'</div></div>'+
+        '<div class="report-stat"><div class="report-stat-label">전월 대비</div><div class="report-stat-val">'+(growth!==null?(growth>=0?'+':'')+growth.toFixed(1)+'%':'없음')+'</div></div>'+
+      '</div>'+
+    '</div>'+
+    '<div class="card">'+
+      '<div class="card-title">🏅 직급별 매출 히스토리</div>'+
+      '<div style="font-size:11px;color:var(--gray);margin-bottom:8px">현재 '+loadGrade()+'직급 · 월별 직급 매출 변화</div>'+
+      renderGradeHistory()+
+    '</div>'+
+    '<div class="card">'+
+      '<div class="card-title">📅 요일별 평균 매출</div>'+
+      '<div style="font-size:11px;color:var(--gray);margin-bottom:8px">가장 매출 높은 요일: <b style="color:var(--blue)">'+dowNames[maxDow]+'요일</b> (평균 '+fmtUSD(curr.dowAvg[maxDow])+')</div>'+
+      '<div class="dow-chart">'+dowRows+'</div>'+
+    '</div>';
+}
+
+// 달이 바뀌면 자동으로 전월 보고서 체크
+function checkAutoReport() {
+  const shown = localStorage.getItem(REPORT_KEY);
+  const today = new Date();
+  const thisMonth = today.getFullYear()+'-'+pad(today.getMonth()+1);
+
+  // 1일에만 실행
+  if(today.getDate() !== 1) return;
+  if(shown === thisMonth) return; // 이미 보여줬으면 skip
+
+  // 전월 보고서 생성
+  const prevM = today.getMonth()===0?12:today.getMonth();
+  const prevY = today.getMonth()===0?today.getFullYear()-1:today.getFullYear();
+  const prev = getMonthData(prevY, prevM);
+  if(prev.totalUSD===0) return;
+
+  // 월별 탭으로 이동 + 전월로 세팅
+  _currentMonth = new Date(prevY, prevM-1, 1);
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.content').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.tab')[2].classList.add('active');
+  document.getElementById('tab-monthly').classList.add('active');
+  renderMonthly();
+
+  recordGradeHistory(prevY, prevM, prev.totalUSD, prev.totalKRW);
+  localStorage.setItem(REPORT_KEY, thisMonth);
+  showToast('📊 '+prevY+'년 '+prevM+'월 보고서가 생성됐어요!');
+}
+
+// ── 렌더 — 월별 ──
+function changeMonth(delta){ _currentMonth=new Date(_currentMonth.getFullYear(),_currentMonth.getMonth()+delta,1); renderMonthly(); }
+function renderMonthly(){
+  const y=_currentMonth.getFullYear(),m=_currentMonth.getMonth()+1,prefix=y+'-'+pad(m);
+  document.getElementById('monthLabel').textContent=y+'년 '+m+'월';
+  // 직급 뱃지
+  const _g2=loadGrade();
+  const _gel2=document.getElementById('gradeTagMonthly');
+  if(_gel2) _gel2.innerHTML='<div class="grade-tag">'+gradeEmoji(_g2)+' 현재 <b>'+_g2+'직급</b></div>';
+  renderMonthReport(y, m);
+  const d=loadData(),keys=Object.keys(d).filter(k=>k.startsWith(prefix)).sort();
+  const content=document.getElementById('monthContent');
+  if(keys.length===0){ content.innerHTML='<div class="empty-state"><div class="empty-icon">📊</div>이 달 기록이 없어요</div>'; return; }
+  const monthKRW=keys.reduce((s,k)=>s+(d[k].totalUSD||0)*(d[k].rate||DEFAULT_RATE),0);
+  const monthUSD=keys.reduce((s,k)=>s+(d[k].totalUSD||0),0);
+  const monthCnt=keys.reduce((s,k)=>s+(d[k].transactions||[]).length,0);
+  const maxVal=Math.max(...keys.map(k=>(d[k].totalUSD||0)*(d[k].rate||DEFAULT_RATE)));
+  const bestDay=keys.reduce((b,k)=>{ const v=(d[k].totalUSD||0)*(d[k].rate||DEFAULT_RATE); return(!b||v>(d[b].totalUSD||0)*(d[b].rate||DEFAULT_RATE))?k:b; },null);
+  content.innerHTML='<div class="month-summary"><div class="ms-label">'+y+'년 '+m+'월 총 매출</div><div class="ms-amount">'+fmtKRW(monthKRW)+'</div><div style="font-size:13px;opacity:0.7;margin-top:4px">'+fmtUSD(monthUSD)+'</div><div class="ms-stats"><div><div class="ms-stat-label">영업일</div><div class="ms-stat-val">'+keys.length+'일</div></div><div><div class="ms-stat-label">총 건수</div><div class="ms-stat-val">'+monthCnt+'건</div></div><div><div class="ms-stat-label">일 평균</div><div class="ms-stat-val">'+fmtKRW(monthKRW/keys.length)+'</div></div></div></div>'+
+  '<div class="card"><div class="card-title">일별 매출</div>'+keys.map(k=>{ const val=(d[k].totalUSD||0)*(d[k].rate||DEFAULT_RATE),pct=maxVal>0?Math.max((val/maxVal)*100,3):3; return '<div style="display:flex;align-items:center;gap:7px;margin-bottom:5px"><div style="width:26px;font-size:11px;color:var(--gray);text-align:right">'+k.split('-')[2]+'일</div><div style="flex:1;background:#f0f2f5;border-radius:20px;height:20px;overflow:hidden"><div style="width:'+pct+'%;height:100%;background:linear-gradient(90deg,var(--blue),#60a5fa);border-radius:20px;display:flex;align-items:center;padding:0 7px"><span style="font-size:10px;color:white;font-weight:600;white-space:nowrap">'+fmtKRW(val)+'</span></div></div></div>'; }).join('')+(bestDay?'<div style="font-size:11px;color:var(--gray);text-align:center;margin-top:8px">🏆 최고: '+bestDay.split('-')[2]+'일 '+fmtKRW((d[bestDay].totalUSD||0)*(d[bestDay].rate||DEFAULT_RATE))+'</div>':'')+'</div>';
+}
+
+// ── 탭 ──
+function switchTab(tab,el){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.content').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('tab-'+tab).classList.add('active');
+  if(tab==='daily') renderDaily();
+  if(tab==='monthly') renderMonthly();
+  if(tab==='setting') initGradeUI();
+}
+function renderAll(){ renderToday(); if(document.getElementById('tab-daily').classList.contains('active')) renderDaily(); if(document.getElementById('tab-monthly').classList.contains('active')) renderMonthly(); }
+
+// ── 데이터 백업/복원 ──
+function exportData(){
+  const d=loadData();
+  const blob=new Blob([JSON.stringify(d,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url; a.download='매출기록_'+TODAY()+'.json'; a.click();
+  URL.revokeObjectURL(url);
+  showToast('💾 백업 파일이 저장됐어요');
+}
+
+function importData(e){
+  const file=e.target.files[0]; if(!file) return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    try{
+      const d=JSON.parse(ev.target.result);
+      saveData({...loadData(),...d});
+      renderAll();
+      showToast('✅ '+Object.keys(d).length+'일치 데이터 복원 완료!');
+    }catch(err){ showToast('❌ 파일 형식이 올바르지 않아요'); }
+  };
+  reader.readAsText(file);
+  e.target.value='';
+}
+
+// ── 직급 설정 ──
+const GRADE_KEY = 'my_grade_v2';
+const GRADE_HISTORY_KEY = 'grade_history_v2';
+
+function gradeEmoji(g){
+  const e=['','🌱','🌿','🍀','⭐','🌟','💫','🔥','💎','👑','🏆','🥇','🎖️','🏅','💪','🦁','🦅','🌙','☀️','⚡','👼'];
+  return e[g]||'';
+}
+function loadGrade(){ return Number(localStorage.getItem(GRADE_KEY))||1; }
+function saveGradeData(g){ localStorage.setItem(GRADE_KEY, g); }
+
+function loadGradeHistory(){
+  try{ return JSON.parse(localStorage.getItem(GRADE_HISTORY_KEY))||[]; }catch(e){ return []; }
+}
+function saveGradeHistory(h){ localStorage.setItem(GRADE_HISTORY_KEY, JSON.stringify(h)); }
+
+function updateGradeDisplay(){
+  const v = Number(document.getElementById('gradeSlider').value);
+  document.getElementById('gradeDisplay').textContent = v+'직급';
+  const emojis = ['','🌱','🌿','🍀','⭐','🌟','💫','🔥','💎','👑','🏆',
+                  '🥇','🎖️','🏅','💪','🦁','🦅','🌙','☀️','⚡','👼'];
+  document.getElementById('gradeSub').textContent = (emojis[v]||'') + ' ' + v+'직급으로 설정 중';
+}
+
+function saveGrade(){
+  const v = Number(document.getElementById('gradeSlider').value);
+  saveGradeData(v);
+  showToast('✅ '+v+'직급으로 저장됐어요');
+  updateGradeDisplay();
+}
+
+function initGradeUI(){
+  const g = loadGrade();
+  const slider = document.getElementById('gradeSlider');
+  if(!slider) return;
+  slider.value = g;
+  updateGradeDisplay();
+}
+
+// 월마감 시 직급 + 매출 기록
+function recordGradeHistory(y, m, totalUSD, totalKRW){
+  const grade = loadGrade();
+  const history = loadGradeHistory();
+  const key = y+'-'+pad(m);
+  const existing = history.findIndex(h=>h.month===key);
+  const entry = { month:key, grade, totalUSD, totalKRW, recordedAt: new Date().toLocaleString('ko-KR') };
+  if(existing>=0) history[existing]=entry;
+  else history.push(entry);
+  history.sort((a,b)=>a.month.localeCompare(b.month));
+  saveGradeHistory(history);
+}
+
+// 직급별 히스토리 렌더 (월보고서에 추가)
+function renderGradeHistory(){
+  const history = loadGradeHistory();
+  if(history.length===0) return '<div style="font-size:12px;color:var(--gray);text-align:center;padding:10px">아직 기록된 직급 히스토리가 없어요</div>';
+
+  const maxKRW = Math.max(...history.map(h=>h.totalKRW), 1);
+  const currentGrade = loadGrade();
+  const emojis = ['','🌱','🌿','🍀','⭐','🌟','💫','🔥','💎','👑','🏆',
+                  '🥇','🎖️','🏅','💪','🦁','🦅','🌙','☀️','⚡','👼'];
+
+  const rows = [...history].reverse().map(h=>{
+    const pct = Math.max((h.totalKRW/maxKRW)*100, 3);
+    const isCurrent = h.grade===currentGrade;
+    return '<div class="grade-history-row">'+
+      '<div class="grade-history-label">'+(emojis[h.grade]||'')+h.grade+'직급<br><span style="font-size:9px;color:#aaa">'+h.month+'</span></div>'+
+      '<div class="grade-history-bar-wrap">'+
+        '<div class="grade-history-bar '+(isCurrent?'current':'past')+'" style="width:'+pct+'%">'+
+          '<span class="grade-history-val">'+fmtKRW(h.totalKRW)+'</span>'+
+        '</div>'+
+      '</div>'+
+    '</div>';
+  }).join('');
+
+  return '<div class="grade-history-wrap">'+rows+'</div>';
+}
+
+function showToast(msg){ const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),2500); }
+
+
+
+// ── 초기화 ──
+document.getElementById('dateInput').value=TODAY();
+document.getElementById('dateInput').max=TODAY();
+renderToday();
+initRate();
+initGradeUI();
+setInterval(midnightCheck,60000);
+document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible'){ midnightCheck(); initRate(); } });
+window.addEventListener('focus',midnightCheck);
+setInterval(initRate,30*60*1000);
+
+// 월초 자동 보고서 체크
+checkAutoReport();
+
+</script>
+</body>
+</html>
