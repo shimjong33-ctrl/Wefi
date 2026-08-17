@@ -62,6 +62,25 @@ body{font-family:'Pretendard','Noto Sans KR', -apple-system, 'Apple SD Gothic Ne
 .ext-link-sub{font-size:11px;color:var(--ink-soft);margin-top:2px;}
 .ext-link-arrow{flex:none;font-size:22px;color:var(--ink-faint);}
 .goals-section{padding:22px 20px 4px 20px;}
+.partner-section{padding:22px 20px 4px 20px;}
+.partner-card{background:var(--white);border:1px solid var(--line-soft);border-radius:var(--radius-md);padding:16px;box-shadow:var(--shadow-sm);}
+.partner-title{font-size:15px;font-weight:900;color:var(--ink);margin-bottom:4px;}
+.partner-sub{font-size:12px;color:var(--ink-soft);margin-bottom:12px;line-height:1.5;}
+.partner-progress-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:13px;}
+.partner-progress-track{flex:1;height:9px;background:var(--line-soft);border-radius:6px;overflow:hidden;margin-right:10px;}
+.partner-progress-fill{height:100%;background:linear-gradient(90deg,var(--green),var(--green-deep));border-radius:6px;transition:width .4s ease;}
+.partner-progress-label{font-size:12.5px;font-weight:900;color:var(--green-deep);flex:none;}
+.partner-slot{border:1px solid var(--line-soft);border-radius:12px;padding:12px 13px;margin-bottom:10px;background:var(--cream);}
+.partner-slot.done{background:var(--green-glow);border-color:var(--green-bright);}
+.partner-slot-head{display:flex;align-items:center;gap:9px;margin-bottom:9px;}
+.partner-slot-num{flex:none;width:26px;height:26px;border-radius:9px;background:var(--mint);color:var(--green-deep);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;}
+.partner-slot-num.done{background:var(--green);color:#fff;}
+.partner-slot input{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:9px;font-size:12.5px;font-family:inherit;margin-bottom:7px;}
+.partner-status-row{display:flex;gap:5px;flex-wrap:wrap;}
+.partner-status-btn{font-size:11px;font-weight:700;padding:6px 10px;border-radius:20px;border:1px solid var(--line);background:#fff;color:var(--ink-soft);}
+.partner-status-btn.active{background:var(--green-deep);color:#fff;border-color:var(--green-deep);}
+.partner-reset-btn{color:#C0392B;border-color:#F2C4BC;background:#FDF1EF;}
+.partner-celebrate{margin-top:4px;background:linear-gradient(135deg,var(--green-deep),var(--green));color:#fff;text-align:center;font-size:13px;font-weight:800;padding:14px;border-radius:12px;}
 .goals-card{background:var(--white);border:1px solid var(--line-soft);border-radius:var(--radius-md);padding:16px;box-shadow:var(--shadow-sm);}
 .goals-title{font-size:15px;font-weight:900;color:var(--ink);margin-bottom:4px;}
 .goals-sub{font-size:12px;color:var(--ink-soft);margin-bottom:13px;line-height:1.5;}
@@ -189,7 +208,9 @@ body{font-family:'Pretendard','Noto Sans KR', -apple-system, 'Apple SD Gothic Ne
 .session-edit-title{font-size:12.5px;font-weight:800;color:var(--green-deep);margin-bottom:8px;}
 .glossary-section{padding:22px 20px 4px 20px;}
 .glossary-card{background:var(--white);border:1px solid var(--line-soft);border-radius:var(--radius-md);padding:16px;box-shadow:var(--shadow-sm);}
-.glossary-title{font-size:15px;font-weight:900;color:var(--ink);margin-bottom:10px;}
+.glossary-title{font-size:15px;font-weight:900;color:var(--ink);margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;}
+.glossary-chevron{width:18px;height:18px;color:var(--ink-faint);transition:transform .2s;}
+.glossary-chevron.open{transform:rotate(180deg);}
 .glossary-search{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:11px;font-size:12.5px;font-family:inherit;margin-bottom:11px;}
 .gterm{border:1px solid var(--line-soft);border-radius:11px;margin-bottom:8px;overflow:hidden;background:var(--cream);}
 .gterm-head{padding:11px 13px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;}
@@ -234,6 +255,7 @@ body{font-family:'Pretendard','Noto Sans KR', -apple-system, 'Apple SD Gothic Ne
     <button class="cert-btn" id="cert-download-btn" data-action="download-cert">🖼️ 수료증 이미지로 저장</button>
   </div>
   <div class="goals-section" id="goals-section"></div>
+  <div class="partner-section" id="partner-section"></div>
   <div class="ext-link-section">
     <a class="ext-link-card" href="https://shimjong33-ctrl.github.io/Wefi/sales_usd_v2-2.html" target="_blank" rel="noopener">
       <div class="ext-link-icon">$</div>
@@ -375,6 +397,7 @@ var NAME_KEY = "wefiAcademyUserName_v1";
 var GLOSSARY_KEY = "wefiAcademyGlossary_v1";
 var SHEETS_KEY = "wefiAcademySheetsUrl_v1";
 var SESSION_KEY = "wefiAcademySessionConfig_v1";
+var PARTNER_KEY = "wefiAcademyPartners_v1";
 var sessionConfig = loadSessionConfig();
 var sessionEditOpen = false;
 var nameEditOpen = false;
@@ -384,6 +407,8 @@ var glossary = loadGlossary();
 var sheetsUrl = loadSheetsUrl();
 var glossaryFilter = "";
 var openGlossaryTerm = null;
+var glossaryOpen = false;
+var partners = loadPartners();
 var syncStatus = "";
 var syncing = false;
 var data = loadData();
@@ -452,6 +477,20 @@ function loadSessionConfig(){
 }
 function saveSessionConfig(){
   try{ window.localStorage.setItem(SESSION_KEY, JSON.stringify(sessionConfig)); }catch(e){}
+}
+function loadPartners(){
+  try{
+    var raw = window.localStorage.getItem(PARTNER_KEY);
+    if(raw) return JSON.parse(raw);
+  }catch(e){}
+  return [
+    {name:"", contact:"", status:0},
+    {name:"", contact:"", status:0},
+    {name:"", contact:"", status:0}
+  ];
+}
+function savePartners(){
+  try{ window.localStorage.setItem(PARTNER_KEY, JSON.stringify(partners)); }catch(e){}
 }
 
 function loadHomework(){
@@ -544,6 +583,7 @@ function render(){
   document.getElementById("name-row").innerHTML = renderNameRow();
   document.getElementById("session-section").innerHTML = renderSessionBanner();
   document.getElementById("goals-section").innerHTML = renderGoals();
+  document.getElementById("partner-section").innerHTML = renderPartners();
   document.getElementById("hw-section").innerHTML = renderHomework();
   document.getElementById("mail-section").innerHTML = renderMailSection();
   document.getElementById("glossary-section").innerHTML = renderGlossary();
@@ -713,7 +753,11 @@ function renderSessionBanner(){
 
 function renderGlossary(){
   var s = '<div class="glossary-card">';
-  s += '<div class="glossary-title">📖 용어사전</div>';
+  s += '<div class="glossary-title" data-action="toggle-glossary-open">';
+  s += '<span>📖 용어사전</span>';
+  s += '<svg class="glossary-chevron ' + (glossaryOpen?'open':'') + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>';
+  s += '</div>';
+  if(glossaryOpen){
   s += '<input class="glossary-search" id="glossary-search-input" placeholder="용어 검색..." value="' + esc(glossaryFilter) + '">';
   var filtered = glossary.filter(function(g){
     if(!glossaryFilter) return true;
@@ -746,6 +790,7 @@ function renderGlossary(){
   if(isAdmin){
     s += '<button class="add-topic-btn" data-action="add-gterm">+ 용어 추가</button>';
   }
+  }
   s += '</div>';
   return s;
 }
@@ -761,6 +806,48 @@ function renderSync(){
     s += '<button class="sync-btn" data-action="sync-sheets">' + (syncing?'전송중...':'📤 지금 동기화하기') + '</button>';
     if(syncStatus) s += '<div class="sync-status">' + esc(syncStatus) + '</div>';
   }
+  s += '</div>';
+  return s;
+}
+
+var PARTNER_STATUS_LABELS = ["미접촉","연락함","미팅완료","4주 아카데미 완료","합류완료"];
+
+function renderPartners(){
+  var s = '<div class="partner-card">';
+  s += '<div class="partner-title">🎯 함께할 사업 파트너 3명 찾기</div>';
+  s += '<div class="partner-sub">위파이와 함께 성장할 동료 3명을 찾아보는 미션이에요. 이름을 적고 진행 단계를 표시해보세요.</div>';
+
+  var doneCount = 0;
+  for(var i=0;i<partners.length;i++){ if(partners[i].status===4) doneCount++; }
+  var pct = Math.round((doneCount/3)*100);
+  s += '<div class="partner-progress-row">';
+  s += '<div class="partner-progress-track"><div class="partner-progress-fill" style="width:' + pct + '%"></div></div>';
+  s += '<div class="partner-progress-label">' + doneCount + '/3</div>';
+  s += '</div>';
+
+  for(var j=0;j<partners.length;j++){
+    var p = partners[j];
+    var isDone = p.status===4;
+    s += '<div class="partner-slot ' + (isDone?'done':'') + '">';
+    s += '<div class="partner-slot-head">';
+    s += '<div class="partner-slot-num ' + (isDone?'done':'') + '">' + (j+1) + '</div>';
+    s += '<div style="font-size:12px;color:var(--ink-soft);font-weight:700;">' + (isDone?'합류 완료!':'파트너 후보') + '</div>';
+    s += '</div>';
+    s += '<input data-action="edit-partner-name" data-idx="' + j + '" placeholder="이름" value="' + esc(p.name) + '">';
+    s += '<input data-action="edit-partner-contact" data-idx="' + j + '" placeholder="연락처 (선택)" value="' + esc(p.contact) + '">';
+    s += '<div class="partner-status-row">';
+    for(var st=0; st<PARTNER_STATUS_LABELS.length; st++){
+      s += '<button class="partner-status-btn ' + (p.status===st?'active':'') + '" data-action="set-partner-status" data-idx="' + j + '" data-status="' + st + '">' + PARTNER_STATUS_LABELS[st] + '</button>';
+    }
+    s += '<button class="partner-status-btn partner-reset-btn" data-action="reset-partner" data-idx="' + j + '">🔄 합류 불발 · 초기화</button>';
+    s += '</div>';
+    s += '</div>';
+  }
+
+  if(doneCount===3){
+    s += '<div class="partner-celebrate">🎉 3명 모두 합류 완료! 나만의 팀이 시작됐어요.</div>';
+  }
+
   s += '</div>';
   return s;
 }
@@ -1058,6 +1145,20 @@ function bindEvents(){
       saveUserName(userName);
       nameEditOpen = false;
       render();
+    } else if(action==="set-partner-status"){
+      var pIdx = parseInt(el.getAttribute("data-idx"),10);
+      var pStatus = parseInt(el.getAttribute("data-status"),10);
+      partners[pIdx].status = pStatus;
+      savePartners();
+      render();
+    } else if(action==="reset-partner"){
+      var rIdx = parseInt(el.getAttribute("data-idx"),10);
+      partners[rIdx] = { name:"", contact:"", status:0 };
+      savePartners();
+      render();
+    } else if(action==="toggle-glossary-open"){
+      glossaryOpen = !glossaryOpen;
+      render();
     } else if(action==="toggle-gterm"){
       var gtId = parseInt(el.getAttribute("data-id"),10);
       openGlossaryTerm = (openGlossaryTerm===gtId) ? null : gtId;
@@ -1159,6 +1260,14 @@ function bindEvents(){
       goals[gIdx] = el.value;
       saveGoals();
       render();
+    } else if(action==="edit-partner-name"){
+      var pnIdx = parseInt(el.getAttribute("data-idx"),10);
+      partners[pnIdx].name = el.value;
+      savePartners();
+    } else if(action==="edit-partner-contact"){
+      var pcIdx = parseInt(el.getAttribute("data-idx"),10);
+      partners[pcIdx].contact = el.value;
+      savePartners();
     } else if(action==="edit-gterm-name"){
       var gnId = parseInt(el.getAttribute("data-id"),10);
       for(var gn=0;gn<glossary.length;gn++){ if(glossary[gn].id===gnId){ glossary[gn].term = el.value; break; } }
