@@ -317,6 +317,8 @@
       <div class="suffix">하루에 모으는 금액을 입력하세요 (원 단위)</div>
       <div class="suffix" id="monthlyEquiv" style="color:#38bdf8; font-weight:600; margin-top:6px;"></div>
     </div>
+    <button id="addDailyBtn" style="width:100%; margin-top:12px; background:rgba(56,189,248,0.15); border:1px solid rgba(56,189,248,0.35); color:#38bdf8; border-radius:10px; padding:12px; font-size:14px; font-weight:700;">오늘 저축 완료 · 목표통장에 추가</button>
+    <div class="suffix" id="addDailyMsg" style="text-align:center; margin-top:6px;"></div>
   </div>
 
   <div class="card">
@@ -352,6 +354,8 @@
   var assetTotalEl = document.getElementById('assetTotal');
   var dailyEl = document.getElementById('daily');
   var monthlyEquivEl = document.getElementById('monthlyEquiv');
+  var addDailyBtn = document.getElementById('addDailyBtn');
+  var addDailyMsg = document.getElementById('addDailyMsg');
   var newGoalEl = document.getElementById('newGoal');
   var addGoalBtn = document.getElementById('addGoalBtn');
   var goalChips = document.getElementById('goalChips');
@@ -824,6 +828,28 @@
     selectedGoalForSim = null;
     saveState();
     render();
+  });
+
+  addDailyBtn.addEventListener('click', function(){
+    var amt = parseFloat(dailyEl.value) || 0;
+    if (amt <= 0) {
+      addDailyMsg.textContent = '먼저 하루 저축 금액을 입력해주세요';
+      return;
+    }
+    if (!state.assets) state.assets = [];
+    var target = null;
+    for (var i = 0; i < state.assets.length; i++) {
+      if (state.assets[i].name === '목표통장') { target = state.assets[i]; break; }
+    }
+    if (target) {
+      target.amount += amt;
+    } else {
+      state.assets.push({ name: '목표통장', amount: amt });
+    }
+    saveState();
+    render();
+    addDailyMsg.textContent = fmtWon(amt) + ' 추가됐어요!';
+    setTimeout(function(){ addDailyMsg.textContent = ''; }, 2500);
   });
 
   render();
