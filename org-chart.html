@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0">
+<title>발란스팀 조직도</title>
+<style>
+  :root{
+    --bg: #5b8683;
+    --bg-deep: #4d7572;
+    --line: #cfe0dd;
+    --gold: #e3bd63;
+    --sub: #d7e6e3;
+    --white: #ffffff;
+    --highlight-bg: #b6935c;
+    --highlight-text: #2c2110;
+    --panel: #456663;
+    --danger: #e0705f;
+    --ok: #7fcfa0;
+  }
+  *{ box-sizing: border-box; }
+  html,body{
+    margin:0; padding:0;
+    background: var(--bg);
+    color: var(--white);
+    font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Malgun Gothic", sans-serif;
+    overscroll-behavior: none;
+  }
+
+  /* ---------- Toolbar ---------- */
+  #toolbar{
+    position: sticky; top:0; z-index: 50;
+    display:flex; flex-wrap:wrap; align-items:center; gap:8px;
+    padding:10px 12px;
+    background: var(--bg-deep);
+    border-bottom: 1px solid rgba(255,255,255,.15);
+  }
+  #teamNameInput{
+    font-size:15px; font-weight:700; color: var(--white);
+    background: transparent; border:none; outline:none;
+    border-bottom: 1px dashed rgba(255,255,255,.4);
+    padding: 2px 2px; margin: 0 4px 0 2px;
+    min-width: 90px; max-width: 180px;
+    font-family: inherit;
+  }
+  #teamNameInput::placeholder{ color: rgba(255,255,255,.5); }
+  .spacer{ flex:1; }
+  .tbtn{
+    background: var(--panel); color: var(--white);
+    border:1px solid rgba(255,255,255,.18); border-radius:8px;
+    padding:7px 10px; font-size:12.5px; cursor:pointer;
+    white-space:nowrap;
+  }
+  .tbtn:active{ transform: scale(0.97); }
+  .tbtn.danger{ background: var(--danger); border-color: transparent; }
+  .tbtn.active{ background: var(--gold); color:#2c2110; border-color:transparent; }
+  #zoomLabel{ font-size:12px; color: var(--sub); width:34px; text-align:center; }
+
+  #searchRow{
+    display:flex; align-items:center; gap:6px;
+    padding: 8px 12px; background: var(--bg-deep);
+    border-bottom: 1px solid rgba(255,255,255,.12);
+  }
+  #searchInput{
+    flex:1; background: rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.2);
+    border-radius:8px; padding:7px 10px; color: var(--white); font-size:13px;
+    outline:none; font-family:inherit;
+  }
+  #searchInput::placeholder{ color: rgba(255,255,255,.55); }
+  #searchCount{ font-size:11.5px; color: var(--sub); white-space:nowrap; min-width:38px; text-align:center; }
+
+  #statsPanel{
+    display:none;
+    padding: 10px 14px; background: var(--bg-deep);
+    border-bottom: 1px solid rgba(255,255,255,.12);
+    font-size:12.5px; color: var(--sub);
+  }
+  #statsPanel.show{ display:block; }
+  #statsPanel .stats-total{ color: var(--white); font-weight:700; margin-bottom:6px; font-size:13.5px; }
+  #statsPanel .stats-row{ display:flex; justify-content:space-between; padding:2px 0; }
+  #statsPanel .stats-row b{ color: var(--gold); }
+
+  /* ---------- Chart area ---------- */
+  #chart-wrapper{
+    width:100%;
+    overflow:auto;
+    padding: 40px 60px 50px 30px;
+    min-height: calc(100vh - 52px);
+  }
+  #chart{
+    display:block;
+    width: max-content;
+  }
+
+  ul.tree-list{
+    display:flex; justify-content:center;
+    padding:20px 0 0 0; margin:0;
+    position:relative;
+  }
+  ul.tree-list ul.tree-list{ padding-top:34px; }
+
+  li.tree-node{
+    list-style:none; float:none;
+    display:flex; flex-direction:column; align-items:center;
+    padding: 0 14px; position:relative;
+  }
+  li.tree-node::before{
+    content:''; position:absolute; top:-20px; left:0; width:50%;
+    height:0; border-top:2px solid var(--line);
+  }
+  li.tree-node::after{
+    content:''; position:absolute; top:-20px; right:0; width:50%;
+    height:0; border-top:2px solid var(--line);
+  }
+  li.tree-node:only-child::before,
+  li.tree-node:only-child::after{ display:none; }
+  li.tree-node:first-child::before{ border:none; }
+  li.tree-node:last-child::after{ border:none; }
+  li.tree-node:only-child{ padding-top:0; }
+  li.tree-node > .drop{
+    position:absolute; top:-20px; left:50%; width:0;
+    height:20px; border-left:2px solid var(--line);
+  }
+  #chart > ul.tree-list > li.tree-node > .drop{ display:none; }
+  #chart > ul.tree-list > li.tree-node::before,
+  #chart > ul.tree-list > li.tree-node::after{ display:none; }
+
+  ul.tree-list ul.tree-list::before{
+    content:''; position:absolute; top:0; left:50%; width:0;
+    height:20px; border-left:2px solid var(--line);
+  }
+
+  /* ---------- Node box ---------- */
+  .node{
+    position:relative;
+    display:flex; flex-direction:column; align-items:center;
+    padding: 10px 14px 8px 14px;
+    border-radius:10px;
+    min-width: 128px;
+  }
+  .node.highlight{
+    background: var(--highlight-bg);
+    box-shadow: 0 2px 6px rgba(0,0,0,.2);
+  }
+  .node.search-hit{
+    outline: 2px solid var(--gold);
+    box-shadow: 0 0 0 4px rgba(227,189,99,.35);
+  }
+  .row1{ display:flex; align-items:baseline; gap:6px; }
+  .name-input, .revenue-input, .number-input, .sub-input{
+    background: transparent; border:none; outline:none;
+    color: var(--white); text-align:center; font-family:inherit;
+  }
+  .name-input{ font-size:16px; font-weight:700; width:70px; }
+  .revenue-input{ font-size:12.5px; font-weight:700; color:#a8e6c1; width:64px; }
+  .revenue-input::placeholder{ color: rgba(255,255,255,.4); }
+  .number-input{ font-size:16px; font-weight:700; color: var(--gold); width:48px; }
+  .sub-input{ font-size:13px; color: var(--sub); width:132px; margin-top:2px; }
+  .node.highlight .name-input,
+  .node.highlight .number-input{ color: var(--highlight-text); }
+  .node.highlight .sub-input{ color: rgba(44,33,16,.75); }
+  .name-input::placeholder, .sub-input::placeholder{ color: rgba(255,255,255,.45); }
+  .name-input:focus, .number-input:focus, .sub-input:focus{
+    border-bottom: 1px dashed rgba(255,255,255,.55);
+  }
+
+  .levelRow{
+    display:flex; align-items:center; gap:4px; margin-top:5px;
+  }
+  .level-select{
+    background: rgba(0,0,0,.18); border:1px solid rgba(255,255,255,.25);
+    color: var(--white); font-size:11px; border-radius:6px; padding:2px 3px;
+    font-family:inherit;
+  }
+  .amount-input{
+    background: rgba(0,0,0,.18); border:1px solid rgba(255,255,255,.25);
+    color: var(--white); font-size:11px; border-radius:6px; padding:2px 5px;
+    width:74px; text-align:right; font-family:inherit;
+  }
+  .amount-input::placeholder{ color: rgba(255,255,255,.4); }
+  .gap-text{ font-size:11px; margin-top:3px; font-weight:700; }
+  .gap-text.short{ color:#ffb3a3; }
+  .gap-text.done{ color: var(--ok); }
+
+  .actions{
+    display:flex; gap:4px; margin-top:6px; opacity:.9; flex-wrap:wrap; justify-content:center;
+  }
+  .abtn{
+    font-size:10.5px; padding:3px 6px; border-radius:6px;
+    border:1px solid rgba(255,255,255,.3); background: rgba(0,0,0,.15);
+    color: var(--white); cursor:pointer; white-space:nowrap;
+  }
+  .abtn.del{ border-color: rgba(224,112,95,.6); color:#ffd8d1; }
+  .node.highlight .abtn{ border-color: rgba(44,33,16,.35); color: var(--highlight-text); background: rgba(255,255,255,.18); }
+  .color-swatch{
+    width:22px; height:22px; padding:0; border-radius:6px; border:1px solid rgba(255,255,255,.35);
+    background: transparent; cursor:pointer;
+  }
+  .collapse-btn{
+    position:absolute; bottom:-11px; left:50%; transform:translateX(-50%);
+    background: var(--bg-deep); border:1px solid rgba(255,255,255,.3);
+    color: var(--white); font-size:10px; border-radius:9px;
+    width:22px; height:20px; line-height:18px; text-align:center; cursor:pointer; z-index:5;
+  }
+  .hidden-count{
+    font-size:9.5px; color: var(--sub); margin-top:2px;
+  }
+
+  #credit{
+    position: fixed; left:0; right:0; bottom:0; z-index:40;
+    text-align:center; color: var(--sub); font-size:11px;
+    padding: 6px 0; opacity:.85; letter-spacing:.3px;
+    background: rgba(0,0,0,.18);
+    pointer-events:none;
+  }
+
+  /* ---------- Custom confirm modal (native confirm() can be blocked in embedded webviews) ---------- */
+  #confirmOverlay{
+    position:fixed; inset:0; z-index:1000;
+    background: rgba(0,0,0,.5);
+    display:none; align-items:center; justify-content:center;
+    padding: 24px;
+  }
+  #confirmOverlay.show{ display:flex; }
+  .confirm-box{
+    background: var(--panel);
+    border-radius:14px;
+    padding: 20px 18px 16px 18px;
+    max-width: 300px; width:100%;
+    box-shadow: 0 8px 24px rgba(0,0,0,.35);
+  }
+  .confirm-box p{
+    margin:0 0 16px 0; color: var(--white);
+    font-size:14.5px; line-height:1.5; text-align:center;
+    white-space: pre-line;
+  }
+  .confirm-actions{
+    display:flex; gap:8px;
+  }
+  .confirm-actions button{
+    flex:1; padding:10px 8px; border-radius:8px; border:none;
+    font-size:14px; cursor:pointer; font-family:inherit;
+  }
+  #confirmCancel{ background: rgba(255,255,255,.15); color: var(--white); }
+  #confirmOk{ background: var(--danger); color: var(--white); font-weight:700; }
+  #confirmOk.neutral{ background: var(--gold); color:#2c2110; }
+</style>
+</head>
+<body>
+
+<div id="toolbar">
+  <input type="text" id="teamNameInput" placeholder="팀 이름 입력" value="발란스팀">
+  <span style="font-size:15px;font-weight:700;color:var(--white);white-space:nowrap;">조직도</span>
+  <span style="display:flex;align-items:center;gap:6px;">
+    <button class="tbtn" id="zoomOut">－</button>
+    <span id="zoomLabel">100%</span>
+    <button class="tbtn" id="zoomIn">＋</button>
+  </span>
+  <div class="spacer"></div>
+  <button class="tbtn" id="statsBtn">통계</button>
+  <button class="tbtn" id="exportBtn">내보내기</button>
+  <button class="tbtn" id="importBtn">불러오기</button>
+  <input type="file" id="importFile" accept="application/json" style="display:none">
+  <button class="tbtn danger" id="resetBtn">전체 초기화</button>
+</div>
+
+<div id="searchRow">
+  <input type="text" id="searchInput" placeholder="이름 검색">
+  <span id="searchCount"></span>
+  <button class="tbtn" id="searchPrev">◀</button>
+  <button class="tbtn" id="searchNext">▶</button>
+</div>
+
+<div id="statsPanel"></div>
+
+<div id="chart-wrapper">
+  <div id="chart"></div>
+</div>
+
+<div id="credit">제작: 발란스 J.G SHIM</div>
+
+<div id="confirmOverlay">
+  <div class="confirm-box">
+    <p id="confirmMsg"></p>
+    <div class="confirm-actions" id="confirmActions">
+      <button id="confirmCancel">취소</button>
+      <button id="confirmOk">삭제</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var STORAGE_KEY = 'balance-org-chart-v1';
+  var ZOOM_KEY = 'balance-org-chart-zoom';
+  var TEAM_KEY = 'balance-org-chart-team-name';
+  var DEFAULT_MAX_CHILDREN = 3;
+  var zoom = parseInt(localStorage.getItem(ZOOM_KEY) || '100', 10);
+  if(isNaN(zoom) || zoom < 40 || zoom > 160) zoom = 100;
+
+  var LEVELS = [
+    { label:'미지정', value:0 },
+    { label:'1레벨', value:0 },
+    { label:'2레벨', value:3000 },
+    { label:'3레벨', value:15000 },
+    { label:'4레벨', value:75000 },
+    { label:'5레벨', value:300000 },
+    { label:'6레벨', value:750000 },
+    { label:'7레벨', value:1500000 },
+    { label:'8레벨', value:3000000 },
+    { label:'9레벨', value:6000000 },
+    { label:'10레벨', value:11000000 },
+    { label:'11레벨', value:18000000 },
+    { label:'12레벨', value:30000000 },
+    { label:'13레벨', value:50000000 },
+    { label:'14레벨', value:80000000 },
+    { label:'15레벨', value:125000000 },
+    { label:'16레벨', value:200000000 },
+    { label:'17레벨', value:320000000 },
+    { label:'18레벨', value:500000000 },
+    { label:'19레벨', value:750000000 },
+    { label:'20레벨', value:1000000000 }
+  ];
+
+  function getMax(node){
+    return node.maxChildren || DEFAULT_MAX_CHILDREN;
+  }
+
+  function genId(){
+    return 'n' + Date.now().toString(36) + Math.random().toString(36).slice(2,7);
+  }
+
+  // ---------- custom modal (replaces window.confirm/alert, which some embedded webviews block) ----------
+  var confirmOverlay = document.getElementById('confirmOverlay');
+  var confirmMsg = document.getElementById('confirmMsg');
+  var confirmOkBtn = document.getElementById('confirmOk');
+  var confirmCancelBtn = document.getElementById('confirmCancel');
+  var pendingConfirm = null;
+
+  function showConfirm(message, okLabel, onConfirm){
+    confirmMsg.textContent = message;
+    confirmOkBtn.textContent = okLabel || '확인';
+    confirmOkBtn.className = '';
+    confirmCancelBtn.style.display = '';
+    pendingConfirm = onConfirm;
+    confirmOverlay.className = 'show';
+  }
+
+  function showAlert(message){
+    confirmMsg.textContent = message;
+    confirmOkBtn.textContent = '확인';
+    confirmOkBtn.className = 'neutral';
+    confirmCancelBtn.style.display = 'none';
+    pendingConfirm = null;
+    confirmOverlay.className = 'show';
+  }
+
+  confirmOkBtn.addEventListener('click', function(){
+    confirmOverlay.className = '';
+    var cb = pendingConfirm;
+    pendingConfirm = null;
+    if(cb) cb();
+  });
+  confirmCancelBtn.addEventListener('click', function(){
+    confirmOverlay.className = '';
+    pendingConfirm = null;
+  });
+
+  function defaultData(){
+    return { id:'root', name:'대표', number:'', subtext:'', revenue:'', highlight:false, color:'', level:0, amount:null, collapsed:false, children:[] };
+  }
+
+  function normalizeNode(node){
+    if(node.highlight === undefined) node.highlight = false;
+    if(node.color === undefined) node.color = '';
+    if(node.level === undefined) node.level = 0;
+    if(node.amount === undefined) node.amount = null;
+    if(node.revenue === undefined) node.revenue = '';
+    if(node.collapsed === undefined) node.collapsed = false;
+    if(!node.children) node.children = [];
+    node.children.forEach(normalizeNode);
+    return node;
+  }
+
+  function loadData(){
+    try{
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if(!raw) return defaultData();
+      var parsed = JSON.parse(raw);
+      if(!parsed || !parsed.id) return defaultData();
+      return normalizeNode(parsed);
+    }catch(e){
+      return defaultData();
+    }
+  }
+
+  var treeData = loadData();
+  var saveTimer = null;
+
+  function saveData(){
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(function(){
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(treeData));
+    }, 150);
+  }
+
+  function findNode(id, node){
+    node = node || treeData;
+    if(node.id === id) return node;
+    for(var i=0;i<node.children.length;i++){
+      var found = findNode(id, node.children[i]);
+      if(found) return found;
+    }
+    return null;
+  }
+
+  function findParent(id, node, parent){
+    node = node || treeData;
+    if(node.id === id) return parent;
+    for(var i=0;i<node.children.length;i++){
+      var found = findParent(id, node.children[i], node);
+      if(found) return found;
+    }
+    return null;
+  }
+
+  function findPathIds(id, node, path){
+    node = node || treeData;
+    path = path || [];
+    if(node.id === id) return path.concat([node.id]);
+    for(var i=0;i<node.children.length;i++){
+      var res = findPathIds(id, node.children[i], path.concat([node.id]));
+      if(res) return res;
+    }
+    return null;
+  }
+
+  function countAll(node){
+    var count = 1;
+    for(var i=0;i<node.children.length;i++){
+      count += countAll(node.children[i]);
+    }
+    return count;
+  }
+
+  function levelValue(levelIndex){
+    return LEVELS[levelIndex] ? LEVELS[levelIndex].value : 0;
+  }
+
+  function formatMoney(n){
+    if(n === null || n === undefined || isNaN(n)) return '';
+    return '$' + Math.round(n).toLocaleString('en-US');
+  }
+
+  function parseMoney(str){
+    if(str === null || str === undefined || str === '') return 0;
+    var n = parseFloat(String(str).replace(/[^0-9.\-]/g, ''));
+    return isNaN(n) ? 0 : n;
+  }
+
+  var LEVEL4_TARGET = 75000;
+  var LEVEL4_CAP = LEVEL4_TARGET * 0.4; // each subordinate line counts up to 40% of the target
+
+  function computeTeamGap(node){
+    var sum = 0;
+    node.children.forEach(function(c){
+      sum += Math.min(parseMoney(c.revenue), LEVEL4_CAP);
+    });
+    return { sum: sum, shortfall: LEVEL4_TARGET - sum };
+  }
+
+  function buildTeamGapEl(node){
+    var stat = computeTeamGap(node);
+    var el = document.createElement('div');
+    if(stat.shortfall > 0){
+      el.className = 'gap-text short';
+      el.textContent = '4직급 팀매출 ' + formatMoney(stat.sum) + ' · 부족 ' + formatMoney(stat.shortfall);
+    } else {
+      el.className = 'gap-text done';
+      el.textContent = '4직급 팀매출 ' + formatMoney(stat.sum) + ' · 달성';
+    }
+    return el;
+  }
+
+  function updateTeamGapDisplay(nodeId){
+    var node = findNode(nodeId);
+    if(!node || !node.highlight) return;
+    var box = document.querySelector('.node[data-node-id="' + nodeId + '"]');
+    if(!box) return;
+    var existing = box.querySelector('.team-gap-text');
+    if(existing) existing.remove();
+    var el = buildTeamGapEl(node);
+    el.classList.add('team-gap-text');
+    var anchor = box.querySelector('.personal-gap-text') || box.querySelector('.levelRow');
+    anchor.parentNode.insertBefore(el, anchor.nextSibling);
+  }
+
+  function updateGapDisplay(nodeId){
+    var node = findNode(nodeId);
+    if(!node) return;
+    var box = document.querySelector('.node[data-node-id="' + nodeId + '"]');
+    if(!box) return;
+    var existing = box.querySelector('.personal-gap-text');
+    if(existing) existing.remove();
+    var target = levelValue(node.level);
+    if(target > 0 && node.amount !== null && node.amount !== undefined && node.amount !== ''){
+      var gap = target - Number(node.amount);
+      var gapEl = document.createElement('div');
+      if(gap > 0){
+        gapEl.className = 'gap-text personal-gap-text short';
+        gapEl.textContent = (LEVELS[node.level].label) + ' 부족 ' + formatMoney(gap);
+      } else {
+        gapEl.className = 'gap-text personal-gap-text done';
+        gapEl.textContent = (LEVELS[node.level].label) + ' 달성';
+      }
+      var levelRowEl = box.querySelector('.levelRow');
+      levelRowEl.parentNode.insertBefore(gapEl, levelRowEl.nextSibling);
+    }
+  }
+
+  function buildNodeEl(node){
+    var li = document.createElement('li');
+    li.className = 'tree-node';
+
+    var drop = document.createElement('div');
+    drop.className = 'drop';
+    li.appendChild(drop);
+
+    var box = document.createElement('div');
+    box.className = 'node' + (node.highlight ? ' highlight' : '');
+    box.setAttribute('data-node-id', node.id);
+    if(node.color){
+      box.style.backgroundColor = node.color;
+    }
+
+    var row1 = document.createElement('div');
+    row1.className = 'row1';
+
+    var nameInput = document.createElement('input');
+    nameInput.className = 'name-input';
+    nameInput.placeholder = '이름';
+    nameInput.value = node.name || '';
+    nameInput.setAttribute('data-id', node.id);
+    nameInput.setAttribute('data-field', 'name');
+
+    var numberInput = document.createElement('input');
+    numberInput.className = 'number-input';
+    numberInput.placeholder = '숫자';
+    numberInput.value = node.number || '';
+    numberInput.setAttribute('data-id', node.id);
+    numberInput.setAttribute('data-field', 'number');
+
+    row1.appendChild(nameInput);
+
+    var revenueInput = document.createElement('input');
+    revenueInput.className = 'revenue-input';
+    revenueInput.placeholder = '매출$';
+    revenueInput.value = node.revenue || '';
+    revenueInput.setAttribute('data-id', node.id);
+    revenueInput.setAttribute('data-field', 'revenue');
+    row1.appendChild(revenueInput);
+
+    row1.appendChild(numberInput);
+
+    var subInput = document.createElement('input');
+    subInput.className = 'sub-input';
+    subInput.placeholder = '아이디 / 전화번호';
+    subInput.value = node.subtext || '';
+    subInput.setAttribute('data-id', node.id);
+    subInput.setAttribute('data-field', 'subtext');
+
+    var levelRow = document.createElement('div');
+    levelRow.className = 'levelRow';
+
+    var levelSelect = document.createElement('select');
+    levelSelect.className = 'level-select';
+    levelSelect.setAttribute('data-id', node.id);
+    levelSelect.setAttribute('data-field', 'level');
+    LEVELS.forEach(function(lv, idx){
+      var opt = document.createElement('option');
+      opt.value = idx;
+      opt.textContent = lv.label;
+      if(idx === node.level) opt.selected = true;
+      levelSelect.appendChild(opt);
+    });
+
+    var amountInput = document.createElement('input');
+    amountInput.className = 'amount-input';
+    amountInput.type = 'number';
+    amountInput.placeholder = '현재$';
+    amountInput.value = (node.amount === null || node.amount === undefined) ? '' : node.amount;
+    amountInput.setAttribute('data-id', node.id);
+    amountInput.setAttribute('data-field', 'amount');
+
+    levelRow.appendChild(levelSelect);
+    levelRow.appendChild(amountInput);
+
+    box.appendChild(row1);
+    box.appendChild(subInput);
+    box.appendChild(levelRow);
+
+    var target = levelValue(node.level);
+    if(target > 0 && node.amount !== null && node.amount !== undefined && node.amount !== ''){
+      var gap = target - Number(node.amount);
+      var gapEl = document.createElement('div');
+      if(gap > 0){
+        gapEl.className = 'gap-text personal-gap-text short';
+        gapEl.textContent = (LEVELS[node.level].label) + ' 부족 ' + formatMoney(gap);
+      } else {
+        gapEl.className = 'gap-text personal-gap-text done';
+        gapEl.textContent = (LEVELS[node.level].label) + ' 달성';
+      }
+      box.appendChild(gapEl);
+    }
+
+    if(node.highlight && node.children.length > 0){
+      var teamGapEl = buildTeamGapEl(node);
+      teamGapEl.classList.add('team-gap-text');
+      box.appendChild(teamGapEl);
+    }
+
+    var actions = document.createElement('div');
+    actions.className = 'actions';
+
+    var max = getMax(node);
+    var addBtn = document.createElement('button');
+    addBtn.className = 'abtn add';
+    addBtn.setAttribute('data-id', node.id);
+    addBtn.textContent = '+ 하위 (' + node.children.length + '/' + max + ')';
+
+    var hlBtn = document.createElement('button');
+    hlBtn.className = 'abtn hl';
+    hlBtn.setAttribute('data-id', node.id);
+    hlBtn.textContent = node.highlight ? '강조해제' : '강조';
+
+    var colorInput = document.createElement('input');
+    colorInput.type = 'color';
+    colorInput.className = 'color-swatch';
+    colorInput.value = node.color || '#5b8683';
+    colorInput.setAttribute('data-id', node.id);
+    colorInput.title = '색상 선택';
+
+    actions.appendChild(addBtn);
+    actions.appendChild(hlBtn);
+    actions.appendChild(colorInput);
+
+    if(node.id !== 'root'){
+      var delBtn = document.createElement('button');
+      delBtn.className = 'abtn del';
+      delBtn.setAttribute('data-id', node.id);
+      delBtn.textContent = '삭제';
+      actions.appendChild(delBtn);
+    }
+
+    box.appendChild(actions);
+    li.appendChild(box);
+
+    if(node.children && node.children.length > 0){
+      if(node.collapsed){
+        var hc = document.createElement('div');
+        hc.className = 'hidden-count';
+        hc.textContent = '(하위 ' + (countAll(node)-1) + '명 숨김)';
+        li.appendChild(hc);
+      } else {
+        var ul = document.createElement('ul');
+        ul.className = 'tree-list';
+        node.children.forEach(function(child){
+          ul.appendChild(buildNodeEl(child));
+        });
+        li.appendChild(ul);
+      }
+      var collapseBtn = document.createElement('button');
+      collapseBtn.className = 'collapse-btn';
+      collapseBtn.setAttribute('data-id', node.id);
+      collapseBtn.textContent = node.collapsed ? '▸' : '▾';
+      box.appendChild(collapseBtn);
+    }
+
+    return li;
+  }
+
+  function render(){
+    var chart = document.getElementById('chart');
+    chart.innerHTML = '';
+    var ul = document.createElement('ul');
+    ul.className = 'tree-list';
+    ul.appendChild(buildNodeEl(treeData));
+    chart.appendChild(ul);
+    applyZoom();
+    renderStats();
+  }
+
+  function applyZoom(){
+    var chart = document.getElementById('chart');
+    chart.style.zoom = (zoom/100);
+    document.getElementById('zoomLabel').textContent = zoom + '%';
+  }
+
+  function renderStats(){
+    var panel = document.getElementById('statsPanel');
+    if(!panel.classList.contains('show')) return;
+    var total = countAll(treeData);
+    var byLevel = {};
+    (function walk(node){
+      var label = LEVELS[node.level] ? LEVELS[node.level].label : '미지정';
+      byLevel[label] = (byLevel[label]||0) + 1;
+      node.children.forEach(walk);
+    })(treeData);
+    var html = '<div class="stats-total">총 인원: ' + total + '명</div>';
+    LEVELS.forEach(function(lv){
+      if(byLevel[lv.label]){
+        html += '<div class="stats-row"><span>' + lv.label + '</span><b>' + byLevel[lv.label] + '명</b></div>';
+      }
+    });
+    panel.innerHTML = html;
+  }
+
+  document.getElementById('statsBtn').addEventListener('click', function(){
+    var panel = document.getElementById('statsPanel');
+    var btn = document.getElementById('statsBtn');
+    panel.classList.toggle('show');
+    btn.classList.toggle('active');
+    renderStats();
+  });
+
+  document.getElementById('chart-wrapper').addEventListener('input', function(e){
+    var t = e.target;
+    if(t.matches('input[data-id]')){
+      var node = findNode(t.getAttribute('data-id'));
+      if(!node) return;
+      var field = t.getAttribute('data-field');
+      if(field === 'amount'){
+        node.amount = t.value === '' ? null : Number(t.value);
+        saveData();
+        updateGapDisplay(node.id);
+      } else {
+        node[field] = t.value;
+        saveData();
+        if(field === 'revenue'){
+          var parent = findParent(node.id);
+          if(parent && parent.highlight){
+            updateTeamGapDisplay(parent.id);
+          }
+        }
+      }
+    }
+  });
+
+  document.getElementById('chart-wrapper').addEventListener('change', function(e){
+    var t = e.target;
+    if(t.matches('select[data-id]')){
+      var node = findNode(t.getAttribute('data-id'));
+      if(node){
+        node.level = Number(t.value);
+        saveData();
+        render();
+      }
+    } else if(t.matches('input[type="color"][data-id]')){
+      var node2 = findNode(t.getAttribute('data-id'));
+      if(node2){
+        node2.color = t.value;
+        saveData();
+        render();
+      }
+    }
+  });
+
+  document.getElementById('chart-wrapper').addEventListener('click', function(e){
+    var t = e.target;
+    if(t.classList.contains('add')){
+      var node = findNode(t.getAttribute('data-id'));
+      if(node){
+        if(node.children.length >= getMax(node)){
+          node.maxChildren = getMax(node) + 1;
+        }
+        node.children.push({ id:genId(), name:'새 인원', number:'', subtext:'', revenue:'', highlight:false, color:'', level:0, amount:null, collapsed:false, children:[] });
+        node.collapsed = false;
+        saveData();
+        render();
+      }
+    } else if(t.classList.contains('hl')){
+      var node2 = findNode(t.getAttribute('data-id'));
+      if(node2){
+        node2.highlight = !node2.highlight;
+        saveData();
+        render();
+      }
+    } else if(t.classList.contains('collapse-btn')){
+      var node4 = findNode(t.getAttribute('data-id'));
+      if(node4){
+        node4.collapsed = !node4.collapsed;
+        saveData();
+        render();
+      }
+    } else if(t.classList.contains('del')){
+      var id = t.getAttribute('data-id');
+      var target = findNode(id);
+      var targetName = (target && target.name) ? target.name : '이름없음';
+      var subCount = target ? countAll(target) - 1 : 0;
+      var warn = subCount > 0
+        ? '"' + targetName + '" 님과 하위 ' + subCount + '명을 삭제하겠습니까?'
+        : '"' + targetName + '" 님을 삭제하겠습니까?';
+      showConfirm(warn, '삭제', function(){
+        var parent = findParent(id);
+        if(parent){
+          parent.children = parent.children.filter(function(c){ return c.id !== id; });
+          saveData();
+          render();
+        }
+      });
+    }
+  });
+
+  document.getElementById('zoomIn').addEventListener('click', function(){
+    zoom = Math.min(160, zoom + 10);
+    localStorage.setItem(ZOOM_KEY, zoom);
+    applyZoom();
+  });
+  document.getElementById('zoomOut').addEventListener('click', function(){
+    zoom = Math.max(40, zoom - 10);
+    localStorage.setItem(ZOOM_KEY, zoom);
+    applyZoom();
+  });
+
+  document.getElementById('resetBtn').addEventListener('click', function(){
+    showConfirm('전체 조직도를 초기화할까요? 되돌릴 수 없습니다.', '초기화', function(){
+      treeData = defaultData();
+      saveData();
+      render();
+    });
+  });
+
+  document.getElementById('exportBtn').addEventListener('click', function(){
+    var blob = new Blob([JSON.stringify(treeData, null, 2)], { type:'application/json' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'balance-org-chart-backup.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  });
+
+  document.getElementById('importBtn').addEventListener('click', function(){
+    document.getElementById('importFile').click();
+  });
+  document.getElementById('importFile').addEventListener('change', function(e){
+    var file = e.target.files[0];
+    if(!file) return;
+    var reader = new FileReader();
+    reader.onload = function(evt){
+      try{
+        var parsed = JSON.parse(evt.target.result);
+        if(!parsed || !parsed.id){ showAlert('올바르지 않은 파일입니다.'); return; }
+        treeData = normalizeNode(parsed);
+        saveData();
+        render();
+      }catch(err){
+        showAlert('파일을 읽을 수 없습니다.');
+      }
+    };
+    reader.readAsText(file);
+    e.target.value = '';
+  });
+
+  var searchMatches = [];
+  var searchIndex = -1;
+
+  function runSearch(query){
+    searchMatches = [];
+    searchIndex = -1;
+    var q = (query||'').trim().toLowerCase();
+    if(!q){
+      document.getElementById('searchCount').textContent = '';
+      clearSearchHighlight();
+      return;
+    }
+    (function walk(node){
+      if((node.name||'').toLowerCase().indexOf(q) !== -1){
+        searchMatches.push(node.id);
+      }
+      node.children.forEach(walk);
+    })(treeData);
+    document.getElementById('searchCount').textContent = searchMatches.length
+      ? '1/' + searchMatches.length
+      : '0/0';
+    if(searchMatches.length){
+      searchIndex = 0;
+      goToMatch(0);
+    } else {
+      clearSearchHighlight();
+    }
+  }
+
+  function clearSearchHighlight(){
+    var prev = document.querySelector('.node.search-hit');
+    if(prev) prev.classList.remove('search-hit');
+  }
+
+  function goToMatch(idx){
+    if(!searchMatches.length) return;
+    var id = searchMatches[idx];
+    var path = findPathIds(id) || [];
+    var changed = false;
+    path.forEach(function(pid){
+      if(pid === id) return;
+      var n = findNode(pid);
+      if(n && n.collapsed){ n.collapsed = false; changed = true; }
+    });
+    if(changed){ saveData(); render(); }
+    clearSearchHighlight();
+    var el = document.querySelector('.node[data-node-id="' + id + '"]');
+    if(el){
+      el.classList.add('search-hit');
+      el.scrollIntoView({ behavior:'smooth', block:'center', inline:'center' });
+    }
+    document.getElementById('searchCount').textContent = (idx+1) + '/' + searchMatches.length;
+  }
+
+  document.getElementById('searchInput').addEventListener('input', function(e){
+    runSearch(e.target.value);
+  });
+  document.getElementById('searchNext').addEventListener('click', function(){
+    if(!searchMatches.length) return;
+    searchIndex = (searchIndex + 1) % searchMatches.length;
+    goToMatch(searchIndex);
+  });
+  document.getElementById('searchPrev').addEventListener('click', function(){
+    if(!searchMatches.length) return;
+    searchIndex = (searchIndex - 1 + searchMatches.length) % searchMatches.length;
+    goToMatch(searchIndex);
+  });
+
+  var teamNameInput = document.getElementById('teamNameInput');
+  var savedTeamName = localStorage.getItem(TEAM_KEY);
+  if(savedTeamName){
+    teamNameInput.value = savedTeamName;
+    document.title = savedTeamName + ' 조직도';
+  }
+  teamNameInput.addEventListener('input', function(){
+    localStorage.setItem(TEAM_KEY, teamNameInput.value);
+    document.title = (teamNameInput.value || '팀') + ' 조직도';
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>
