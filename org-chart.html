@@ -164,20 +164,6 @@
     border-bottom: 1px dashed rgba(255,255,255,.55);
   }
 
-  .levelRow{
-    display:flex; align-items:center; gap:4px; margin-top:5px;
-  }
-  .level-select{
-    background: rgba(0,0,0,.18); border:1px solid rgba(255,255,255,.25);
-    color: var(--white); font-size:11px; border-radius:6px; padding:2px 3px;
-    font-family:inherit;
-  }
-  .amount-input{
-    background: rgba(0,0,0,.18); border:1px solid rgba(255,255,255,.25);
-    color: var(--white); font-size:11px; border-radius:6px; padding:2px 5px;
-    width:74px; text-align:right; font-family:inherit;
-  }
-  .amount-input::placeholder{ color: rgba(255,255,255,.4); }
   .gap-text{ font-size:11px; margin-top:3px; font-weight:700; }
   .gap-text.short{ color:#ffb3a3; }
   .gap-text.done{ color: var(--ok); }
@@ -298,30 +284,6 @@
   var zoom = parseInt(localStorage.getItem(ZOOM_KEY) || '100', 10);
   if(isNaN(zoom) || zoom < 40 || zoom > 160) zoom = 100;
 
-  var LEVELS = [
-    { label:'미지정', value:0 },
-    { label:'1레벨', value:0 },
-    { label:'2레벨', value:3000 },
-    { label:'3레벨', value:15000 },
-    { label:'4레벨', value:75000 },
-    { label:'5레벨', value:300000 },
-    { label:'6레벨', value:750000 },
-    { label:'7레벨', value:1500000 },
-    { label:'8레벨', value:3000000 },
-    { label:'9레벨', value:6000000 },
-    { label:'10레벨', value:11000000 },
-    { label:'11레벨', value:18000000 },
-    { label:'12레벨', value:30000000 },
-    { label:'13레벨', value:50000000 },
-    { label:'14레벨', value:80000000 },
-    { label:'15레벨', value:125000000 },
-    { label:'16레벨', value:200000000 },
-    { label:'17레벨', value:320000000 },
-    { label:'18레벨', value:500000000 },
-    { label:'19레벨', value:750000000 },
-    { label:'20레벨', value:1000000000 }
-  ];
-
   function getMax(node){
     return node.maxChildren || DEFAULT_MAX_CHILDREN;
   }
@@ -367,14 +329,12 @@
   });
 
   function defaultData(){
-    return { id:'root', name:'대표', number:'', subtext:'', revenue:'', highlight:false, color:'', level:0, amount:null, collapsed:false, children:[] };
+    return { id:'root', name:'대표', number:'', subtext:'', revenue:'', highlight:false, color:'', collapsed:false, children:[] };
   }
 
   function normalizeNode(node){
     if(node.highlight === undefined) node.highlight = false;
     if(node.color === undefined) node.color = '';
-    if(node.level === undefined) node.level = 0;
-    if(node.amount === undefined) node.amount = null;
     if(node.revenue === undefined) node.revenue = '';
     if(node.collapsed === undefined) node.collapsed = false;
     if(!node.children) node.children = [];
@@ -443,10 +403,6 @@
     return count;
   }
 
-  function levelValue(levelIndex){
-    return LEVELS[levelIndex] ? LEVELS[levelIndex].value : 0;
-  }
-
   function formatMoney(n){
     if(n === null || n === undefined || isNaN(n)) return '';
     return '$' + Math.round(n).toLocaleString('en-US');
@@ -491,31 +447,8 @@
     if(existing) existing.remove();
     var el = buildTeamGapEl(node);
     el.classList.add('team-gap-text');
-    var anchor = box.querySelector('.personal-gap-text') || box.querySelector('.levelRow');
-    anchor.parentNode.insertBefore(el, anchor.nextSibling);
-  }
-
-  function updateGapDisplay(nodeId){
-    var node = findNode(nodeId);
-    if(!node) return;
-    var box = document.querySelector('.node[data-node-id="' + nodeId + '"]');
-    if(!box) return;
-    var existing = box.querySelector('.personal-gap-text');
-    if(existing) existing.remove();
-    var target = levelValue(node.level);
-    if(target > 0 && node.amount !== null && node.amount !== undefined && node.amount !== ''){
-      var gap = target - Number(node.amount);
-      var gapEl = document.createElement('div');
-      if(gap > 0){
-        gapEl.className = 'gap-text personal-gap-text short';
-        gapEl.textContent = (LEVELS[node.level].label) + ' 부족 ' + formatMoney(gap);
-      } else {
-        gapEl.className = 'gap-text personal-gap-text done';
-        gapEl.textContent = (LEVELS[node.level].label) + ' 달성';
-      }
-      var levelRowEl = box.querySelector('.levelRow');
-      levelRowEl.parentNode.insertBefore(gapEl, levelRowEl.nextSibling);
-    }
+    var actionsEl = box.querySelector('.actions');
+    box.insertBefore(el, actionsEl);
   }
 
   function buildNodeEl(node){
@@ -569,49 +502,8 @@
     subInput.setAttribute('data-id', node.id);
     subInput.setAttribute('data-field', 'subtext');
 
-    var levelRow = document.createElement('div');
-    levelRow.className = 'levelRow';
-
-    var levelSelect = document.createElement('select');
-    levelSelect.className = 'level-select';
-    levelSelect.setAttribute('data-id', node.id);
-    levelSelect.setAttribute('data-field', 'level');
-    LEVELS.forEach(function(lv, idx){
-      var opt = document.createElement('option');
-      opt.value = idx;
-      opt.textContent = lv.label;
-      if(idx === node.level) opt.selected = true;
-      levelSelect.appendChild(opt);
-    });
-
-    var amountInput = document.createElement('input');
-    amountInput.className = 'amount-input';
-    amountInput.type = 'number';
-    amountInput.placeholder = '현재$';
-    amountInput.value = (node.amount === null || node.amount === undefined) ? '' : node.amount;
-    amountInput.setAttribute('data-id', node.id);
-    amountInput.setAttribute('data-field', 'amount');
-
-    levelRow.appendChild(levelSelect);
-    levelRow.appendChild(amountInput);
-
     box.appendChild(row1);
     box.appendChild(subInput);
-    box.appendChild(levelRow);
-
-    var target = levelValue(node.level);
-    if(target > 0 && node.amount !== null && node.amount !== undefined && node.amount !== ''){
-      var gap = target - Number(node.amount);
-      var gapEl = document.createElement('div');
-      if(gap > 0){
-        gapEl.className = 'gap-text personal-gap-text short';
-        gapEl.textContent = (LEVELS[node.level].label) + ' 부족 ' + formatMoney(gap);
-      } else {
-        gapEl.className = 'gap-text personal-gap-text done';
-        gapEl.textContent = (LEVELS[node.level].label) + ' 달성';
-      }
-      box.appendChild(gapEl);
-    }
 
     if(node.highlight && node.children.length > 0){
       var teamGapEl = buildTeamGapEl(node);
@@ -700,18 +592,16 @@
     var panel = document.getElementById('statsPanel');
     if(!panel.classList.contains('show')) return;
     var total = countAll(treeData);
-    var byLevel = {};
+    var totalRevenue = 0;
+    var highlightCount = 0;
     (function walk(node){
-      var label = LEVELS[node.level] ? LEVELS[node.level].label : '미지정';
-      byLevel[label] = (byLevel[label]||0) + 1;
+      totalRevenue += parseMoney(node.revenue);
+      if(node.highlight) highlightCount++;
       node.children.forEach(walk);
     })(treeData);
     var html = '<div class="stats-total">총 인원: ' + total + '명</div>';
-    LEVELS.forEach(function(lv){
-      if(byLevel[lv.label]){
-        html += '<div class="stats-row"><span>' + lv.label + '</span><b>' + byLevel[lv.label] + '명</b></div>';
-      }
-    });
+    html += '<div class="stats-row"><span>전체 매출 합계</span><b>' + formatMoney(totalRevenue) + '</b></div>';
+    html += '<div class="stats-row"><span>강조된 인원</span><b>' + highlightCount + '명</b></div>';
     panel.innerHTML = html;
   }
 
@@ -729,18 +619,12 @@
       var node = findNode(t.getAttribute('data-id'));
       if(!node) return;
       var field = t.getAttribute('data-field');
-      if(field === 'amount'){
-        node.amount = t.value === '' ? null : Number(t.value);
-        saveData();
-        updateGapDisplay(node.id);
-      } else {
-        node[field] = t.value;
-        saveData();
-        if(field === 'revenue'){
-          var parent = findParent(node.id);
-          if(parent && parent.highlight){
-            updateTeamGapDisplay(parent.id);
-          }
+      node[field] = t.value;
+      saveData();
+      if(field === 'revenue'){
+        var parent = findParent(node.id);
+        if(parent && parent.highlight){
+          updateTeamGapDisplay(parent.id);
         }
       }
     }
@@ -748,14 +632,7 @@
 
   document.getElementById('chart-wrapper').addEventListener('change', function(e){
     var t = e.target;
-    if(t.matches('select[data-id]')){
-      var node = findNode(t.getAttribute('data-id'));
-      if(node){
-        node.level = Number(t.value);
-        saveData();
-        render();
-      }
-    } else if(t.matches('input[type="color"][data-id]')){
+    if(t.matches('input[type="color"][data-id]')){
       var node2 = findNode(t.getAttribute('data-id'));
       if(node2){
         node2.color = t.value;
@@ -773,7 +650,7 @@
         if(node.children.length >= getMax(node)){
           node.maxChildren = getMax(node) + 1;
         }
-        node.children.push({ id:genId(), name:'새 인원', number:'', subtext:'', revenue:'', highlight:false, color:'', level:0, amount:null, collapsed:false, children:[] });
+        node.children.push({ id:genId(), name:'새 인원', number:'', subtext:'', revenue:'', highlight:false, color:'', collapsed:false, children:[] });
         node.collapsed = false;
         saveData();
         render();
