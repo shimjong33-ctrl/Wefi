@@ -167,6 +167,14 @@
   .gap-text{ font-size:11px; margin-top:3px; font-weight:700; }
   .gap-text.short{ color:#ffb3a3; }
   .gap-text.done{ color: var(--ok); }
+  .team-panel{ margin-top:3px; }
+  .team-line{
+    font-size:10px; color: rgba(44,33,16,.85); margin-top:1px;
+    text-align:center;
+  }
+  .team-line.done{ color: #1f5c3a; font-weight:700; }
+  .node:not(.highlight) .team-line{ color: rgba(255,255,255,.75); }
+  .node:not(.highlight) .team-line.done{ color: var(--ok); }
 
   .actions{
     display:flex; gap:4px; margin-top:6px; opacity:.9; flex-wrap:wrap; justify-content:center;
@@ -395,6 +403,12 @@
     return null;
   }
 
+  function findAncestorNodes(id){
+    var path = findPathIds(id) || [];
+    var ancestorIds = path.slice(0, -1); // exclude the node itself
+    return ancestorIds.map(function(aid){ return findNode(aid); }).filter(Boolean);
+  }
+
   function countAll(node){
     var count = 1;
     for(var i=0;i<node.children.length;i++){
@@ -417,25 +431,48 @@
   var LEVEL4_TARGET = 75000;
   var LEVEL4_CAP = LEVEL4_TARGET * 0.4; // each subordinate line counts up to 40% of the target
 
+  function subtreeRevenue(node){
+    var sum = parseMoney(node.revenue);
+    node.children.forEach(function(c){
+      sum += subtreeRevenue(c);
+    });
+    return sum;
+  }
+
   function computeTeamGap(node){
     var sum = 0;
     node.children.forEach(function(c){
-      sum += Math.min(parseMoney(c.revenue), LEVEL4_CAP);
+      sum += Math.min(subtreeRevenue(c), LEVEL4_CAP);
     });
     return { sum: sum, shortfall: LEVEL4_TARGET - sum };
   }
 
   function buildTeamGapEl(node){
     var stat = computeTeamGap(node);
-    var el = document.createElement('div');
+    var wrap = document.createElement('div');
+    wrap.className = 'team-panel';
+
+    var summary = document.createElement('div');
     if(stat.shortfall > 0){
-      el.className = 'gap-text short';
-      el.textContent = '4직급 팀매출 ' + formatMoney(stat.sum) + ' · 부족 ' + formatMoney(stat.shortfall);
+      summary.className = 'gap-text short';
+      summary.textContent = '4직급 팀매출 ' + formatMoney(stat.sum) + ' · 부족 ' + formatMoney(stat.shortfall);
     } else {
-      el.className = 'gap-text done';
-      el.textContent = '4직급 팀매출 ' + formatMoney(stat.sum) + ' · 달성';
+      summary.className = 'gap-text done';
+      summary.textContent = '4직급 팀매출 ' + formatMoney(stat.sum) + ' · 달성';
     }
-    return el;
+    wrap.appendChild(summary);
+
+    node.children.forEach(function(c){
+      var rev = subtreeRevenue(c);
+      var capped = rev >= LEVEL4_CAP;
+      var row = document.createElement('div');
+      row.className = 'team-line' + (capped ? ' done' : '');
+      var label = c.name || '이름없음';
+      row.textContent = label + (capped ? ': 40% 완료' : ': ' + formatMoney(rev) + ' / ' + formatMoney(LEVEL4_CAP));
+      wrap.appendChild(row);
+    });
+
+    return wrap;
   }
 
   function updateTeamGapDisplay(nodeId){
@@ -443,10 +480,9 @@
     if(!node || !node.highlight) return;
     var box = document.querySelector('.node[data-node-id="' + nodeId + '"]');
     if(!box) return;
-    var existing = box.querySelector('.team-gap-text');
+    var existing = box.querySelector('.team-panel');
     if(existing) existing.remove();
     var el = buildTeamGapEl(node);
-    el.classList.add('team-gap-text');
     var actionsEl = box.querySelector('.actions');
     box.insertBefore(el, actionsEl);
   }
@@ -507,7 +543,6 @@
 
     if(node.highlight && node.children.length > 0){
       var teamGapEl = buildTeamGapEl(node);
-      teamGapEl.classList.add('team-gap-text');
       box.appendChild(teamGapEl);
     }
 
@@ -622,10 +657,10 @@
       node[field] = t.value;
       saveData();
       if(field === 'revenue'){
-        var parent = findParent(node.id);
-        if(parent && parent.highlight){
-          updateTeamGapDisplay(parent.id);
-        }
+        var ancestors = findAncestorNodes(node.id);
+        ancestors.forEach(function(anc){
+          if(anc.highlight) updateTeamGapDisplay(anc.id);
+        });
       }
     }
   });
