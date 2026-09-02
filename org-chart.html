@@ -147,20 +147,29 @@
     box-shadow: 0 0 0 4px rgba(227,189,99,.35);
   }
   .row1{ display:flex; align-items:baseline; gap:6px; }
-  .name-input, .revenue-input, .number-input, .sub-input{
+  .name-input, .revenue-input, .sub-input{
     background: transparent; border:none; outline:none;
     color: var(--white); text-align:center; font-family:inherit;
   }
-  .name-input{ font-size:16px; font-weight:700; width:70px; }
-  .revenue-input{ font-size:12.5px; font-weight:700; color:#a8e6c1; width:64px; }
+  .name-input{ font-size:16px; font-weight:700; width:80px; }
+  .revenue-input{ font-size:12.5px; font-weight:700; color:#a8e6c1; width:70px; }
   .revenue-input::placeholder{ color: rgba(255,255,255,.4); }
-  .number-input{ font-size:16px; font-weight:700; color: var(--gold); width:48px; }
   .sub-input{ font-size:13px; color: var(--sub); width:132px; margin-top:2px; }
-  .node.highlight .name-input,
-  .node.highlight .number-input{ color: var(--highlight-text); }
+  .refRow{ display:flex; align-items:center; gap:4px; margin-top:4px; }
+  .ref-input{
+    background: rgba(0,0,0,.18); border:1px solid rgba(255,255,255,.25);
+    color: var(--white); text-align:center; font-family:inherit;
+    font-size:11.5px; border-radius:6px; padding:3px 6px; width:100px;
+  }
+  .ref-input::placeholder{ color: rgba(255,255,255,.4); }
+  .node.highlight .ref-input{ color: var(--highlight-text); background: rgba(255,255,255,.25); }
+  .copy-btn{ background: var(--panel); }
+  .copy-btn.copied{ background: var(--ok); color:#123; }
+  .save-btn.saved{ background: var(--ok); color:#123; }
+  .node.highlight .name-input{ color: var(--highlight-text); }
   .node.highlight .sub-input{ color: rgba(44,33,16,.75); }
   .name-input::placeholder, .sub-input::placeholder{ color: rgba(255,255,255,.45); }
-  .name-input:focus, .number-input:focus, .sub-input:focus{
+  .name-input:focus, .sub-input:focus{
     border-bottom: 1px dashed rgba(255,255,255,.55);
   }
 
@@ -337,13 +346,14 @@
   });
 
   function defaultData(){
-    return { id:'root', name:'대표', number:'', subtext:'', revenue:'', highlight:false, color:'', collapsed:false, children:[] };
+    return { id:'root', name:'대표', number:'', subtext:'', revenue:'', referral:'', highlight:false, color:'', collapsed:false, children:[] };
   }
 
   function normalizeNode(node){
     if(node.highlight === undefined) node.highlight = false;
     if(node.color === undefined) node.color = '';
     if(node.revenue === undefined) node.revenue = '';
+    if(node.referral === undefined) node.referral = '';
     if(node.collapsed === undefined) node.collapsed = false;
     if(!node.children) node.children = [];
     node.children.forEach(normalizeNode);
@@ -426,6 +436,28 @@
     if(str === null || str === undefined || str === '') return 0;
     var n = parseFloat(String(str).replace(/[^0-9.\-]/g, ''));
     return isNaN(n) ? 0 : n;
+  }
+
+  function copyText(text){
+    if(!text){ return; }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).catch(function(){ fallbackCopy(text); });
+    } else {
+      fallbackCopy(text);
+    }
+  }
+
+  function fallbackCopy(text){
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    ta.style.top = '0';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    try{ document.execCommand('copy'); }catch(e){}
+    document.body.removeChild(ta);
   }
 
   var LEVEL4_TARGET = 75000;
@@ -512,13 +544,6 @@
     nameInput.setAttribute('data-id', node.id);
     nameInput.setAttribute('data-field', 'name');
 
-    var numberInput = document.createElement('input');
-    numberInput.className = 'number-input';
-    numberInput.placeholder = '숫자';
-    numberInput.value = node.number || '';
-    numberInput.setAttribute('data-id', node.id);
-    numberInput.setAttribute('data-field', 'number');
-
     row1.appendChild(nameInput);
 
     var revenueInput = document.createElement('input');
@@ -529,8 +554,6 @@
     revenueInput.setAttribute('data-field', 'revenue');
     row1.appendChild(revenueInput);
 
-    row1.appendChild(numberInput);
-
     var subInput = document.createElement('input');
     subInput.className = 'sub-input';
     subInput.placeholder = '아이디 / 전화번호';
@@ -538,8 +561,33 @@
     subInput.setAttribute('data-id', node.id);
     subInput.setAttribute('data-field', 'subtext');
 
+    var refRow = document.createElement('div');
+    refRow.className = 'refRow';
+
+    var refInput = document.createElement('input');
+    refInput.className = 'ref-input';
+    refInput.placeholder = '레퍼럴 코드';
+    refInput.value = node.referral || '';
+    refInput.setAttribute('data-id', node.id);
+    refInput.setAttribute('data-field', 'referral');
+
+    var copyBtn = document.createElement('button');
+    copyBtn.className = 'abtn copy-btn';
+    copyBtn.setAttribute('data-id', node.id);
+    copyBtn.textContent = '레퍼럴코드 복사';
+
+    var saveBtn = document.createElement('button');
+    saveBtn.className = 'abtn save-btn';
+    saveBtn.setAttribute('data-id', node.id);
+    saveBtn.textContent = '저장';
+
+    refRow.appendChild(refInput);
+    refRow.appendChild(saveBtn);
+    refRow.appendChild(copyBtn);
+
     box.appendChild(row1);
     box.appendChild(subInput);
+    box.appendChild(refRow);
 
     if(node.highlight && node.children.length > 0){
       var teamGapEl = buildTeamGapEl(node);
@@ -685,7 +733,7 @@
         if(node.children.length >= getMax(node)){
           node.maxChildren = getMax(node) + 1;
         }
-        node.children.push({ id:genId(), name:'새 인원', number:'', subtext:'', revenue:'', highlight:false, color:'', collapsed:false, children:[] });
+        node.children.push({ id:genId(), name:'새 인원', number:'', subtext:'', revenue:'', referral:'', highlight:false, color:'', collapsed:false, children:[] });
         node.collapsed = false;
         saveData();
         render();
@@ -703,6 +751,36 @@
         node4.collapsed = !node4.collapsed;
         saveData();
         render();
+      }
+    } else if(t.classList.contains('save-btn')){
+      var node6 = findNode(t.getAttribute('data-id'));
+      if(node6){
+        var box6 = t.closest('.node');
+        if(box6){
+          var refInputEl = box6.querySelector('.ref-input');
+          if(refInputEl) node6.referral = refInputEl.value;
+        }
+        clearTimeout(saveTimer);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(treeData));
+        var originalSaveLabel = '저장';
+        t.textContent = '저장됨';
+        t.classList.add('saved');
+        setTimeout(function(){
+          t.textContent = originalSaveLabel;
+          t.classList.remove('saved');
+        }, 1200);
+      }
+    } else if(t.classList.contains('copy-btn')){
+      var node5 = findNode(t.getAttribute('data-id'));
+      if(node5){
+        copyText(node5.referral || '');
+        var originalLabel = '레퍼럴코드 복사';
+        t.textContent = '복사됨';
+        t.classList.add('copied');
+        setTimeout(function(){
+          t.textContent = originalLabel;
+          t.classList.remove('copied');
+        }, 1200);
       }
     } else if(t.classList.contains('del')){
       var id = t.getAttribute('data-id');
