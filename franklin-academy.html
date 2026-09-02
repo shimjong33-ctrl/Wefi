@@ -12,13 +12,14 @@
 :root{
   --green-deep:#0A6B3D; --green:#149A5B; --green-bright:#2FCC8E;
   --green-glow:#E4FFF2;
+  --gold:#C9A227; --gold-light:#E8D08A; --gold-deep:#8A6A1F;
   --mint:#E6F7EE; --mint-2:#F6FBF8; --cream:#FBFDFC;
   --ink:#0D1F17; --ink-soft:#5A6E64; --ink-faint:#8FA69B;
   --line:#DCEEE3; --line-soft:#EAF4EE; --gray-lock:#B7C4BC; --white:#FFFFFF;
-  --shadow-sm: 0 2px 8px rgba(13,50,32,0.06);
-  --shadow-md: 0 10px 28px rgba(13,50,32,0.10);
-  --shadow-lg: 0 16px 40px rgba(13,50,32,0.16);
-  --radius-lg:20px; --radius-md:16px; --radius-sm:12px;
+  --shadow-sm: 0 2px 10px rgba(13,50,32,0.07);
+  --shadow-md: 0 12px 30px rgba(13,50,32,0.11);
+  --shadow-lg: 0 18px 44px rgba(13,50,32,0.18);
+  --radius-lg:22px; --radius-md:17px; --radius-sm:13px;
 }
 *{box-sizing:border-box;}
 html,body{margin:0;padding:0;}
@@ -30,27 +31,29 @@ body{font-family:'Pretendard','Noto Sans KR', -apple-system, 'Apple SD Gothic Ne
   background:
     radial-gradient(circle at 88% -10%, rgba(255,255,255,0.16), transparent 45%),
     radial-gradient(circle at -8% 110%, rgba(255,255,255,0.12), transparent 40%),
+    radial-gradient(circle at 50% 0%, rgba(201,162,39,0.14), transparent 55%),
     linear-gradient(155deg, var(--green-deep) 0%, var(--green) 62%, #1AAE68 100%);
   color:#fff;padding:30px 22px 36px 22px;border-radius:0 0 32px 32px;position:relative;overflow:hidden;
   box-shadow: var(--shadow-lg);
 }
 .header:before{content:"";position:absolute;right:-50px;top:-55px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,0.07);}
 .header:after{content:"";position:absolute;left:-40px;bottom:-70px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,0.05);}
-.brand{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:700;letter-spacing:0.3px;opacity:0.95;position:relative;z-index:1;}
-.brand-mark{width:24px;height:24px;border-radius:8px;background:#fff;color:var(--green-deep);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;box-shadow:0 3px 8px rgba(0,0,0,0.15);}
-.h-title{font-size:27px;font-weight:900;margin:16px 0 5px 0;line-height:1.3;position:relative;z-index:1;letter-spacing:-0.4px;}
+.brand{display:flex;align-items:center;gap:9px;font-size:12px;font-weight:700;letter-spacing:1.2px;opacity:0.9;position:relative;z-index:1;text-transform:uppercase;}
+.brand-mark{width:24px;height:24px;border-radius:8px;background:#fff;color:var(--green-deep);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;box-shadow:0 3px 10px rgba(0,0,0,0.18),0 0 0 1px rgba(201,162,39,0.35);}
+.h-title{font-size:27px;font-weight:900;margin:16px 0 8px 0;line-height:1.3;position:relative;z-index:1;letter-spacing:-0.4px;}
+.h-title:after{content:"";display:block;width:34px;height:2px;background:linear-gradient(90deg,var(--gold-light),var(--gold));margin-top:9px;border-radius:2px;}
 .h-sub{font-size:12.5px;opacity:0.88;font-weight:500;position:relative;z-index:1;}
 
 .progress-card{
-  margin-top:22px;background:rgba(255,255,255,0.16);backdrop-filter:blur(6px);
-  border:1px solid rgba(255,255,255,0.28);border-radius:18px;padding:16px 18px;position:relative;z-index:1;
-  box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+  margin-top:22px;background:rgba(255,255,255,0.14);backdrop-filter:blur(8px);
+  border:1px solid rgba(201,162,39,0.32);border-radius:18px;padding:16px 18px;position:relative;z-index:1;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.10);
 }
 .progress-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:9px;}
-.progress-label{font-size:12px;font-weight:600;opacity:0.92;}
-.progress-pct{font-size:21px;font-weight:900;letter-spacing:-0.3px;}
-.progress-track{height:9px;background:rgba(255,255,255,0.25);border-radius:8px;overflow:hidden;}
-.progress-fill{height:100%;background:linear-gradient(90deg,#fff,#EFFFF7);border-radius:8px;transition:width .5s cubic-bezier(.4,0,.2,1);box-shadow:0 0 10px rgba(255,255,255,0.5);}
+.progress-label{font-size:11.5px;font-weight:600;opacity:0.9;letter-spacing:0.3px;}
+.progress-pct{font-size:21px;font-weight:900;letter-spacing:-0.3px;background:linear-gradient(90deg,#fff,var(--gold-light));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.progress-track{height:9px;background:rgba(255,255,255,0.22);border-radius:8px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--gold-light),#fff);border-radius:8px;transition:width .5s cubic-bezier(.4,0,.2,1);box-shadow:0 0 10px rgba(232,208,138,0.6);}
 
 /* Homework section */
 .hw-section{padding:22px 20px 4px 20px;}
@@ -62,16 +65,41 @@ body{font-family:'Pretendard','Noto Sans KR', -apple-system, 'Apple SD Gothic Ne
 .ext-link-sub{font-size:11px;color:var(--ink-soft);margin-top:2px;}
 .ext-link-arrow{flex:none;font-size:22px;color:var(--ink-faint);}
 .goals-section{padding:22px 20px 4px 20px;}
+.partner-section{padding:22px 20px 4px 20px;}
+.partner-card{background:var(--white);border:1px solid var(--line-soft);border-radius:var(--radius-md);padding:16px;box-shadow:var(--shadow-sm);}
+.partner-title{font-size:15px;font-weight:900;color:var(--ink);margin-bottom:4px;padding-left:11px;border-left:3px solid var(--gold);}
+.partner-sub{font-size:12px;color:var(--ink-soft);margin-bottom:12px;line-height:1.5;}
+.partner-progress-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:13px;}
+.partner-progress-track{flex:1;height:9px;background:var(--line-soft);border-radius:6px;overflow:hidden;margin-right:10px;}
+.partner-progress-fill{height:100%;background:linear-gradient(90deg,var(--green),var(--green-deep));border-radius:6px;transition:width .4s ease;}
+.partner-progress-label{font-size:12.5px;font-weight:900;color:var(--green-deep);flex:none;}
+.partner-slot{border:1px solid var(--line-soft);border-radius:12px;padding:12px 13px;margin-bottom:10px;background:var(--cream);}
+.partner-slot.done{background:var(--green-glow);border-color:var(--green-bright);}
+.partner-slot-head{display:flex;align-items:center;gap:9px;margin-bottom:9px;}
+.partner-slot-num{flex:none;width:26px;height:26px;border-radius:9px;background:var(--mint);color:var(--green-deep);font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;}
+.partner-slot-num.done{background:var(--green);color:#fff;}
+.partner-slot input{width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:9px;font-size:12.5px;font-family:inherit;margin-bottom:7px;}
+.partner-status-row{display:flex;gap:5px;flex-wrap:wrap;}
+.partner-status-btn{font-size:11px;font-weight:700;padding:6px 10px;border-radius:20px;border:1px solid var(--line);background:#fff;color:var(--ink-soft);}
+.partner-status-btn.active{background:var(--green-deep);color:#fff;border-color:var(--green-deep);}
+.partner-reset-btn{color:#C0392B;border-color:#F2C4BC;background:#FDF1EF;}
+.partner-celebrate{margin-top:4px;background:linear-gradient(135deg,var(--green-deep),var(--green));color:#fff;text-align:center;font-size:13px;font-weight:800;padding:14px;border-radius:12px;}
 .goals-card{background:var(--white);border:1px solid var(--line-soft);border-radius:var(--radius-md);padding:16px;box-shadow:var(--shadow-sm);}
-.goals-title{font-size:15px;font-weight:900;color:var(--ink);margin-bottom:4px;}
+.goals-title{font-size:15px;font-weight:900;color:var(--ink);margin-bottom:4px;padding-left:11px;border-left:3px solid var(--gold);}
 .goals-sub{font-size:12px;color:var(--ink-soft);margin-bottom:13px;line-height:1.5;}
 .goal-row{display:flex;align-items:center;gap:9px;margin-bottom:9px;}
+.goal-row-wrap{margin-bottom:2px;}
 .goal-num{flex:none;width:24px;height:24px;border-radius:8px;background:var(--mint);color:var(--green-deep);font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;}
 .goal-input{flex:1;min-width:0;padding:9px 11px;border:1px solid var(--line);border-radius:10px;font-size:12.5px;font-family:inherit;color:var(--ink);}
+.goal-check{flex:none;width:24px;height:24px;border-radius:50%;border:2px solid var(--line);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.15s;}
+.goal-check.on{background:var(--green);border-color:var(--green);box-shadow:0 2px 6px rgba(20,154,91,0.4);}
+.goal-check.on svg{width:12px;height:12px;stroke:#fff;}
+.goal-celebrate{font-size:11px;font-weight:800;color:var(--green-deep);margin:2px 0 9px 33px;animation:goalPop .3s ease;}
+@keyframes goalPop{from{opacity:0;transform:translateY(-4px);}to{opacity:1;transform:translateY(0);}}
 .goal-input:focus{outline:none;border-color:var(--green);}
 .goals-progress{font-size:11px;color:var(--ink-faint);text-align:right;margin-top:2px;}
 .hw-header{display:flex;align-items:center;gap:8px;margin-bottom:4px;}
-.hw-title{font-size:17px;font-weight:900;color:var(--ink);letter-spacing:-0.3px;}
+.hw-title{font-size:17px;font-weight:900;color:var(--ink);letter-spacing:-0.3px;padding-left:11px;border-left:3px solid var(--gold);}
 .hw-sub{font-size:12px;color:var(--ink-soft);margin-bottom:14px;}
 .hw-card{background:var(--white);border:1px solid var(--line-soft);border-radius:var(--radius-md);padding:14px 16px;margin-bottom:11px;display:flex;gap:13px;align-items:flex-start;box-shadow:var(--shadow-sm);transition:box-shadow .2s ease;}
 .hw-card.done{background:var(--green-glow);border-color:var(--green-bright);}
@@ -88,12 +116,25 @@ body{font-family:'Pretendard','Noto Sans KR', -apple-system, 'Apple SD Gothic Ne
 
 /* Timeline */
 .timeline{padding:24px 20px 4px 20px;}
+.certchallenge-section{padding:22px 20px 4px 20px;}
+.certchallenge-card{background:linear-gradient(150deg,#101E14,#0B2A22);border:1px solid rgba(201,162,39,0.35);border-radius:var(--radius-lg);padding:20px 18px;box-shadow:var(--shadow-lg);color:#fff;}
+.certchallenge-title{font-size:16px;font-weight:900;margin-bottom:4px;}
+.certchallenge-sub{font-size:12px;color:rgba(255,255,255,0.75);margin-bottom:15px;line-height:1.5;}
+.certchallenge-item{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,0.06);border:1px solid rgba(201,162,39,0.3);border-radius:13px;padding:12px 13px;margin-bottom:9px;}
+.certchallenge-badge{flex:none;width:42px;height:42px;border-radius:50%;background:linear-gradient(150deg,var(--gold-light),var(--gold-deep));display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 3px 10px rgba(201,162,39,0.35);}
+.certchallenge-name{font-size:13.5px;font-weight:800;color:#fff;}
+.certchallenge-name-en{font-size:10.5px;color:rgba(255,255,255,0.6);margin-top:1px;}
+.certchallenge-dept{font-size:10px;font-weight:700;color:var(--gold-light);background:rgba(201,162,39,0.15);border:1px solid rgba(201,162,39,0.35);padding:2px 8px;border-radius:20px;display:inline-block;margin-top:5px;}
+.certchallenge-apply{flex:none;font-size:11px;font-weight:800;color:#101E14;background:linear-gradient(135deg,var(--gold-light),var(--gold));padding:8px 12px;border-radius:20px;text-decoration:none;white-space:nowrap;}
+.week[data-theme="2"]{--green:#0E8FA3;--green-deep:#075A68;--green-glow:#E2FBFF;--mint:#E1F6F9;--line-soft:#D9F0F3;}
+.week[data-theme="3"]{--green:#C9922E;--green-deep:#8C6519;--green-glow:#FFF6E0;--mint:#FBF0D9;--line-soft:#F5E6C4;}
+.week[data-theme="4"]{--green:#3A4A8F;--green-deep:#242F5C;--green-glow:#ECEEFA;--mint:#E4E7F7;--line-soft:#DCE0F3;}
 .week{position:relative;padding-left:46px;margin-bottom:16px;}
 .week-line{position:absolute;left:16px;top:38px;bottom:-16px;width:2px;background:linear-gradient(var(--line),var(--line-soft));}
 .week:last-child .week-line{display:none;}
 .week-node{position:absolute;left:0;top:0;width:34px;height:34px;border-radius:12px;background:var(--white);border:2px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:14px;z-index:2;box-shadow:var(--shadow-sm);}
 .week-node svg{width:16px;height:16px;color:var(--ink-faint);}
-.week.done .week-node{background:linear-gradient(150deg,var(--green),var(--green-deep));border-color:var(--green-deep);box-shadow:0 4px 12px rgba(10,107,61,0.3);}
+.week.done .week-node{background:linear-gradient(150deg,var(--green),var(--green-deep));border-color:var(--gold);box-shadow:0 4px 12px rgba(10,107,61,0.3),0 0 0 2px rgba(201,162,39,0.25);}
 .week.done .week-node svg{stroke:#fff;fill:none;color:#fff;}
 .week-card{background:var(--white);border:1px solid var(--line-soft);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-sm);transition:box-shadow .2s ease;}
 .week-card.open{box-shadow:var(--shadow-md);}
@@ -127,7 +168,7 @@ body{font-family:'Pretendard','Noto Sans KR', -apple-system, 'Apple SD Gothic Ne
 .quiz-box{margin-top:14px;border-top:1px dashed var(--line);padding-top:16px;}
 .quiz-title{font-size:13.5px;font-weight:800;color:var(--green-deep);margin-bottom:9px;}
 .quiz-locked{background:var(--mint-2);border:1px solid var(--line-soft);border-radius:var(--radius-sm);padding:15px;text-align:center;color:var(--ink-faint);font-size:12.5px;font-weight:600;}
-.quiz-btn{width:100%;padding:13px;border:none;border-radius:var(--radius-sm);background:linear-gradient(135deg,var(--green),var(--green-deep));color:#fff;font-size:13.5px;font-weight:800;box-shadow:0 6px 16px rgba(10,107,61,0.22);}
+.quiz-btn{width:100%;padding:13px;border:1px solid rgba(201,162,39,0.4);border-radius:var(--radius-sm);background:linear-gradient(135deg,var(--green),var(--green-deep));color:#fff;font-size:13.5px;font-weight:800;box-shadow:0 6px 16px rgba(10,107,61,0.22);letter-spacing:0.2px;}
 .qcard{background:#fff;border:1px solid var(--line-soft);border-radius:var(--radius-sm);padding:15px;margin-bottom:11px;box-shadow:var(--shadow-sm);}
 .qcard .qtext{font-size:13px;font-weight:700;margin-bottom:11px;}
 .qopt{display:flex;align-items:center;gap:8px;padding:10px 11px;border:1px solid var(--line-soft);border-radius:11px;margin-bottom:7px;font-size:12.5px;transition:.15s;}
@@ -152,7 +193,7 @@ body{font-family:'Pretendard','Noto Sans KR', -apple-system, 'Apple SD Gothic Ne
 .cert-sub{font-size:12.5px;opacity:0.92;}
 
 .admin-bar{max-width:480px;margin:20px auto 0 auto;padding:0 20px;display:flex;justify-content:center;}
-.admin-toggle{font-size:11.5px;color:var(--ink-soft);background:#fff;border:1px solid var(--line);padding:7px 16px;border-radius:20px;font-weight:600;box-shadow:var(--shadow-sm);}
+.admin-toggle{font-size:11.5px;color:var(--ink-soft);background:#fff;border:1px solid var(--line);padding:7px 16px;border-radius:20px;font-weight:600;box-shadow:var(--shadow-sm);letter-spacing:0.3px;}
 .admin-toggle.active{background:var(--ink);color:#fff;border-color:var(--ink);}
 .admin-banner{max-width:480px;margin:11px auto 0 auto;padding:8px 20px;text-align:center;font-size:11.5px;color:var(--green-deep);font-weight:700;display:none;}
 .admin-banner.show{display:block;}
@@ -161,7 +202,7 @@ body{font-family:'Pretendard','Noto Sans KR', -apple-system, 'Apple SD Gothic Ne
 .app-footer-role{font-size:10.5px;color:var(--ink-faint);margin-top:2px;}
 .mail-section{padding:6px 20px 4px 20px;}
 .mail-card{background:var(--white);border:1px solid var(--line-soft);border-radius:var(--radius-md);padding:15px 16px;box-shadow:var(--shadow-sm);}
-.mail-title{font-size:14.5px;font-weight:900;color:var(--ink);margin-bottom:4px;}
+.mail-title{font-size:14.5px;font-weight:900;color:var(--ink);margin-bottom:4px;padding-left:11px;border-left:3px solid var(--gold);}
 .mail-sub{font-size:11.5px;color:var(--ink-soft);margin-bottom:11px;line-height:1.5;}
 .mail-btn{width:100%;padding:11px;border:none;border-radius:12px;background:linear-gradient(135deg,var(--green),var(--green-deep));color:#fff;font-size:12.5px;font-weight:800;box-shadow:0 6px 16px rgba(10,107,61,0.2);}
 .mail-btn.secondary{background:#fff;color:var(--green-deep);border:1px solid var(--line);box-shadow:none;}
@@ -180,16 +221,18 @@ body{font-family:'Pretendard','Noto Sans KR', -apple-system, 'Apple SD Gothic Ne
 .name-edit-input{padding:8px 11px;border:none;border-radius:9px;font-size:12.5px;font-family:inherit;width:150px;}
 .name-edit-save{background:#fff;color:var(--green-deep);border:none;padding:8px 13px;border-radius:9px;font-size:12px;font-weight:800;}
 .name-row .edit-hint{font-size:10.5px;opacity:0.75;font-weight:500;margin-left:5px;}
-.cert-btn{margin-top:14px;background:#fff;color:var(--green-deep);border:none;padding:10px 18px;border-radius:20px;font-size:12.5px;font-weight:800;box-shadow:0 4px 12px rgba(0,0,0,0.15);}
+.cert-btn{margin-top:14px;background:linear-gradient(135deg,#fff,var(--gold-light));color:var(--green-deep);border:none;padding:11px 20px;border-radius:20px;font-size:12.5px;font-weight:800;box-shadow:0 4px 14px rgba(0,0,0,0.18);}
 .session-section{padding:14px 20px 0 20px;}
 .session-banner{background:var(--white);border:1px solid var(--line-soft);border-radius:14px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between;box-shadow:var(--shadow-sm);}
 .session-text{font-size:12.5px;font-weight:700;color:var(--ink);}
-.session-dday{font-size:13px;font-weight:900;color:var(--green-deep);background:var(--mint);padding:5px 11px;border-radius:20px;}
+.session-dday{font-size:13px;font-weight:900;color:var(--green-deep);background:linear-gradient(135deg,var(--mint),var(--gold-light));padding:5px 11px;border-radius:20px;}
 .session-edit-card{background:var(--white);border:1px dashed var(--green);border-radius:14px;padding:14px;margin-top:8px;}
 .session-edit-title{font-size:12.5px;font-weight:800;color:var(--green-deep);margin-bottom:8px;}
 .glossary-section{padding:22px 20px 4px 20px;}
 .glossary-card{background:var(--white);border:1px solid var(--line-soft);border-radius:var(--radius-md);padding:16px;box-shadow:var(--shadow-sm);}
-.glossary-title{font-size:15px;font-weight:900;color:var(--ink);margin-bottom:10px;}
+.glossary-title{font-size:15px;font-weight:900;color:var(--ink);margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;padding-left:11px;border-left:3px solid var(--gold);}
+.glossary-chevron{width:18px;height:18px;color:var(--ink-faint);transition:transform .2s;}
+.glossary-chevron.open{transform:rotate(180deg);}
 .glossary-search{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:11px;font-size:12.5px;font-family:inherit;margin-bottom:11px;}
 .gterm{border:1px solid var(--line-soft);border-radius:11px;margin-bottom:8px;overflow:hidden;background:var(--cream);}
 .gterm-head{padding:11px 13px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;}
@@ -204,7 +247,7 @@ body{font-family:'Pretendard','Noto Sans KR', -apple-system, 'Apple SD Gothic Ne
 .gterm-del{font-size:10.5px;color:#C0392B;border:1px solid #F2C4BC;background:#FDF1EF;border-radius:8px;padding:3px 8px;}
 .sync-section{padding:14px 20px 0 20px;}
 .sync-card{background:var(--white);border:1px solid var(--line-soft);border-radius:var(--radius-md);padding:15px 16px;box-shadow:var(--shadow-sm);}
-.sync-title{font-size:13.5px;font-weight:900;color:var(--ink);margin-bottom:5px;}
+.sync-title{font-size:13.5px;font-weight:900;color:var(--ink);margin-bottom:5px;padding-left:11px;border-left:3px solid var(--gold);}
 .sync-sub{font-size:11.5px;color:var(--ink-soft);margin-bottom:10px;line-height:1.5;}
 .sync-btn{width:100%;padding:11px;border:none;border-radius:12px;background:linear-gradient(135deg,var(--green),var(--green-deep));color:#fff;font-size:12.5px;font-weight:800;box-shadow:0 6px 16px rgba(10,107,61,0.2);}
 .sync-status{font-size:11px;color:var(--ink-faint);margin-top:8px;text-align:center;}
@@ -234,6 +277,7 @@ body{font-family:'Pretendard','Noto Sans KR', -apple-system, 'Apple SD Gothic Ne
     <button class="cert-btn" id="cert-download-btn" data-action="download-cert">🖼️ 수료증 이미지로 저장</button>
   </div>
   <div class="goals-section" id="goals-section"></div>
+  <div class="partner-section" id="partner-section"></div>
   <div class="ext-link-section">
     <a class="ext-link-card" href="https://shimjong33-ctrl.github.io/Wefi/sales_usd_v2-2.html" target="_blank" rel="noopener">
       <div class="ext-link-icon">$</div>
@@ -243,12 +287,21 @@ body{font-family:'Pretendard','Noto Sans KR', -apple-system, 'Apple SD Gothic Ne
       </div>
       <div class="ext-link-arrow">›</div>
     </a>
+    <a class="ext-link-card" style="margin-top:10px;" href="https://shimjong33-ctrl.github.io/Wefi/org-chart.html" target="_blank" rel="noopener">
+      <div class="ext-link-icon">W</div>
+      <div class="ext-link-body">
+        <div class="ext-link-title">위파이 레그 만들기</div>
+        <div class="ext-link-sub">탭해서 조직도 페이지로 이동</div>
+      </div>
+      <div class="ext-link-arrow">›</div>
+    </a>
   </div>
   <div class="hw-section" id="hw-section"></div>
   <div class="mail-section" id="mail-section"></div>
   <div class="glossary-section" id="glossary-section"></div>
   <div class="sync-section" id="sync-section"></div>
   <div class="timeline" id="timeline"></div>
+  <div class="certchallenge-section" id="certchallenge-section"></div>
   <div class="admin-bar"><button class="admin-toggle" id="admin-toggle">관리자 모드</button></div>
   <div class="admin-banner" id="admin-banner">관리자 모드 · 항목/내용/퀴즈를 편집할 수 있습니다</div>
   <div class="admin-settings" id="admin-settings"></div>
@@ -328,7 +381,37 @@ var DEFAULT_DATA = [
       {id:"w2t3", name:"듀얼 밸런스 계좌", content:"듀얼 밸런스 계좌는 하나의 계좌 안에 성격이 다른 두 종류의 잔액을 함께 운용하는 구조입니다.\n\n예를 들어 안정적인 스테이블코인 기반 잔액과, WeFi 생태계 활동을 통해 적립되는 WFI/Energy 기반 잔액을 분리해 관리할 수 있습니다.\n\n이 구조의 목적은 '일상 결제에 쓰는 돈'과 '생태계 참여로 쌓이는 자산'을 사용자가 명확히 구분해서 관리하도록 돕는 데 있습니다."},
       {id:"w2t4", name:"Visa 카드", content:"WeFi는 Visa와의 파트너십을 통해 D1 App 계좌와 연동되는 카드를 제공합니다.\n\n이를 통해 사용자는 앱 안의 잔액을 실생활 결제(오프라인 가맹점, 온라인 쇼핑 등)에 바로 사용할 수 있습니다.\n\n카드 신청부터 발급, 실제 결제까지의 흐름은 3주차 '실사용 교육'에서 단계별로 다룹니다."},
       {id:"w2t5", name:"Energy 시스템", content:"Energy는 WeFi 생태계 내 활동(예치, 거래, 추천 등)에 대한 보상으로 적립되는 포인트 개념의 지표입니다.\n\nEnergy는 WFI 토큰 가치 및 생태계 성장과 연결되어 있으며, 사용자의 참여 정도를 나타내는 지표로 활용됩니다.\n\n※ Energy 적립 비율, 전환 조건 등 세부 정책은 최신 공지사항을 기준으로 업데이트해 주세요."}
-    ], quiz:{main:[], retry:[]} },
+    ], quiz:{
+    main:[
+        {q:"WeChain은 무엇인가요?", options:["외부 거래소 이름", "WeFi가 구축한 자체 블록체인 메인넷", "고객센터 앱", "결제 단말기 브랜드"], correct:1},
+        {q:"D1 App은 무엇인가요?", options:["WeFi의 메인 뱅킹 애플리케이션", "오프라인 은행 지점", "종이 통장 발급 서비스", "외부 광고 플랫폼"], correct:0},
+        {q:"듀얼 밸런스 계좌에서 분리해 관리하는 두 잔액은?", options:["원화 잔액과 달러 잔액", "스테이블코인 잔액과 WFI/Energy 잔액", "적금과 예금", "포인트와 쿠폰"], correct:1},
+        {q:"WeFi Visa 카드로 할 수 있는 것은?", options:["오프라인·온라인 결제", "주식 거래", "부동산 등기", "세금 신고"], correct:0},
+        {q:"Energy는 무엇에 대한 보상으로 적립되나요?", options:["앱 삭제", "예치·거래·추천 등 생태계 활동", "광고 시청", "설문조사 참여"], correct:1},
+        {q:"WeChain 위에서 처리되는 기록으로 옳지 않은 것은?", options:["계좌 활동", "자산 이동", "Energy 적립", "오프라인 매장 재고"], correct:3},
+        {q:"D1 App에서 제공하는 기능이 아닌 것은?", options:["계좌 생성", "송금(Transfer)", "Visa 카드 연동", "부동산 중개"], correct:3},
+        {q:"듀얼 밸런스 계좌를 두는 목적은?", options:["수수료를 더 받기 위해", "일상 결제 자산과 생태계 참여 자산을 구분 관리하기 위해", "계좌를 복잡하게 만들기 위해", "해외 송금을 막기 위해"], correct:1},
+        {q:"WeFi Visa 카드는 어떤 파트너십을 통해 제공되나요?", options:["WeFi와 Visa의 파트너십", "WeFi와 은행연합회의 협약", "정부 발급 카드", "타 거래소 제휴 카드"], correct:0},
+        {q:"Energy는 무엇과 연결되어 사용자 참여도를 나타내나요?", options:["은행 신용등급", "WFI 토큰 가치 및 생태계 성장", "휴대폰 요금제", "보험 등급"], correct:1}
+    ],
+    retry:[
+        {q:"WeFi가 자체 메인넷(WeChain)을 갖는 이유로 가장 알맞은 것은?", options:["외부 체인 수수료·속도·정책에 종속되지 않기 위해", "비용을 더 많이 쓰기 위해", "법적 의무이기 때문에", "다른 회사를 따라 하기 위해"], correct:0},
+        {q:"D1 App의 UX가 일반 은행 앱과 유사하게 설계된 이유는?", options:["개발 비용을 아끼려고", "블록체인에 익숙하지 않아도 쉽게 쓰도록 하기 위해", "규제를 피하기 위해", "디자인 대회 출품을 위해"], correct:1},
+        {q:"D1 App에서 Rewards 메뉴는 무엇을 확인하는 곳인가요?", options:["결제 내역만 보는 곳", "적립 내역을 확인하는 곳", "고객센터 문의 내역", "보안 설정 화면"], correct:1},
+        {q:"듀얼 밸런스 계좌에서 '일상 결제에 쓰는 돈'에 가까운 잔액은?", options:["스테이블코인 기반 잔액", "WFI/Energy 기반 잔액", "국민연금", "적금 잔액"], correct:0},
+        {q:"듀얼 밸런스 계좌에서 '생태계 참여로 쌓이는 자산'에 가까운 잔액은?", options:["스테이블코인 기반 잔액", "WFI/Energy 기반 잔액", "예금 잔액", "청약 통장"], correct:1},
+        {q:"Visa 카드 발급~결제까지의 전체 흐름은 몇 주차에서 단계별로 다루나요?", options:["1주차", "2주차", "3주차", "4주차"], correct:2},
+        {q:"WeFi Visa 카드 결제가 이루어지는 방식으로 옳은 것은?", options:["앱 잔액과 무관하게 결제된다", "앱 안의 잔액을 실생활 결제에 사용한다", "카드는 결제 기능이 없다", "결제 시마다 별도 계좌를 새로 만든다"], correct:1},
+        {q:"Energy 시스템의 성격으로 가장 알맞은 것은?", options:["단순 광고 포인트", "생태계 활동에 대한 보상으로 적립되는 지표", "은행 대출 한도", "세금 공제 항목"], correct:1},
+        {q:"Energy 적립 비율이나 전환 조건에 대해 안내할 때 주의할 점은?", options:["항상 같은 수치로 안내한다", "최신 공지사항 기준으로 업데이트해서 안내한다", "안내하지 않는다", "예전 자료만 사용한다"], correct:1},
+        {q:"WeChain, D1 App, 듀얼 밸런스 계좌, Visa 카드, Energy 시스템의 공통점은?", options:["모두 별개의 회사 서비스다", "WeFi 생태계를 구성하는 서로 연결된 요소들이다", "서로 아무 관련이 없다", "1주차에서만 다루는 내용이다"], correct:1},
+        {q:"WeFi의 계좌 구조가 기존 은행과 다른 핵심은 어디서 비롯되나요?", options:["더 많은 지점 수", "블록체인(WeChain) 기반의 자산 기록 구조", "더 높은 이자율", "더 많은 광고"], correct:1},
+        {q:"D1 App을 처음 쓰는 사용자가 가장 먼저 하는 것은?", options:["Visa 카드부터 신청한다", "계좌 생성 및 잔액 조회부터 시작한다", "Energy부터 인출한다", "듀얼 밸런스부터 해지한다"], correct:1},
+        {q:"WeFi Visa 카드 결제가 가능한 곳은?", options:["Visa 가맹점(오프라인·온라인)", "Visa 미가맹 매장만", "은행 창구만", "우체국만"], correct:0},
+        {q:"Energy 시스템이 사용자에게 주는 의미로 가장 알맞은 것은?", options:["단순한 벌점 제도", "생태계 참여 정도를 보여주는 지표", "탈퇴 시 부과되는 위약금", "고정 이자 상품"], correct:1},
+        {q:"2주차에서 배운 5가지 요소 중 '자산 기록의 기반'이 되는 것은?", options:["Visa 카드", "WeChain", "Energy", "듀얼 밸런스 계좌"], correct:1}
+    ]
+    } },
   { id:3, tag:"3주차", title:"실사용 교육", sub:"실제로 사용하는 금융", icon:"phone",
     topics:[
       {id:"w3t1", name:"계좌 생성", content:"1. D1 App 다운로드 후 회원가입\n2. 이메일/휴대폰 인증\n3. 기본 프로필 설정\n4. 계좌(지갑) 자동 생성\n\n계좌 생성은 몇 분 내로 완료되며, 별도의 서류 제출 없이 시작할 수 있습니다. 이후 KYC(본인인증) 절차를 통해 이체 한도가 상향됩니다."},
@@ -337,7 +420,37 @@ var DEFAULT_DATA = [
       {id:"w3t4", name:"Visa 카드 신청", content:"1. D1 App 내 Visa Card 메뉴 진입\n2. 카드 신청서 작성(실물카드 또는 가상카드 선택)\n3. 본인인증 완료\n4. 카드 발급 및 배송/즉시발급 확인\n5. 카드 활성화 후 계좌와 연동 확인\n\n카드는 발급 후 앱에서 바로 잠금/해제, 한도 설정 등을 관리할 수 있습니다."},
       {id:"w3t5", name:"결제", content:"발급된 Visa 카드로 실제 결제하는 과정입니다.\n\n- 오프라인 매장: 카드 단말기에 삽입/태그하여 결제\n- 온라인 결제: 카드 정보 입력 후 결제\n\n결제 시 D1 App 잔액에서 실시간으로 차감되며, 앱에서 결제 내역을 바로 확인할 수 있습니다."},
       {id:"w3t6", name:"보안 (KYC, OTP)", content:"WeFi는 사용자 자산 보호를 위해 다음과 같은 보안 절차를 적용합니다.\n\n- KYC(고객확인제도): 신원 확인을 통해 이체/결제 한도를 관리하고 이상거래를 예방\n- OTP(일회용 비밀번호): 로그인, 송금, 카드 사용 시 추가 인증 단계로 계정 탈취를 방지\n\n팀원들에게 안내할 때는 '번거로운 절차'가 아니라 '내 자산을 지키는 장치'라는 관점으로 설명하는 것이 효과적입니다."}
-    ], quiz:{main:[], retry:[]} },
+    ], quiz:{
+    main:[
+        {q:"D1 App 계좌 생성 시 필요한 것으로 옳지 않은 것은?", options:["이메일/휴대폰 인증", "기본 프로필 설정", "오프라인 지점 방문", "회원가입"], correct:2},
+        {q:"입금 후 잔액 반영 여부를 확인하는 절차는?", options:["잔액에 반영 확인", "카드 재발급", "계좌 해지", "송금 취소"], correct:0},
+        {q:"송금(Transfer) 시 가장 중요한 확인 사항은?", options:["받는 사람 정보 재확인", "송금 금액을 최대한 크게 하기", "인터넷 속도", "앱 테마 색상"], correct:0},
+        {q:"Visa 카드 신청 시 선택할 수 있는 카드 형태는?", options:["실물카드 또는 가상카드", "종이카드만", "카드 발급 불가", "현금카드만"], correct:0},
+        {q:"카드 결제 시 잔액은 어떻게 처리되나요?", options:["실시간으로 차감된다", "월말에 한 번에 차감된다", "차감되지 않는다", "별도 계좌에서 차감된다"], correct:0},
+        {q:"KYC의 목적으로 가장 알맞은 것은?", options:["신원 확인을 통한 이상거래 예방", "광고 발송", "카드 디자인 선택", "앱 업데이트"], correct:0},
+        {q:"OTP는 언제 사용되나요?", options:["로그인·송금·카드 사용 시 추가 인증", "앱 삭제 시", "회원가입 시에만", "고객센터 문의 시"], correct:0},
+        {q:"계좌 생성 후 이체 한도를 상향하려면 무엇을 완료해야 하나요?", options:["KYC(본인인증)", "카드 재발급", "앱 재설치", "비밀번호 변경"], correct:0},
+        {q:"블록체인 기반 송금의 특징으로 옳은 것은?", options:["되돌리기가 어려운 경우가 많다", "항상 취소 가능하다", "수수료가 항상 0원이다", "은행만 이용 가능하다"], correct:0},
+        {q:"보안 절차(KYC, OTP)를 신규 회원에게 설명할 때 효과적인 관점은?", options:["번거로운 규제로 설명", "내 자산을 지키는 장치로 설명", "설명하지 않는다", "선택사항이라고 안내"], correct:1}
+    ],
+    retry:[
+        {q:"D1 App 계좌 생성의 첫 단계는?", options:["D1 App 다운로드 후 회원가입", "Visa 카드 신청", "송금 실행", "결제 진행"], correct:0},
+        {q:"계좌 생성이 완료되는 데 걸리는 시간은?", options:["몇 분 내로 완료", "최소 1주일", "서류 심사 후 1개월", "즉시 불가능"], correct:0},
+        {q:"입금 실습 시 권장되는 방법은?", options:["소액으로 먼저 테스트해보기", "최대 한도로 바로 입금하기", "입금하지 않고 넘어가기", "타인 계좌로 입금하기"], correct:0},
+        {q:"Transfer(송금) 메뉴에서 입력해야 하는 정보는?", options:["받는 사람 정보(주소 또는 아이디)", "카드 비밀번호만", "생년월일만", "이메일 제목"], correct:0},
+        {q:"Visa 카드 신청 후 진행 순서로 옳은 것은?", options:["신청서 작성 → 본인인증 → 발급 → 활성화", "활성화 → 신청서 작성 → 발급", "발급 → 신청서 작성 → 인증", "인증 없이 바로 발급"], correct:0},
+        {q:"발급된 카드로 오프라인 매장에서 결제하는 방법은?", options:["카드 단말기에 삽입/태그", "앱에서 QR 생성만 가능", "현금으로만 결제", "결제 불가"], correct:0},
+        {q:"온라인 결제 시 필요한 것은?", options:["카드 정보 입력", "실물 카드 지참 필수", "은행 창구 방문", "우편 신청서"], correct:0},
+        {q:"결제 내역은 어디서 확인할 수 있나요?", options:["D1 App에서 바로 확인", "확인 불가", "1개월 후에만 확인 가능", "고객센터 전화로만"], correct:0},
+        {q:"KYC(고객확인제도)가 관리하는 것은?", options:["이체·결제 한도", "앱 테마", "폰트 크기", "알림 소리"], correct:0},
+        {q:"OTP(일회용 비밀번호)의 역할은?", options:["계정 탈취 방지를 위한 추가 인증", "광고 차단", "속도 향상", "저장공간 확보"], correct:0},
+        {q:"3주차 실습 항목 순서로 옳은 것은?", options:["계좌생성 → 입금 → 송금 → 카드신청 → 결제 → 보안", "보안 → 결제 → 계좌생성", "카드신청 → 계좌생성 → 보안", "송금 → 계좌생성 → 입금"], correct:0},
+        {q:"블록체인 기반 송금에서 특히 주의해야 할 점은?", options:["받는 사람 정보를 반드시 재확인", "속도가 느려서 상관없다", "취소가 항상 가능해서 신경 안 써도 된다", "금액 확인은 필요 없다"], correct:0},
+        {q:"카드를 앱에서 직접 관리할 수 있는 기능은?", options:["잠금/해제, 한도 설정", "카드 디자인 인쇄", "실물 카드 복제", "타인 카드 열람"], correct:0},
+        {q:"신규 회원에게 보안 절차를 안내할 때 피해야 할 설명 방식은?", options:["'번거로운 절차'로만 강조하는 것", "'내 자산을 지키는 장치'로 설명하는 것", "실제 사례로 설명하는 것", "질문을 받아주는 것"], correct:0},
+        {q:"3주차 학습의 핵심 목표는?", options:["개념을 이론으로만 이해하기", "실제 D1 App을 단계별로 직접 사용해보기", "퀴즈만 풀고 끝내기", "카드 없이 계좌만 만들기"], correct:1}
+    ]
+    } },
   { id:4, tag:"4주차", title:"사업과 미래", sub:"왜 지금 WeFi인가?", icon:"trophy",
     topics:[
       {id:"w4t1", name:"Visa 파트너십", content:"WeFi가 Visa와 파트너십을 맺었다는 것은, 전 세계 수많은 Visa 가맹점에서 WeFi 카드를 사용할 수 있다는 의미입니다.\n\n이는 블록체인 기반 자산을 '실생활에서 바로 쓸 수 있는 돈'으로 연결하는 핵심 인프라이며, WeFi가 단순한 암호화폐 프로젝트가 아니라 실사용 금융 서비스를 지향한다는 근거로 팀원들에게 설명할 수 있는 포인트입니다."},
@@ -346,7 +459,37 @@ var DEFAULT_DATA = [
       {id:"w4t4", name:"WFI 가치 and Energy 격차", content:"WFI는 WeFi 생태계의 자체 토큰입니다. 토큰 가치는 생태계 사용량, 유통량, 시장 상황에 따라 변동합니다.\n\n참고할 점:\n- 전체 발행량 대비 유통량 비율(유통되지 않은 물량, 즉 공급 오버행)을 함께 이해하는 것이 중요합니다.\n- halving(반감기)과 같은 공급 정책 변화 일정도 가치에 영향을 줄 수 있는 요인입니다.\n\n※ 가격, 정확한 유통량 수치, halving 일정 등은 시점에 따라 달라지므로 교육 시점 기준 공식 자료로 업데이트해 주세요. 팀원 교육 시 투자 수익을 보장하는 방식의 설명은 지양하고, 사실 기반으로 안내하는 것을 권장합니다."},
       {id:"w4t5", name:"사업 시스템", content:"발란스팀과 같은 파트너 조직은 신규 회원의 교육, 온보딩, 커뮤니티 운영을 담당하며, 이를 통해 조직을 확장합니다.\n\n기본 흐름:\n1. 신규 회원 미팅 및 소개\n2. 1개월 온보딩 커리큘럼 진행(이 4주 아카데미 포함)\n3. D1 App 실사용 지원\n4. 커뮤니티(카카오톡 등) 편입 및 지속 교육\n\n이 구조는 단발성 가입이 아니라, 꾸준한 교육과 실사용을 통해 장기적인 팀 성장을 목표로 합니다."},
       {id:"w4t6", name:"성공 사례", content:"이 항목은 발란스팀(부산, 영주, 구미) 내에서 실제로 있었던 성공적인 온보딩, 활성 사용자 전환, 팀 성장 사례를 채워 넣는 공간입니다.\n\n예시 형식:\n- 배경: 어떤 계기로 시작했는지\n- 과정: 어떤 교육/지원을 거쳤는지\n- 결과: 현재 어떻게 활동하고 있는지\n\n실제 팀원의 이름과 동의 하에, 구체적인 사례를 1~2개 채워 넣으면 신규 회원에게 가장 설득력 있는 콘텐츠가 됩니다."}
-    ], quiz:{main:[], retry:[]} }
+    ], quiz:{
+    main:[
+        {q:"WeFi가 Visa와 파트너십을 맺은 의미는?", options:["전 세계 Visa 가맹점에서 카드 사용 가능", "카드 발급이 완전히 중단됨", "온라인 결제만 가능해짐", "해외에서는 사용 불가"], correct:0},
+        {q:"WeFi가 라이선스·규제 대응을 진행하는 이유는?", options:["국가별로 규제 체계가 다르기 때문", "규제가 필요 없기 때문", "홍보를 위해서만", "세금을 피하기 위해서"], correct:0},
+        {q:"디오뱅크 시장이 위치한 영역은?", options:["전통 은행과 순수 암호화폐 서비스 사이", "완전한 오프라인 은행", "부동산 시장", "보험 시장"], correct:0},
+        {q:"WFI 토큰의 가치에 영향을 줄 수 있는 요인은?", options:["생태계 사용량과 유통량", "날씨", "환율과 무관하게 고정됨", "글자 수"], correct:0},
+        {q:"발란스팀과 같은 파트너 조직의 역할은?", options:["신규 회원 교육, 온보딩, 커뮤니티 운영", "카드 제조", "규제 심사", "서버 유지보수"], correct:0},
+        {q:"디오뱅크 시장의 핵심 대상으로 옳지 않은 것은?", options:["금융 인프라가 취약한 지역 사용자", "해외 송금이 잦은 사용자", "암호화폐를 실생활에 쓰고 싶은 사용자", "은행을 전혀 이용하지 않으려는 규제기관"], correct:3},
+        {q:"WFI 관련 안내 시 지양해야 할 설명 방식은?", options:["투자 수익을 보장하는 방식의 설명", "사실 기반 설명", "최신 자료 기준 안내", "생태계 성장 요인 설명"], correct:0},
+        {q:"WeFi 사업 확장의 기본 흐름으로 옳은 것은?", options:["신규 회원 미팅 → 온보딩 → 실사용 지원 → 커뮤니티 편입", "커뮤니티 편입 → 미팅 → 실사용", "온보딩 없이 바로 가입", "실사용 지원 없이 종료"], correct:0},
+        {q:"halving(반감기)은 무엇과 관련된 개념인가요?", options:["공급 정책 변화 일정", "카드 디자인 변경", "고객센터 운영시간", "앱 업데이트 주기"], correct:0},
+        {q:"4주차 학습이 강조하는 핵심은?", options:["WeFi의 비즈니스 확장과 미래 방향성 이해", "퀴즈 점수만 높이기", "카드 디자인 암기", "타 서비스와의 비교 없이 무조건적 신뢰"], correct:0}
+    ],
+    retry:[
+        {q:"Visa 파트너십이 WeFi에게 갖는 의미로 가장 알맞은 것은?", options:["블록체인 자산을 실생활 결제로 연결하는 핵심 인프라", "단순한 브랜드 협찬", "카드 디자인 제공", "고객센터 아웃소싱"], correct:0},
+        {q:"유럽에서 언급되는 암호자산시장 규제의 이름은?", options:["MiCA", "GDPR", "PCI-DSS", "SOX"], correct:0},
+        {q:"한국에서 가상자산사업자가 진행해야 하는 절차는?", options:["VASP 신고", "은행업 인가만", "증권업 등록만", "해당 없음"], correct:0},
+        {q:"디오뱅크 시장 수요가 커지는 이유는?", options:["'블록체인 기반이지만 은행처럼 쉬운' 서비스 수요 증가", "모든 사람이 은행을 선호해서", "규제가 전혀 없어서", "금리가 항상 0%이기 때문"], correct:0},
+        {q:"WFI 토큰의 유통량 관련 개념으로 언급된 것은?", options:["공급 오버행(유통되지 않은 물량 비율)", "고정 배당금", "무제한 발행 금지 조항 없음", "카드 발급 수수료"], correct:0},
+        {q:"발란스팀 온보딩 흐름에서 4주 아카데미가 차지하는 위치는?", options:["1개월 온보딩 커리큘럼에 포함됨", "온보딩과 무관한 별도 과정", "가입 후 1년 뒤 진행", "선택 사항으로 생략 가능"], correct:0},
+        {q:"발란스팀 사업 시스템이 목표로 하는 것은?", options:["꾸준한 교육과 실사용을 통한 장기적 팀 성장", "단발성 가입자 수 늘리기", "1회성 이벤트 진행", "회원 이탈 유도"], correct:0},
+        {q:"'성공 사례' 항목을 채울 때 권장되는 형식은?", options:["배경 → 과정 → 결과 순으로 정리", "숫자만 나열", "타 프로젝트 사례만 언급", "익명 처리 없이 무단 공개"], correct:0},
+        {q:"WFI 가치를 안내할 때 권장되는 태도는?", options:["사실 기반으로 안내하고 수익 보장은 지양", "무조건 상승한다고 안내", "정보를 숨기고 안내하지 않음", "경쟁사와만 비교"], correct:0},
+        {q:"디오뱅크 시장에서 WeFi가 강조하는 차별점은?", options:["블록체인 기반이면서도 은행처럼 쉬운 사용성", "가장 높은 수수료", "가장 복잡한 가입 절차", "오프라인 지점 수"], correct:0},
+        {q:"글로벌 라이선스 항목을 안내할 때 주의할 점은?", options:["규제 환경이 자주 바뀌므로 최신 진행 상황 확인", "한 번 확인한 내용은 영구히 유효하다고 안내", "규제는 무시해도 된다고 안내", "국가별 차이가 없다고 안내"], correct:0},
+        {q:"4주차에서 다루는 4가지 주요 항목이 아닌 것은?", options:["Visa 파트너십", "디오뱅크 시장", "글로벌 라이선스", "블록체인 기초 이론(1주차 내용)"], correct:3},
+        {q:"사업 시스템에서 커뮤니티(카카오톡 등)의 역할은?", options:["신규 회원의 지속적인 교육과 소통 창구", "일회성 공지 전용", "판매 전용 채널", "무관한 부가 기능"], correct:0},
+        {q:"디오뱅크 시장의 핵심 대상 중 하나로 언급된 것은?", options:["해외 송금이 잦은 사용자", "은행 지점을 매일 방문하는 사용자", "현금만 사용하는 사용자", "금융 서비스를 이용하지 않는 사용자"], correct:0},
+        {q:"4주 과정 전체를 마친 회원에게 다음으로 자연스럽게 이어지는 단계는?", options:["사업 파트너 찾기·커뮤니티 활동 등 실전 참여", "학습을 처음부터 다시 반복만 함", "과정 종료 후 활동 중단", "타 프로젝트로 즉시 이동"], correct:0}
+    ]
+    } }
 ];
 
 var DEFAULT_GLOSSARY = [
@@ -375,15 +518,20 @@ var NAME_KEY = "wefiAcademyUserName_v1";
 var GLOSSARY_KEY = "wefiAcademyGlossary_v1";
 var SHEETS_KEY = "wefiAcademySheetsUrl_v1";
 var SESSION_KEY = "wefiAcademySessionConfig_v1";
+var PARTNER_KEY = "wefiAcademyPartners_v1";
 var sessionConfig = loadSessionConfig();
 var sessionEditOpen = false;
 var nameEditOpen = false;
+var GOALS_DONE_KEY = "wefiAcademyGoalsDone_v1";
 var goals = loadGoals();
+var goalsDone = loadGoalsDone();
 var userName = loadUserName();
 var glossary = loadGlossary();
 var sheetsUrl = loadSheetsUrl();
 var glossaryFilter = "";
 var openGlossaryTerm = null;
+var glossaryOpen = false;
+var partners = loadPartners();
 var syncStatus = "";
 var syncing = false;
 var data = loadData();
@@ -420,6 +568,16 @@ function loadGoals(){
 function saveGoals(){
   try{ window.localStorage.setItem(GOALS_KEY, JSON.stringify(goals)); }catch(e){}
 }
+function loadGoalsDone(){
+  try{
+    var raw = window.localStorage.getItem(GOALS_DONE_KEY);
+    if(raw) return JSON.parse(raw);
+  }catch(e){}
+  return [false,false,false,false,false,false,false,false,false,false];
+}
+function saveGoalsDone(){
+  try{ window.localStorage.setItem(GOALS_DONE_KEY, JSON.stringify(goalsDone)); }catch(e){}
+}
 
 function loadUserName(){
   try{ return window.localStorage.getItem(NAME_KEY) || ""; }catch(e){ return ""; }
@@ -452,6 +610,20 @@ function loadSessionConfig(){
 }
 function saveSessionConfig(){
   try{ window.localStorage.setItem(SESSION_KEY, JSON.stringify(sessionConfig)); }catch(e){}
+}
+function loadPartners(){
+  try{
+    var raw = window.localStorage.getItem(PARTNER_KEY);
+    if(raw) return JSON.parse(raw);
+  }catch(e){}
+  return [
+    {name:"", contact:"", status:0},
+    {name:"", contact:"", status:0},
+    {name:"", contact:"", status:0}
+  ];
+}
+function savePartners(){
+  try{ window.localStorage.setItem(PARTNER_KEY, JSON.stringify(partners)); }catch(e){}
 }
 
 function loadHomework(){
@@ -544,6 +716,7 @@ function render(){
   document.getElementById("name-row").innerHTML = renderNameRow();
   document.getElementById("session-section").innerHTML = renderSessionBanner();
   document.getElementById("goals-section").innerHTML = renderGoals();
+  document.getElementById("partner-section").innerHTML = renderPartners();
   document.getElementById("hw-section").innerHTML = renderHomework();
   document.getElementById("mail-section").innerHTML = renderMailSection();
   document.getElementById("glossary-section").innerHTML = renderGlossary();
@@ -556,6 +729,7 @@ function render(){
     html += renderWeek(data[i], i===data.length-1);
   }
   document.getElementById("timeline").innerHTML = html;
+  document.getElementById("certchallenge-section").innerHTML = renderCertChallenge();
 
   var toggleBtn = document.getElementById("admin-toggle");
   toggleBtn.className = "admin-toggle" + (isAdmin ? " active" : "");
@@ -713,7 +887,11 @@ function renderSessionBanner(){
 
 function renderGlossary(){
   var s = '<div class="glossary-card">';
-  s += '<div class="glossary-title">📖 용어사전</div>';
+  s += '<div class="glossary-title" data-action="toggle-glossary-open">';
+  s += '<span>📖 용어사전</span>';
+  s += '<svg class="glossary-chevron ' + (glossaryOpen?'open':'') + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>';
+  s += '</div>';
+  if(glossaryOpen){
   s += '<input class="glossary-search" id="glossary-search-input" placeholder="용어 검색..." value="' + esc(glossaryFilter) + '">';
   var filtered = glossary.filter(function(g){
     if(!glossaryFilter) return true;
@@ -746,6 +924,7 @@ function renderGlossary(){
   if(isAdmin){
     s += '<button class="add-topic-btn" data-action="add-gterm">+ 용어 추가</button>';
   }
+  }
   s += '</div>';
   return s;
 }
@@ -765,19 +944,70 @@ function renderSync(){
   return s;
 }
 
+var PARTNER_STATUS_LABELS = ["미접촉","연락함","미팅완료","4주 아카데미 완료","합류완료"];
+
+function renderPartners(){
+  var s = '<div class="partner-card">';
+  s += '<div class="partner-title">🎯 함께할 사업 파트너 3명 찾기</div>';
+  s += '<div class="partner-sub">위파이와 함께 성장할 동료 3명을 찾아보는 미션이에요. 이름을 적고 진행 단계를 표시해보세요.</div>';
+
+  var doneCount = 0;
+  for(var i=0;i<partners.length;i++){ if(partners[i].status===4) doneCount++; }
+  var pct = Math.round((doneCount/3)*100);
+  s += '<div class="partner-progress-row">';
+  s += '<div class="partner-progress-track"><div class="partner-progress-fill" style="width:' + pct + '%"></div></div>';
+  s += '<div class="partner-progress-label">' + doneCount + '/3</div>';
+  s += '</div>';
+
+  for(var j=0;j<partners.length;j++){
+    var p = partners[j];
+    var isDone = p.status===4;
+    s += '<div class="partner-slot ' + (isDone?'done':'') + '">';
+    s += '<div class="partner-slot-head">';
+    s += '<div class="partner-slot-num ' + (isDone?'done':'') + '">' + (j+1) + '</div>';
+    s += '<div style="font-size:12px;color:var(--ink-soft);font-weight:700;">' + (isDone?'합류 완료!':'파트너 후보') + '</div>';
+    s += '</div>';
+    s += '<input data-action="edit-partner-name" data-idx="' + j + '" placeholder="이름" value="' + esc(p.name) + '">';
+    s += '<input data-action="edit-partner-contact" data-idx="' + j + '" placeholder="연락처 (선택)" value="' + esc(p.contact) + '">';
+    s += '<div class="partner-status-row">';
+    for(var st=0; st<PARTNER_STATUS_LABELS.length; st++){
+      s += '<button class="partner-status-btn ' + (p.status===st?'active':'') + '" data-action="set-partner-status" data-idx="' + j + '" data-status="' + st + '">' + PARTNER_STATUS_LABELS[st] + '</button>';
+    }
+    s += '<button class="partner-status-btn partner-reset-btn" data-action="reset-partner" data-idx="' + j + '">🔄 합류 불발 · 초기화</button>';
+    s += '</div>';
+    s += '</div>';
+  }
+
+  if(doneCount===3){
+    s += '<div class="partner-celebrate">🎉 3명 모두 합류 완료! 나만의 팀이 시작됐어요.</div>';
+  }
+
+  s += '</div>';
+  return s;
+}
+
 function renderGoals(){
   var s = '<div class="goals-card">';
   s += '<div class="goals-title">🎯 위파이로 실현할 10가지</div>';
-  s += '<div class="goals-sub">1주차를 시작하기 전에, 위파이를 통해 이루고 싶은 것 10가지를 자유롭게 적어보세요. 언제든 다시 열어서 수정할 수 있어요.</div>';
+  s += '<div class="goals-sub">1주차를 시작하기 전에, 위파이를 통해 이루고 싶은 것 10가지를 자유롭게 적어보세요. 이루면 체크해보세요.</div>';
   var filled = 0;
+  var doneCount = 0;
   for(var i=0;i<10;i++){
+    var isDone = !!goalsDone[i];
+    s += '<div class="goal-row-wrap">';
     s += '<div class="goal-row">';
     s += '<div class="goal-num">' + (i+1) + '</div>';
     s += '<input class="goal-input" data-action="edit-goal" data-idx="' + i + '" placeholder="' + (i+1) + '번째 목표를 적어보세요" value="' + esc(goals[i]||"") + '">';
+    s += '<div class="goal-check ' + (isDone?'on':'') + '" data-action="toggle-goal-done" data-idx="' + i + '">' + (isDone?ICONS.check:'') + '</div>';
+    s += '</div>';
+    if(isDone){
+      s += '<div class="goal-celebrate">🎉 목표를 이뤘어요! 축하합니다</div>';
+    }
     s += '</div>';
     if(goals[i]) filled++;
+    if(isDone) doneCount++;
   }
-  s += '<div class="goals-progress">' + filled + ' / 10 작성 완료</div>';
+  s += '<div class="goals-progress">' + filled + ' / 10 작성 · ' + doneCount + ' / 10 달성 🎉</div>';
   s += '</div>';
   return s;
 }
@@ -815,13 +1045,44 @@ function renderHomework(){
 }
 
 
+function renderCertChallenge(){
+  var week4 = null;
+  for(var i=0;i<data.length;i++){ if(data[i].id===4){ week4 = data[i]; break; } }
+  if(!week4 || !weekComplete(week4)) return "";
+
+  var certLink = "https://korea-kca.com/";
+  var certs = [
+    {icon:"🔗", name:"블록체인 전문가 1급", nameEn:"Blockchain Expert Level 1", dept:"주무부처 과학기술정보통신부"},
+    {icon:"🏦", name:"디지털 자산관리사 1급", nameEn:"Digital Asset Manager Level 1", dept:"주무부처 금융위원회"},
+    {icon:"🔍", name:"디지털 자산평가사 1급", nameEn:"Digital Asset Appraiser Level 1", dept:"주무부처 금융위원회"}
+  ];
+
+  var s = '<div class="certchallenge-card">';
+  s += '<div class="certchallenge-title">🏅 4주차를 완료하셨어요!</div>';
+  s += '<div class="certchallenge-sub">이제 전문성을 인증받을 차례예요. 아래 자격증에 도전해보세요.</div>';
+  for(var j=0;j<certs.length;j++){
+    var c = certs[j];
+    s += '<div class="certchallenge-item">';
+    s += '<div class="certchallenge-badge">' + c.icon + '</div>';
+    s += '<div style="flex:1;">';
+    s += '<div class="certchallenge-name">' + esc(c.name) + '</div>';
+    s += '<div class="certchallenge-name-en">' + esc(c.nameEn) + '</div>';
+    s += '<span class="certchallenge-dept">' + esc(c.dept) + '</span>';
+    s += '</div>';
+    s += '<a class="certchallenge-apply" href="' + esc(certLink) + '" target="_blank" rel="noopener">신청하기 ›</a>';
+    s += '</div>';
+  }
+  s += '</div>';
+  return s;
+}
+
 function renderWeek(week, isLast){
   var complete = weekComplete(week);
   var isOpen = openWeek === week.id;
   var dCount = weekDoneCount(week);
   var nodeSvg = complete ? ICONS.check : ICONS[week.icon];
 
-  var s = '<div class="week ' + (complete?'done':'') + '">';
+  var s = '<div class="week ' + (complete?'done':'') + '" data-theme="' + week.id + '">';
   if(!isLast) s += '<div class="week-line"></div>';
   s += '<div class="week-node">' + nodeSvg + '</div>';
   s += '<div class="week-card ' + (isOpen?'open':'') + '" data-week="' + week.id + '">';
@@ -996,11 +1257,64 @@ function bindEvents(){
   var container = document.querySelector(".wrap");
   container.oninput = function(e){
     var el = e.target;
+    var action = el.getAttribute("data-action");
     if(el.id==="glossary-search-input"){
       glossaryFilter = el.value;
       render();
       var refocus = document.getElementById("glossary-search-input");
       if(refocus){ refocus.focus(); refocus.selectionStart = refocus.selectionEnd = refocus.value.length; }
+    } else if(action==="edit-goal"){
+      var gIdx2 = parseInt(el.getAttribute("data-idx"),10);
+      goals[gIdx2] = el.value;
+      saveGoals();
+    } else if(action==="edit-partner-name"){
+      var pnIdx2 = parseInt(el.getAttribute("data-idx"),10);
+      partners[pnIdx2].name = el.value;
+      savePartners();
+    } else if(action==="edit-partner-contact"){
+      var pcIdx2 = parseInt(el.getAttribute("data-idx"),10);
+      partners[pcIdx2].contact = el.value;
+      savePartners();
+    } else if(action==="edit-gterm-name"){
+      var gnId2 = parseInt(el.getAttribute("data-id"),10);
+      for(var gn2=0;gn2<glossary.length;gn2++){ if(glossary[gn2].id===gnId2){ glossary[gn2].term = el.value; break; } }
+      saveGlossary();
+    } else if(action==="edit-gterm-def"){
+      var gdId2 = parseInt(el.getAttribute("data-id"),10);
+      for(var gd2=0;gd2<glossary.length;gd2++){ if(glossary[gd2].id===gdId2){ glossary[gd2].def = el.value; break; } }
+      saveGlossary();
+    } else if(action==="edit-topic-content"){
+      var weekId5 = parseInt(el.getAttribute("data-week"),10);
+      var topicId5 = el.getAttribute("data-topic");
+      var wk5 = findWeek(weekId5);
+      for(var j5=0;j5<wk5.topics.length;j5++){
+        if(wk5.topics[j5].id===topicId5){ wk5.topics[j5].content = el.value; break; }
+      }
+      saveData();
+    } else if(action==="edit-topic-name"){
+      var weekId6 = parseInt(el.getAttribute("data-week"),10);
+      var topicId6 = el.getAttribute("data-topic");
+      var wk6 = findWeek(weekId6);
+      for(var j6=0;j6<wk6.topics.length;j6++){
+        if(wk6.topics[j6].id===topicId6){ wk6.topics[j6].name = el.value; break; }
+      }
+      saveData();
+    } else if(action==="edit-hw-name"){
+      var hwId5 = parseInt(el.getAttribute("data-hw"),10);
+      for(var a5=0;a5<homework.length;a5++){ if(homework[a5].id===hwId5){ homework[a5].name = el.value; break; } }
+      saveHomework();
+    } else if(action==="edit-hw-desc"){
+      var hwId6 = parseInt(el.getAttribute("data-hw"),10);
+      for(var b5=0;b5<homework.length;b5++){ if(homework[b5].id===hwId6){ homework[b5].desc = el.value; break; } }
+      saveHomework();
+    } else if(action==="edit-hw-tag"){
+      var hwId7 = parseInt(el.getAttribute("data-hw"),10);
+      for(var c5=0;c5<homework.length;c5++){ if(homework[c5].id===hwId7){ homework[c5].tag = el.value; break; } }
+      saveHomework();
+    } else if(action==="edit-hw-link"){
+      var hwId8 = parseInt(el.getAttribute("data-hw"),10);
+      for(var d5=0;d5<homework.length;d5++){ if(homework[d5].id===hwId8){ homework[d5].link = el.value; break; } }
+      saveHomework();
     }
   };
   container.onclick = function(e){
@@ -1016,6 +1330,11 @@ function bindEvents(){
       var hwId = parseInt(el.getAttribute("data-hw"),10);
       progress.homeworkDone[hwId] = !progress.homeworkDone[hwId];
       saveProgress();
+      render();
+    } else if(action==="toggle-goal-done"){
+      var gdIdx = parseInt(el.getAttribute("data-idx"),10);
+      goalsDone[gdIdx] = !goalsDone[gdIdx];
+      saveGoalsDone();
       render();
     } else if(action==="connect-gmail"){
       connectGmail();
@@ -1057,6 +1376,20 @@ function bindEvents(){
       userName = nameVal;
       saveUserName(userName);
       nameEditOpen = false;
+      render();
+    } else if(action==="set-partner-status"){
+      var pIdx = parseInt(el.getAttribute("data-idx"),10);
+      var pStatus = parseInt(el.getAttribute("data-status"),10);
+      partners[pIdx].status = pStatus;
+      savePartners();
+      render();
+    } else if(action==="reset-partner"){
+      var rIdx = parseInt(el.getAttribute("data-idx"),10);
+      partners[rIdx] = { name:"", contact:"", status:0 };
+      savePartners();
+      render();
+    } else if(action==="toggle-glossary-open"){
+      glossaryOpen = !glossaryOpen;
       render();
     } else if(action==="toggle-gterm"){
       var gtId = parseInt(el.getAttribute("data-id"),10);
@@ -1159,6 +1492,14 @@ function bindEvents(){
       goals[gIdx] = el.value;
       saveGoals();
       render();
+    } else if(action==="edit-partner-name"){
+      var pnIdx = parseInt(el.getAttribute("data-idx"),10);
+      partners[pnIdx].name = el.value;
+      savePartners();
+    } else if(action==="edit-partner-contact"){
+      var pcIdx = parseInt(el.getAttribute("data-idx"),10);
+      partners[pcIdx].contact = el.value;
+      savePartners();
     } else if(action==="edit-gterm-name"){
       var gnId = parseInt(el.getAttribute("data-id"),10);
       for(var gn=0;gn<glossary.length;gn++){ if(glossary[gn].id===gnId){ glossary[gn].term = el.value; break; } }
