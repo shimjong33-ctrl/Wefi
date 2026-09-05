@@ -322,6 +322,25 @@
   </div>
 
   <div class="card">
+    <h2>오늘 지출 기록</h2>
+    <div class="asset-editor">
+      <input type="text" id="expenseName" placeholder="지출 항목 (예: 커피, 점심, 교통비)">
+      <input type="number" id="expenseAmount" placeholder="금액(원)" step="1000">
+      <button id="addExpenseBtn">추가</button>
+    </div>
+    <div class="asset-list" id="expenseList"></div>
+    <div class="asset-total-row">
+      <span class="label">오늘 총 지출</span>
+      <span class="value" id="expenseTodayTotal" style="color:#f87171;">0원</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>이번 달 지출 분석</h2>
+    <div id="expenseAnalysis"></div>
+  </div>
+
+  <div class="card">
     <h2>단계별 목표금액</h2>
     <div class="goal-editor">
       <input type="number" id="newGoal" placeholder="목표금액(만원)" step="1">
@@ -356,6 +375,20 @@
   var monthlyEquivEl = document.getElementById('monthlyEquiv');
   var addDailyBtn = document.getElementById('addDailyBtn');
   var addDailyMsg = document.getElementById('addDailyMsg');
+  var expenseNameEl = document.getElementById('expenseName');
+  var expenseAmountEl = document.getElementById('expenseAmount');
+  var addExpenseBtn = document.getElementById('addExpenseBtn');
+  var expenseListEl = document.getElementById('expenseList');
+  var expenseTodayTotalEl = document.getElementById('expenseTodayTotal');
+  var expenseAnalysisEl = document.getElementById('expenseAnalysis');
+
+  function todayStr(){
+    var d = new Date();
+    var y = d.getFullYear();
+    var m = ('0' + (d.getMonth()+1)).slice(-2);
+    var day = ('0' + d.getDate()).slice(-2);
+    return y + '-' + m + '-' + day;
+  }
   var newGoalEl = document.getElementById('newGoal');
   var addGoalBtn = document.getElementById('addGoalBtn');
   var goalChips = document.getElementById('goalChips');
@@ -382,6 +415,7 @@
           if (parsed.daily === undefined) {
             parsed.daily = parsed.monthly ? Math.round(parsed.monthly / 30) : 16667;
           }
+          if (!parsed.expenses) parsed.expenses = [];
           // clean up stray tiny values left over from an older 원 단위 입력 bug
           parsed.goals = parsed.goals.filter(function(g){ return g >= 10000; });
           if (parsed.assets) {
@@ -392,7 +426,7 @@
         }
       }
     } catch(e) {}
-    return { assets: [], daily: 16667, goals: defaultGoals.slice() };
+    return { assets: [], daily: 16667, goals: defaultGoals.slice(), expenses: [] };
   }
 
   function saveState(){
@@ -410,13 +444,19 @@
     n = Math.round(n);
     var isNeg = n < 0;
     n = Math.abs(n);
+    if (n < 10000) {
+      return (isNeg ? '-' : '') + n.toLocaleString('ko-KR') + '원';
+    }
     var eok = Math.floor(n / 100000000);
-    var man = Math.floor((n % 100000000) / 10000);
-    var str = '';
-    if (eok > 0) str += eok + '억 ';
-    if (man > 0 || eok === 0) str += man.toLocaleString('ko-KR') + '만';
-    str += '원';
-    return (isNeg ? '-' : '') + str;
+    var rem = n % 100000000;
+    var man = Math.floor(rem / 10000);
+    var won = rem % 10000;
+    var parts = [];
+    if (eok > 0) parts.push(eok.toLocaleString('ko-KR') + '억');
+    if (man > 0) parts.push(man.toLocaleString('ko-KR') + '만');
+    if (won > 0) parts.push(won.toLocaleString('ko-KR'));
+    if (parts.length === 0) parts.push('0만');
+    return (isNeg ? '-' : '') + parts.join(' ') + '원';
   }
 
   function fmtRaw(n){
@@ -537,6 +577,92 @@
       assetListEl.appendChild(anote);
     }
     assetTotalEl.textContent = fmtWon(getCurrentTotal());
+
+    // today's expenses
+    var todayDateStr = todayStr();
+    expenseListEl.innerHTML = '';
+    var todaysExpenses = [];
+    (state.expenses || []).forEach(function(e, i){
+      if (e.date === todayDateStr) todaysExpenses.push({ e: e, i: i });
+    });
+    if (todaysExpenses.length === 0) {
+      var enote = document.createElement('div');
+      enote.className = 'empty-note';
+      enote.textContent = '오늘 지출 내역이 없어요';
+      expenseListEl.appendChild(enote);
+    } else {
+      todaysExpenses.forEach(function(pair){
+        var row = document.createElement('div');
+        row.className = 'asset-row';
+        row.innerHTML = '<div><span class="name">' + pair.e.name + '</span><span class="amt">' + fmtWon(pair.e.amount) + '</span></div>';
+        var delBtn = document.createElement('button');
+        delBtn.className = 'del';
+        delBtn.textContent = '✕';
+        delBtn.onclick = function(){
+          state.expenses.splice(pair.i, 1);
+          saveState();
+          render();
+        };
+        row.appendChild(delBtn);
+        expenseListEl.appendChild(row);
+      });
+    }
+    var todayTotal = todaysExpenses.reduce(function(sum, pair){ return sum + pair.e.amount; }, 0);
+    expenseTodayTotalEl.textContent = fmtWon(todayTotal);
+
+    // this month's expense analysis
+    var curMonth = todayDateStr.slice(0, 7);
+    var monthExpenses = (state.expenses || []).filter(function(e){ return e.date && e.date.slice(0,7) === curMonth; });
+    expenseAnalysisEl.innerHTML = '';
+    if (monthExpenses.length === 0) {
+      var mnote = document.createElement('div');
+      mnote.className = 'empty-note';
+      mnote.textContent = '이번 달 지출 내역이 아직 없어요';
+      expenseAnalysisEl.appendChild(mnote);
+    } else {
+      var monthTotal = monthExpenses.reduce(function(sum, e){ return sum + e.amount; }, 0);
+
+      var byItem = {};
+      monthExpenses.forEach(function(e){
+        byItem[e.name] = (byItem[e.name] || 0) + e.amount;
+      });
+      var items = Object.keys(byItem).map(function(name){
+        return { name: name, amount: byItem[name] };
+      }).sort(function(a,b){ return b.amount - a.amount; });
+
+      var totalRow = document.createElement('div');
+      totalRow.className = 'summary-row';
+      totalRow.innerHTML = '<span class="label" style="font-weight:700; color:#e2e8f0;">이번 달 총 지출</span><span class="value" style="color:#f87171; font-size:15px;">' + fmtWon(monthTotal) + '</span>';
+      totalRow.style.marginBottom = '10px';
+      totalRow.style.paddingBottom = '10px';
+      totalRow.style.borderBottom = '1px solid rgba(255,255,255,0.08)';
+      expenseAnalysisEl.appendChild(totalRow);
+
+      items.forEach(function(item, idx){
+        var pct = monthTotal > 0 ? (item.amount / monthTotal * 100) : 0;
+        var wrap = document.createElement('div');
+        wrap.style.marginBottom = '12px';
+
+        var line = document.createElement('div');
+        line.style.display = 'flex';
+        line.style.justifyContent = 'space-between';
+        line.style.fontSize = '13px';
+        line.style.marginBottom = '5px';
+        line.innerHTML = '<span style="color:#e2e8f0; font-weight:' + (idx === 0 ? '700' : '500') + ';">' + (idx === 0 ? '🔥 ' : '') + item.name + '</span><span style="color:#94a3b8;">' + fmtWon(item.amount) + ' · ' + pct.toFixed(1) + '%</span>';
+        wrap.appendChild(line);
+
+        var bar = document.createElement('div');
+        bar.className = 'stage-bar';
+        var fill = document.createElement('div');
+        fill.className = 'stage-bar-fill';
+        fill.style.width = pct.toFixed(1) + '%';
+        if (idx === 0) fill.style.background = 'linear-gradient(90deg, #f87171, #fbbf24)';
+        bar.appendChild(fill);
+        wrap.appendChild(bar);
+
+        expenseAnalysisEl.appendChild(wrap);
+      });
+    }
 
     // goal chips
     goalChips.innerHTML = '';
@@ -850,6 +976,22 @@
     render();
     addDailyMsg.textContent = fmtWon(amt) + ' 추가됐어요!';
     setTimeout(function(){ addDailyMsg.textContent = ''; }, 2500);
+  });
+
+  addExpenseBtn.addEventListener('click', function(){
+    var name = (expenseNameEl.value || '').trim();
+    var amount = parseFloat(expenseAmountEl.value) || 0;
+    if (!name || amount <= 0) return;
+    if (!state.expenses) state.expenses = [];
+    state.expenses.push({ name: name, amount: amount, date: todayStr() });
+    expenseNameEl.value = '';
+    expenseAmountEl.value = '';
+    saveState();
+    render();
+  });
+
+  expenseAmountEl.addEventListener('keydown', function(e){
+    if (e.key === 'Enter') addExpenseBtn.click();
   });
 
   render();
