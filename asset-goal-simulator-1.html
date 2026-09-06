@@ -416,6 +416,13 @@
             parsed.daily = parsed.monthly ? Math.round(parsed.monthly / 30) : 16667;
           }
           if (!parsed.expenses) parsed.expenses = [];
+          // keep only the last 6 months of expense records so storage doesn't grow forever
+          (function(){
+            var cutoff = new Date();
+            cutoff.setMonth(cutoff.getMonth() - 6);
+            var cutoffStr = cutoff.toISOString().slice(0,10);
+            parsed.expenses = parsed.expenses.filter(function(e){ return e.date && e.date >= cutoffStr; });
+          })();
           // clean up stray tiny values left over from an older 원 단위 입력 bug
           parsed.goals = parsed.goals.filter(function(g){ return g >= 10000; });
           if (parsed.assets) {
