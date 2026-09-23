@@ -142,18 +142,28 @@
     background: var(--highlight-bg);
     box-shadow: 0 2px 6px rgba(0,0,0,.2);
   }
+  .node.has-children{ cursor: pointer; }
   .node.search-hit{
     outline: 2px solid var(--gold);
     box-shadow: 0 0 0 4px rgba(227,189,99,.35);
   }
   .row1{ display:flex; align-items:baseline; gap:6px; }
-  .name-input, .revenue-input, .sub-input{
+  .name-input, .revenue-input, .memo-input, .sub-input{
     background: transparent; border:none; outline:none;
     color: var(--white); text-align:center; font-family:inherit;
   }
   .name-input{ font-size:16px; font-weight:700; width:80px; }
   .revenue-input{ font-size:12.5px; font-weight:700; color:#a8e6c1; width:70px; }
   .revenue-input::placeholder{ color: rgba(255,255,255,.4); }
+  .memo-input{ font-size:11.5px; font-style:italic; color: rgba(255,255,255,.7); width:70px; font-weight:400; }
+  .memo-input::placeholder{ color: rgba(255,255,255,.4); }
+  .node.highlight .memo-input{ color: rgba(44,33,16,.75); }
+  .memo-toggle{
+    font-size:10.5px; padding:2px 6px; border-radius:6px;
+    border:1px solid rgba(255,255,255,.25); background: rgba(0,0,0,.15);
+    color: rgba(255,255,255,.8); cursor:pointer; white-space:nowrap; font-family:inherit;
+  }
+  .node.highlight .memo-toggle{ border-color: rgba(44,33,16,.3); color: rgba(44,33,16,.8); background: rgba(255,255,255,.2); }
   .sub-input{ font-size:13px; color: var(--sub); width:132px; margin-top:2px; }
   .refRow{ display:flex; align-items:center; gap:4px; margin-top:4px; }
   .ref-input{
@@ -244,9 +254,44 @@
     flex:1; padding:10px 8px; border-radius:8px; border:none;
     font-size:14px; cursor:pointer; font-family:inherit;
   }
+  .visually-hidden-file{
+    position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+    overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; opacity:0;
+  }
   #confirmCancel{ background: rgba(255,255,255,.15); color: var(--white); }
   #confirmOk{ background: var(--danger); color: var(--white); font-weight:700; }
   #confirmOk.neutral{ background: var(--gold); color:#2c2110; }
+  #confirmPromptInput{
+    width:100%; box-sizing:border-box; margin-bottom:14px;
+    padding:8px 10px; border-radius:8px; border:1px solid rgba(255,255,255,.3);
+    background: rgba(255,255,255,.12); color: var(--white); font-size:14px; font-family:inherit;
+  }
+
+  /* ---------- avatar / photo ---------- */
+  .avatar-wrap{ position:relative; margin-bottom:4px; }
+  .avatar-label{ display:inline-block; cursor:pointer; }
+  .avatar-img{
+    width:44px; height:44px; border-radius:50%; object-fit:cover;
+    cursor:pointer; border:2px solid rgba(255,255,255,.4); display:block;
+  }
+  .avatar-placeholder{
+    width:44px; height:44px; border-radius:50%; background:rgba(0,0,0,.15);
+    border:2px dashed rgba(255,255,255,.35); display:flex; align-items:center;
+    justify-content:center; font-size:18px; cursor:pointer;
+  }
+  .avatar-remove{
+    position:absolute; top:-6px; right:-6px; width:18px; height:18px; border-radius:50%;
+    background: var(--danger); color:#fff; border:none; font-size:11px; line-height:1;
+    cursor:pointer; padding:0;
+  }
+
+  /* ---------- revenue history ---------- */
+  .hist-toggle{ font-size:10px; padding:1px 5px; }
+  .hist-panel{
+    font-size:10px; color: rgba(255,255,255,.75); margin-top:3px;
+    text-align:center; line-height:1.5;
+  }
+  .node.highlight .hist-panel{ color: rgba(44,33,16,.75); }
 </style>
 </head>
 <body>
@@ -259,11 +304,14 @@
     <span id="zoomLabel">100%</span>
     <button class="tbtn" id="zoomIn">＋</button>
   </span>
+  <select id="chartSelect" class="tbtn"></select>
+  <button class="tbtn" id="newChartBtn">새 조직도</button>
+  <button class="tbtn" id="undoBtn" disabled>되돌리기</button>
   <div class="spacer"></div>
   <button class="tbtn" id="statsBtn">통계</button>
   <button class="tbtn" id="exportBtn">내보내기</button>
   <button class="tbtn" id="importBtn">불러오기</button>
-  <input type="file" id="importFile" accept="application/json" style="display:none">
+  <input type="file" id="importFile" accept="application/json" class="visually-hidden-file">
   <button class="tbtn danger" id="resetBtn">전체 초기화</button>
 </div>
 
@@ -285,12 +333,14 @@
 <div id="confirmOverlay">
   <div class="confirm-box">
     <p id="confirmMsg"></p>
+    <input type="text" id="confirmPromptInput" style="display:none;">
     <div class="confirm-actions" id="confirmActions">
       <button id="confirmCancel">취소</button>
       <button id="confirmOk">삭제</button>
     </div>
   </div>
 </div>
+
 
 <script>
 (function(){
@@ -314,46 +364,78 @@
   var confirmMsg = document.getElementById('confirmMsg');
   var confirmOkBtn = document.getElementById('confirmOk');
   var confirmCancelBtn = document.getElementById('confirmCancel');
+  var confirmPromptInput = document.getElementById('confirmPromptInput');
   var pendingConfirm = null;
+  var pendingPrompt = null;
 
   function showConfirm(message, okLabel, onConfirm){
     confirmMsg.textContent = message;
+    confirmPromptInput.style.display = 'none';
     confirmOkBtn.textContent = okLabel || '확인';
     confirmOkBtn.className = '';
     confirmCancelBtn.style.display = '';
     pendingConfirm = onConfirm;
+    pendingPrompt = null;
     confirmOverlay.className = 'show';
   }
 
   function showAlert(message){
     confirmMsg.textContent = message;
+    confirmPromptInput.style.display = 'none';
     confirmOkBtn.textContent = '확인';
     confirmOkBtn.className = 'neutral';
     confirmCancelBtn.style.display = 'none';
     pendingConfirm = null;
+    pendingPrompt = null;
     confirmOverlay.className = 'show';
+  }
+
+  function showPrompt(message, defaultValue, onSubmit){
+    confirmMsg.textContent = message;
+    confirmPromptInput.style.display = '';
+    confirmPromptInput.value = defaultValue || '';
+    confirmOkBtn.textContent = '확인';
+    confirmOkBtn.className = 'neutral';
+    confirmCancelBtn.style.display = '';
+    pendingConfirm = null;
+    pendingPrompt = onSubmit;
+    confirmOverlay.className = 'show';
+    setTimeout(function(){ confirmPromptInput.focus(); confirmPromptInput.select(); }, 50);
   }
 
   confirmOkBtn.addEventListener('click', function(){
     confirmOverlay.className = '';
+    confirmPromptInput.style.display = 'none';
+    if(pendingPrompt){
+      var val = confirmPromptInput.value;
+      var pcb = pendingPrompt;
+      pendingPrompt = null;
+      pcb(val);
+      return;
+    }
     var cb = pendingConfirm;
     pendingConfirm = null;
     if(cb) cb();
   });
   confirmCancelBtn.addEventListener('click', function(){
     confirmOverlay.className = '';
+    confirmPromptInput.style.display = 'none';
     pendingConfirm = null;
+    pendingPrompt = null;
   });
 
   function defaultData(){
-    return { id:'root', name:'대표', number:'', subtext:'', revenue:'', referral:'', highlight:false, color:'', collapsed:false, children:[] };
+    return { id:'root', name:'대표', number:'', subtext:'', revenue:'', memo:'', referral:'', photo:'', revenueHistory:{}, highlight:false, color:'', collapsed:false, children:[] };
   }
 
   function normalizeNode(node){
     if(node.highlight === undefined) node.highlight = false;
     if(node.color === undefined) node.color = '';
     if(node.revenue === undefined) node.revenue = '';
+    if(node.memo === undefined) node.memo = '';
     if(node.referral === undefined) node.referral = '';
+    if(node.photo === undefined) node.photo = '';
+    if(!node.revenueHistory) node.revenueHistory = {};
     if(node.collapsed === undefined) node.collapsed = false;
     if(!node.children) node.children = [];
     node.children.forEach(normalizeNode);
@@ -372,14 +454,69 @@
     }
   }
 
-  var treeData = loadData();
+  // ---------- multiple named charts ----------
+  var CHARTS_KEY = 'balance-org-charts-list';
+  var ACTIVE_KEY = 'balance-org-active-chart';
+
+  function loadChartsList(){
+    try{
+      var raw = localStorage.getItem(CHARTS_KEY);
+      return raw ? JSON.parse(raw) : {};
+    }catch(e){ return {}; }
+  }
+  function saveChartsList(list){
+    localStorage.setItem(CHARTS_KEY, JSON.stringify(list));
+  }
+
+  var chartsList = loadChartsList();
+  var activeChartName = localStorage.getItem(ACTIVE_KEY) || '기본';
+  if(!chartsList[activeChartName]){
+    chartsList[activeChartName] = loadData(); // migrate legacy single-chart data on first run
+    saveChartsList(chartsList);
+  }
+
+  var treeData = normalizeNode(chartsList[activeChartName]);
+  var openMemoIds = {}; // ephemeral UI state: which nodes currently show the memo input open (not persisted)
+  var openHistoryIds = {}; // ephemeral UI state: which nodes currently show the revenue-history panel open
   var saveTimer = null;
+
+  function saveNow(){
+    chartsList[activeChartName] = treeData;
+    saveChartsList(chartsList);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(treeData));
+  }
 
   function saveData(){
     clearTimeout(saveTimer);
-    saveTimer = setTimeout(function(){
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(treeData));
-    }, 150);
+    saveTimer = setTimeout(saveNow, 150);
+  }
+
+  // ---------- undo ----------
+  var historyStack = [];
+  var MAX_HISTORY = 30;
+
+  function pushHistory(){
+    try{
+      historyStack.push(JSON.stringify(treeData));
+      if(historyStack.length > MAX_HISTORY) historyStack.shift();
+    }catch(e){}
+    updateUndoBtn();
+  }
+
+  function updateUndoBtn(){
+    var btn = document.getElementById('undoBtn');
+    if(btn) btn.disabled = historyStack.length === 0;
+  }
+
+  function undo(){
+    if(!historyStack.length) return;
+    var prev = historyStack.pop();
+    try{
+      treeData = normalizeNode(JSON.parse(prev));
+    }catch(e){ return; }
+    saveData();
+    render();
+    updateUndoBtn();
   }
 
   function findNode(id, node){
@@ -460,6 +597,38 @@
     document.body.removeChild(ta);
   }
 
+  // ---------- profile photo ----------
+  function resizeImageFile(file, maxDim, callback){
+    var reader = new FileReader();
+    reader.onload = function(evt){
+      var img = new Image();
+      img.onload = function(){
+        var w = img.width, h = img.height;
+        var scale = Math.min(1, maxDim / Math.max(w, h));
+        var canvas = document.createElement('canvas');
+        canvas.width = Math.max(1, Math.round(w * scale));
+        canvas.height = Math.max(1, Math.round(h * scale));
+        var ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        try{
+          callback(canvas.toDataURL('image/jpeg', 0.75));
+        }catch(e){
+          callback(evt.target.result);
+        }
+      };
+      img.onerror = function(){ callback(evt.target.result); };
+      img.src = evt.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  // ---------- monthly revenue history ----------
+  function currentMonthKey(){
+    var d = new Date();
+    var m = d.getMonth() + 1;
+    return d.getFullYear() + '-' + (m < 10 ? '0' + m : m);
+  }
+
   var LEVEL4_TARGET = 75000;
   var LEVEL4_CAP = LEVEL4_TARGET * 0.4; // each subordinate line counts up to 40% of the target
 
@@ -528,11 +697,52 @@
     li.appendChild(drop);
 
     var box = document.createElement('div');
-    box.className = 'node' + (node.highlight ? ' highlight' : '');
+    box.className = 'node' + (node.highlight ? ' highlight' : '') + (node.children.length > 0 ? ' has-children' : '');
     box.setAttribute('data-node-id', node.id);
     if(node.color){
       box.style.backgroundColor = node.color;
     }
+
+    var avatarWrap = document.createElement('div');
+    avatarWrap.className = 'avatar-wrap';
+
+    var photoInputId = 'photo-input-' + node.id;
+    var photoInput = document.createElement('input');
+    photoInput.type = 'file';
+    photoInput.accept = 'image/*';
+    photoInput.className = 'visually-hidden-file';
+    photoInput.id = photoInputId;
+    photoInput.setAttribute('data-id', node.id);
+
+    var avatarLabel = document.createElement('label');
+    avatarLabel.className = 'avatar-label';
+    avatarLabel.setAttribute('for', photoInputId);
+
+    if(node.photo){
+      var avatarImg = document.createElement('img');
+      avatarImg.className = 'avatar-img';
+      avatarImg.src = node.photo;
+      avatarImg.title = '사진 변경';
+      avatarLabel.appendChild(avatarImg);
+      avatarWrap.appendChild(avatarLabel);
+      avatarWrap.appendChild(photoInput);
+
+      var avatarRemoveBtn = document.createElement('button');
+      avatarRemoveBtn.className = 'avatar-remove';
+      avatarRemoveBtn.setAttribute('data-id', node.id);
+      avatarRemoveBtn.title = '사진 삭제';
+      avatarRemoveBtn.textContent = '×';
+      avatarWrap.appendChild(avatarRemoveBtn);
+    } else {
+      var avatarPlaceholder = document.createElement('div');
+      avatarPlaceholder.className = 'avatar-placeholder';
+      avatarPlaceholder.title = '사진 추가';
+      avatarPlaceholder.textContent = '📷';
+      avatarLabel.appendChild(avatarPlaceholder);
+      avatarWrap.appendChild(avatarLabel);
+      avatarWrap.appendChild(photoInput);
+    }
+    box.appendChild(avatarWrap);
 
     var row1 = document.createElement('div');
     row1.className = 'row1';
@@ -546,6 +756,22 @@
 
     row1.appendChild(nameInput);
 
+    if(openMemoIds[node.id]){
+      var memoInput = document.createElement('input');
+      memoInput.className = 'memo-input';
+      memoInput.placeholder = '메모 입력';
+      memoInput.value = node.memo || '';
+      memoInput.setAttribute('data-id', node.id);
+      memoInput.setAttribute('data-field', 'memo');
+      row1.appendChild(memoInput);
+    } else {
+      var memoToggle = document.createElement('button');
+      memoToggle.className = 'memo-toggle';
+      memoToggle.setAttribute('data-id', node.id);
+      memoToggle.textContent = node.memo ? '📝 작성됨' : '📝 메모';
+      row1.appendChild(memoToggle);
+    }
+
     var revenueInput = document.createElement('input');
     revenueInput.className = 'revenue-input';
     revenueInput.placeholder = '매출$';
@@ -553,6 +779,27 @@
     revenueInput.setAttribute('data-id', node.id);
     revenueInput.setAttribute('data-field', 'revenue');
     row1.appendChild(revenueInput);
+
+    var histToggle = document.createElement('button');
+    histToggle.className = 'abtn hist-toggle';
+    histToggle.setAttribute('data-id', node.id);
+    histToggle.title = '월별 매출 기록';
+    histToggle.textContent = '📊';
+    row1.appendChild(histToggle);
+
+    var histPanel = null;
+    if(openHistoryIds[node.id]){
+      histPanel = document.createElement('div');
+      histPanel.className = 'hist-panel';
+      var histKeys = Object.keys(node.revenueHistory || {}).sort().reverse();
+      if(histKeys.length === 0){
+        histPanel.textContent = '이번 달 이전 기록 없음';
+      } else {
+        histPanel.innerHTML = histKeys.map(function(k){
+          return k + ': ' + formatMoney(node.revenueHistory[k]);
+        }).join('<br>');
+      }
+    }
 
     var subInput = document.createElement('input');
     subInput.className = 'sub-input';
@@ -586,6 +833,7 @@
     refRow.appendChild(copyBtn);
 
     box.appendChild(row1);
+    if(histPanel) box.appendChild(histPanel);
     box.appendChild(subInput);
     box.appendChild(refRow);
 
@@ -618,6 +866,15 @@
     actions.appendChild(addBtn);
     actions.appendChild(hlBtn);
     actions.appendChild(colorInput);
+
+    if(node.color){
+      var colorResetBtn = document.createElement('button');
+      colorResetBtn.className = 'abtn color-reset';
+      colorResetBtn.setAttribute('data-id', node.id);
+      colorResetBtn.title = '처음 색으로 되돌리기';
+      colorResetBtn.textContent = '색상 초기화';
+      actions.appendChild(colorResetBtn);
+    }
 
     if(node.id !== 'root'){
       var delBtn = document.createElement('button');
@@ -713,6 +970,29 @@
     }
   });
 
+  document.getElementById('chart-wrapper').addEventListener('focusout', function(e){
+    var t = e.target;
+    if(t.matches('.memo-input[data-id]')){
+      var memoId = t.getAttribute('data-id');
+      openMemoIds[memoId] = false;
+      render();
+    } else if(t.matches('.revenue-input[data-id]')){
+      var revNode = findNode(t.getAttribute('data-id'));
+      if(revNode){
+        if(!revNode.revenueHistory) revNode.revenueHistory = {};
+        revNode.revenueHistory[currentMonthKey()] = parseMoney(revNode.revenue);
+        saveData();
+      }
+    }
+  });
+
+  document.getElementById('chart-wrapper').addEventListener('focusin', function(e){
+    var t = e.target;
+    if(t.matches('input[data-id], select[data-id]')){
+      pushHistory();
+    }
+  });
+
   document.getElementById('chart-wrapper').addEventListener('change', function(e){
     var t = e.target;
     if(t.matches('input[type="color"][data-id]')){
@@ -722,6 +1002,17 @@
         saveData();
         render();
       }
+    } else if(t.matches('input[type="file"][data-id]')){
+      var file = t.files[0];
+      if(!file) return;
+      var photoNode2 = findNode(t.getAttribute('data-id'));
+      if(!photoNode2) return;
+      resizeImageFile(file, 96, function(dataUrl){
+        pushHistory();
+        photoNode2.photo = dataUrl;
+        saveData();
+        render();
+      });
     }
   });
 
@@ -730,10 +1021,11 @@
     if(t.classList.contains('add')){
       var node = findNode(t.getAttribute('data-id'));
       if(node){
+        pushHistory();
         if(node.children.length >= getMax(node)){
           node.maxChildren = getMax(node) + 1;
         }
-        node.children.push({ id:genId(), name:'새 인원', number:'', subtext:'', revenue:'', referral:'', highlight:false, color:'', collapsed:false, children:[] });
+        node.children.push({ id:genId(), name:'새 인원', number:'', subtext:'', revenue:'', memo:'', referral:'', photo:'', revenueHistory:{}, highlight:false, color:'', collapsed:false, children:[] });
         node.collapsed = false;
         saveData();
         render();
@@ -741,7 +1033,37 @@
     } else if(t.classList.contains('hl')){
       var node2 = findNode(t.getAttribute('data-id'));
       if(node2){
+        pushHistory();
         node2.highlight = !node2.highlight;
+        saveData();
+        render();
+      }
+    } else if(t.classList.contains('color-reset')){
+      var colorNode = findNode(t.getAttribute('data-id'));
+      if(colorNode){
+        pushHistory();
+        colorNode.color = '';
+        saveData();
+        render();
+      }
+    } else if(t.classList.contains('memo-toggle')){
+      var memoId = t.getAttribute('data-id');
+      openMemoIds[memoId] = true;
+      render();
+      var newMemoInput = document.querySelector('.memo-input[data-id="' + memoId + '"]');
+      if(newMemoInput){
+        newMemoInput.focus();
+        newMemoInput.setSelectionRange(newMemoInput.value.length, newMemoInput.value.length);
+      }
+    } else if(t.classList.contains('hist-toggle')){
+      var histId = t.getAttribute('data-id');
+      openHistoryIds[histId] = !openHistoryIds[histId];
+      render();
+    } else if(t.classList.contains('avatar-remove')){
+      var photoNode = findNode(t.getAttribute('data-id'));
+      if(photoNode){
+        pushHistory();
+        photoNode.photo = '';
         saveData();
         render();
       }
@@ -761,7 +1083,7 @@
           if(refInputEl) node6.referral = refInputEl.value;
         }
         clearTimeout(saveTimer);
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(treeData));
+        saveNow();
         var originalSaveLabel = '저장';
         t.textContent = '저장됨';
         t.classList.add('saved');
@@ -793,11 +1115,21 @@
       showConfirm(warn, '삭제', function(){
         var parent = findParent(id);
         if(parent){
+          pushHistory();
           parent.children = parent.children.filter(function(c){ return c.id !== id; });
           saveData();
           render();
         }
       });
+    } else if(t.classList.contains('node')){
+      // clicked the card itself (not a button/input inside it) — toggle its legs
+      var nodeId = t.getAttribute('data-node-id');
+      var nodeToToggle = findNode(nodeId);
+      if(nodeToToggle && nodeToToggle.children.length > 0){
+        nodeToToggle.collapsed = !nodeToToggle.collapsed;
+        saveData();
+        render();
+      }
     }
   });
 
@@ -812,13 +1144,66 @@
     applyZoom();
   });
 
+  document.getElementById('undoBtn').addEventListener('click', undo);
+
   document.getElementById('resetBtn').addEventListener('click', function(){
     showConfirm('전체 조직도를 초기화할까요? 되돌릴 수 없습니다.', '초기화', function(){
+      pushHistory();
       treeData = defaultData();
       saveData();
       render();
     });
   });
+
+  // ---------- multiple charts UI ----------
+  function renderChartSelect(){
+    var sel = document.getElementById('chartSelect');
+    sel.innerHTML = '';
+    Object.keys(chartsList).forEach(function(name){
+      var opt = document.createElement('option');
+      opt.value = name;
+      opt.textContent = name;
+      if(name === activeChartName) opt.selected = true;
+      sel.appendChild(opt);
+    });
+  }
+
+  document.getElementById('chartSelect').addEventListener('change', function(e){
+    var name = e.target.value;
+    if(!chartsList[name]) return;
+    activeChartName = name;
+    localStorage.setItem(ACTIVE_KEY, activeChartName);
+    treeData = normalizeNode(chartsList[name]);
+    historyStack = [];
+    openMemoIds = {};
+    openHistoryIds = {};
+    updateUndoBtn();
+    render();
+  });
+
+  document.getElementById('newChartBtn').addEventListener('click', function(){
+    showPrompt('새 조직도 이름을 입력하세요', '', function(val){
+      val = (val || '').trim();
+      if(!val) return;
+      if(chartsList[val]){
+        showAlert('이미 있는 이름이에요. 다른 이름을 입력해주세요.');
+        return;
+      }
+      chartsList[val] = defaultData();
+      saveChartsList(chartsList);
+      activeChartName = val;
+      localStorage.setItem(ACTIVE_KEY, activeChartName);
+      treeData = chartsList[val];
+      historyStack = [];
+      openMemoIds = {};
+      openHistoryIds = {};
+      updateUndoBtn();
+      renderChartSelect();
+      render();
+    });
+  });
+
+  renderChartSelect();
 
   document.getElementById('exportBtn').addEventListener('click', function(){
     var blob = new Blob([JSON.stringify(treeData, null, 2)], { type:'application/json' });
@@ -843,6 +1228,7 @@
       try{
         var parsed = JSON.parse(evt.target.result);
         if(!parsed || !parsed.id){ showAlert('올바르지 않은 파일입니다.'); return; }
+        pushHistory();
         treeData = normalizeNode(parsed);
         saveData();
         render();
