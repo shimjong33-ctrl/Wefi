@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>내 지갑 주소</title>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+<style>
+:root{--bg:#0f1420;--card:#1a2233;--card2:#222c42;--line:#2e3a55;--text:#eef2fa;--sub:#8e9ab3;--accent:#f0b90b;--ok:#26c281;--danger:#ff5d5d;--blue:#4c8dff;}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--text);font-family:-apple-system,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;padding:0 16px 100px;max-width:560px;margin:0 auto}
+header{padding:22px 0 12px;display:flex;justify-content:space-between;align-items:center}
+h1{font-size:21px;font-weight:800}
+h1 span{color:var(--accent)}
+.hbtns{display:flex;gap:6px}
+.hbtn{background:var(--card);border:1px solid var(--line);color:var(--sub);border-radius:10px;padding:8px 11px;font-size:13px}
+.tabs{display:flex;background:var(--card);border-radius:12px;padding:4px;margin-bottom:10px}
+.tabs button{flex:1;border:none;background:none;color:var(--sub);padding:10px 0;border-radius:9px;font-size:14px;font-weight:700}
+.tabs button.on{background:var(--card2);color:var(--text)}
+.search{width:100%;background:var(--card);border:1px solid var(--line);color:var(--text);border-radius:12px;padding:12px 14px;font-size:15px;margin-bottom:10px;outline:none}
+.chips{display:flex;gap:6px;overflow-x:auto;padding-bottom:10px;margin-bottom:4px}
+.chip{flex:0 0 auto;background:var(--card);border:1px solid var(--line);color:var(--sub);border-radius:20px;padding:6px 13px;font-size:13px}
+.chip.on{background:var(--accent);color:#111;border-color:var(--accent);font-weight:700}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:15px;margin-bottom:12px}
+.card.fav{border-color:rgba(240,185,11,.55)}
+.top{display:flex;align-items:center;gap:7px;margin-bottom:10px}
+.top .l{display:flex;align-items:center;gap:7px;flex-wrap:wrap;flex:1}
+.star{background:none;border:none;font-size:20px;line-height:1;color:var(--line)}
+.star.on{color:var(--accent)}
+.mv{background:var(--card2);border:none;color:var(--sub);width:30px;height:30px;border-radius:8px;font-size:12px}
+.ex{font-weight:800;font-size:16px}
+.tag{font-size:11px;padding:3px 8px;border-radius:6px;background:var(--card2);color:var(--sub);font-weight:700}
+.tag.coin{color:var(--ok)}
+.tag.net{color:var(--accent)}
+.tag.who{color:var(--blue)}
+.memo{font-size:13px;color:var(--sub);margin-bottom:8px}
+.addr{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13.5px;background:#0b0f18;border-radius:10px;padding:11px 12px;word-break:break-all;line-height:1.55;margin-bottom:11px;color:#6f7b94}
+.addr b{color:var(--accent);font-weight:800}
+.btns{display:flex;gap:8px;margin-top:8px}
+.btns button{flex:1;border:none;border-radius:10px;padding:11px 0;font-size:14px;font-weight:700;background:var(--card2);color:var(--text)}
+.btns .copy{background:var(--accent);color:#111;flex:2}
+.btns .copy.done{background:var(--ok);color:#fff}
+.btns .del{color:var(--danger);flex:0 0 48px}
+.cnt{font-size:11px;color:var(--sub)}
+.empty{text-align:center;color:var(--sub);padding:50px 0;font-size:14px;line-height:1.6}
+.credit{text-align:center;color:var(--sub);font-size:12px;padding:24px 0 10px}
+.credit b{color:var(--accent)}
+.fab{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--accent);color:#111;border:none;border-radius:30px;padding:15px 30px;font-size:16px;font-weight:800;box-shadow:0 6px 20px rgba(240,185,11,.35);z-index:5}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:flex-end;justify-content:center;z-index:10}
+.modal.show{display:flex}
+.sheet{background:var(--card);width:100%;max-width:560px;border-radius:20px 20px 0 0;padding:22px 16px 26px;max-height:92vh;overflow-y:auto}
+.sheet h2{font-size:18px;margin-bottom:14px}
+label{display:block;font-size:13px;color:var(--sub);margin:12px 0 6px}
+input,textarea,select{width:100%;background:#0b0f18;border:1px solid var(--line);color:var(--text);border-radius:10px;padding:12px;font-size:15px;outline:none;font-family:inherit}
+textarea{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13.5px;resize:vertical}
+.quick{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}
+.quick span{font-size:12px;background:var(--card2);color:var(--sub);padding:5px 10px;border-radius:14px}
+.seg{display:flex;gap:6px}
+.seg button{flex:1;background:#0b0f18;border:1px solid var(--line);color:var(--sub);border-radius:10px;padding:11px 0;font-size:14px;font-weight:700}
+.seg button.on{border-color:var(--accent);color:var(--accent)}
+.hint{font-size:12px;color:var(--accent);margin-top:6px;min-height:16px}
+.row{display:flex;gap:8px;margin-top:18px}
+.row button{flex:1;border:none;border-radius:12px;padding:14px 0;font-size:15px;font-weight:800;background:var(--card2);color:var(--text)}
+.row .save{background:var(--accent);color:#111}
+.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-120px);background:var(--ok);color:#fff;padding:12px 18px;border-radius:12px;font-size:14px;font-weight:700;transition:transform .25s;z-index:40;max-width:90%;text-align:center;line-height:1.4}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.warn{font-size:12px;color:var(--sub);background:var(--card2);border-radius:10px;padding:10px 12px;margin-top:10px;line-height:1.55}
+.qrbox{background:#fff;border-radius:14px;padding:10px;width:250px;margin:6px auto 12px;display:flex;justify-content:center}
+.qrbox canvas{width:230px;height:230px;image-rendering:pixelated}
+.center{text-align:center}
+.setrow{display:flex;justify-content:space-between;align-items:center;background:#0b0f18;border-radius:12px;padding:14px;margin-bottom:8px}
+.setrow .t{font-size:15px;font-weight:700}
+.setrow .s{font-size:12px;color:var(--sub);margin-top:3px}
+.setrow button{border:none;border-radius:9px;padding:9px 13px;font-size:13px;font-weight:700;background:var(--card2);color:var(--text);margin-left:5px}
+.setrow button.hi{background:var(--accent);color:#111}
+.log{display:flex;justify-content:space-between;align-items:center;background:#0b0f18;border-radius:10px;padding:11px 12px;margin-bottom:7px;font-size:14px}
+.log .in{color:var(--ok);font-weight:800}
+.log .out{color:var(--danger);font-weight:800}
+.log .d{font-size:12px;color:var(--sub)}
+.log button{background:none;border:none;color:var(--sub);font-size:16px;padding:4px}
+.sum{display:flex;gap:8px;margin-bottom:12px}
+.sum div{flex:1;background:#0b0f18;border-radius:10px;padding:10px;text-align:center;font-size:12px;color:var(--sub)}
+.sum b{display:block;font-size:16px;margin-top:3px}
+.g3{display:flex;gap:6px}
+.g3>*{flex:1}
+#cardImg{width:100%;border-radius:12px;display:block}
+/* lock */
+#lock{position:fixed;inset:0;background:var(--bg);z-index:30;display:none;flex-direction:column;align-items:center;justify-content:center;padding:20px}
+#lock.show{display:flex}
+#lock h2{font-size:20px;margin:10px 0 6px}
+#lockMsg{color:var(--sub);font-size:14px;min-height:20px;margin-bottom:18px}
+.dots{display:flex;gap:14px;margin-bottom:28px}
+.dots i{width:14px;height:14px;border-radius:50%;border:2px solid var(--sub)}
+.dots i.f{background:var(--accent);border-color:var(--accent)}
+.pad{display:grid;grid-template-columns:repeat(3,76px);gap:14px}
+.pad button{height:76px;border-radius:50%;border:none;background:var(--card);color:var(--text);font-size:26px;font-weight:600}
+.pad button.fn{background:none;font-size:24px}
+#lockCancel{margin-top:22px;background:none;border:none;color:var(--sub);font-size:14px}
+.shake{animation:sh .35s}
+@keyframes sh{0%,100%{transform:translateX(0)}25%{transform:translateX(-10px)}75%{transform:translateX(10px)}}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>💰 내 <span>지갑 주소</span></h1>
+  <div class="hbtns"><button class="hbtn" onclick="lockNow()">🔒</button><button class="hbtn" onclick="openSettings()">⚙️ 설정</button></div>
+</header>
+
+<div class="tabs">
+  <button id="tabMine" class="on" onclick="setTab('mine')">내 주소</button>
+  <button id="tabOther" onclick="setTab('other')">보낼 주소</button>
+</div>
+<input class="search" id="q" placeholder="거래소·이름·주소·메모 검색" oninput="render()">
+<div class="chips" id="chips"></div>
+<div id="list"></div>
+<div class="credit">만든사람 · <b>발란S 심종근</b></div>
+
+<button class="fab" onclick="openForm(-1)">＋ 주소 추가</button>
+
+<!-- 추가/수정 -->
+<div class="modal" id="formModal"><div class="sheet">
+  <h2 id="formTitle">주소 추가</h2>
+  <label>구분</label>
+  <div class="seg"><button id="tMine" onclick="setFType('mine')">내 주소</button><button id="tOther" onclick="setFType('other')">보낼 주소 (팀원·지인)</button></div>
+  <div id="whoWrap"><label>받는 사람 이름</label><input id="fWho" placeholder="예: 홍길동"></div>
+  <label>거래소 / 지갑</label>
+  <input id="fEx" placeholder="예: 바이낸스">
+  <div class="quick" id="exQuick"></div>
+  <label>코인</label>
+  <input id="fCoin" placeholder="예: USDT">
+  <div class="quick" id="coinQuick"></div>
+  <label>네트워크</label>
+  <select id="fNet">
+    <option value="">선택 안 함</option>
+    <option>TRC20 (트론)</option><option>BEP20 (BSC)</option><option>ERC20 (이더리움)</option>
+    <option>Polygon</option><option>Arbitrum</option><option>Solana</option><option>기타</option>
+  </select>
+  <label>지갑 주소</label>
+  <textarea id="fAddr" rows="3" placeholder="주소 붙여넣기" oninput="guess()"></textarea>
+  <div class="hint" id="hint"></div>
+  <label>메모 (선택)</label>
+  <input id="fMemo" placeholder="예: 입금 전용, 태그/메모 번호 등">
+  <div class="row"><button onclick="closeM('formModal')">취소</button><button class="save" onclick="save()">저장</button></div>
+</div></div>
+
+<!-- QR -->
+<div class="modal" id="qrModal"><div class="sheet center">
+  <h2 id="qrTitle"></h2>
+  <div class="qrbox"><canvas id="qrCanvas"></canvas></div>
+  <div class="addr" id="qrAddr" style="text-align:left"></div>
+  <div class="row" style="margin-top:6px"><button onclick="closeM('qrModal')">닫기</button><button class="save" onclick="copyIdx(curIdx,null)">📋 주소 복사</button></div>
+  <div class="row" style="margin-top:8px"><button onclick="makeCard(curIdx)">🖼 공유용 카드 만들기</button></div>
+</div></div>
+
+<!-- 공유 카드 -->
+<div class="modal" id="cardModal"><div class="sheet center">
+  <h2>공유용 카드</h2>
+  <img id="cardImg" alt="지갑 주소 카드">
+  <div class="warn">이미지를 길게 눌러 저장하거나 아래 [공유하기]로 카톡에 바로 보낼 수 있어요.</div>
+  <div class="row"><button onclick="closeM('cardModal')">닫기</button><button class="save" onclick="shareCard()">📤 공유하기</button></div>
+</div></div>
+
+<!-- 기록 -->
+<div class="modal" id="logModal"><div class="sheet">
+  <h2 id="logTitle">입출금 기록</h2>
+  <div class="sum" id="logSum"></div>
+  <div class="g3">
+    <input type="date" id="lDate">
+    <select id="lKind"><option>입금</option><option>출금</option></select>
+  </div>
+  <div class="g3" style="margin-top:6px">
+    <input id="lAmt" type="number" inputmode="decimal" placeholder="금액">
+    <input id="lMemo" placeholder="메모 (선택)">
+  </div>
+  <div class="row" style="margin-top:8px"><button class="save" onclick="addLog()">＋ 기록 추가</button></div>
+  <div id="logList" style="margin-top:14px"></div>
+  <div class="row"><button onclick="closeM('logModal')">닫기</button></div>
+</div></div>
+
+<!-- 설정 -->
+<div class="modal" id="setModal"><div class="sheet">
+  <h2>설정</h2>
+  <div class="setrow"><div><div class="t">🔢 PIN 잠금</div><div class="s" id="pinState"></div></div><div id="pinBtns"></div></div>
+  <div class="setrow"><div><div class="t">👆 지문 / 얼굴 잠금</div><div class="s" id="bioState"></div></div><div id="bioBtns"></div></div>
+  <label style="margin-top:18px">백업 코드 (복사해서 카톡 나와의 채팅 등에 보관)</label>
+  <textarea id="bkText" rows="5"></textarea>
+  <div class="row" style="margin-top:8px"><button onclick="copyText($('bkText').value,null,'백업 코드 복사됨')">📋 백업 복사</button><button onclick="restore()">♻️ 복원</button></div>
+  <div class="warn">⚠️ 브라우저 데이터를 지우거나 삼성 인터넷에서 사이트 데이터가 차단되면 목록이 사라질 수 있어요. 가끔 백업 코드를 복사해 두세요. 복원하려면 백업 코드를 위 칸에 붙여넣고 [복원]을 누르세요.</div>
+  <div class="row"><button onclick="closeM('setModal')">닫기</button></div>
+</div></div>
+
+<!-- 잠금 화면 -->
+<div id="lock">
+  <div style="font-size:40px">🔒</div>
+  <h2 id="lockTitle">잠금 해제</h2>
+  <div id="lockMsg"></div>
+  <div class="dots" id="dots"><i></i><i></i><i></i><i></i></div>
+  <div class="pad">
+    <button onclick="pk(1)">1</button><button onclick="pk(2)">2</button><button onclick="pk(3)">3</button>
+    <button onclick="pk(4)">4</button><button onclick="pk(5)">5</button><button onclick="pk(6)">6</button>
+    <button onclick="pk(7)">7</button><button onclick="pk(8)">8</button><button onclick="pk(9)">9</button>
+    <button class="fn" id="bioKey" onclick="bioUnlock()">👆</button><button onclick="pk(0)">0</button><button class="fn" onclick="pkBack()">⌫</button>
+  </div>
+  <button id="lockCancel" onclick="cancelPinSet()">취소</button>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+var KEY='walletAddrs_v1', SKEY='walletSettings_v1';
+var DEFAULT=[
+  {ex:'바이낸스',coin:'USDT',net:'BEP20 (BSC)',addr:'0x54d3ddaefb6e31db9f82f9535d469ab770aa33af',memo:''},
+  {ex:'고팍스',coin:'USDT',net:'TRC20 (트론)',addr:'TFJLfpCSRXFV1QWfQHy1FmugTmJRiv2HdT',memo:''},
+  {ex:'빙X',coin:'USDT',net:'BEP20 (BSC)',addr:'0xdc4f35be310050f409d332a40bc026ab36fd845a',memo:''}
+];
+function $(id){return document.getElementById(id);}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7);}
+function lsGet(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+function lsSet(k,v){try{localStorage.setItem(k,v);return true;}catch(e){return false;}}
+
+function fix(it){
+  if(!it.id) it.id=uid();
+  if(!it.type) it.type='mine';
+  if(!it.logs) it.logs=[];
+  if(it.fav==null) it.fav=false;
+  if(it.who==null) it.who='';
+  return it;
+}
+var items=(function(){var s=lsGet(KEY);var a;try{a=s?JSON.parse(s):null;}catch(e){a=null;}if(!a)a=JSON.parse(JSON.stringify(DEFAULT));for(var i=0;i<a.length;i++)fix(a[i]);return a;})();
+var sets=(function(){try{return JSON.parse(lsGet(SKEY))||{};}catch(e){return {};}})();
+function persist(){if(!lsSet(KEY,JSON.stringify(items)))toast('저장 실패 - 백업을 이용하세요',true);}
+function persistSet(){lsSet(SKEY,JSON.stringify(sets));}
+
+var tab='mine', filter='전체', editIdx=-1, curIdx=-1, fType='mine';
+
+/* ---------- 목록 ---------- */
+function setTab(t){tab=t;filter='전체';$('tabMine').className=t==='mine'?'on':'';$('tabOther').className=t==='other'?'on':'';render();}
+function hl(a){
+  if(a.length<=14) return '<b>'+esc(a)+'</b>';
+  return '<b>'+esc(a.slice(0,6))+'</b>'+esc(a.slice(6,-6))+'<b>'+esc(a.slice(-6))+'</b>';
+}
+function visible(){
+  var q=$('q').value.toLowerCase().trim(), out=[], i, it;
+  for(i=0;i<items.length;i++){
+    it=items[i];
+    if(it.type!==tab) continue;
+    if(filter!=='전체' && it.ex!==filter) continue;
+    if(q && (it.ex+' '+it.who+' '+it.coin+' '+it.net+' '+it.addr+' '+it.memo).toLowerCase().indexOf(q)<0) continue;
+    out.push(i);
+  }
+  out.sort(function(a,b){var fa=items[a].fav?0:1, fb=items[b].fav?0:1; return fa!==fb?fa-fb:a-b;});
+  return out;
+}
+function render(){
+  var exs=['전체'],i;
+  for(i=0;i<items.length;i++){if(items[i].type===tab && exs.indexOf(items[i].ex)<0)exs.push(items[i].ex);}
+  if(exs.indexOf(filter)<0) filter='전체';
+  var ch='';
+  for(i=0;i<exs.length;i++) ch+='<button class="chip'+(exs[i]===filter?' on':'')+'" data-f="'+esc(exs[i])+'" onclick="setF(this)">'+esc(exs[i])+'</button>';
+  $('chips').innerHTML=ch;
+
+  var v=visible(), h='';
+  for(var n=0;n<v.length;n++){
+    var k=v[n], it=items[k];
+    h+='<div class="card'+(it.fav?' fav':'')+'"><div class="top">'+
+      '<button class="star'+(it.fav?' on':'')+'" onclick="toggleFav('+k+')">★</button>'+
+      '<div class="l">'+(it.who?'<span class="tag who">👤 '+esc(it.who)+'</span>':'')+
+      '<span class="ex">'+esc(it.ex)+'</span>'+
+      (it.coin?'<span class="tag coin">'+esc(it.coin)+'</span>':'')+
+      (it.net?'<span class="tag net">'+esc(it.net)+'</span>':'')+'</div>'+
+      '<button class="mv" onclick="move('+k+',-1)">▲</button><button class="mv" onclick="move('+k+',1)">▼</button></div>'+
+      (it.memo?'<div class="memo">📝 '+esc(it.memo)+'</div>':'')+
+      '<div class="addr">'+hl(it.addr)+'</div>'+
+      '<div class="btns"><button class="copy" onclick="copyIdx('+k+',this)">📋 복사</button><button onclick="openQR('+k+')">▦ QR</button></div>'+
+      '<div class="btns"><button onclick="openLog('+k+')">📒 기록 <span class="cnt">'+it.logs.length+'</span></button>'+
+      '<button onclick="openForm('+k+')">✏️ 수정</button><button class="del" onclick="del('+k+')">🗑</button></div></div>';
+  }
+  $('list').innerHTML=v.length?h:'<div class="empty">'+(tab==='mine'?'등록된 내 주소가 없어요.':'등록된 보낼 주소가 없어요.<br>팀원·지인 주소를 저장해 두세요.')+'<br>아래 [+ 주소 추가]를 눌러주세요.</div>';
+}
+function setF(el){filter=el.getAttribute('data-f');render();}
+function toggleFav(i){items[i].fav=!items[i].fav;persist();render();}
+function move(i,d){
+  var v=visible(), p=v.indexOf(i), j=v[p+d];
+  if(j==null){toast(d<0?'맨 위예요':'맨 아래예요');return;}
+  if(items[i].fav!==items[j].fav){toast('즐겨찾기끼리만 순서를 바꿀 수 있어요');return;}
+  var t=items[i];items[i]=items[j];items[j]=t;persist();render();
+}
+
+/* ---------- 복사 ---------- */
+function desc(it){return it.ex+(it.coin?' · '+it.coin:'')+(it.net?' · '+it.net:'');}
+function copyIdx(i,btn){var it=items[i];copyText(it.addr,btn,'✅ '+desc(it)+'<br>주소 복사됨 · 끝자리 <b>'+esc(it.addr.slice(-6))+'</b> 확인하세요');}
+function copyText(t,btn,msg){
+  function ok(){
+    toast(msg||'복사됨');
+    if(btn){var o=btn.innerHTML;btn.innerHTML='✅ 복사됨';btn.className+=' done';setTimeout(function(){btn.innerHTML=o;btn.className=btn.className.replace(' done','');},1500);}
+  }
+  function fb(){
+    var ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.opacity='0';
+    document.body.appendChild(ta);ta.focus();ta.select();
+    try{document.execCommand('copy');ok();}catch(e){toast('복사 실패 - 길게 눌러 복사하세요',true);}
+    document.body.removeChild(ta);
+  }
+  if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(t).then(ok,fb);else fb();
+}
+
+/* ---------- 추가/수정 ---------- */
+function quickChips(){
+  var exs=['바이낸스','고팍스','빙X','업비트','빗썸','OKX','바이비트','메타마스크'],coins=['USDT','USDC','BTC','ETH','TRX','BNB'],a='',b='',i;
+  for(i=0;i<exs.length;i++)a+='<span onclick="$(\'fEx\').value=\''+exs[i]+'\'">'+exs[i]+'</span>';
+  for(i=0;i<coins.length;i++)b+='<span onclick="$(\'fCoin\').value=\''+coins[i]+'\'">'+coins[i]+'</span>';
+  $('exQuick').innerHTML=a;$('coinQuick').innerHTML=b;
+}
+function guess(){
+  var a=$('fAddr').value.trim(),h='';
+  if(/^T[1-9A-HJ-NP-Za-km-z]{33}$/.test(a)){h='💡 트론(TRC20) 주소로 보여요';if(!$('fNet').value)$('fNet').value='TRC20 (트론)';}
+  else if(/^0x[0-9a-fA-F]{40}$/.test(a))h='💡 EVM 주소예요 (BEP20/ERC20 등) — 네트워크를 꼭 확인하세요';
+  else if(a.length>0&&a.length<20)h='⚠️ 주소가 너무 짧아요';
+  $('hint').innerHTML=h;
+}
+function setFType(t){fType=t;$('tMine').className=t==='mine'?'on':'';$('tOther').className=t==='other'?'on':'';$('whoWrap').style.display=t==='other'?'block':'none';}
+function openForm(i){
+  editIdx=i;
+  var it=i>=0?items[i]:{ex:'',coin:'USDT',net:'',addr:'',memo:'',who:'',type:tab};
+  $('formTitle').innerHTML=i>=0?'주소 수정':'주소 추가';
+  $('fEx').value=it.ex;$('fCoin').value=it.coin;$('fNet').value=it.net;$('fAddr').value=it.addr;$('fMemo').value=it.memo;$('fWho').value=it.who||'';
+  $('hint').innerHTML='';setFType(it.type);
+  $('formModal').className='modal show';
+}
+function save(){
+  var d={ex:$('fEx').value.trim(),coin:$('fCoin').value.trim().toUpperCase(),net:$('fNet').value,addr:$('fAddr').value.replace(/\s+/g,''),memo:$('fMemo').value.trim(),who:fType==='other'?$('fWho').value.trim():'',type:fType};
+  if(!d.ex){toast('거래소를 입력하세요',true);return;}
+  if(!d.addr){toast('주소를 입력하세요',true);return;}
+  if(editIdx>=0){var o=items[editIdx];for(var k in d)o[k]=d[k];}
+  else items.push(fix(d));
+  persist();closeM('formModal');
+  if(tab!==fType)setTab(fType);else render();
+  toast(editIdx>=0?'수정 완료':'추가 완료');
+}
+function del(i){if(confirm(items[i].ex+' 주소를 삭제할까요?\n(입출금 기록도 함께 삭제돼요)')){items.splice(i,1);persist();render();toast('삭제됨');}}
+function closeM(id){$(id).className='modal';}
+
+/* ---------- QR ---------- */
+function drawQR(cv,text,px){
+  if(typeof qrcode==='undefined')return false;
+  var qr=qrcode(0,'M');qr.addData(text);qr.make();
+  var n=qr.getModuleCount(),q=2,cell=Math.max(1,Math.floor(px/(n+q*2))),size=cell*(n+q*2);
+  cv.width=size;cv.height=size;var c=cv.getContext('2d');
+  c.fillStyle='#fff';c.fillRect(0,0,size,size);c.fillStyle='#000';
+  for(var r=0;r<n;r++)for(var col=0;col<n;col++)if(qr.isDark(r,col))c.fillRect((col+q)*cell,(r+q)*cell,cell,cell);
+  return true;
+}
+function openQR(i){
+  curIdx=i;var it=items[i];
+  $('qrTitle').innerHTML=esc((it.who?it.who+' · ':'')+desc(it));
+  $('qrAddr').innerHTML=hl(it.addr);
+  if(!drawQR($('qrCanvas'),it.addr,460))toast('QR 기능은 인터넷 연결이 필요해요',true);
+  $('qrModal').className='modal show';
+}
+
+/* ---------- 공유 카드 ---------- */
+var cardBlob=null,cardName='';
+function makeCard(i){
+  var it=items[i],W=720,H=1080,cv=document.createElement('canvas');cv.width=W;cv.height=H;var c=cv.getContext('2d');
+  var g=c.createLinearGradient(0,0,0,H);g.addColorStop(0,'#1a2233');g.addColorStop(1,'#0f1420');c.fillStyle=g;c.fillRect(0,0,W,H);
+  c.fillStyle='#f0b90b';c.fillRect(0,0,W,10);
+  c.textAlign='center';
+  c.fillStyle='#8e9ab3';c.font='600 28px sans-serif';c.fillText((it.coin||'코인')+' 입금 주소',W/2,80);
+  c.fillStyle='#eef2fa';c.font='800 56px sans-serif';c.fillText((it.who?it.who+' · ':'')+it.ex,W/2,150);
+  if(it.net){c.font='700 28px sans-serif';var tw=c.measureText(it.net).width+40;c.fillStyle='#2a2410';rr(c,W/2-tw/2,178,tw,48,12);c.fill();c.fillStyle='#f0b90b';c.fillText(it.net,W/2,212);}
+  var qc=document.createElement('canvas');
+  if(drawQR(qc,it.addr,440)){c.fillStyle='#fff';rr(c,W/2-240,260,480,480,24);c.fill();c.imageSmoothingEnabled=false;c.drawImage(qc,W/2-220,280,440,440);}
+  var a=it.addr,per=22,lines=[],y=810;for(var p=0;p<a.length;p+=per)lines.push(a.slice(p,p+per));
+  c.font='600 34px monospace';
+  for(var l=0;l<lines.length;l++){c.fillStyle='#b8c2d6';c.fillText(lines[l],W/2,y+l*48);}
+  c.fillStyle='#ff9d5d';c.font='600 24px sans-serif';c.fillText('⚠️ 네트워크를 꼭 확인하고 보내주세요',W/2,H-110);
+  c.fillStyle='#8e9ab3';c.font='500 24px sans-serif';c.fillText('만든사람 · 발란S 심종근',W/2,H-50);
+  $('cardImg').src=cv.toDataURL('image/png');
+  cardName=(it.ex+'_'+(it.coin||'wallet')).replace(/\s+/g,'')+'.png';
+  cardBlob=null;if(cv.toBlob)cv.toBlob(function(b){cardBlob=b;},'image/png');
+  $('cardModal').className='modal show';
+}
+function rr(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.arcTo(x+w,y,x+w,y+h,r);c.arcTo(x+w,y+h,x,y+h,r);c.arcTo(x,y+h,x,y,r);c.arcTo(x,y,x+w,y,r);c.closePath();}
+function shareCard(){
+  try{
+    if(cardBlob&&window.File&&navigator.canShare){
+      var f=new File([cardBlob],cardName,{type:'image/png'});
+      if(navigator.canShare({files:[f]})){navigator.share({files:[f]})['catch'](function(){});return;}
+    }
+  }catch(e){}
+  var a=document.createElement('a');a.href=$('cardImg').src;a.download=cardName;document.body.appendChild(a);a.click();document.body.removeChild(a);
+  toast('이미지를 저장했어요');
+}
+
+/* ---------- 입출금 기록 ---------- */
+function today(){var d=new Date(),m=d.getMonth()+1,dd=d.getDate();return d.getFullYear()+'-'+(m<10?'0':'')+m+'-'+(dd<10?'0':'')+dd;}
+function fmt(n){var s=(Math.round(n*100)/100).toString().split('.');s[0]=s[0].replace(/\B(?=(\d{3})+(?!\d))/g,',');return s.join('.');}
+function openLog(i){curIdx=i;$('logTitle').innerHTML='📒 '+esc(desc(items[i]));$('lDate').value=today();$('lAmt').value='';$('lMemo').value='';renderLog();$('logModal').className='modal show';}
+function renderLog(){
+  var it=items[curIdx],L=it.logs.slice().sort(function(a,b){return a.d<b.d?1:a.d>b.d?-1:0;}),h='',tin=0,tout=0,u=esc(it.coin||'');
+  for(var i=0;i<it.logs.length;i++){if(it.logs[i].k==='입금')tin+=it.logs[i].a;else tout+=it.logs[i].a;}
+  $('logSum').innerHTML='<div>총 입금<b style="color:var(--ok)">'+fmt(tin)+'</b></div><div>총 출금<b style="color:var(--danger)">'+fmt(tout)+'</b></div><div>차액<b>'+fmt(tin-tout)+'</b></div>';
+  for(var j=0;j<L.length;j++){
+    var x=L[j];
+    h+='<div class="log"><div><span class="'+(x.k==='입금'?'in':'out')+'">'+(x.k==='입금'?'+':'-')+fmt(x.a)+' '+u+'</span>'+(x.m?' · '+esc(x.m):'')+'<div class="d">'+esc(x.d)+' '+x.k+'</div></div><button onclick="delLog(\''+x.id+'\')">✕</button></div>';
+  }
+  $('logList').innerHTML=h||'<div class="empty" style="padding:20px 0">아직 기록이 없어요</div>';
+}
+function addLog(){
+  var a=parseFloat($('lAmt').value);
+  if(!(a>0)){toast('금액을 입력하세요',true);return;}
+  items[curIdx].logs.push({id:uid(),d:$('lDate').value||today(),k:$('lKind').value,a:a,m:$('lMemo').value.trim()});
+  persist();$('lAmt').value='';$('lMemo').value='';renderLog();render();toast('기록 추가됨');
+}
+function delLog(id){var L=items[curIdx].logs;for(var i=0;i<L.length;i++)if(L[i].id===id){L.splice(i,1);break;}persist();renderLog();render();}
+
+/* ---------- 설정 / 백업 ---------- */
+function openSettings(){$('bkText').value=JSON.stringify(items);renderSet();$('setModal').className='modal show';}
+function renderSet(){
+  $('pinState').innerHTML=sets.pin?'켜짐':'꺼짐';
+  $('pinBtns').innerHTML=sets.pin?'<button onclick="startPinSet()">변경</button><button onclick="pinOff()">끄기</button>':'<button class="hi" onclick="startPinSet()">설정</button>';
+  $('bioState').innerHTML=sets.bio?'켜짐':(sets.pin?'꺼짐':'PIN을 먼저 설정하세요');
+  $('bioBtns').innerHTML=sets.bio?'<button onclick="bioOff()">끄기</button>':(sets.pin?'<button class="hi" onclick="bioOn()">켜기</button>':'');
+}
+function restore(){
+  try{
+    var d=JSON.parse($('bkText').value);if(!(d instanceof Array))throw 1;
+    if(!confirm('현재 목록을 백업 내용으로 바꿀까요?'))return;
+    for(var i=0;i<d.length;i++)fix(d[i]);items=d;persist();render();closeM('setModal');toast('복원 완료');
+  }catch(e){toast('백업 코드가 올바르지 않아요',true);}
+}
+
+/* ---------- 잠금 (PIN) ---------- */
+function hash(s){var h=5381;s='wallet-salt-'+s;for(var i=0;i<s.length;i++)h=((h<<5)+h+s.charCodeAt(i))|0;return String(h);}
+var pin='',lockMode='unlock',firstPin='';
+function showLock(mode){
+  lockMode=mode;pin='';dots();
+  $('lockTitle').innerHTML=mode==='unlock'?'잠금 해제':mode==='set1'?'새 PIN 4자리 입력':'한 번 더 입력';
+  $('lockMsg').innerHTML=mode==='unlock'&&sets.bio?'👆 버튼을 눌러 지문으로 열 수 있어요':'';
+  $('bioKey').style.visibility=(mode==='unlock'&&sets.bio)?'visible':'hidden';
+  $('lockCancel').style.display=mode==='unlock'?'none':'inline-block';
+  $('lock').className='show';
+}
+function dots(){var d=$('dots').children;for(var i=0;i<4;i++)d[i].className=i<pin.length?'f':'';}
+function pk(n){if(pin.length>=4)return;pin+=n;dots();if(pin.length===4)setTimeout(pinDone,120);}
+function pkBack(){pin=pin.slice(0,-1);dots();}
+function fail(msg){$('lockMsg').innerHTML=msg;var d=$('dots');d.className='dots shake';setTimeout(function(){d.className='dots';},400);pin='';dots();}
+function pinDone(){
+  if(lockMode==='unlock'){if(hash(pin)===sets.pin)unlock();else fail('PIN이 틀렸어요');}
+  else if(lockMode==='set1'){firstPin=pin;showLock('set2');}
+  else{
+    if(pin!==firstPin){fail('PIN이 달라요. 처음부터 다시 입력하세요');setTimeout(function(){showLock('set1');},900);return;}
+    sets.pin=hash(pin);persistSet();$('lock').className='';renderSet();toast('PIN 잠금 설정 완료');
+  }
+}
+function unlock(){$('lock').className='';}
+function lockNow(){if(!sets.pin){toast('설정에서 PIN 잠금을 먼저 켜주세요',true);return;}showLock('unlock');if(sets.bio)bioUnlock();}
+function startPinSet(){showLock('set1');}
+function cancelPinSet(){$('lock').className='';}
+function pinOff(){if(confirm('PIN 잠금과 지문 잠금을 모두 끌까요?')){delete sets.pin;delete sets.bio;persistSet();renderSet();toast('잠금 해제됨');}}
+
+/* ---------- 지문/얼굴 (WebAuthn) ---------- */
+function rnd(n){var a=new Uint8Array(n);crypto.getRandomValues(a);return a;}
+function b64(buf){var s='',b=new Uint8Array(buf);for(var i=0;i<b.length;i++)s+=String.fromCharCode(b[i]);return btoa(s);}
+function unb64(s){var t=atob(s),b=new Uint8Array(t.length);for(var i=0;i<t.length;i++)b[i]=t.charCodeAt(i);return b;}
+function bioSupported(cb){
+  if(!window.PublicKeyCredential||!window.isSecureContext||!PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable){cb(false);return;}
+  PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable().then(cb,function(){cb(false);});
+}
+function bioOn(){
+  bioSupported(function(ok){
+    if(!ok){alert('이 기기/브라우저에서는 지문 잠금을 쓸 수 없어요.\n\n· https 주소(GitHub Pages)로 열어야 해요\n· 폰에 지문이 등록돼 있어야 해요\n· 크롬 또는 삼성 인터넷 최신 버전을 쓰세요');return;}
+    navigator.credentials.create({publicKey:{
+      challenge:rnd(32),rp:{name:'내 지갑 주소'},
+      user:{id:rnd(16),name:'wallet-user',displayName:'지갑 주소 앱'},
+      pubKeyCredParams:[{type:'public-key',alg:-7},{type:'public-key',alg:-257}],
+      authenticatorSelection:{authenticatorAttachment:'platform',userVerification:'required',residentKey:'discouraged'},
+      timeout:60000,attestation:'none'
+    }}).then(function(cred){sets.bio=b64(cred.rawId);persistSet();renderSet();toast('👆 지문 잠금이 켜졌어요');},
+      function(){toast('지문 등록이 취소됐어요',true);});
+  });
+}
+function bioOff(){delete sets.bio;persistSet();renderSet();toast('지문 잠금 꺼짐');}
+function bioUnlock(){
+  if(!sets.bio||!window.PublicKeyCredential)return;
+  navigator.credentials.get({publicKey:{
+    challenge:rnd(32),allowCredentials:[{type:'public-key',id:unb64(sets.bio),transports:['internal']}],
+    userVerification:'required',timeout:60000
+  }}).then(function(){unlock();},function(){$('lockMsg').innerHTML='👆 버튼을 다시 누르거나 PIN을 입력하세요';});
+}
+
+/* ---------- 공통 ---------- */
+var tt;
+function toast(m,bad){var t=$('toast');t.innerHTML=m;t.style.background=bad?'var(--danger)':'var(--ok)';t.className='toast show';clearTimeout(tt);tt=setTimeout(function(){t.className='toast';},2400);}
+var mods=document.querySelectorAll('.modal');
+for(var m=0;m<mods.length;m++)mods[m].onclick=function(e){if(e.target===this)this.className='modal';};
+document.addEventListener('visibilitychange',function(){if(document.hidden&&sets.pin&&$('lock').className!=='show'){showLock('unlock');}});
+
+quickChips();render();
+if(sets.pin){showLock('unlock');if(sets.bio)bioUnlock();}
+</script>
+</body>
+</html>
